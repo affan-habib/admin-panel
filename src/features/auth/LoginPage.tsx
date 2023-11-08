@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid, Paper, Typography, TextField, Button, FormControlLabel, Checkbox, InputAdornment, Box, Card, CardContent, CardHeader, ToggleButtonGroup, ToggleButton } from '@mui/material';
+import { Container, Grid, Paper, Typography, TextField, Button, FormControlLabel, Checkbox, InputAdornment, Box, ToggleButtonGroup, ToggleButton } from '@mui/material';
 import { styled } from '@mui/system';
 import PersonIcon from '@mui/icons-material/Person';
 import HttpsIcon from '@mui/icons-material/Https';
@@ -9,7 +9,6 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FooterContainer from '../../sections/auth/FooterContainer';
 import LoginFooter from '../../sections/auth/LoginFooter';
-
 
 const LoginButton = styled(Button)(({ theme }) => ({
   backgroundColor: 'green',
@@ -28,10 +27,14 @@ const LoginPage: React.FC = () => {
   };
 
   const containerStyle = {
-    paddingTop: '20px', // Adjust the padding as needed
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
   };
   const [selectedButton, setSelectedButton] = useState('login');
   return (
+    
     <Container maxWidth="lg" style={containerStyle}>
       <Grid container spacing={2}>
         {/* Top Section: SVG Images */}

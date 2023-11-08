@@ -1,19 +1,18 @@
 import { Stack, Card, CardContent, CardHeader, CardMedia, Typography } from '@mui/material';
-import image1 from '../../assets/learningManagement.svg';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
-import image5 from '../../assets/socialLearning.svg';
+
 const FooterContainer: React.FC = () => {
   const cardStyle = {
     width: '200px', // Set the card width
   };
 
   const cardData = [
-    { title: "Card 1", content: "This is card 1 content", imageUrl: image1 },
+    { title: "Card 1", content: "This is card 1 content", imageUrl: image3 },
     { title: "Card 2", content: "This is card 2 content", imageUrl: image2 },
     { title: "Card 3", content: "This is card 3 content", imageUrl: image3 },
     { title: "Card 4", content: "This is card 4 content", imageUrl: image2 },
-    { title: "Card 5", content: "This is card 5 content", imageUrl: image5},
+    { title: "Card 5", content: "This is card 5 content", imageUrl: image3},
   ];
 
   return (
