@@ -46,7 +46,7 @@ const LoginPage: React.FC = () => {
         {/* Right Section: Login Form */}
         <Grid item xs={12} sm={4}>
           <Paper elevation={3} style={{ padding: '20px' }}>
-            <Typography variant="h6" color="#002F6C">CLMS - এ স্বাগতম</Typography>
+            <Typography variant="h6" color="#002F6C" mb={2}>CLMS - এ স্বাগতম</Typography>
             <ToggleButtonGroup
               value={selectedButton}
               exclusive
