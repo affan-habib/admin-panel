@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent, useCallback, useState } from "react";
+import React, { FC, SyntheticEvent, useCallback, useState } from 'react';
 import {
   Box,
   Button,
@@ -6,8 +6,8 @@ import {
   Grid,
   IconButton,
   Container,
-} from "@mui/material";
-import { CloudArrowUpIcon, XCircleIcon } from "@heroicons/react/24/outline";
+} from '@mui/material';
+import { CloudArrowUpIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 interface FileWithPreview extends File {
   preview?: string;
@@ -26,7 +26,7 @@ export const Dropzone: FC<ImageDropzoneProps> = ({
 
   const readImages = (
     files: FileList,
-    callback: (files: FileWithPreview[]) => void
+    callback: (files: FileWithPreview[]) => void,
   ) => {
     const imgs: FileWithPreview[] = [...selectedImgs];
     const readers: FileReader[] = [];
@@ -56,7 +56,7 @@ export const Dropzone: FC<ImageDropzoneProps> = ({
       const files = e.dataTransfer.files;
       readImages(files, setSelectedImgs);
     },
-    [selectedImgs]
+    [selectedImgs],
   );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -80,17 +80,17 @@ export const Dropzone: FC<ImageDropzoneProps> = ({
     <Container>
       <Box
         sx={{
-          width: "100%",
-          border: "2px dashed grey",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-          overflow: "auto",
-          marginTop: "20px",
-          padding: "20px",
-          minHeight: "150px",
+          width: '100%',
+          border: '2px dashed grey',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          overflow: 'auto',
+          marginTop: '20px',
+          padding: '20px',
+          minHeight: '150px',
         }}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
@@ -102,22 +102,22 @@ export const Dropzone: FC<ImageDropzoneProps> = ({
           {selectedImgs.map((img, index) => (
             <Grid item xs={3} md={2} key={img.name}>
               <Box
-                sx={{ position: "relative", ":hover .overlay": { opacity: 1 } }}
+                sx={{ position: 'relative', ':hover .overlay': { opacity: 1 } }}
               >
                 <Box
                   className="overlay"
                   sx={{
-                    position: "absolute",
+                    position: 'absolute',
                     top: 0,
                     bottom: 6,
                     left: 0,
                     right: 0,
-                    backgroundColor: "rgba(0,0,0,0.5)",
+                    backgroundColor: 'rgba(0,0,0,0.5)',
                     opacity: 0,
-                    transition: "0.3s ease",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    transition: '0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     borderRadius: 1,
                   }}
                 >
@@ -130,9 +130,9 @@ export const Dropzone: FC<ImageDropzoneProps> = ({
                   src={img.preview}
                   alt="preview"
                   sx={{
-                    maxHeight: "100%",
-                    maxWidth: "100%",
-                    objectFit: "cover",
+                    maxHeight: '100%',
+                    maxWidth: '100%',
+                    objectFit: 'cover',
                     borderRadius: 1,
                   }}
                 />

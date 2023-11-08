@@ -1,8 +1,8 @@
 // InputField.tsx
 
-import React from "react";
-import { useField, FieldHookConfig } from "formik";
-import { TextField } from "@mui/material";
+import React from 'react';
+import { useField, FieldHookConfig } from 'formik';
+import { TextField } from '@mui/material';
 
 type InputFieldProps = FieldHookConfig<string | number> & {
   label: string;
@@ -12,9 +12,9 @@ const InputField: React.FC<InputFieldProps> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   const inputType =
-    props.type === "number" || typeof field.value === "number"
-      ? "number"
-      : "text";
+    props.type === 'number' || typeof field.value === 'number'
+      ? 'number'
+      : 'text';
 
   return (
     <TextField

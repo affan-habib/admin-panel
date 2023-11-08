@@ -1,8 +1,8 @@
 // InputSelect.tsx
 
-import React from "react";
-import { useField, FieldHookConfig } from "formik";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import React from 'react';
+import { useField, FieldHookConfig } from 'formik';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 type InputSelectProps = FieldHookConfig<string> & {
   label: string;

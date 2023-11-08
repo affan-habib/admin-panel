@@ -1,6 +1,6 @@
-import React from "react";
-import { Field, ErrorMessage } from "formik";
-import { TextField, FormControl, FormHelperText } from "@mui/material";
+import React from 'react';
+import { Field, ErrorMessage } from 'formik';
+import { TextField, FormControl, FormHelperText } from '@mui/material';
 
 interface TextAreaProps {
   label: string;
@@ -13,7 +13,7 @@ const InputTextArea: React.FC<TextAreaProps> = ({
   label,
   name,
   rows = 4,
-  placeholder = "",
+  placeholder = '',
 }) => {
   return (
     <FormControl fullWidth>

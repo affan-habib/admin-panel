@@ -9,25 +9,30 @@ const FooterContainer: React.FC = () => {
   };
 
   const cardData = [
-    { title: "লার্নিং ম্যানেজমেন্ট সিস্টেম এল এম এস",  imageUrl: image1 },
-    { title: "ই-লাইব্রেরি",  imageUrl: image2 },
-    { title: "টিচার্স গাইড",  imageUrl: image3 },
-    { title: "ফরম্যাটিভ এসেসমেন্ট সিস্টেম",  imageUrl: image2 },
-    { title: "সোস্যাল লার্নিং প্লাটফর্ম",  imageUrl: image5},
+    { title: 'লার্নিং ম্যানেজমেন্ট সিস্টেম এল এম এস', imageUrl: image1 },
+    { title: 'ই-লাইব্রেরি', imageUrl: image2 },
+    { title: 'টিচার্স গাইড', imageUrl: image3 },
+    { title: 'ফরম্যাটিভ এসেসমেন্ট সিস্টেম', imageUrl: image2 },
+    { title: 'সোস্যাল লার্নিং প্লাটফর্ম', imageUrl: image5 },
   ];
 
   return (
-    <Stack direction={'row'} justifyContent={'space-between'} spacing={2} sx={{ mt: 5 }}>
+    <Stack
+      direction={'row'}
+      justifyContent={'space-between'}
+      spacing={2}
+      sx={{ mt: 5 }}
+    >
       {cardData.map((card, index) => (
         <Card key={index} style={cardStyle}>
           <CardMedia
             component="img"
             alt={card.title}
             image={card.imageUrl}
-            sx={{p:2, height: 180}}
+            sx={{ p: 2, height: 180 }}
           />
           <CardContent>
-            <Typography variant="body2" color="text.secondary" align='center'>
+            <Typography variant="body2" color="text.secondary" align="center">
               {card.title}
             </Typography>
           </CardContent>
