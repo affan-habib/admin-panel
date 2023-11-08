@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Container} from "@mui/material";
-import Section from "sections/dashboard/Section";
+import Section from "views/dashboard/Section";
 import MainCard from "components/cards/MainCard";
 
 const Dashboard: React.FC = () => {

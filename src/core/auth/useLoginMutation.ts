@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { apiBaseUrl } from "../../config";
 import { UserType } from "../../types";
-import { login } from "./authSlice";
+import { login } from "../../store/reducers/authSlice";
 
 interface Authorization {
   token: string;

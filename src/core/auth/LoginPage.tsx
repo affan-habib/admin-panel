@@ -7,8 +7,8 @@ import image1 from '../../assets/logoOne.svg';
 import image2 from '../../assets/logoTwo.svg';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import FooterContainer from '../../sections/auth/FooterContainer';
-import LoginFooter from '../../sections/auth/LoginFooter';
+import FooterContainer from '../../views/auth/FooterContainer';
+import LoginFooter from '../../views/auth/LoginFooter';
 
 
 const LoginButton = styled(Button)(({ theme }) => ({
