@@ -3,6 +3,5 @@ export function createPalette() {
     primary: {
       main: '#076DAB',
     },
- 
   };
 }

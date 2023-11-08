@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useMutation } from "react-query";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { apiBaseUrl } from "../../config";
-import { UserType } from "../../types";
-import { login } from "../../store/reducers/authSlice";
+import axios from 'axios';
+import { useMutation } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { apiBaseUrl } from '../../config';
+import { UserType } from '../../types';
+import { login } from '../../store/reducers/authSlice';
 
 interface Authorization {
   token: string;
@@ -34,9 +34,9 @@ export const useLoginMutation = () => {
     {
       onSuccess: (data: LoginResponse) => {
         dispatch(login({ email: data.user.email }));
-        localStorage.setItem("token", data.authorisation.token);
-        navigate("/");
+        localStorage.setItem('token', data.authorisation.token);
+        navigate('/');
       },
-    }
+    },
   );
 };

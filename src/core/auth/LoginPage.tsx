@@ -1,5 +1,21 @@
 import React, { useState } from 'react';
-import { Container, Grid, Paper, Typography, TextField, Button, FormControlLabel, Checkbox, InputAdornment, Box, ToggleButtonGroup, ToggleButton } from '@mui/material';
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  FormControlLabel,
+  Checkbox,
+  InputAdornment,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  ToggleButtonGroup,
+  ToggleButton,
+} from '@mui/material';
 import { styled } from '@mui/system';
 import PersonIcon from '@mui/icons-material/Person';
 import HttpsIcon from '@mui/icons-material/Https';
@@ -43,22 +59,26 @@ const LoginPage: React.FC = () => {
           <img src={image2} alt="Image 2" />
         </Grid>
 
-        <Grid item xs={12} sm={1}>
-        </Grid>
+        <Grid item xs={12} sm={1}></Grid>
 
         {/* Right Section: Login Form */}
         <Grid item xs={12} sm={4}>
           <Paper elevation={3} style={{ padding: '20px' }}>
-            <Typography variant="h6" color="#002F6C" mb={2}>CLMS - এ স্বাগতম</Typography>
+            <Typography variant="h6" color="#002F6C" mb={2}>
+              CLMS - এ স্বাগতম
+            </Typography>
             <ToggleButtonGroup
               value={selectedButton}
               exclusive
               onChange={(e, newValue) => setSelectedButton(newValue)}
               aria-label="login or signup"
-
             >
-              <ToggleButton value="login" fullWidth={true}>Login</ToggleButton>
-              <ToggleButton value="signup" fullWidth={true}>Signup</ToggleButton>
+              <ToggleButton value="login" fullWidth={true}>
+                Login
+              </ToggleButton>
+              <ToggleButton value="signup" fullWidth={true}>
+                Signup
+              </ToggleButton>
             </ToggleButtonGroup>
             <form onSubmit={handleLogin}>
               <TextField

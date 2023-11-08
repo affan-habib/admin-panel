@@ -1,6 +1,6 @@
-import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { Card } from "@mui/material";
+import React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { Card } from '@mui/material';
 
 interface MuiTableProps {
   checkboxSelection?: boolean;
@@ -26,7 +26,7 @@ const MuiTable: React.FC<MuiTableProps> = ({
   onPageinationModelChange,
 }) => {
   return (
-    <Card style={{ minHeight: 800, width: "100%" }}>
+    <Card style={{ minHeight: 800, width: '100%' }}>
       <DataGrid
         pagination
         paginationMode="server"
@@ -42,11 +42,11 @@ const MuiTable: React.FC<MuiTableProps> = ({
           },
         }}
         sx={{
-          "& .MuiDataGrid-columnHeader": {
+          '& .MuiDataGrid-columnHeader': {
             borderRadius: 0,
-            textTransform: "uppercase",
-            fontSize: ".8rem",
-            bgcolor: "rgb(242, 244, 247)",
+            textTransform: 'uppercase',
+            fontSize: '.8rem',
+            bgcolor: 'rgb(242, 244, 247)',
           },
         }}
         columnHeaderHeight={40}

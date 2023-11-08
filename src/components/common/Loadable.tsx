@@ -27,10 +27,12 @@ const CustomLoader = (): JSX.Element => (
 
 // ==============================|| LOADABLE - LAZY LOADING ||============================== //
 
-const Loadable = (Component: ComponentType) => (props: { someProp: string }): ReactElement => (
-  <Suspense fallback={<CustomLoader />}>
-    <Component {...props} />
-  </Suspense>
-);
+const Loadable =
+  (Component: ComponentType) =>
+  (props: { someProp: string }): ReactElement => (
+    <Suspense fallback={<CustomLoader />}>
+      <Component {...props} />
+    </Suspense>
+  );
 
 export default Loadable;
