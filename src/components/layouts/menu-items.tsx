@@ -8,7 +8,7 @@ interface Item {
     icon: React.ReactNode;
 }
 
-export const items: Item[] = [
+export const menuItems: Item[] = [
     {
         title: 'ড্যাশবোর্ড',
         path: '/products',

@@ -1,4 +1,5 @@
-import { Stack, Card, CardContent, CardHeader, CardMedia, Typography } from '@mui/material';
+import { Stack, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import image1 from '../../assets/learningManagement.svg';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
 

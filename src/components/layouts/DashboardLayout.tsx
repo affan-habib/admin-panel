@@ -13,7 +13,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { items } from "../../menu-items";
+import { menuItems } from "./menu-items";
 import { Outlet, useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout"; // Import the LogoutIcon from MUI
 
@@ -145,7 +145,7 @@ interface DashboardLayoutProps {
         </DrawerHeader>
         <Divider />
         <List>
-          {items.map((item, index) => (
+          {menuItems.map((item, index) => (
             <ListItem
               key={index}
               disablePadding
