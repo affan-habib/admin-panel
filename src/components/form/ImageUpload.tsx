@@ -49,10 +49,7 @@ const ImageUpload = ({ name }: { name: string }) => {
                 alt={`Image ${index + 1}`}
                 style={{ maxWidth: '100px', maxHeight: '100px' }}
               />
-              <IconButton
-                onClick={() => handleRemoveImage(index)}
-                aria-label="Remove Image"
-              >
+              <IconButton onClick={() => handleRemoveImage(index)} aria-label="Remove Image">
                 <RemoveIcon />
               </IconButton>
             </div>

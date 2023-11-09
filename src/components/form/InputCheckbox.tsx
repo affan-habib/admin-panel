@@ -12,12 +12,7 @@ type InputCheckbox = {
 const InputCheckBox: React.FC<InputCheckbox> = ({ name, label }) => {
   const [field, meta] = useField(name);
 
-  return (
-    <FormControlLabel
-      control={<Checkbox {...field} checked={field.value} />}
-      label={label}
-    />
-  );
+  return <FormControlLabel control={<Checkbox {...field} checked={field.value} />} label={label} />;
 };
 
 export default InputCheckBox;

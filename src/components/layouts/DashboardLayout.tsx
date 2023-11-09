@@ -127,11 +127,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             {/* ... (other code) */}
           </Box>
           {/* Add the Logout Button */}
-          <IconButton
-            color="primary"
-            aria-label="logout"
-            onClick={handleLogout}
-          >
+          <IconButton color="primary" aria-label="logout" onClick={handleLogout}>
             <LogoutIcon />
           </IconButton>
         </Toolbar>
@@ -165,10 +161,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 >
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText
-                  primary={item.title}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
+                <ListItemText primary={item.title} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}

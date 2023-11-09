@@ -14,10 +14,7 @@ const Dashboard: React.FC = () => {
         height: '100%',
       }}
     >
-      <MainCard
-        title="Users"
-        modalButton={<Button variant="contained">Add User</Button>}
-      >
+      <MainCard title="Users" modalButton={<Button variant="contained">Add User</Button>}>
         <Section />
       </MainCard>
     </Container>

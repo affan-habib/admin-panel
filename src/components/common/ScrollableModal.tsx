@@ -12,12 +12,7 @@ interface ScrollableModalProps {
   children: React.ReactNode;
 }
 
-const ScrollableModal: React.FC<ScrollableModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  children,
-}) => {
+const ScrollableModal: React.FC<ScrollableModalProps> = ({ isOpen, onClose, title, children }) => {
   const handleClose = () => {
     onClose();
   };

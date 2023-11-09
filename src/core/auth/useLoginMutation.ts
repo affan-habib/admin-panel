@@ -28,9 +28,7 @@ export const useLoginMutation = () => {
 
   return useMutation(
     (data: LoginData) =>
-      axios
-        .post(`${apiBaseUrl}/admin-login`, data)
-        .then((response) => response.data),
+      axios.post(`${apiBaseUrl}/admin-login`, data).then((response) => response.data),
     {
       onSuccess: (data: LoginResponse) => {
         dispatch(login({ email: data.user.email }));

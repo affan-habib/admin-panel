@@ -23,9 +23,7 @@ if (rootElement) {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
             <App />
-            {process.env.NODE_ENV === 'development' && (
-              <ReactQueryDevtools initialIsOpen={false} />
-            )}
+            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </ThemeProvider>
         </QueryClientProvider>
       </Provider>
