@@ -9,7 +9,12 @@ interface TextAreaProps {
   placeholder?: string;
 }
 
-const InputTextArea: React.FC<TextAreaProps> = ({ label, name, rows = 4, placeholder = '' }) => {
+const InputTextArea: React.FC<TextAreaProps> = ({
+  label,
+  name,
+  rows = 4,
+  placeholder = '',
+}) => {
   return (
     <FormControl fullWidth>
       <Field

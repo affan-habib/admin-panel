@@ -17,7 +17,12 @@ const FooterContainer: React.FC = () => {
   ];
 
   return (
-    <Stack direction={'row'} justifyContent={'space-between'} spacing={2} sx={{ mt: 5 }}>
+    <Stack
+      direction={'row'}
+      justifyContent={'space-between'}
+      spacing={2}
+      sx={{ mt: 5 }}
+    >
       {cardData.map((card, index) => (
         <Card key={index} style={cardStyle}>
           <CardMedia

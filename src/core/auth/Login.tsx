@@ -18,7 +18,10 @@ const LoginPage: React.FC = () => {
       submit: null,
     },
     validationSchema: Yup.object({
-      email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+      email: Yup.string()
+        .email('Must be a valid email')
+        .max(255)
+        .required('Email is required'),
       password: Yup.string().max(255).required('Password is required'),
     }),
     onSubmit: async (values, helpers) => {
@@ -78,9 +81,13 @@ const LoginPage: React.FC = () => {
                     value={formik.values.email}
                   />
                   <TextField
-                    error={Boolean(formik.touched.password && formik.errors.password)}
+                    error={Boolean(
+                      formik.touched.password && formik.errors.password,
+                    )}
                     fullWidth
-                    helperText={formik.touched.password && formik.errors.password}
+                    helperText={
+                      formik.touched.password && formik.errors.password
+                    }
                     label="Password"
                     name="password"
                     onBlur={formik.handleBlur}
@@ -94,7 +101,13 @@ const LoginPage: React.FC = () => {
                     {formik.errors.submit}
                   </Typography>
                 )}
-                <Button fullWidth size="large" sx={{ mt: 3 }} type="submit" variant="contained">
+                <Button
+                  fullWidth
+                  size="large"
+                  sx={{ mt: 3 }}
+                  type="submit"
+                  variant="contained"
+                >
                   Continue
                 </Button>
               </form>

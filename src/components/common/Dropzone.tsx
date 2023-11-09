@@ -1,5 +1,12 @@
 import React, { FC, SyntheticEvent, useCallback, useState } from 'react';
-import { Box, Button, Typography, Grid, IconButton, Container } from '@mui/material';
+import {
+  Box,
+  Button,
+  Typography,
+  Grid,
+  IconButton,
+  Container,
+} from '@mui/material';
 import { CloudArrowUpIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 interface FileWithPreview extends File {
@@ -11,10 +18,16 @@ interface ImageDropzoneProps {
   onFileRemove: (file: FileWithPreview) => void;
 }
 
-export const Dropzone: FC<ImageDropzoneProps> = ({ onFileUpload, onFileRemove }) => {
+export const Dropzone: FC<ImageDropzoneProps> = ({
+  onFileUpload,
+  onFileRemove,
+}) => {
   const [selectedImgs, setSelectedImgs] = useState<FileWithPreview[]>([]);
 
-  const readImages = (files: FileList, callback: (files: FileWithPreview[]) => void) => {
+  const readImages = (
+    files: FileList,
+    callback: (files: FileWithPreview[]) => void,
+  ) => {
     const imgs: FileWithPreview[] = [...selectedImgs];
     const readers: FileReader[] = [];
     const filesArray = Array.from(files);
@@ -88,7 +101,9 @@ export const Dropzone: FC<ImageDropzoneProps> = ({ onFileUpload, onFileRemove })
         <Grid container spacing={1}>
           {selectedImgs.map((img, index) => (
             <Grid item xs={3} md={2} key={img.name}>
-              <Box sx={{ position: 'relative', ':hover .overlay': { opacity: 1 } }}>
+              <Box
+                sx={{ position: 'relative', ':hover .overlay': { opacity: 1 } }}
+              >
                 <Box
                   className="overlay"
                   sx={{

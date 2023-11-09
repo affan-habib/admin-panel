@@ -13,7 +13,11 @@ interface MainCardProps {
   modalButton?: React.ReactNode; // Add modalButton prop
 }
 
-const MainCard: React.FC<MainCardProps> = ({ title, children, modalButton }) => {
+const MainCard: React.FC<MainCardProps> = ({
+  title,
+  children,
+  modalButton,
+}) => {
   return (
     <Container maxWidth="xl">
       <Card sx={{ width: '100%' }}>

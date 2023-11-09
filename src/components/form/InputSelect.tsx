@@ -21,7 +21,11 @@ const InputSelect: React.FC<InputSelectProps> = ({
   const [field, meta] = useField(props);
 
   return (
-    <FormControl fullWidth variant="filled" error={meta.touched && !!meta.error}>
+    <FormControl
+      fullWidth
+      variant="filled"
+      error={meta.touched && !!meta.error}
+    >
       <InputLabel>{label}</InputLabel>
       <Select
         {...field}

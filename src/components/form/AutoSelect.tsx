@@ -10,7 +10,13 @@ interface AutoSelectProps {
   options: Array<{ [key: string]: any }>;
 }
 
-const AutoSelect: React.FC<AutoSelectProps> = ({ name, label, valueKey, labelKey, options }) => {
+const AutoSelect: React.FC<AutoSelectProps> = ({
+  name,
+  label,
+  valueKey,
+  labelKey,
+  options,
+}) => {
   const { values, setFieldValue } = useFormikContext<any>();
 
   return (

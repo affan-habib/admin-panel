@@ -11,7 +11,10 @@ type InputFieldProps = FieldHookConfig<string | number> & {
 const InputField: React.FC<InputFieldProps> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
-  const inputType = props.type === 'number' || typeof field.value === 'number' ? 'number' : 'text';
+  const inputType =
+    props.type === 'number' || typeof field.value === 'number'
+      ? 'number'
+      : 'text';
 
   return (
     <TextField
