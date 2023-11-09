@@ -1,23 +1,26 @@
 import { Typography, Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const LoginFooter: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <Box style={{ padding: '20px' }}>
       <Typography align="center" variant="body1">
-        কিভাবে আমরা আপনাকে সাহায্য করতে পারি? আমাদের{' '}
-        <span style={{ color: '#1D8839' }}>দ্রুত স্টার্ট গাইড</span> দেখুন বা
-        আরও সাহায্যের জন্য আমাদের{' '}
-        <span style={{ color: '#1D8839' }}> 01310439424</span> এ কল করুন
+        {t('howCanIHelpYou')}{' '}
+        <span style={{ color: '#1D8839' }}>{t('fastStartGuide')}</span>
+        {t('forMoreHelp')}{' '}
+        <span style={{ color: '#1D8839' }}> {t('phone')}</span>
+        {t('call')}
       </Typography>
       <Typography align="center" variant="body1">
-        জ্ঞান উন্মোচন, শিক্ষার ক্ষমতায়ন |{' '}
-        <span style={{ color: '#1D8839' }}>এইচএসইপি</span> - শেখার সাফল্যের জন্য
-        আপনার পথ
+        {t('knowledgeShare')}{' '}
+        <span style={{ color: '#1D8839' }}>{t('hsep')}</span> -{' '}
+        {t('yourPathForLearningSuccess')}
       </Typography>
       <Typography align="center" variant="body1">
-        কপিরাইট © ২০২৩ <span style={{ color: '#1D8839' }}>সিএলএমএস</span> |
-        সমস্ত অধিকার সংরক্ষিত |{' '}
-        <span style={{ color: '#1D8839' }}>গোপনীয়তা নীতি | শর্তাবলী </span>{' '}
+        {t('copyright')} <span style={{ color: '#1D8839' }}>{t('clms')}</span> |
+        {t('allRightResereved')}{' '}
+        <span style={{ color: '#1D8839' }}>{t('privacyConditions')}</span>{' '}
       </Typography>
     </Box>
   );

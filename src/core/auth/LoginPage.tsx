@@ -33,8 +33,7 @@ const LoginButton = styled(Button)(({ theme }) => ({
 }));
 
 const LoginPage: React.FC = () => {
-  const { t } = useTranslation();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
   };
@@ -60,6 +59,10 @@ const LoginPage: React.FC = () => {
     <Container maxWidth="lg" style={containerStyle}>
       <Grid container spacing={2}>
         {/* Top Section: SVG Images */}
+        <Grid item xs={12} sm={12} style={{ textAlign: 'left' }}>
+          <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('it')}>Bangla</button>
+        </Grid>
         <Grid item xs={12} sm={7} style={{ textAlign: 'left' }}>
           <img src={image1} alt="Image 1" />
           <img src={image2} alt="Image 2" />
@@ -70,15 +73,10 @@ const LoginPage: React.FC = () => {
         {/* Right Section: Login Form */}
         <Grid item xs={12} sm={4}>
           <Paper elevation={3} style={{ padding: '20px' }}>
-            <button onClick={() => changeLanguage('en')}>English</button>
-            <button onClick={() => changeLanguage('it')}>Italiano</button>
             <Typography variant="h6" color="#002F6C" mb={2}>
               {t('welcomeMessage')}
             </Typography>
-            <Typography variant="h6" color="#002F6C" mb={2}>
-              CLMS - এ স্বাগতম
-            </Typography>
-            <ToggleButtonGroup
+            {/* <ToggleButtonGroup
               value={selectedButton}
               exclusive
               onChange={(e, newValue) => setSelectedButton(newValue)}
@@ -90,10 +88,10 @@ const LoginPage: React.FC = () => {
               <ToggleButton value="signup" fullWidth={true}>
                 Signup
               </ToggleButton>
-            </ToggleButtonGroup>
+            </ToggleButtonGroup> */}
             <form onSubmit={handleLogin}>
               <TextField
-                placeholder="Email"
+                placeholder={t('email')}
                 fullWidth
                 margin="normal"
                 InputProps={{
@@ -105,7 +103,7 @@ const LoginPage: React.FC = () => {
                 }}
               />
               <TextField
-                placeholder="Password"
+                placeholder={t('password')}
                 type={showPassword ? 'text' : 'password'}
                 fullWidth
                 margin="normal"
@@ -137,16 +135,16 @@ const LoginPage: React.FC = () => {
                   control={<Checkbox color="primary" />}
                   label={
                     <Box component="div" fontSize={11}>
-                      পরবর্তী ব্যবহারের জনে রাখুন
+                      {t('remeberPassword')}
                     </Box>
                   }
                 />
-                <Typography variant="body2" style={{ marginLeft: 'auto' }}>
+                {/* <Typography variant="body2" style={{ marginLeft: 'auto' }}>
                   <a href="#">Forgot Password?</a>
-                </Typography>
+                </Typography> */}
               </div>
               <LoginButton variant="contained" color="primary" type="submit">
-                Login
+                {t('login')}
               </LoginButton>
             </form>
           </Paper>
