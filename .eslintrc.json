@@ -1,6 +1,0 @@
-{
-  "extends": "airbnb",
-  "rules": {
-    // Additional rules or overrides can be added here
-  }
-}
