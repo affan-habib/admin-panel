@@ -25,6 +25,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FooterContainer from '../../views/auth/FooterContainer';
 import LoginFooter from '../../views/auth/LoginFooter';
+import { useTranslation } from 'react-i18next';
 
 const LoginButton = styled(Button)(({ theme }) => ({
   backgroundColor: 'green',
@@ -32,6 +33,12 @@ const LoginButton = styled(Button)(({ theme }) => ({
 }));
 
 const LoginPage: React.FC = () => {
+  const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+  };
+
   const [showPassword, setShowPassword] = useState(false);
   const cardStyle = {
     marginRight: '38px', // Add space between the cards
@@ -50,7 +57,6 @@ const LoginPage: React.FC = () => {
   };
   const [selectedButton, setSelectedButton] = useState('login');
   return (
-    
     <Container maxWidth="lg" style={containerStyle}>
       <Grid container spacing={2}>
         {/* Top Section: SVG Images */}
@@ -64,6 +70,11 @@ const LoginPage: React.FC = () => {
         {/* Right Section: Login Form */}
         <Grid item xs={12} sm={4}>
           <Paper elevation={3} style={{ padding: '20px' }}>
+            <button onClick={() => changeLanguage('en')}>English</button>
+            <button onClick={() => changeLanguage('it')}>Italiano</button>
+            <Typography variant="h6" color="#002F6C" mb={2}>
+              {t('welcomeMessage')}
+            </Typography>
             <Typography variant="h6" color="#002F6C" mb={2}>
               CLMS - এ স্বাগতম
             </Typography>

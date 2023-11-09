@@ -8,6 +8,8 @@ import App from './App';
 import './index.css';
 import { createTheme } from './theme';
 import { ThemeProvider } from '@mui/material';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 const queryClient = new QueryClient();
 
@@ -22,10 +24,12 @@ if (rootElement) {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
-            <App />
-            {process.env.NODE_ENV === 'development' && (
-              <ReactQueryDevtools initialIsOpen={false} />
-            )}
+            <I18nextProvider i18n={i18n}>
+              <App />
+              {process.env.NODE_ENV === 'development' && (
+                <ReactQueryDevtools initialIsOpen={false} />
+              )}
+            </I18nextProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </Provider>
