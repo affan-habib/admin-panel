@@ -2,18 +2,20 @@ import { Stack, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import image1 from '../../assets/learningManagement.svg';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
+import { useTranslation } from 'react-i18next';
 
 const FooterContainer: React.FC = () => {
+  const { t } = useTranslation();
   const cardStyle = {
     width: '200px', // Set the card width
   };
 
   const cardData = [
-    { title: "লার্নিং ম্যানেজমেন্ট সিস্টেম এল এম এস",  imageUrl: image3 },
-    { title: "ই-লাইব্রেরি",  imageUrl: image2 },
-    { title: "টিচার্স গাইড",  imageUrl: image3 },
-    { title: "ফরম্যাটিভ এসেসমেন্ট সিস্টেম",  imageUrl: image2 },
-    { title: "সোস্যাল লার্নিং প্লাটফর্ম",  imageUrl: image3},
+    { title: `${t('learningManagementSystem')}`, imageUrl: image3 },
+    { title: `${t('eLibrary')}`, imageUrl: image2 },
+    { title: `${t('teachersGuide')}`, imageUrl: image3 },
+    { title: `${t('formativeAssesmentSystem')}`, imageUrl: image2 },
+    { title: `${t('socialLearningPlatform')}`, imageUrl: image3 },
   ];
 
   return (
