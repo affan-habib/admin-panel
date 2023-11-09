@@ -10,11 +10,7 @@ import {
   Checkbox,
   InputAdornment,
   Box,
-  Card,
-  CardContent,
-  CardHeader,
-  ToggleButtonGroup,
-  ToggleButton,
+  Stack,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import PersonIcon from '@mui/icons-material/Person';
@@ -26,6 +22,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FooterContainer from '../../views/auth/FooterContainer';
 import LoginFooter from '../../views/auth/LoginFooter';
 import { useTranslation } from 'react-i18next';
+import LanguageSelect from 'components/common/LanguageSelect';
 
 const LoginButton = styled(Button)(({ theme }) => ({
   backgroundColor: 'green',
@@ -33,36 +30,20 @@ const LoginButton = styled(Button)(({ theme }) => ({
 }));
 
 const LoginPage: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const changeLanguage = (language: string) => {
-    i18n.changeLanguage(language);
-  };
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
-  const cardStyle = {
-    marginRight: '38px', // Add space between the cards
-  };
+
   // Handle form submission
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Add your login logic here
   };
 
-  const containerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-  };
   const [selectedButton, setSelectedButton] = useState('login');
   return (
-    <Container maxWidth="lg" style={containerStyle}>
+    <Container maxWidth="lg" sx={{mt:6}}>
       <Grid container spacing={2}>
-        {/* Top Section: SVG Images */}
-        <Grid item xs={12} sm={12} style={{ textAlign: 'left' }}>
-          <button onClick={() => changeLanguage('en')}>English</button>
-          <button onClick={() => changeLanguage('it')}>Bangla</button>
-        </Grid>
         <Grid item xs={12} sm={7} style={{ textAlign: 'left' }}>
           <img src={image1} alt="Image 1" />
           <img src={image2} alt="Image 2" />
@@ -71,7 +52,10 @@ const LoginPage: React.FC = () => {
         <Grid item xs={12} sm={1}></Grid>
 
         {/* Right Section: Login Form */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={4} display="flex" direction='column'>
+        <Box sx={{alignSelf: "flex-end", mb:2}}>
+        <LanguageSelect/>
+        </Box>
           <Paper elevation={3} style={{ padding: '20px' }}>
             <Typography variant="h6" color="#002F6C" mb={2}>
               {t('welcomeMessage')}
@@ -139,9 +123,6 @@ const LoginPage: React.FC = () => {
                     </Box>
                   }
                 />
-                {/* <Typography variant="body2" style={{ marginLeft: 'auto' }}>
-                  <a href="#">Forgot Password?</a>
-                </Typography> */}
               </div>
               <LoginButton variant="contained" color="primary" type="submit">
                 {t('login')}
@@ -150,14 +131,12 @@ const LoginPage: React.FC = () => {
           </Paper>
         </Grid>
 
-        {/* New Section: 5 Cards */}
         <Grid item xs={12}>
-          <FooterContainer></FooterContainer>
+          <FooterContainer/>
         </Grid>
 
-        {/* Bottom Section: Text */}
         <Grid item xs={12}>
-          <LoginFooter></LoginFooter>
+          <LoginFooter/>
         </Grid>
       </Grid>
     </Container>
