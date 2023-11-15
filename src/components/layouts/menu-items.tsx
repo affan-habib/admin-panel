@@ -12,11 +12,7 @@ export const menuItems: MenuItem[] = [
   {
     title: 'ড্যাশবোর্ড',
     path: '/products',
-    icon: (
-      <SvgIcon fontSize="small">
-        <InventoryIcon />
-      </SvgIcon>
-    ),
+    icon: <InventoryIcon />,
     subMenu: [
       { title: 'Submenu 1', icon: <InventoryIcon />, path: '/submenu1' },
       { title: 'Submenu 2', icon: <InventoryIcon />, path: '/submenu2' },
@@ -25,10 +21,6 @@ export const menuItems: MenuItem[] = [
   {
     title: 'প্রশিক্ষণার্থীর বিবরণী',
     path: '/orders',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ShoppingCartCheckoutIcon />
-      </SvgIcon>
-    ),
+    icon: <ShoppingCartCheckoutIcon />,
   },
 ];
