@@ -7,7 +7,9 @@ import { useTranslation } from 'react-i18next';
 const FooterContainer: React.FC = () => {
   const { t } = useTranslation();
   const cardStyle = {
-    width: '200px', // Set the card width
+    width: '213px',
+    height: '180px',
+    boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)', // Add this box-shadow style
   };
 
   const cardData = [
@@ -22,8 +24,8 @@ const FooterContainer: React.FC = () => {
     <Stack
       direction={'row'}
       justifyContent={'space-between'}
-      spacing={2}
-      sx={{ mt: 5 }}
+      spacing={6}
+      mt="20px"
     >
       {cardData.map((card, index) => (
         <Card key={index} style={cardStyle}>
@@ -31,7 +33,12 @@ const FooterContainer: React.FC = () => {
             component="img"
             alt={card.title}
             image={card.imageUrl}
-            sx={{ p: 2, height: 180 }}
+            sx={{
+              height: 80,
+              width: 120,
+              margin: 'auto',
+              mt: 4,
+            }}
           />
           <CardContent>
             <Typography variant="body2" color="text.secondary" align="center">
