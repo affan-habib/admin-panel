@@ -4,8 +4,8 @@ import { Card } from '@mui/material';
 
 interface MuiTableProps {
   checkboxSelection?: boolean;
-  columns: any[]; // Define your column types here
-  rows: any[]; // Define your row types here
+  columns: any[];
+  rows: any[];
   getRowId: (row: any) => string | number;
   onCellEditCommit?: (params: any) => void;
   hideFooter?: boolean;
@@ -26,7 +26,7 @@ const MuiTable: React.FC<MuiTableProps> = ({
   onPageinationModelChange,
 }) => {
   return (
-    <Card style={{ minHeight: 800, width: '100%' }}>
+    <Card style={{ height: '100%', width: '100%' }} elevation={0}>
       <DataGrid
         pagination
         paginationMode="server"
@@ -42,11 +42,11 @@ const MuiTable: React.FC<MuiTableProps> = ({
           },
         }}
         sx={{
-          '& .MuiDataGrid-columnHeader': {
+          '& .MuiDataGrid-columnHeaders ': {
             borderRadius: 0,
             textTransform: 'uppercase',
-            fontSize: '.8rem',
-            bgcolor: 'rgb(242, 244, 247)',
+            bgcolor: '#A0B879',
+            color: 'white',
           },
         }}
         columnHeaderHeight={40}

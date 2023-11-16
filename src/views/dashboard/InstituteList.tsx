@@ -1,11 +1,12 @@
 import React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import { Box, Typography } from '@mui/material';
+import MuiTable from 'components/tables/MuiTable';
 
 const institutesData = [
   { id: 1, name: 'ইনস্টিটিউট ১', location: 'ঢাকা', establishedYear: 1985 },
   { id: 2, name: 'ইনস্টিটিউট ২', location: 'চট্টগ্রাম', establishedYear: 1990 },
-  // Add more data as needed
+  { id: 3, name: 'ইনস্টিটিউট ২', location: 'চট্টগ্রাম', establishedYear: 1990 },
 ];
 
 const columns: GridColDef[] = [
@@ -17,12 +18,17 @@ const columns: GridColDef[] = [
 
 const InstituteList: React.FC = () => {
   return (
-    <Box maxWidth={800} p={4} mt={4} bgcolor="#EDF4F2">
-      <Typography mb={2} variant="h6">
+    <Box maxWidth={800} mt={4}>
+      <Typography mb={2} variant="h6" color="#155313">
         উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের সারসংক্ষেপ
       </Typography>
-      <div style={{ height: 400, width: '100%', background: 'white' }}>
-        <DataGrid rows={institutesData} columns={columns} hideFooter />
+      <div style={{ width: '100%' }}>
+        <MuiTable
+          rows={institutesData}
+          columns={columns}
+          hideFooter
+          getRowId={(params) => params.id}
+        />
       </div>
     </Box>
   );
