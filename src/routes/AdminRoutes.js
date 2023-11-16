@@ -17,7 +17,7 @@ const AdminRoutes = {
     </PrivateRoute>
   ),
   children: [
-    {
+    { 
       path: '',
       element: <Dashboard />,
     },

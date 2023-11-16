@@ -10,7 +10,6 @@ import {
   InputAdornment,
   Box,
 } from '@mui/material';
-import { styled } from '@mui/system';
 import PersonIcon from '@mui/icons-material/Person';
 import HttpsIcon from '@mui/icons-material/Https';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -18,6 +17,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import { useNavigate } from 'react-router-dom';
+import { saveAuthData } from 'utils/authUtils';
 
 const LoginForm: React.FC = () => {
   const initialValues = {
@@ -41,11 +41,9 @@ const LoginForm: React.FC = () => {
         rememberMe: values.rememberMe,
       });
 
-      const accessToken = response.data.access_token;
-      localStorage.setItem('token', accessToken);
+      const data = response.data.data;
+      saveAuthData(data);
       navigate('/');
-
-      console.log('Access Token:', accessToken);
     } catch (error) {}
   };
   const formik = useFormik({
@@ -133,7 +131,7 @@ const LoginForm: React.FC = () => {
             }
           />
         </div>
-        <Button variant="contained" color="primary" type="submit">
+        <Button variant="contained" color="primary" type="submit" fullWidth>
           Login
         </Button>
       </form>
