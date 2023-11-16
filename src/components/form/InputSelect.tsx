@@ -2,45 +2,50 @@
 
 import React from 'react';
 import { useField, FieldHookConfig } from 'formik';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 type InputSelectProps = FieldHookConfig<string> & {
   label: string;
-  options: any[]; // Accept any array
-  valueKey: string; // Custom value key
-  labelKey: string; // Custom label key
+  options: { value: string; label: string }[];
 };
 
 const InputSelect: React.FC<InputSelectProps> = ({
   label,
   options,
-  valueKey,
-  labelKey,
   ...props
 }) => {
   const [field, meta] = useField(props);
 
   return (
-    <FormControl
-      fullWidth
-      variant="filled"
-      error={meta.touched && !!meta.error}
-    >
-      <InputLabel>{label}</InputLabel>
-      <Select
-        {...field}
-        label={label}
-        value={field.value}
-        onChange={field.onChange}
-        onBlur={field.onBlur}
-      >
-        {options.map((option) => (
-          <MenuItem key={option[valueKey]} value={option[valueKey]}>
-            {option[labelKey]}
+    <Grid container spacing={1} alignItems="flex-start" mb={2}>
+      <Grid item>
+        <InputLabel sx={{ minWidth: 200, color: 'black' }}>{label}</InputLabel>
+      </Grid>
+      <Grid item>
+        <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
+          :
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Select
+          sx={{ minWidth: 400 }}
+          size="small"
+          {...field}
+          label=""
+          variant="outlined"
+          error={meta.touched && !!meta.error}
+        >
+          <MenuItem value="" disabled>
+            Select Language
           </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </Grid>
+    </Grid>
   );
 };
 
