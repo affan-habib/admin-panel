@@ -12,9 +12,9 @@ const Dashboard = Loadable(lazy(() => import('core/dashboard/Dashboard')));
 const AdminRoutes = {
   path: '/',
   element: (
-    <>
+    <PrivateRoute>
       <DashboardLayout />
-    </>
+    </PrivateRoute>
   ),
   children: [
     {

@@ -1,47 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container,
   Grid,
   Paper,
   Typography,
-  TextField,
   Button,
-  FormControlLabel,
-  Checkbox,
-  InputAdornment,
   Box,
-  Stack,
-  ToggleButtonGroup,
-  ToggleButton,
   CssBaseline,
   ButtonGroup,
 } from '@mui/material';
-import { styled } from '@mui/system';
-import PersonIcon from '@mui/icons-material/Person';
-import HttpsIcon from '@mui/icons-material/Https';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import FooterContainer from '../../views/auth/FooterContainer';
 import LoginFooter from '../../views/auth/LoginFooter';
 import { useTranslation } from 'react-i18next';
 import Image4 from '../../assets/sherebangla.svg';
-const LoginButton = styled(Button)(({ theme }) => ({
-  backgroundColor: 'green',
-  width: '100%', // Set the width to 100% to match the form fields
-}));
+import LoginForm from '../../views/auth/LoginForm';
 
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  // Handle form submission
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Add your login logic here
-  };
-
-  const [selectedButton, setSelectedButton] = useState('login');
   return (
     <div>
       <CssBaseline />
@@ -67,67 +44,7 @@ const LoginPage: React.FC = () => {
                 <Button sx={{ flex: 1 }}>নিবন্ধন করুন</Button>
               </ButtonGroup>
               <Box>
-                <form onSubmit={handleLogin}>
-                  <TextField
-                    size="small"
-                    placeholder={t('email')}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <PersonIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <TextField
-                    size="small"
-                    placeholder={t('password')}
-                    type={showPassword ? 'text' : 'password'}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <HttpsIcon />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          {showPassword ? (
-                            <VisibilityOffIcon
-                              onClick={() => setShowPassword(false)}
-                              style={{ cursor: 'pointer' }}
-                            />
-                          ) : (
-                            <RemoveRedEyeIcon
-                              onClick={() => setShowPassword(true)}
-                              style={{ cursor: 'pointer' }}
-                            />
-                          )}
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <FormControlLabel
-                      control={<Checkbox color="primary" />}
-                      label={
-                        <Box component="div" fontSize={14}>
-                          {t('remeberPassword')}
-                        </Box>
-                      }
-                    />
-                  </div>
-                  <LoginButton
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                  >
-                    {t('login')}
-                  </LoginButton>
-                </form>
+                <LoginForm />
               </Box>
             </Paper>
           </Grid>
