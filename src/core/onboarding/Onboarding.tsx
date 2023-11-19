@@ -2,7 +2,7 @@ import React from 'react';
 import logo2 from '../../assets/logoOne.svg';
 import logo1 from '../../assets/logoTwo.svg';
 import { Box, Container, Grid, Typography, Card, CardContent, Button } from '@mui/material';
-import lms from '../../assets/images/lms.png';
+// import lms from '../../assets/images/lms.png';
 
 
 const Onboarding = () => {
@@ -66,7 +66,7 @@ const Onboarding = () => {
 
                         <Grid key={card.id} item xs={12} sm={6} md={4} lg={3} sx={{ position: 'relative' }}>
                             <Box sx={{ position: 'absolute', left: '38%', top: '-35px', backgroundColor: 'rgba(255, 255, 255, 1)', padding: '10px', borderRadius: '50%' }}>
-                                 <img src={lms} alt="" srcSet="" />
+                                 {/* <img src={lms} alt="" srcSet="" /> */}
                              </Box>
                             <Box style={{ padding: '16px', margin: '8px', backgroundColor: `${card.color}`, height: '320px', display: 'flex', flexDirection: 'column' }}>
                                 <Typography variant="h6" gutterBottom sx={{ color: 'rgba(255, 255, 255, 1)', marginTop: '20px' }} my={2}>
