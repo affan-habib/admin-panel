@@ -49,7 +49,8 @@ const LoginPage: React.FC = () => {
                   sx={{ flex: 1 }}
                   onClick={() => handleButtonClick('login')}
                 >
-                  প্রবেশ করুন
+                  {t('loginHere')}
+                  {/* প্রবেশ করুন */}
                 </Button>
                 <Button
                   variant={
@@ -58,7 +59,8 @@ const LoginPage: React.FC = () => {
                   sx={{ flex: 1 }}
                   onClick={() => handleButtonClick('register')}
                 >
-                  নিবন্ধন করুন
+                  {t('registerHere')}
+                  {/* নিবন্ধন করুন */}
                 </Button>
               </ButtonGroup>
               <Box>

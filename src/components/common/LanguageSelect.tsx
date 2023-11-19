@@ -5,7 +5,9 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
 
 const LanguageSelect: React.FC = () => {
-  const [language, setLanguage] = useState<string>(localStorage.getItem('language') || 'bn');
+  const [language, setLanguage] = useState<string>(
+    localStorage.getItem('language') || 'bn',
+  );
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -21,6 +23,7 @@ const LanguageSelect: React.FC = () => {
   return (
     <div style={{ width: 110 }}>
       <Select
+        size="small"
         value={language}
         onChange={handleChange}
         displayEmpty

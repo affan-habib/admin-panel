@@ -4,6 +4,8 @@
   "password": "Password",
   "remeberPassword": "Remember Password",
   "login": "Login",
+  "loginHere": "Login",
+  "registerHere": "Register",
   "learningManagementSystem": "Learning Managemnet System LMS",
   "eLibrary": "E-Library",
   "teachersGuide": "Teachers Guide",

@@ -11,6 +11,7 @@ import { styled } from '@mui/material/styles';
 import notificationIcon from 'assets/Notification.svg';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Person } from '@mui/icons-material';
+import LanguageSelect from 'components/common/LanguageSelect';
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -68,6 +69,9 @@ const Header: React.FC<HeaderProps> = ({
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {/* Notification Icon */}
+          <Box mr={2}>
+            <LanguageSelect />
+          </Box>
           <img
             src={notificationIcon}
             alt="Notification Icon"
