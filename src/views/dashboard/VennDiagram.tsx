@@ -7,6 +7,7 @@ const VennDiagram = () => {
   return (
     <Box
       height={315}
+      width={490}
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',
         borderRadius: '10px',
