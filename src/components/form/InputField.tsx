@@ -6,12 +6,14 @@ import { Grid, InputLabel, TextField, Typography } from '@mui/material';
 
 type InputFieldProps = FieldHookConfig<string | number> & {
   label: string;
-  rows?: number; // Adding a rows prop
+  rows?: number;
+  placeholder?: string;
 };
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
   rows = 1,
+  placeholder = '',
   ...props
 }) => {
   const [field, meta] = useField(props);
@@ -24,7 +26,7 @@ const InputField: React.FC<InputFieldProps> = ({
   return (
     <Grid container spacing={1} alignItems="flex-start" mb={2}>
       <Grid item>
-        <InputLabel sx={{ minWidth: 200, color: 'black' }}>{label}</InputLabel>
+        <InputLabel sx={{ minWidth: 200, color: 'black', marginX: 1, marginTop: 1, fontWeight: 600 }}>{label}</InputLabel>
       </Grid>
       <Grid item>
         <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
@@ -33,7 +35,8 @@ const InputField: React.FC<InputFieldProps> = ({
       </Grid>
       <Grid item>
         <TextField
-          sx={{ minWidth: 400 }}
+          placeholder={placeholder}
+          sx={{ minWidth: 690, bgcolor: 'white' }}
           size="small"
           {...field}
           label=""
