@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Grid,
@@ -16,9 +16,14 @@ import { useTranslation } from 'react-i18next';
 import Image4 from 'assets/sherebangla.svg';
 import LoginForm from 'views/auth/LoginForm';
 import RegistrationForm from 'views/auth/RegistrationForm';
-
+import logo from 'assets/logo.svg';
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
+  const [selectedButton, setSelectedButton] = useState('login');
+
+  const handleButtonClick = (buttonType: string) => {
+    setSelectedButton(buttonType);
+  };
 
   return (
     <div>
@@ -27,6 +32,7 @@ const LoginPage: React.FC = () => {
       <Container maxWidth="lg" sx={{ mt: 6 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={7} style={{ textAlign: 'left' }}>
+            <img src={logo} style={{ position: 'absolute' }} alt="ss" />
             <img src={Image4} alt="fff" />
           </Grid>
           <Grid item xs={12} sm={1}></Grid>
@@ -35,17 +41,32 @@ const LoginPage: React.FC = () => {
               <Typography variant="h6" color="#002F6C" mb={2}>
                 {t('welcomeMessage')}
               </Typography>
-              <ButtonGroup
-                // color="white"
-                sx={{ width: '100%' }}
-              >
-                <Button variant="contained" sx={{ flex: 1 }}>
+              <ButtonGroup sx={{ width: '100%' }}>
+                <Button
+                  variant={
+                    selectedButton === 'login' ? 'contained' : 'outlined'
+                  }
+                  sx={{ flex: 1 }}
+                  onClick={() => handleButtonClick('login')}
+                >
                   প্রবেশ করুন
                 </Button>
-                <Button sx={{ flex: 1 }}>নিবন্ধন করুন</Button>
+                <Button
+                  variant={
+                    selectedButton === 'register' ? 'contained' : 'outlined'
+                  }
+                  sx={{ flex: 1 }}
+                  onClick={() => handleButtonClick('register')}
+                >
+                  নিবন্ধন করুন
+                </Button>
               </ButtonGroup>
               <Box>
-                <LoginForm />
+                {selectedButton === 'login' ? (
+                  <LoginForm />
+                ) : (
+                  <RegistrationForm />
+                )}
               </Box>
             </Paper>
           </Grid>

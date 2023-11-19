@@ -184,24 +184,13 @@ const RegistrationForm: React.FC = () => {
             ),
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                color="primary"
-                name="rememberMe"
-                checked={formik.values.rememberMe}
-                onChange={formik.handleChange}
-              />
-            }
-            label={
-              <Box component="div" fontSize={14}>
-                Remember me
-              </Box>
-            }
-          />
-        </div>
-        <Button variant="contained" color="primary" type="submit" fullWidth>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          fullWidth
+          sx={{ mt: 1 }}
+        >
           Register
         </Button>
       </form>

@@ -15,11 +15,14 @@ import HttpsIcon from '@mui/icons-material/Https';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import { apiBaseUrl } from 'config';
 import { useNavigate } from 'react-router-dom';
 import { saveAuthData } from 'utils/authUtils';
 
 const LoginForm: React.FC = () => {
+  const { t } = useTranslation();
+
   const initialValues = {
     pdsid: '2016810150',
     password: 'password',
@@ -27,8 +30,8 @@ const LoginForm: React.FC = () => {
   };
 
   const validationSchema = Yup.object({
-    pdsid: Yup.string().required('PDSID is required'),
-    password: Yup.string().required('Password is required'),
+    pdsid: Yup.string().required(),
+    password: Yup.string().required(),
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -46,6 +49,7 @@ const LoginForm: React.FC = () => {
       navigate('/');
     } catch (error) {}
   };
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -62,7 +66,7 @@ const LoginForm: React.FC = () => {
           variant="outlined"
           size="small"
           name="pdsid"
-          placeholder="Enter your PDSID"
+          placeholder={t('email')}
           fullWidth
           margin="normal"
           value={formik.values.pdsid}
@@ -83,7 +87,7 @@ const LoginForm: React.FC = () => {
           size="small"
           name="password"
           type={showPassword ? 'text' : 'password'}
-          placeholder="Enter your Password"
+          placeholder={t('password')}
           fullWidth
           margin="normal"
           value={formik.values.password}
@@ -126,13 +130,13 @@ const LoginForm: React.FC = () => {
             }
             label={
               <Box component="div" fontSize={14}>
-                Remember me
+                {t('remeberPassword')}
               </Box>
             }
           />
         </div>
         <Button variant="contained" color="primary" type="submit" fullWidth>
-          Login
+          {t('login')}
         </Button>
       </form>
     </>
