@@ -2,18 +2,20 @@
 
 import React from 'react';
 import { useField, FieldHookConfig } from 'formik';
-import { Grid, InputLabel, TextField, Typography } from '@mui/material';
+import { InputLabel, TextField, Typography } from '@mui/material';
 
 type InputFieldProps = FieldHookConfig<string | number> & {
-  label: string;
+  label?: string;
   rows?: number;
   placeholder?: string;
+  fieldWidth?: number; // New prop for field width
 };
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
   rows = 1,
   placeholder = '',
+  fieldWidth = 690, // Default width
   ...props
 }) => {
   const [field, meta] = useField(props);
@@ -24,19 +26,33 @@ const InputField: React.FC<InputFieldProps> = ({
       : 'text';
 
   return (
-    <Grid container spacing={1} alignItems="flex-start" mb={2}>
-      <Grid item>
-        <InputLabel sx={{ minWidth: 200, color: 'black', marginX: 1, marginTop: 1, fontWeight: 600 }}>{label}</InputLabel>
-      </Grid>
-      <Grid item>
-        <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
-          :
-        </Typography>
-      </Grid>
-      <Grid item>
+    <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '16px' }}>
+      {label && (
+        <React.Fragment>
+          <div>
+            <InputLabel
+              sx={{
+                minWidth: 200,
+                color: 'black',
+                marginX: 1,
+                marginTop: 1,
+                fontWeight: 600,
+              }}
+            >
+              {label}
+            </InputLabel>
+          </div>
+          <div>
+            <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
+              :
+            </Typography>
+          </div>
+        </React.Fragment>
+      )}
+      <div style={{ flex: 1, width: `${fieldWidth}px`, marginLeft: label ? '8px' : '0' }}>
         <TextField
           placeholder={placeholder}
-          sx={{ minWidth: 690, bgcolor: 'white' }}
+          sx={{ bgcolor: 'white' }} // Use the fieldWidth prop
           size="small"
           {...field}
           label=""
@@ -48,8 +64,8 @@ const InputField: React.FC<InputFieldProps> = ({
           error={meta.touched && !!meta.error}
           helperText={meta.touched && meta.error}
         />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 };
 
