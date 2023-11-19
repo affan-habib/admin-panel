@@ -21,5 +21,13 @@
   "clms": "সিএলএমএস",
   "allRightResereved": "সমস্ত অধিকার সংরক্ষিত |",
   "privacyConditions": "গোপনীয়তা নীতি | শর্তাবলী ",
-  "dashboardTitle" : "ড্যাশবোর্ড"
+  "dashboardTitle" : "ড্যাশবোর্ড",
+  "curriculum" : "পাঠ্যক্রম",
+  "curriculumSubmenu1":"",
+  "batch" : "ব্যাচ",
+  "batchSubmenu1" : "ব্যাচ তৈরি করুন",
+  "batchSubmenu2" : "আমন্ত্রনপত্র পাঠান",
+  "batchSubmenu3" : "প্রশিক্ষণার্থী সীমাবদ্ধতা সেট",
+  "trainerList" : "প্রশিক্ষক তালিকা",
+  "leave" : "প্রস্থান"
 }

@@ -8,7 +8,8 @@ import {
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { menuItems } from 'components/layouts/menu-items';
+import UseGetMenuItems from './menu-items';
+// import { menuItems } from 'components/layouts/menu-items';
 
 interface MenuItem {
   title: string;
@@ -45,6 +46,8 @@ const Sidebar: React.FC = () => {
     setSelectedSubMenu(path);
     navigate(path);
   };
+
+  const menuItems = UseGetMenuItems();
 
   return (
     <List>
