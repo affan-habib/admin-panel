@@ -69,7 +69,7 @@ const StackChart = () => {
     }, []);
 
     return (
-        <div style={{ width: '97%', backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '10px', marginTop: '12px' }}>
+        <div style={{ width: '97%', backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '10px', marginTop: '10px' }}>
             <canvas ref={chartRef} style={{ width: '100%' }} />
         </div>
     );

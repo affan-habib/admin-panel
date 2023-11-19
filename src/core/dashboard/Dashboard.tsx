@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
         <Grid item xs={12} md={8}>
           <InstituteList />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} marginLeft={-3.5}>
           <VennDiagram />
         </Grid>
       </Grid>
@@ -22,7 +22,7 @@ const Dashboard: React.FC = () => {
         <Grid item xs={12} md={8} lg={8}>
           <StackChart />
         </Grid>
-        <Grid item xs={12} md={4} lg={4}>
+        <Grid item xs={12} md={4} lg={4} marginLeft={-2.2}>
           <PieChartDesign />
         </Grid>
       </Grid>

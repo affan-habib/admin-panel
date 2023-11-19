@@ -36,11 +36,12 @@ const PieChartDesign: React.FC = () => {
 
   return (
     <Box
-      height={400}
+      height={410}
+      width={455}
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',
         borderRadius: '10px',
-        mt: 2,
+        mt: 1,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -52,7 +53,7 @@ const PieChartDesign: React.FC = () => {
       </Box>
       <Box
         width={400}
-        height={250}
+        height={280}
         sx={{
           backgroundColor: 'rgba(254, 254, 254, 1)',
           display: 'flex',
@@ -60,7 +61,7 @@ const PieChartDesign: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <canvas ref={chartRef} />
+        <canvas ref={chartRef} style={{padding:'10px'}} />
       </Box>
     </Box>
   );
