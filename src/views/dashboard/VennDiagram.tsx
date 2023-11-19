@@ -1,5 +1,4 @@
 import React from 'react';
-import './VennDiagram.css'; // Import the CSS file
 
 const VennDiagram = () => {
   return (
