@@ -23,5 +23,14 @@
   "copyright": "Copyright © 2023",
   "clms": "CLMS",
   "allRightResereved": "All Rights Reserved",
-  "privacyConditions": "Privacy Policy | Conditions"
+  "privacyConditions": "Privacy Policy | Conditions",
+  "dashboardTitle": "Dashboard",
+  "curriculum": "Curriculum",
+  "curriculumSubmenu1": "",
+  "batch": "Batch",
+  "batchSubmenu1": "Create Batch",
+  "batchSubmenu2": "Send Invitation",
+  "batchSubmenu3": "Set Student Limits",
+  "trainerList": "Trainer List",
+  "leave": "Leave"
 }

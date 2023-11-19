@@ -1,33 +1,39 @@
 import React from 'react';
-import { GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Box, Typography } from '@mui/material';
-import MuiTable from 'components/tables/MuiTable';
 
 const institutesData = [
-  { id: 1, name: 'ইনস্টিটিউট ১', location: 'ঢাকা', establishedYear: 1985 },
-  { id: 2, name: 'ইনস্টিটিউট ২', location: 'চট্টগ্রাম', establishedYear: 1990 },
-  { id: 3, name: 'ইনস্টিটিউট ২', location: 'চট্টগ্রাম', establishedYear: 1990 },
+  { id: 1, currentBatch: 'ব্যাচ ১', currentCourse: 'শিখন ক্ষেত্র ১ :  শিক্ষা নীতি ও শিক্ষায় ব্যাবস্থাপনা (শিনী)', number: '৫০', progress: 'সক্রিয়', duration: 'অনলাইন: ১০ দিন ব্যক্তিগত : ৫ দিন' },
+  { id: 2, currentBatch: 'ব্যাচ ১', currentCourse: 'শিখন ক্ষেত্র ১ :  শিক্ষা নীতি ও শিক্ষায় ব্যাবস্থাপনা (শিনী)', number: '৫০', progress: 'সক্রিয়', duration: 'অনলাইন: ১০ দিন ব্যক্তিগত : ৫ দিন' },
+  { id: 3, currentBatch: 'ব্যাচ ১', currentCourse: 'শিখন ক্ষেত্র ১ :  শিক্ষা নীতি ও শিক্ষায় ব্যাবস্থাপনা (শিনী)', number: '৫০', progress: 'সক্রিয়', duration: 'অনলাইন: ১০ দিন ব্যক্তিগত : ৫ দিন' },
+  // Add more data as needed
 ];
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'আইডি', flex: 1 },
-  { field: 'name', headerName: 'ইনস্টিটিউটের নাম', flex: 2 },
-  { field: 'location', headerName: 'অবস্থান', flex: 1 },
-  { field: 'establishedYear', headerName: 'স্থাপনের বছর', flex: 1 },
+  { field: 'currentBatch', headerName: 'চলমান ব্যাচ', flex: 1 },
+  { field: 'currentCourse', headerName: 'সক্রিয় কোর্স ', flex: 2 },
+  { field: 'number', headerName: 'প্রশিক্ষণার্থীর সংখ্যা', flex: 1 },
+  { field: 'progress', headerName: 'ব্যাচের অবস্থা', flex: 1 },
+  { field: 'duration', headerName: 'কোর্স সময়কাল', flex: 1 },
 ];
 
 const InstituteList: React.FC = () => {
   return (
-    <Box maxWidth={800} mt={4}>
-      <Typography mb={2} variant="h6" color="#155313">
-        উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের সারসংক্ষেপ
-      </Typography>
-      <div style={{ width: '100%' }}>
-        <MuiTable
+    <Box
+      maxWidth={900} p={4} mt={4} ml={0} bgcolor="#EDF4F2" borderRadius="10px">
+      <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের ভেন</Typography>
+      <div style={{ height: '100%', width: '100%', background: 'white' }}>
+        <DataGrid
           rows={institutesData}
-          columns={columns}
+          columns={columns.map((column) => ({
+            ...column,
+            renderCell: (params) => (
+              <div style={{ whiteSpace: 'pre-wrap' }}>{params.value}</div>
+            ),
+          }))}
           hideFooter
-          getRowId={(params) => params.id}
+          autoHeight
+          style={{ minHeight: '150px' }}
         />
       </div>
     </Box>
