@@ -36,7 +36,7 @@ const PieChartDesign: React.FC = () => {
 
   return (
     <Box
-      height={410}
+      height={390}
       width={490}
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',

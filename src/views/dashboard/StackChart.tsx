@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import Chart from 'chart.js/auto'; // Import Chart.js
+import Chart from 'chart.js/auto';
+import { Box, Typography } from '@mui/material';
 
 const StackChart = () => {
     const chartRef = useRef(null);
@@ -25,17 +26,15 @@ const StackChart = () => {
                 labels: labels,
                 datasets: [
                     {
-                        label: 'First Dataset',
+                        label: 'কার্যধারা',
                         data: [65, 59, 80, 81, 56, 55, 40, 70, 90, 100, 45, 60],
                         backgroundColor: 'rgba(7, 109, 171, 1)',
-                        borderColor: 'rgb(255, 99, 132)',
                         borderWidth: 1,
                     },
                     {
-                        label: 'Second Dataset',
+                        label: 'অগ্রগতি',
                         data: [28, 48, 40, 19, 86, 27, 90, 60, 40, 75, 30, 50],
                         backgroundColor: 'rgba(96, 149, 19, 1)',
-                        borderColor: 'rgb(54, 162, 235)',
                         borderWidth: 1,
                     },
                 ],
@@ -45,18 +44,18 @@ const StackChart = () => {
                 type: 'bar' as const,
                 data: data,
                 options: {
-                    maintainAspectRatio: false, // Allow chart to not maintain aspect ratio
-                    aspectRatio: 2.2, // Customize the aspect ratio as needed (e.g., 1.5 for more height)
+                    maintainAspectRatio: false,
+                    aspectRatio: 2.3,
                     scales: {
                         y: {
                             beginAtZero: true,
                             grid: {
-                                display: false, // Hide y-axis grid lines
+                                display: false,
                             },
                         },
                         x: {
                             grid: {
-                                display: false, // Hides the x-axis grid lines
+                                display: false,
                             },
                         },
                     },
@@ -64,14 +63,19 @@ const StackChart = () => {
             };
 
             const myChart = new Chart(chartRef.current, config);
-            return () => myChart.destroy(); // Cleanup on unmount
+            return () => myChart.destroy();
         }
     }, []);
 
     return (
-        <div style={{ width: '97%', backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '10px', marginTop: '10px' }}>
-            <canvas ref={chartRef} style={{ width: '100%' }} />
-        </div>
+        <Box height={390} style={{ width: '97%', backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '10px', marginTop: '10px',padding:'20px'}}>
+            <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের বার চার্ট</Typography>
+            <Box height = {320}>
+                <canvas ref={chartRef} style={{ width: '100%' }} />
+            </Box>
+
+
+        </Box>
     );
 };
 
