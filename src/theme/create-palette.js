@@ -1,7 +1,7 @@
 export function createPalette() {
   return {
     primary: {
-      main: '#076DAB',
+      main: '#006A4E',
     },
   };
 }
