@@ -10,11 +10,12 @@ import {
   ButtonGroup,
 } from '@mui/material';
 
-import FooterContainer from '../../views/auth/FooterContainer';
-import LoginFooter from '../../views/auth/LoginFooter';
+import FooterContainer from 'views/auth/FooterContainer';
+import LoginFooter from 'views/auth/LoginFooter';
 import { useTranslation } from 'react-i18next';
-import Image4 from '../../assets/sherebangla.svg';
-import LoginForm from '../../views/auth/LoginForm';
+import Image4 from 'assets/sherebangla.svg';
+import LoginForm from 'views/auth/LoginForm';
+import RegistrationForm from 'views/auth/RegistrationForm';
 
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
@@ -30,7 +31,7 @@ const LoginPage: React.FC = () => {
           </Grid>
           <Grid item xs={12} sm={1}></Grid>
           <Grid item xs={12} sm={4} display="flex" direction="column">
-            <Paper style={{ padding: '20px', paddingBottom: 100 }}>
+            <Paper style={{ padding: 20, minHeight: 400 }}>
               <Typography variant="h6" color="#002F6C" mb={2}>
                 {t('welcomeMessage')}
               </Typography>
