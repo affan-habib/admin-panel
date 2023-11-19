@@ -1,17 +1,17 @@
 // AppBarComponent.tsx
 
 import React from 'react';
-import { Box, Avatar, Badge, Typography } from '@mui/material';
+import { Box, Avatar, Typography } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
 import notificationIcon from 'assets/Notification.svg';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Person } from '@mui/icons-material';
 import LanguageSelect from 'components/common/LanguageSelect';
+import { useTranslation } from 'react-i18next';
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -47,6 +47,7 @@ const Header: React.FC<HeaderProps> = ({
   handleToggleDrawer,
   handleLogout,
 }) => {
+  const { t } = useTranslation();
   return (
     <AppBar position="fixed" open={open} sx={{ bgcolor: 'white' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -63,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="black" sx={{ marginRight: 2 }}>
-            HSEP লার্নিং ম্যানেজমেন্ট সিস্টেম - এ স্বাগতম
+            {t('welcomeToLms')}
           </Typography>
         </Box>
 
