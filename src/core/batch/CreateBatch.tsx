@@ -1,25 +1,25 @@
-// components/form/MyForm.tsx
+// components/form/CreateBatch.tsx
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Stepper, { Step } from 'components/common/Stepper';
-import Step1 from './Step1';
-import Step2 from './Step2';
-import InputField from 'components/form/InputField';
 import { Container } from '@mui/material';
+import StepOne from 'views/batch/StepOne';
+import StepTwo from 'views/batch/StepTwo';
+import StepThree from 'views/batch/StepThree';
 
-const MyForm: React.FC = () => {
+const CreateBatch: React.FC = () => {
   const initialValues = {
-    englishField: '',
-    banglaField: '',
-    globalSetting: 'jjjjj',
-    file: null,
+    batchName: '',
+    description: '',
+    // globalSetting: 'jjjjj',
+    // file: null,
     // Add more fields as needed
   };
 
   const validationSchema = Yup.object({
     // englishField: Yup.string().required('English field is required'),
-    banglaField: Yup.string().required('Bangla field is required'),
+    // banglaField: Yup.string().required('Bangla field is required'),
     // Add more validations as needed
   });
 
@@ -38,14 +38,14 @@ const MyForm: React.FC = () => {
         {({ isSubmitting, isValid }) => (
           <Form>
             <Stepper submitDisabled={isSubmitting || !isValid}>
-              <Step title="English Form">
-                <Step1 />
+              <Step title="Bengali">
+                <StepOne />
               </Step>
-              <Step title="Step 2: Bangla Form">
-                <Step2 />
+              <Step title="English">
+                <StepTwo />
               </Step>
-              <Step title="Step 3: Global Settings">
-                <InputField name="globalSetting" label="Global Settings" />
+              <Step title="Global Settings">
+                <StepThree />
               </Step>
             </Stepper>
           </Form>
@@ -55,4 +55,4 @@ const MyForm: React.FC = () => {
   );
 };
 
-export default MyForm;
+export default CreateBatch;

@@ -12,7 +12,7 @@ type InputFieldProps = FieldHookConfig<string | number> & {
   fieldWidth?: number; // New prop for field width
 };
 
-const InputField: React.FC<InputFieldProps> = ({ label, name, fieldWidth }) => {
+const InputDate: React.FC<InputFieldProps> = ({ label, name, fieldWidth }) => {
   const formik: any = useFormikContext();
 
   const handleDateChange = (selectedDate: any) => {
@@ -71,4 +71,4 @@ const InputField: React.FC<InputFieldProps> = ({ label, name, fieldWidth }) => {
   );
 };
 
-export default InputField;
+export default InputDate;

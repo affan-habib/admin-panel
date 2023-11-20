@@ -31,7 +31,18 @@
   "batchSubmenu1" : "ব্যাচ তৈরি করুন",
   "batchSubmenu2" : "আমন্ত্রনপত্র পাঠান",
   "batchSubmenu3" : "প্রশিক্ষণার্থী সীমাবদ্ধতা সেট",
+  "batchSubmenu4" : "ব্যাচ সংখ্যা",
   "trainerList" : "প্রশিক্ষক তালিকা",
   "leave" : "প্রস্থান",
-  "register": "নিবন্ধন করুন"
+  "register": "নিবন্ধন করুন",
+  "serialNumber": "ক্রমিক সংখ্যা",
+  "batchName": "ব্যাচের নাম",
+  "batchPhoto": "ব্যাচের ছবি",
+  "batchDetails": "ব্যাচের বিবরণ",
+  "traineeNumber": "প্রশিক্ষণার্থীর সংখ্যা",
+  "timeLine": "সময়কাল",
+  "batchCode": "ব্যাচের কোড",
+  "status": "অবস্থা",
+  "actionButton": "অ্যাকশন বাটন",
+  "formativeAssessmentSystem": "ফর্মাটিভ এসেসমেন্ট সিটেম"
 }

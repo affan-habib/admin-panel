@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
-import MyForm from 'core/addForm/AddSomehing';
-
+import BatchList from 'core/batch/BatchList';
+import CreateBatch from 'core/batch/CreateBatch';
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
 );
@@ -22,9 +22,13 @@ const AdminRoutes = {
       path: 'dashboard',
       element: <Dashboard />,
     },
+    {
+      path: '/submenu4',
+      element:<BatchList/>
+    },
     { 
       path: 'create-batch',
-      element: < MyForm/>,
+      element: < CreateBatch/>,
     },
   ],
 };

@@ -6,9 +6,10 @@ import {
   Collapse,
   ListItemIcon,
 } from '@mui/material';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { ExpandLess, ExpandMore, Logout } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import UseGetMenuItems from './menu-items';
+import { useTranslation } from 'react-i18next';
 
 interface MenuItem {
   title: string;
@@ -16,12 +17,15 @@ interface MenuItem {
   path: string;
   subMenu?: MenuItem[];
 }
+interface SidebarProps {
+  handleLogout: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+}
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
   const [menuStates, setMenuStates] = useState<{ [key: string]: boolean }>({});
   const [selectedMenu, setSelectedMenu] = useState<string | null>('/dashboard');
   const [selectedSubMenu, setSelectedSubMenu] = useState<string | null>(null);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleToggle = (path: string) => {
@@ -73,8 +77,7 @@ const Sidebar: React.FC = () => {
             {item.icon && (
               <ListItemIcon
                 sx={{
-                  color:
-                    selectedMenu === item.path ? 'primary.main' : 'white',
+                  color: selectedMenu === item.path ? 'primary.main' : 'white',
                   '&:hover': {
                     color: 'red',
                   },
@@ -102,8 +105,11 @@ const Sidebar: React.FC = () => {
                     selected={selectedSubMenu === subItem.path}
                     sx={{
                       backgroundColor:
-                        selectedSubMenu === subItem.path ? '#4caf50' : '#023F12',
-                      color: selectedSubMenu === subItem.path ? 'white' : 'white',
+                        selectedSubMenu === subItem.path
+                          ? '#4caf50'
+                          : '#023F12',
+                      color:
+                        selectedSubMenu === subItem.path ? 'white' : 'white',
                       '&:hover': {
                         backgroundColor: '#4caf50',
                         color: 'white',
@@ -123,6 +129,18 @@ const Sidebar: React.FC = () => {
           )}
         </React.Fragment>
       ))}
+      <ListItem
+        disableRipple
+        divider
+        button
+        sx={{ color: 'white' }}
+        onClick={handleLogout}
+      >
+        <ListItemIcon sx={{ color: 'white' }}>
+          <Logout />
+        </ListItemIcon>
+        <ListItemText primary={t('leave')} />
+      </ListItem>
     </List>
   );
 };

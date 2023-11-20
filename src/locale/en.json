@@ -31,7 +31,18 @@
   "batchSubmenu1": "Create Batch",
   "batchSubmenu2": "Send Invitation",
   "batchSubmenu3": "Set Student Limits",
+  "batchSubmenu4" : "Batch Number",
   "trainerList": "Trainer List",
   "leave": "Leave",
-  "register": "Register"
+  "register": "Register",
+  "serialNumber": "Serial No",
+  "batchName": "Batch Name",
+  "batchPhoto": "Batch Photo",
+  "batchDetails": "Batch Description",
+  "traineeNumber": "Trainee Number",
+  "timeLine": "Timeline",
+  "batchCode": "Batch Code",
+  "status": "Status",
+  "actionButton": "Action Button",
+  "formativeAssessmentSystem": "Formative Assesment System"
 }

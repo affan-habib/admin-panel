@@ -9,26 +9,26 @@ const FooterContainer: React.FC = () => {
   const cardStyle = {
     width: '213px',
     height: '180px',
-    boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)', // Add this box-shadow style
+    boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)',
+    transition: 'transform 0.3s, background-color 0.3s', // Add background-color to the transition
+    '&:hover': {
+      transform: 'scale(1.05)',
+      backgroundColor: '#e0f7fa', // Change this color to your desired hover color
+    },
   };
 
   const cardData = [
     { title: `${t('learningManagementSystem')}`, imageUrl: image3 },
     { title: `${t('eLibrary')}`, imageUrl: image2 },
     { title: `${t('teachersGuide')}`, imageUrl: image3 },
-    { title: `${t('formativeAssesmentSystem')}`, imageUrl: image2 },
+    { title: `${t('formativeAssessmentSystem')}`, imageUrl: image2 },
     { title: `${t('socialLearningPlatform')}`, imageUrl: image3 },
   ];
 
   return (
-    <Stack
-      direction={'row'}
-      justifyContent={'space-between'}
-      spacing={6}
-      mt="20px"
-    >
+    <Stack direction={'row'} justifyContent={'space-between'} spacing={6} mt="20px">
       {cardData.map((card, index) => (
-        <Card key={index} style={cardStyle}>
+        <Card key={index} sx={cardStyle}>
           <CardMedia
             component="img"
             alt={card.title}

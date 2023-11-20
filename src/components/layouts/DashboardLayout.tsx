@@ -39,7 +39,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
@@ -80,18 +79,22 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   };
   return (
     <Box sx={{ display: 'flex' }}>
-    <CssBaseline />
-    <Header open={open} handleToggleDrawer={handleToggleDrawer} handleLogout={handleLogout} />
-    <Drawer variant="permanent" open={open}>
-      <DrawerHeader sx={{ bgcolor: 'white' }}>Logo</DrawerHeader>
-      <Divider />
-      <Sidebar />
-    </Drawer>
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-      <DrawerHeader />
-      <Outlet />
+      <CssBaseline />
+      <Header
+        open={open}
+        handleToggleDrawer={handleToggleDrawer}
+        handleLogout={handleLogout}
+      />
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader sx={{ bgcolor: 'white' }}>Logo</DrawerHeader>
+        <Divider />
+        <Sidebar handleLogout={handleLogout} />
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        <Outlet />
+      </Box>
     </Box>
-  </Box>
   );
 };
 
