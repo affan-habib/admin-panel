@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
-import BatchTable from 'core/dashboard/BatchTable';
+import BatchTable from 'core/batch/BatchList';
 
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
