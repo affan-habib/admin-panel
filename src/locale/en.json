@@ -1,9 +1,12 @@
 {
-  "welcomeMessage": "Welcome to CLMS",
+  "welcomeMessage": "Welcome to LMS Admin Panel",
   "email": "E-mail",
   "password": "Password",
   "remeberPassword": "Remember Password",
   "login": "Login",
+  "loginHere": "Login",
+  "registerHere": "Register",
+  "welcomeToLms": "Welcome to HSEP Learning Managemnet System",
   "learningManagementSystem": "Learning Managemnet System LMS",
   "eLibrary": "E-Library",
   "teachersGuide": "Teachers Guide",
