@@ -9,6 +9,7 @@ import {
   Checkbox,
   InputAdornment,
   Box,
+  CircularProgress,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import HttpsIcon from '@mui/icons-material/Https';
@@ -22,7 +23,7 @@ import { saveAuthData } from 'utils/authUtils';
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
-
+  const [loading, setLoading] = useState(false); 
   const initialValues = {
     pdsid: '2016810150',
     password: 'password',
@@ -135,9 +136,16 @@ const LoginForm: React.FC = () => {
             }
           />
         </div>
-        <Button variant="contained" color="primary" type="submit" fullWidth>
-          {t('login')}
-        </Button>
+        {loading ? (
+          <CircularProgress /> // Display loader while content is loading
+        ) : (
+          <>
+            <Button variant="contained" color="primary" type="submit" fullWidth>
+              {t('login')}
+            </Button>
+          </>
+        )}
+
       </form>
     </>
   );

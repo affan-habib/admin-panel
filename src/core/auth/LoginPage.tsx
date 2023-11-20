@@ -8,19 +8,26 @@ import {
   Box,
   CssBaseline,
   ButtonGroup,
+  CircularProgress
 } from '@mui/material';
 
 import FooterContainer from 'views/auth/FooterContainer';
 import LoginFooter from 'views/auth/LoginFooter';
 import { useTranslation } from 'react-i18next';
 import Image4 from 'assets/sherebangla.svg';
+import Image5 from 'assets/rokeya.svg';
 import LoginForm from 'views/auth/LoginForm';
 import RegistrationForm from 'views/auth/RegistrationForm';
+import CarouselComponent from 'views/auth/CarouselComponent';
+
+import LanguageSelect from 'components/common/LanguageSelect';
 import logo from 'assets/logo.svg';
+
+
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
   const [selectedButton, setSelectedButton] = useState('login');
-
+  const images = [Image4, Image4];
   const handleButtonClick = (buttonType: string) => {
     setSelectedButton(buttonType);
   };
@@ -30,10 +37,16 @@ const LoginPage: React.FC = () => {
       <CssBaseline />
 
       <Container maxWidth="lg" sx={{ mt: 6 }}>
+
         <Grid container spacing={2}>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <LanguageSelect></LanguageSelect>
+            </Grid>
+          </Grid>
           <Grid item xs={12} sm={7} style={{ textAlign: 'left' }}>
             <img src={logo} style={{ position: 'absolute' }} alt="ss" />
-            <img src={Image4} alt="fff" />
+            <CarouselComponent images={images} />
           </Grid>
           <Grid item xs={12} sm={1}></Grid>
           <Grid item xs={12} sm={4} display="flex" direction="column">
