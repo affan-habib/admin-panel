@@ -32,5 +32,6 @@
   "batchSubmenu2": "Send Invitation",
   "batchSubmenu3": "Set Student Limits",
   "trainerList": "Trainer List",
-  "leave": "Leave"
+  "leave": "Leave",
+  "register": "Register"
 }

@@ -19,8 +19,10 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import { useNavigate } from 'react-router-dom';
 import { saveAuthData } from 'utils/authUtils';
+import { useTranslation } from 'react-i18next';
 
 const RegistrationForm: React.FC = () => {
+  const { t } = useTranslation();
   const initialValues = {
     userName: '',
     phoneNumber: '',
@@ -191,7 +193,7 @@ const RegistrationForm: React.FC = () => {
           fullWidth
           sx={{ mt: 1 }}
         >
-          Register
+          {t('register')}
         </Button>
       </form>
     </>
