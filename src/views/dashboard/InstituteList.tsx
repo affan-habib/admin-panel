@@ -46,7 +46,7 @@ const InstituteList: React.FC = () => {
       ml={0}
       bgcolor="#EDF4F2"
       borderRadius="10px"
-      maxHeight="300px" 
+      maxHeight="320px" 
       overflow="auto" 
     >
       <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>
