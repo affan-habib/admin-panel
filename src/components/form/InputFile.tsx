@@ -1,29 +1,65 @@
 // InputFile.tsx
 import React from 'react';
 import { useField, FieldHookConfig } from 'formik';
-import { Grid, InputLabel, TextField, Typography, InputAdornment, IconButton } from '@mui/material';
+import {
+  Grid,
+  InputLabel,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from '@mui/material';
 import { UploadRounded } from '@mui/icons-material';
 
 type InputFileProps = FieldHookConfig<File> & {
   label: string;
+  fieldWidth?: number;
 };
 
-const InputFile: React.FC<InputFileProps> = ({ label, ...props }) => {
+const InputFile: React.FC<InputFileProps> = ({
+  label,
+  fieldWidth,
+  ...props
+}) => {
   const [field, meta] = useField(props);
 
   return (
-    <Grid container spacing={1} alignItems="flex-start" mb={2}>
-      <Grid item>
-        <InputLabel sx={{ minWidth: 200, color: 'black', marginX: 1, marginTop: 1, fontWeight: 600 }}>
-          {label}
-        </InputLabel>
-      </Grid>
-      <Grid item>
-        <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
-          :
-        </Typography>
-      </Grid>
-      <Grid item>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        marginBottom: '16px',
+      }}
+    >
+      {label && (
+        <React.Fragment>
+          <div>
+            <InputLabel
+              sx={{
+                minWidth: 200,
+                color: 'black',
+                marginX: 1,
+                marginTop: 1,
+                fontWeight: 600,
+              }}
+            >
+              {label}
+            </InputLabel>
+          </div>
+          <div>
+            <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
+              :
+            </Typography>
+          </div>
+        </React.Fragment>
+      )}
+      <div
+        style={{
+          flex: 1,
+          width: `${fieldWidth}px`,
+          marginLeft: label ? '8px' : '0',
+        }}
+      >
         <TextField
           sx={{ minWidth: 690, bgcolor: 'white' }}
           size="small"
@@ -44,8 +80,8 @@ const InputFile: React.FC<InputFileProps> = ({ label, ...props }) => {
             ),
           }}
         />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 };
 

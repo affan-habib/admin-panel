@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
-import MyForm from 'core/addForm/AddSomehing';
+import MyForm from 'core/batch/CreateBatch';
 
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
