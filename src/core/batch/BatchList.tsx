@@ -1,10 +1,11 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Card, Container, IconButton } from '@mui/material';
+import { Box, Card, Container, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { SearchOutlined } from '@mui/icons-material';
 
 interface MuiTableProps {
   // ...other props
@@ -87,6 +88,19 @@ const BatchList: React.FC<MuiTableProps> = (
 
   return (
     <Container maxWidth="xl">
+      <Typography color={'rgba(0, 47, 108, 1)'} marginBottom={'10px'}>ব্যাচের তালিকা</Typography>
+      <TextField
+            style={{ marginBottom: '10px' }} // Adjust the height here
+            label="Search"
+            variant="outlined"
+            InputProps={{
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <SearchOutlined />
+                    </InputAdornment>
+                ),
+            }}
+        />
       <DataGrid
         pagination
         paginationMode="server"
