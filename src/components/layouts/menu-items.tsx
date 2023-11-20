@@ -83,7 +83,7 @@ export const useGetMenuItems = (): MenuItem[] => {
       path: '/batch',
       icon: <Diversity2Icon />,
       subMenu: [
-        { title: t('batchSubmenu1'), icon: <AddCircleIcon />, path: '/submenu1' },
+        { title: t('batchSubmenu1'), icon: <AddCircleIcon />, path: '/create-batch' },
         { title: t('batchSubmenu2'), icon: <LibraryBooksIcon />, path: '/submenu2' },
         { title: t('batchSubmenu3'), icon: <LibraryBooksIcon />, path: '/submenu3' },
       ],

@@ -46,7 +46,7 @@ const LoginForm: React.FC = () => {
 
       const data = response.data.data;
       saveAuthData(data);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {}
   };
 
