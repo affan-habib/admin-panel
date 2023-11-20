@@ -9,7 +9,6 @@ import {
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import UseGetMenuItems from './menu-items';
-// import { menuItems } from 'components/layouts/menu-items';
 
 interface MenuItem {
   title: string;
@@ -20,7 +19,7 @@ interface MenuItem {
 
 const Sidebar: React.FC = () => {
   const [menuStates, setMenuStates] = useState<{ [key: string]: boolean }>({});
-  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
+  const [selectedMenu, setSelectedMenu] = useState<string | null>('/dashboard');
   const [selectedSubMenu, setSelectedSubMenu] = useState<string | null>(null);
 
   const navigate = useNavigate();
@@ -54,35 +53,67 @@ const Sidebar: React.FC = () => {
       {menuItems.map((item, index) => (
         <React.Fragment key={index}>
           <ListItem
+            disableRipple
+            divider
             button
             onClick={() => {
               handleToggle(item.path);
               handleMenuClick(item);
             }}
-            selected={selectedMenu === item.path}
-            style={{ color: 'white' }} // Set text color to white
+            sx={{
+              backgroundColor:
+                selectedMenu === item.path ? 'white' : 'primary.main',
+              color: selectedMenu === item.path ? 'primary.main' : 'white',
+              '&:hover': {
+                backgroundColor: 'white',
+                color: 'primary.main',
+              },
+            }}
           >
             {item.icon && (
-              <ListItemIcon style={{ color: 'white' }}>{item.icon}</ListItemIcon>
+              <ListItemIcon
+                sx={{
+                  color:
+                    selectedMenu === item.path ? 'primary.main' : 'white',
+                  '&:hover': {
+                    color: 'red',
+                  },
+                }}
+              >
+                {item.icon}
+              </ListItemIcon>
             )}
             <ListItemText primary={item.title} />
             {item.subMenu &&
-              (menuStates[item.path] ? <ExpandLess style={{ color: 'white' }} /> : <ExpandMore style={{ color: 'white' }} />)}
+              (menuStates[item.path] ? (
+                <ExpandLess sx={{ color: 'white' }} />
+              ) : (
+                <ExpandMore sx={{ color: 'white' }} />
+              ))}
           </ListItem>
 
           {item.subMenu && (
             <Collapse in={menuStates[item.path]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding style={{ marginLeft: 16 }}>
+              <List component="div" disablePadding>
                 {item.subMenu.map((subItem, subIndex) => (
                   <ListItem
-                    button
                     key={subIndex}
                     onClick={() => handleSubMenuClick(subItem.path)}
                     selected={selectedSubMenu === subItem.path}
-                    style={{ color: 'white' }} // Set text color to white
+                    sx={{
+                      backgroundColor:
+                        selectedSubMenu === subItem.path ? '#4caf50' : '#023F12',
+                      color: selectedSubMenu === subItem.path ? 'white' : 'white',
+                      '&:hover': {
+                        backgroundColor: '#4caf50',
+                        color: 'white',
+                      },
+                    }}
                   >
                     {subItem.icon && (
-                      <ListItemIcon style={{ color: 'white' }}>{subItem.icon}</ListItemIcon>
+                      <ListItemIcon sx={{ color: 'white' }}>
+                        {subItem.icon}
+                      </ListItemIcon>
                     )}
                     <ListItemText primary={subItem.title} />
                   </ListItem>

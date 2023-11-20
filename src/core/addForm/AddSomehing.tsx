@@ -6,6 +6,7 @@ import Stepper, { Step } from 'components/common/Stepper';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import InputField from 'components/form/InputField';
+import { Container } from '@mui/material';
 
 const MyForm: React.FC = () => {
   const initialValues = {
@@ -28,27 +29,29 @@ const MyForm: React.FC = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ isSubmitting, isValid }) => (
-        <Form>
-          <Stepper submitDisabled={isSubmitting || !isValid}>
-            <Step title="English Form">
-              <Step1 />
-            </Step>
-            <Step title="Step 2: Bangla Form">
-              <Step2 />
-            </Step>
-            <Step title="Step 3: Global Settings">
-              <InputField name='globalSetting' label='Global Settings' />
-            </Step>
-          </Stepper>
-        </Form>
-      )}
-    </Formik>
+    <Container>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting, isValid }) => (
+          <Form>
+            <Stepper submitDisabled={isSubmitting || !isValid}>
+              <Step title="English Form">
+                <Step1 />
+              </Step>
+              <Step title="Step 2: Bangla Form">
+                <Step2 />
+              </Step>
+              <Step title="Step 3: Global Settings">
+                <InputField name="globalSetting" label="Global Settings" />
+              </Step>
+            </Stepper>
+          </Form>
+        )}
+      </Formik>
+    </Container>
   );
 };
 

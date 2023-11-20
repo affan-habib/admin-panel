@@ -22,7 +22,7 @@ export const useGetMenuItems = (): MenuItem[] => {
   const menuItems: MenuItem[] = [
     {
       title: t('dashboardTitle'),
-      path: '/products',
+      path: '/dashboard',
       icon: <SpaceDashboardIcon />,
     },
     {
@@ -40,7 +40,7 @@ export const useGetMenuItems = (): MenuItem[] => {
       path: '/batch',
       icon: <Diversity2Icon />,
       subMenu: [
-        { title: t('batchSubmenu1'), icon: <AddCircleIcon />, path: '/submenu1' },
+        { title: t('batchSubmenu1'), icon: <AddCircleIcon />, path: '/create-batch' },
         { title: t('batchSubmenu2'), icon: <LibraryBooksIcon />, path: '/submenu2' },
         { title: t('batchSubmenu3'), icon: <LibraryBooksIcon />, path: '/submenu3' },
         { title: t('batchSubmenu4'), icon: <LibraryBooksIcon />, path: '/submenu4' },

@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import notificationIcon from 'assets/Notification.svg';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Person } from '@mui/icons-material';
+import { Logout, Person } from '@mui/icons-material';
 import LanguageSelect from 'components/common/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 const drawerWidth = 240;
@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({
             sx={{ ml: 1 }}
             onClick={handleLogout}
           >
-            <ExpandMoreIcon />
+            <Logout />
           </IconButton>
         </Box>
       </Toolbar>
