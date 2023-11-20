@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
+import BatchTable from 'core/dashboard/BatchTable';
 
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
@@ -21,6 +22,10 @@ const AdminRoutes = {
       path: '',
       element: <Dashboard />,
     },
+    {
+      path: '/submenu4',
+      element:<BatchTable/>
+    }
   ],
 };
 
