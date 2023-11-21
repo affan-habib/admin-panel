@@ -1,12 +1,16 @@
-// components/form/Step1.tsx
+// components/form/StepOne.tsx
 import React from 'react';
 import InputField from 'components/form/InputField';
 
-const Step1: React.FC = () => (
+const StepOne: React.FC = () => (
   <>
-    <InputField name="batchName" label="Batch Name" />
-    <InputField name="description" label="Details" rows={7} />
+    <InputField
+      name="batchName"
+      label="ব্যাচের নাম"
+      placeholder="ব্যাচের নাম"
+    />
+    <InputField name="description" label="বিবরণ" rows={7} placeholder="বিবরণ" />
   </>
 );
 
-export default Step1;
+export default StepOne;

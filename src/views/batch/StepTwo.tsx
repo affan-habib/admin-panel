@@ -4,8 +4,17 @@ import InputField from 'components/form/InputField';
 
 const StepTwo: React.FC = () => (
   <>
-    <InputField name='englishField' label='Enlgish name' rows={10}/>
-    <InputField name='banglaField' label='bangla field' />
+    <InputField
+      name="batchName"
+      label="Batch Name"
+      placeholder="Enter batch name here..."
+    />
+    <InputField
+      name="description"
+      label="Details"
+      rows={7}
+      placeholder="Write details..."
+    />
   </>
 );
 
