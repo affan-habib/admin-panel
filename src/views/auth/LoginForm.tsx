@@ -9,12 +9,12 @@ import {
   Checkbox,
   InputAdornment,
   Box,
-  CircularProgress,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import HttpsIcon from '@mui/icons-material/Https';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { apiBaseUrl } from 'config';
@@ -23,7 +23,7 @@ import { saveAuthData } from 'utils/authUtils';
 
 const LoginForm: React.FC = () => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     pdsid: '2016810150',
     password: 'password',
@@ -39,6 +39,8 @@ const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const onSubmit = async (values: any) => {
     try {
+      setLoading(true);
+
       const response = await axios.post(`${apiBaseUrl}/login`, {
         pdsid: values.pdsid,
         password: values.password,
@@ -48,7 +50,10 @@ const LoginForm: React.FC = () => {
       const data = response.data.data;
       saveAuthData(data);
       navigate('/dashboard');
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const formik = useFormik({
@@ -136,16 +141,17 @@ const LoginForm: React.FC = () => {
             }
           />
         </div>
-        {loading ? (
-          <CircularProgress /> // Display loader while content is loading
-        ) : (
-          <>
-            <Button variant="contained" color="primary" type="submit" fullWidth>
-              {t('login')}
-            </Button>
-          </>
-        )}
 
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          fullWidth
+          disabled={loading}
+          startIcon={loading ? <RefreshIcon /> : null}
+        >
+          {t('login')}
+        </Button>
       </form>
     </>
   );

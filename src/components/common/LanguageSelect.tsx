@@ -31,6 +31,7 @@ const LanguageSwitch: React.FC = () => {
         }
         label={language === 'en' ? 'English' : 'Bangla'}
         labelPlacement="start"
+        sx={{ color: 'black' }}
       />
     </div>
   );
