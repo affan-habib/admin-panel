@@ -1,4 +1,4 @@
-import { Stack, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import image1 from '../../assets/learningManagement.svg';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
@@ -7,13 +7,13 @@ import { useTranslation } from 'react-i18next';
 const FooterContainer: React.FC = () => {
   const { t } = useTranslation();
   const cardStyle = {
-    width: '213px',
+    // width: '213px',
     height: '180px',
     boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)',
-    transition: 'transform 0.3s, background-color 0.3s', // Add background-color to the transition
+    transition: 'transform 0.3s, background-color 0.3s',
     '&:hover': {
       transform: 'scale(1.05)',
-      backgroundColor: '#e0f7fa', // Change this color to your desired hover color
+      backgroundColor: '#e0f7fa',
     },
   };
 
@@ -26,28 +26,30 @@ const FooterContainer: React.FC = () => {
   ];
 
   return (
-    <Stack direction={'row'} justifyContent={'space-between'} spacing={6} mt="20px">
+    <Grid container spacing={{ xs: 3, md: 2 }} mt="20px">
       {cardData.map((card, index) => (
-        <Card key={index} sx={cardStyle}>
-          <CardMedia
-            component="img"
-            alt={card.title}
-            image={card.imageUrl}
-            sx={{
-              height: 80,
-              width: 120,
-              margin: 'auto',
-              mt: 4,
-            }}
-          />
-          <CardContent>
-            <Typography variant="body2" color="text.secondary" align="center">
-              {card.title}
-            </Typography>
-          </CardContent>
-        </Card>
+        <Grid item key={index} xs={12} md={2.4} sm={6}>
+          <Card sx={cardStyle}>
+            <CardMedia
+              component="img"
+              alt={card.title}
+              image={card.imageUrl}
+              sx={{
+                height: 80,
+                width: 120,
+                margin: 'auto',
+                mt: 4,
+              }}
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary" align="center">
+                {card.title}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       ))}
-    </Stack>
+    </Grid>
   );
 };
 
