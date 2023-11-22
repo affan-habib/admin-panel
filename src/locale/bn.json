@@ -44,5 +44,9 @@
   "batchCode": "ব্যাচের কোড",
   "status": "অবস্থা",
   "actionButton": "অ্যাকশন বাটন",
-  "formativeAssessmentSystem": "ফর্মাটিভ এসেসমেন্ট সিটেম"
+  "formativeAssessmentSystem": "ফর্মাটিভ এসেসমেন্ট সিটেম",
+  "userProfile" : "ব্যবহারকারী প্রোফাইল",
+  "fullName" : "পুরো নাম",
+  "role" : "ভূমিকা",
+  "bio" : "বায়ো"
 }

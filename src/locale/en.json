@@ -44,5 +44,9 @@
   "batchCode": "Batch Code",
   "status": "Status",
   "actionButton": "Action Button",
-  "formativeAssessmentSystem": "Formative Assesment System"
+  "formativeAssessmentSystem": "Formative Assesment System",
+  "userProfile" : "User Profile",
+  "fullName" : "Full Name",
+  "role" : "Role",
+  "bio" : "Bio"
 }
