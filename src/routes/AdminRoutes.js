@@ -13,7 +13,7 @@ const Dashboard = Loadable(lazy(() => import('core/dashboard/Dashboard')));
 const UserProfile = Loadable(lazy(() => import('core/userProfile/UserProfile')));
 
 const AdminRoutes = {
-  path: '/',
+  path: '/dashboard',
   element: (
     <PrivateRoute>
       <DashboardLayout />
