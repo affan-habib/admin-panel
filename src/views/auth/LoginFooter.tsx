@@ -7,7 +7,7 @@ const LoginFooter: React.FC = () => {
     <Box style={{ padding: '20px' }}>
       <Typography align="center" variant="body1" fontSize={12}>
         {t('howCanIHelpYou')}{' '}
-        <span style={{ color: '#1D8839' }}>{t('fastStartGuide')}</span>
+        <span style={{ color: '#1D8839' }}> {t('fastStartGuide')} </span>
         {t('forMoreHelp')}{' '}
         <span style={{ color: '#1D8839' }}> {t('phone')}</span>
         {t('call')}
@@ -18,9 +18,9 @@ const LoginFooter: React.FC = () => {
         {t('yourPathForLearningSuccess')}
       </Typography>
       <Typography align="center" variant="body1" fontSize={12}>
-        {t('copyright')} <span style={{ color: '#1D8839' }}>{t('clms')}</span> |
+        {t('copyright')} <span style={{ color: '#1D8839' }}> {t('clms')} </span> |
         {t('allRightResereved')}{' '}
-        <span style={{ color: '#1D8839' }}>{t('privacyConditions')}</span>{' '}
+        <span style={{ color: '#1D8839' }}> {t('privacyConditions')} </span>{' '}
       </Typography>
     </Box>
   );

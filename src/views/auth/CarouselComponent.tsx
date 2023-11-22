@@ -14,6 +14,8 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({ images }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,  // Add this property
+    autoplaySpeed: 2000,  // Set the speed in milliseconds (e.g., 2000 for 2 seconds)
   };
 
   return (
