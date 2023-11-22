@@ -1,17 +1,23 @@
-// AppBarComponent.tsx
-
-import React from 'react';
-import { Box, Avatar, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  Avatar,
+  Typography,
+  Menu,
+  MenuItem,
+  IconButton,
+  styled,
+} from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { styled } from '@mui/material/styles';
-import notificationIcon from 'assets/Notification.svg';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Logout, Person } from '@mui/icons-material';
+import { Person } from '@mui/icons-material';
 import LanguageSelect from 'components/common/LanguageSelect';
 import { useTranslation } from 'react-i18next';
+import notificationIcon from 'assets/Notification.svg';
+import { useNavigate } from 'react-router-dom';
+
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -48,6 +54,16 @@ const Header: React.FC<HeaderProps> = ({
   handleLogout,
 }) => {
   const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const navigate = useNavigate();
   return (
     <AppBar position="fixed" open={open} sx={{ bgcolor: 'white' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -79,19 +95,28 @@ const Header: React.FC<HeaderProps> = ({
             style={{ height: 25, width: 25, marginRight: 20 }}
           />
 
-          {/* Avatar */}
-          <Avatar alt="User Avatar" sx={{ height: 25, width: 25 }}>
-            <Person />
-          </Avatar>
-
+          {/* Avatar and ExpandMore Icon */}
           <IconButton
             color="primary"
-            aria-label="logout"
+            aria-label="user-options"
+            onClick={handleClick}
             sx={{ ml: 1 }}
-            onClick={handleLogout}
           >
-            <Logout />
+            <Avatar alt="User Avatar" sx={{ height: 25, width: 25 }}>
+              <Person />
+            </Avatar>
+            <ExpandMoreIcon />
           </IconButton>
+
+          {/* User Options Menu */}
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={() => navigate('profile')}>Profile</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>
