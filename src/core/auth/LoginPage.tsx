@@ -8,14 +8,11 @@ import {
   Box,
   CssBaseline,
   ButtonGroup,
-  CircularProgress,
 } from '@mui/material';
 
 import FooterContainer from 'views/auth/FooterContainer';
 import LoginFooter from 'views/auth/LoginFooter';
 import { useTranslation } from 'react-i18next';
-import Image4 from 'assets/sherebangla.svg';
-import rokeya from 'assets/rokeya.svg';
 import LoginForm from 'views/auth/LoginForm';
 import RegistrationForm from 'views/auth/RegistrationForm';
 import CarouselComponent from 'views/auth/CarouselComponent';
@@ -26,7 +23,6 @@ import logo from 'assets/logo.svg';
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
   const [selectedButton, setSelectedButton] = useState('login');
-  const images = [Image4, rokeya];
   const handleButtonClick = (buttonType: string) => {
     setSelectedButton(buttonType);
   };
@@ -49,7 +45,7 @@ const LoginPage: React.FC = () => {
             <LanguageSelect />
           </Grid>
           <Grid item xs={12} sm={7} style={{ textAlign: 'left' }}>
-            <CarouselComponent images={images} />
+            <CarouselComponent />
           </Grid>
           <Grid item xs={12} sm={1}></Grid>
           <Grid item xs={12} sm={4} display="flex" direction="column">

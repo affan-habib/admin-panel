@@ -7,13 +7,16 @@ import { useTranslation } from 'react-i18next';
 const FooterContainer: React.FC = () => {
   const { t } = useTranslation();
   const cardStyle = {
-    // width: '213px',
     height: '180px',
     boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)',
     transition: 'transform 0.3s, background-color 0.3s',
+    cursor: 'pointer', // Add pointer cursor on hover
     '&:hover': {
       transform: 'scale(1.05)',
       backgroundColor: '#e0f7fa',
+      '& .title': {
+        fontWeight: '700', // Make font weight bold on hover
+      },
     },
   };
 
@@ -42,7 +45,7 @@ const FooterContainer: React.FC = () => {
               }}
             />
             <CardContent>
-              <Typography variant="body2" color="text.secondary" align="center">
+              <Typography variant="body2" color="text.secondary" align="center" className="title">
                 {card.title}
               </Typography>
             </CardContent>
