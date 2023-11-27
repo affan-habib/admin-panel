@@ -23,36 +23,18 @@ const InputDate: React.FC<InputFieldProps> = ({ label, name, fieldWidth }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment} dateLibInstance={moment}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          marginBottom: '16px',
-        }}
-      >
-        {label && (
-          <React.Fragment>
-            <div>
-              <InputLabel
-                sx={{
-                  minWidth: 200,
-                  color: 'black',
-                  marginX: 1,
-                  marginTop: 1,
-                  fontWeight: 600,
-                }}
-              >
-                {label}
-              </InputLabel>
-            </div>
-            <div>
-              <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
-                :
-              </Typography>
-            </div>
-          </React.Fragment>
-        )}
-        <div style={{ width: `${fieldWidth}px`, marginLeft: '8px' }}>
+      <div>
+        <InputLabel
+          sx={{
+            minWidth: 200,
+            color: 'black',
+            fontWeight: 600,
+            my: 2,
+          }}
+        >
+          {label}
+        </InputLabel>
+        <div style={{ width: `${fieldWidth}px` }}>
           <DatePicker
             value={moment(formik.values[name])}
             format="DD-MM-YYYY"

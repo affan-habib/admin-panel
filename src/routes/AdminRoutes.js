@@ -15,9 +15,9 @@ const UserProfile = Loadable(lazy(() => import('core/userProfile/UserProfile')))
 const AdminRoutes = {
   path: '/',
   element: (
-    <PrivateRoute>
+    <>
       <DashboardLayout />
-    </PrivateRoute>
+    </>
   ),
   children: [
     { 
