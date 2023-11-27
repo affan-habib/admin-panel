@@ -26,7 +26,7 @@ const InputField: React.FC<InputFieldProps> = ({
       : 'text';
 
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '16px' }}>
+    <>
       {label && (
         <React.Fragment>
           <div>
@@ -34,38 +34,31 @@ const InputField: React.FC<InputFieldProps> = ({
               sx={{
                 minWidth: 200,
                 color: 'black',
-                marginX: 1,
-                marginTop: 1,
-                fontWeight: 600,
+                my: 2,
+                fontWeight: 500,
               }}
             >
               {label}
             </InputLabel>
           </div>
-          <div>
-            <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
-              :
-            </Typography>
-          </div>
         </React.Fragment>
       )}
-      <div style={{ flex: 1, width: `${fieldWidth}px`, marginLeft: label ? '8px' : '0' }}>
-        <TextField
-          placeholder={placeholder}
-          sx={{ bgcolor: 'white' }} // Use the fieldWidth prop
-          size="small"
-          {...field}
-          label=""
-          type={inputType}
-          fullWidth
-          multiline // Enable multiline
-          rows={rows}
-          variant="outlined"
-          error={meta.touched && !!meta.error}
-          helperText={meta.touched && meta.error}
-        />
-      </div>
-    </div>
+
+      <TextField
+        placeholder={placeholder}
+        sx={{ bgcolor: 'white' }} // Use the fieldWidth prop
+        size="small"
+        {...field}
+        label=""
+        type={inputType}
+        fullWidth
+        multiline // Enable multiline
+        rows={rows}
+        variant="outlined"
+        error={meta.touched && !!meta.error}
+        helperText={meta.touched && meta.error}
+      />
+    </>
   );
 };
 
