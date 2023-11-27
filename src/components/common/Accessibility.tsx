@@ -8,32 +8,32 @@ import {
   Fab,
 } from '@mui/material';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { MonochromePhotos, NoMeetingRoom, Restore } from '@mui/icons-material';
 
-const Accessibility = () => {
+interface AccessibilityProps {
+  selectedButton: string;
+  onButtonSelect: (buttonName: string) => void;
+}
+
+const Accessibility: React.FC<AccessibilityProps> = ({
+  selectedButton,
+  onButtonSelect,
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [selectedButton, setSelectedButton] = useState('');
 
   useEffect(() => {
     const storedButton = localStorage.getItem('selectedButton');
     if (storedButton !== null) {
-      setSelectedButton(storedButton);
+      onButtonSelect(storedButton);
     }
-  }, []);
-
-  // Save selected button state to local storage whenever it changes
-  useEffect(() => {
-    selectedButton && localStorage.setItem('selectedButton', selectedButton);
-    // window.location.reload();
-  }, [selectedButton]);
+  }, [onButtonSelect]);
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleListItemClick = (buttonName: string) => {
-    setSelectedButton(buttonName);
+    onButtonSelect(buttonName);
     setAnchorEl(null);
   };
 
@@ -89,20 +89,20 @@ const Accessibility = () => {
               onClick={() => handleListItemClick('monochrome')}
             >
               <ListItemIcon>
-                <InboxIcon />
+                <MonochromePhotos />
               </ListItemIcon>
               <ListItemText primary="Monochrome" />
             </ListItem>
             <ListItem
               button
-              key="invertcolor"
-              selected={selectedButton === 'button1'}
-              onClick={() => handleListItemClick('button1')}
+              key="reset"
+              selected={selectedButton === 'normal'}
+              onClick={() => handleListItemClick('normal')}
             >
               <ListItemIcon>
-                <MailIcon />
+                <Restore />
               </ListItemIcon>
-              <ListItemText primary="Normal" />
+              <ListItemText primary="Reset" />
             </ListItem>
           </List>
         </div>

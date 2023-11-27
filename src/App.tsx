@@ -1,19 +1,30 @@
 import { Box } from '@mui/material';
 import Accessibility from 'components/common/Accessibility';
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from 'routes';
 
 const App: React.FC = () => {
-  const accessibility: any = localStorage.getItem('selectedButton');
+  const [selectedButton, setSelectedButton] = useState<string>('');
+
+  const handleButtonSelect = (buttonName: string) => {
+    setSelectedButton(buttonName);
+    localStorage.setItem('selectedButton', buttonName);
+  };
+
   return (
     <Box
       sx={{
         filter:
-          accessibility === 'monochrome' ? 'grayscale(100%)' : 'grayscale(0%)',
+          selectedButton === 'monochrome'
+            ? 'grayscale(100%)'
+            : 'grayscale(0%)',
       }}
     >
-      <Accessibility />
+      <Accessibility
+        selectedButton={selectedButton}
+        onButtonSelect={handleButtonSelect}
+      />
       <BrowserRouter>
         <Routes />
       </BrowserRouter>
