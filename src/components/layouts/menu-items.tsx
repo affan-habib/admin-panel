@@ -1,11 +1,7 @@
-import { SvgIcon } from '@mui/material';
-// import InventoryIcon from '@mui/icons-material/Inventory';
-// import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import GroupsIcon from '@mui/icons-material/Groups';
-import LogoutIcon from '@mui/icons-material/Logout';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { useTranslation } from 'react-i18next';
 
@@ -40,6 +36,11 @@ export const useGetMenuItems = (): MenuItem[] => {
           title: t('setStudentLimits'),
           icon: <LibraryBooksIcon />,
           path: '/submenu3',
+        },
+        {
+          title: t('courseList'),
+          icon: <LibraryBooksIcon />,
+          path: '/course-list',
         },
       ],
     },
