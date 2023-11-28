@@ -21,10 +21,10 @@ const App: React.FC = () => {
             : 'grayscale(0%)',
       }}
     >
-      <Accessibility
+      {/* <Accessibility
         selectedButton={selectedButton}
         onButtonSelect={handleButtonSelect}
-      />
+      /> */}
       <BrowserRouter>
         <Routes />
       </BrowserRouter>

@@ -77,7 +77,7 @@ interface CardData {
   title: string;
   digit: string;
   backgroundColor: string;
-  icon: React.ReactNode; 
+  icon: React.ReactNode;
 }
 
 const cardsData: CardData[] = [
@@ -119,9 +119,17 @@ const TopCards: React.FC = () => {
   );
 
   return (
+    // <Grid container spacing={2}>
+    //   {cardsData.map((card, index) => (
+    //     <Grid item key={index} xs={12} sm={6} md={3}>
+    //       <CustomCard {...card} />
+    //     </Grid>
+    //   ))}
+    // </Grid>
+
     <Grid container spacing={2}>
       {cardsData.map((card, index) => (
-        <Grid item key={index} xs={12} sm={6} md={3}>
+        <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
           <CustomCard {...card} />
         </Grid>
       ))}
