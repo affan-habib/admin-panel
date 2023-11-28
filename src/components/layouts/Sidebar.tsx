@@ -109,7 +109,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
                           ? '#4caf50'
                           : '#023F12',
                       color:
-                        selectedSubMenu === subItem.path ? 'white' : 'white',
+                        selectedSubMenu === subItem.path ? 'yellow' : 'white',
                       '&:hover': {
                         backgroundColor: '#4caf50',
                         color: 'white',
@@ -117,7 +117,14 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
                     }}
                   >
                     {subItem.icon && (
-                      <ListItemIcon sx={{ color: 'white' }}>
+                      <ListItemIcon
+                        sx={{
+                          color:
+                            selectedSubMenu === subItem.path
+                              ? 'yellow'
+                              : 'white',
+                        }}
+                      >
                         {subItem.icon}
                       </ListItemIcon>
                     )}

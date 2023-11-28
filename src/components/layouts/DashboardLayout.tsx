@@ -7,7 +7,6 @@ import Divider from '@mui/material/Divider';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import Accessibility from 'components/common/Accessibility';
 
 const drawerWidth = 240;
 

@@ -39,7 +39,7 @@ const CreateBatch: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth="xl">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
