@@ -18,13 +18,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
   const [field, meta] = useField(props);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        marginBottom: '16px',
-      }}
-    >
+    <div>
       {label && (
         <React.Fragment>
           <div>
@@ -32,18 +26,13 @@ const InputSelect: React.FC<InputSelectProps> = ({
               sx={{
                 minWidth: 200,
                 color: 'black',
-                marginX: 1,
+                marginY: 1,
                 marginTop: 1,
                 fontWeight: 600,
               }}
             >
               {label}
             </InputLabel>
-          </div>
-          <div>
-            <Typography variant="body1" sx={{ marginX: 1, marginTop: 1 }}>
-              :
-            </Typography>
           </div>
         </React.Fragment>
       )}
@@ -55,8 +44,8 @@ const InputSelect: React.FC<InputSelectProps> = ({
         }}
       >
         <Select
-          sx={{ minWidth: 400 }}
           size="small"
+          fullWidth
           {...field}
           label=""
           variant="outlined"

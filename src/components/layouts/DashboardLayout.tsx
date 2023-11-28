@@ -85,11 +85,13 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         handleToggleDrawer={handleToggleDrawer}
         handleLogout={handleLogout}
       />
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader sx={{ bgcolor: 'white' }}>Logo</DrawerHeader>
-        <Divider />
-        <Sidebar handleLogout={handleLogout} />
-      </Drawer>
+      <Box minHeight={'100vh'}>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader sx={{ bgcolor: 'white' }}>Logo</DrawerHeader>
+          <Divider />
+          <Sidebar handleLogout={handleLogout} />
+        </Drawer>
+      </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Outlet />

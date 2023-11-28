@@ -26,7 +26,7 @@ const MuiTable: React.FC<MuiTableProps> = ({
   onPageinationModelChange,
 }) => {
   return (
-    <Card style={{ height: '100%', width: '100%' }} elevation={0}>
+    <Card style={{ height: 650, width: '100%' }} elevation={0}>
       <DataGrid
         pagination
         paginationMode="server"
@@ -45,8 +45,17 @@ const MuiTable: React.FC<MuiTableProps> = ({
           '& .MuiDataGrid-columnHeaders ': {
             borderRadius: 0,
             textTransform: 'uppercase',
-            bgcolor: '#A0B879',
+            bgcolor: 'primary.main',
             color: 'white',
+          },
+          '& .MuiDataGrid-row': {
+            fontSize: '0.9rem',
+            '&:nth-of-type(2n)': {
+              backgroundColor: '#F2F8F6',
+              '&:hover': {
+                background: ' #EBF0F4 !important',
+              },
+            },
           },
         }}
         columnHeaderHeight={40}
@@ -57,6 +66,9 @@ const MuiTable: React.FC<MuiTableProps> = ({
         getRowId={getRowId}
         hideFooter={hideFooter}
         paginationModel={paginationModel}
+        getRowClassName={(params) =>
+          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+        }
       />
     </Card>
   );
