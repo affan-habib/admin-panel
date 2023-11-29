@@ -1,67 +1,36 @@
-import React from 'react';
-import {
-  Button,
-  Container,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
-import MuiTable from 'components/tables/MuiTable';
+// CourseList.tsx
+import React, { useState } from 'react';
+import { Button, Container, IconButton, Stack, TextField, Typography } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { GridColDef } from '@mui/x-data-grid';
-import { Add, FilterList, SaveAlt, Search } from '@mui/icons-material';
 
-const columns: GridColDef[] = [
-  { field: 'ক্রমিক_সংখ্যা', headerName: 'ক্রমিক সংখ্যা', width: 150 },
-  { field: 'পাঠ্যক্রমের_নাম', headerName: 'পাঠ্যক্রমের নাম', width: 200 },
-  { field: 'সংক্ষিপ্ত_বিবরণ', headerName: 'সংক্ষিপ্ত বিবরণ', flex: 1 },
-  { field: 'মডিউল_সংখ্যা', headerName: 'মডিউল সংখ্যা', width: 150 },
+// Import the ReactTable component
+import ReactTable from 'components/tables/ReactTable';
+import { Add, FilterList, SaveAlt, Search } from '@mui/icons-material';
+import PageSizeSelect from 'components/tables/PageSizeSelect';
+
+const columns = [
+  { Header: 'ID', accessor: 'id' },
+  { Header: 'Serial No', accessor: 'serialNo' },
+  { Header: 'Batch Name', accessor: 'batchName' },
+  { Header: 'Batch Description', accessor: 'batchDescription' },
+  { Header: 'Number of Trainees', accessor: 'numberOfTrainee' },
   {
-    field: 'actions',
-    headerName: 'অ্যাকশন বাটন',
-    width: 200,
-    sortable: false,
-    align: 'center',
-    headerAlign: 'center',
-    renderCell: (params) => (
-      <Stack direction="row" spacing={1}>
-        <IconButton
-          aria-label="view"
-          size="small"
-          style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: '4px',
-            border: '1px solid #D0D0D0',
-          }}
-        >
-          <VisibilityIcon sx={{ color: 'primary.main' }} />
+    Header: 'Actions',
+    accessor: 'actions',
+    Cell: ({ row }: any) => (
+      <>
+        <IconButton aria-label="view" size="small">
+          <VisibilityIcon />
         </IconButton>
-        <IconButton
-          aria-label="edit"
-          size="small"
-          style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: '4px',
-            border: '1px solid #D0D0D0',
-          }}
-        >
-          <EditIcon sx={{ color: 'primary.main' }} />
+        <IconButton aria-label="edit" size="small">
+          <EditIcon />
         </IconButton>
-        <IconButton
-          aria-label="delete"
-          size="small"
-          style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: '4px',
-            border: '1px solid #D0D0D0',
-          }}
-        >
-          <DeleteIcon sx={{ color: 'error.main' }} />
+        <IconButton aria-label="delete" size="small">
+          <DeleteIcon />
         </IconButton>
-      </Stack>
+      </>
     ),
   },
 ];
@@ -69,48 +38,27 @@ const columns: GridColDef[] = [
 const rows = [
   {
     id: 1,
-    ক্রমিক_সংখ্যা: 1,
-    পাঠ্যক্রমের_নাম: 'Course 1',
-    সংক্ষিপ্ত_বিবরণ:
-      'দ্বাদশ শ্রেণির শিক্ষা সাধারণত একটি নির্দিষ্ট অঞ্চল বা দেশে অনুসরণ করা শিক্ষা বোর্ড বা পাঠ্যক্রমের...।',
-    মডিউল_সংখ্যা: 3,
+    serialNo: 1,
+    batchName: 'Batch 1',
+    batchDescription: 'Description for Batch 1',
+    numberOfTrainee: 25,
   },
-  {
-    id: 2,
-    ক্রমিক_সংখ্যা: 2,
-    পাঠ্যক্রমের_নাম: 'Course 2',
-    সংক্ষিপ্ত_বিবরণ:
-      'দ্বাদশ শ্রেণির শিক্ষা সাধারণত একটি নির্দিষ্ট অঞ্চল বা দেশে অনুসরণ করা শিক্ষা বোর্ড বা পাঠ্যক্রমের...।',
-    মডিউল_সংখ্যা: 4,
-  },
-  {
-    id: 3,
-    ক্রমিক_সংখ্যা: 2,
-    পাঠ্যক্রমের_নাম: 'Course 2',
-    সংক্ষিপ্ত_বিবরণ:
-      'দ্বাদশ শ্রেণির শিক্ষা সাধারণত একটি নির্দিষ্ট অঞ্চল বা দেশে অনুসরণ করা শিক্ষা বোর্ড বা পাঠ্যক্রমের...।',
-    মডিউল_সংখ্যা: 4,
-  },
-  {
-    id: 4,
-    ক্রমিক_সংখ্যা: 2,
-    পাঠ্যক্রমের_নাম: 'Course 2',
-    সংক্ষিপ্ত_বিবরণ:
-      'দ্বাদশ শ্রেণির শিক্ষা সাধারণত একটি নির্দিষ্ট অঞ্চল বা দেশে অনুসরণ করা শিক্ষা বোর্ড বা পাঠ্যক্রমের...।',
-    মডিউল_সংখ্যা: 4,
-  },
-  {
-    id: 5,
-    ক্রমিক_সংখ্যা: 2,
-    পাঠ্যক্রমের_নাম: 'Course 2',
-    সংক্ষিপ্ত_বিবরণ:
-      'দ্বাদশ শ্রেণির শিক্ষা সাধারণত একটি নির্দিষ্ট অঞ্চল বা দেশে অনুসরণ করা শিক্ষা বোর্ড বা পাঠ্যক্রমের...।',
-    মডিউল_সংখ্যা: 4,
-  },
-  // Add more courses as needed
+  // Add more rows as needed
 ];
 
 const CourseList: React.FC = () => {
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    setPageSize(size);
+    setCurrentPage(0); // Reset current page when changing page size
+  };
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h6" color="primary.main" mb={2}>
@@ -122,19 +70,22 @@ const CourseList: React.FC = () => {
         alignItems="center"
         mb={2}
       >
-        <TextField
-          variant="outlined"
-          size="small"
-          sx={{ width: 450 }}
-          placeholder="অনুসন্ধান করুন..."
-          InputProps={{
-            startAdornment: (
-              <IconButton>
-                <Search />
-              </IconButton>
-            ),
-          }}
-        />
+        <div>
+          <PageSizeSelect pageSize={pageSize} onPageSizeChange={handlePageSizeChange}/>
+          <TextField
+            variant="outlined"
+            size="small"
+            sx={{ width: 450 }}
+            placeholder="অনুসন্ধান করুন..."
+            InputProps={{
+              startAdornment: (
+                <IconButton>
+                  <Search />
+                </IconButton>
+              ),
+            }}
+          />
+        </div>
         <div>
           <Button variant="outlined" startIcon={<FilterList />} sx={{ mr: 2 }}>
             ফিল্টার করুন
@@ -154,11 +105,14 @@ const CourseList: React.FC = () => {
           </IconButton>
         </div>
       </Stack>
-      <MuiTable
+      <ReactTable
         columns={columns}
-        rows={rows}
-        getRowId={(row: any) => row.id}
-        // Add other props as needed
+        data={rows}
+        totalCount={40}
+        pageSize={pageSize}
+        currentPage={0}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
       />
     </Container>
   );
