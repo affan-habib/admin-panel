@@ -116,7 +116,8 @@ const PieChartDesign: React.FC = () => {
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',
         borderRadius: '10px',
-        mt: 1,
+        marginTop: '15px',
+        // mt: 1,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

@@ -132,11 +132,11 @@ const Dashboard: React.FC = () => {
   return (
     <Container maxWidth="xl">
       <TopCards />
-      <Grid container spacing={2}>
+      <Grid container>
         <Grid item xs={12} md={8}>
           <InstituteList />
         </Grid>
-        <Grid item xs={12} md={4} lg={4} sx={{ [theme.breakpoints.up('md')]: { marginLeft: -3.5 } }}>
+        <Grid item xs={12} md={4} lg={4} sx={{ [theme.breakpoints.up('md')]: { marginLeft: -1.5 } }}>
           <VennDiagram />
         </Grid>
       </Grid>
@@ -149,14 +149,37 @@ const Dashboard: React.FC = () => {
           xs={12} // Change here to take full width on mobile
           md={4}
           lg={4}
-          sx={{ [theme.breakpoints.up('lg')]: { marginLeft: -2.2 } }}
+          sx={{ [theme.breakpoints.up('lg')]: { marginLeft: -1.5 } }}
         >
           <PieChartDesign />
         </Grid>
       </Grid>
     </Container>
+
+  //   <Container maxWidth="xl">
+  //   <TopCards />
+  //   <Grid container>
+  //     <Grid item xs={12} md={8}>
+  //       <InstituteList />
+  //     </Grid>
+  //     <Grid item xs={12} md={4} >
+  //       <VennDiagram />
+  //     </Grid>
+  //   </Grid>
+  //   <Grid container>
+  //     <Grid item xs={12} md={8} lg={8}>
+  //       <StackChart />
+  //     </Grid>
+  //     <Grid item xs={12} md={4} lg={4}>
+  //       <PieChartDesign />
+  //     </Grid>
+  //   </Grid>
+  // </Container>
   );
 };
 
 export default Dashboard;
+
+
+
 

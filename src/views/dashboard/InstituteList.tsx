@@ -20,25 +20,6 @@ const columns: GridColDef[] = [
 
 const InstituteList: React.FC = () => {
   return (
-    // <Box
-    //   maxWidth={900} p={4} mt={4} ml={0} bgcolor="#EDF4F2" borderRadius="10px">
-    //   <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের ভেন</Typography>
-    //   <div style={{ height: '100%', width: '100%', background: 'white' }}>
-    //     <DataGrid
-    //       rows={institutesData}
-    //       columns={columns.map((column) => ({
-    //         ...column,
-    //         renderCell: (params) => (
-    //           <div style={{ whiteSpace: 'pre-wrap' }}>{params.value}</div>
-    //         ),
-    //       }))}
-    //       hideFooter
-    //       autoHeight
-    //       style={{ minHeight: '150px' }}
-    //     />
-    //   </div>
-    // </Box>
-
     <Box
       maxWidth={900}
       p={4}
@@ -49,7 +30,8 @@ const InstituteList: React.FC = () => {
       maxHeight="320px" 
       overflow="auto" 
     >
-      <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>
+      {/* <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}> */}
+      <Typography style={{ color: 'rgba(21, 83, 19, 1)' }}>
         উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের ভেন
       </Typography>
       <div style={{ height: '100%', width: '100%', background: 'white' }}>
