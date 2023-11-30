@@ -2,13 +2,9 @@
 @import url('@fontsource/roboto/400.css');
 @import url('@fontsource/roboto/500.css');
 @import url('@fontsource/roboto/700.css');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-.monochrome{
-  filter: grayscale(100%);
-  /* transition: filter 0.5s ease; */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }

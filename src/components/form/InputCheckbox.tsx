@@ -1,8 +1,8 @@
 // InputCheckBox.tsx
 
-import React from 'react';
-import { useField } from 'formik';
-import { FormControlLabel, Checkbox } from '@mui/material';
+import React from "react";
+import { useField } from "formik";
+import { FormControlLabel, Checkbox } from "@mui/material";
 
 type InputCheckbox = {
   name: string;

@@ -1,22 +1,22 @@
-import { lazy } from 'react';
-import Loadable from 'components/common/Loadable';
-const LoginPage = Loadable(lazy(() => import('core/auth/LoginPage')));
-const NotFoundPage = Loadable(
-  lazy(() => import('components/common/NotFoundPage')),
-);
+
+import { lazy } from "react";
+import Loadable from "components/common/Loadable";
+const LoginPage = Loadable(lazy(() => import("features/auth/LoginPage")));
+const NotFoundPage = Loadable(lazy(() => import("components/common/NotFoundPage")));
 
 const PublicRoutes = {
-  path: '/',
+  path: "/",
   children: [
     {
-      path: 'login',
+      path: "login",
       element: <LoginPage />,
     },
 
     {
-      path: '*',
-      element: <NotFoundPage />,
+      path: "*",
+      element: <NotFoundPage/>,
     },
+
   ],
 };
 
