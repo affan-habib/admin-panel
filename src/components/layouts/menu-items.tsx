@@ -26,17 +26,17 @@ export const useGetMenuItems = (): MenuItem[] => {
       path: '/study',
       icon: <LibraryBooksIcon />,
       subMenu: [
-        { title: t('createBatch'), icon: <AddCircleIcon />, path: '/submenu1' },
-        {
-          title: t('sendInvitation'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu2',
-        },
-        {
-          title: t('setStudentLimits'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu3',
-        },
+        { title: t('createCourse'), icon: <AddCircleIcon />, path: '/create-course' },
+        // {
+        //   title: t('sendInvitation'),
+        //   icon: <LibraryBooksIcon />,
+        //   path: '/submenu2',
+        // },
+        // {
+        //   title: t('setStudentLimits'),
+        //   icon: <LibraryBooksIcon />,
+        //   path: '/submenu3',
+        // },
         {
           title: t('courseList'),
           icon: <LibraryBooksIcon />,
@@ -76,14 +76,14 @@ export const useGetMenuItems = (): MenuItem[] => {
       path: '/trainerList',
       icon: <GroupsIcon />,
       subMenu: [
-        { title: t('createBatch'), icon: <AddCircleIcon />, path: '/submenu1' },
+        { title: t('addTrainer'), icon: <AddCircleIcon />, path: '/add-trainer' },
         {
-          title: t('sendInvitation'),
+          title: t('batchSubmenu2'),
           icon: <LibraryBooksIcon />,
           path: '/submenu2',
         },
         {
-          title: t('setStudentLimits'),
+          title: t('setTrainerLimit'),
           icon: <LibraryBooksIcon />,
           path: '/submenu3',
         },
