@@ -48,5 +48,9 @@
   "userProfile": "ব্যবহারকারী প্রোফাইল",
   "fullName": "পুরো নাম",
   "role": "ভূমিকা",
-  "bio": "বায়ো"
+  "bio": "বায়ো",
+  "createCourse": "কোর্স তৈরী করুন",
+  "courseList": "কোর্স তালিকা ",
+  "addTrainer" : "ট্রেইনার যোগ করুন",
+  "setTrainerLimit" : "ট্রেইনার লিমিট"
 }
