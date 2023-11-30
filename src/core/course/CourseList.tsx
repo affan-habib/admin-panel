@@ -46,10 +46,10 @@ const MyForm: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       chapters: [{
-        
-        
-chapterCode: "dddd",
-chapterName: "sfaefae"
+
+
+        chapterCode: "dddd",
+        chapterName: "sfaefae"
       }] as Chapter[],
     },
     validationSchema: validationSchemaChapter,
@@ -103,10 +103,10 @@ chapterName: "sfaefae"
   };
 
   return (
-    <>
+    <Box maxWidth={500}>
       {formik.values.chapters.map((chapter, chapterIndex) => (
         <Accordion key={chapterIndex} disableGutters defaultExpanded>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ height: 50, bgcolor: '#fff7' }} >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ height: 50 }} >
             <Typography variant='h5' alignSelf='center'>{chapter.chapterName}</Typography>
             <IconButton
               onClick={() => handleRemoveChapter(chapterIndex)}
@@ -115,11 +115,11 @@ chapterName: "sfaefae"
               <Delete />
             </IconButton>
           </AccordionSummary>
-          <Box m={2}>
+          <Box p={2} border={1} borderColor='lightgrey'>
             <Button
+              size='small'
               variant="outlined"
               color="primary"
-              style={{ marginRight: '10px' }}
               onClick={() => handleAddVideo(chapterIndex)}
             >
               {chapter.video ? 'Edit Video' : 'Add Video'}
@@ -148,12 +148,14 @@ chapterName: "sfaefae"
       ))}
 
       <Button
+        size='small'
         type="button"
-        variant="outlined"
+        variant="contained"
         color="primary"
+        sx={{ m: 2 }}
         onClick={handleAddChapter}
       >
-        Add Chapter
+        Add New Chapter
       </Button>
 
       <Dialog open={isModalOpen || isVideoModalOpen} onClose={handleModalClose}>
@@ -194,7 +196,7 @@ chapterName: "sfaefae"
           />
         )}
       </Dialog>
-    </>
+    </Box>
   );
 };
 
