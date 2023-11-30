@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardContent,
   CardHeader,
   Container,
   Button, // Import Button from MUI
-} from "@mui/material";
+} from '@mui/material';
 
 interface MainCardProps {
   title: string;
@@ -20,12 +20,12 @@ const MainCard: React.FC<MainCardProps> = ({
 }) => {
   return (
     <Container maxWidth="xl">
-      <Card sx={{ width: "100%" }}>
+      <Card sx={{ width: '100%' }}>
         <CardHeader
           title={title}
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
           action={modalButton}
         />

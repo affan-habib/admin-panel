@@ -1,11 +1,11 @@
-import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { Card } from "@mui/material";
+import React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { Card } from '@mui/material';
 
 interface MuiTableProps {
   checkboxSelection?: boolean;
-  columns: any[]; // Define your column types here
-  rows: any[]; // Define your row types here
+  columns: any[];
+  rows: any[];
   getRowId: (row: any) => string | number;
   onCellEditCommit?: (params: any) => void;
   hideFooter?: boolean;
@@ -26,7 +26,7 @@ const MuiTable: React.FC<MuiTableProps> = ({
   onPageinationModelChange,
 }) => {
   return (
-    <Card style={{ minHeight: 800, width: "100%" }}>
+    <Card style={{ height: 650, width: '100%' }} elevation={0}>
       <DataGrid
         pagination
         paginationMode="server"
@@ -42,11 +42,20 @@ const MuiTable: React.FC<MuiTableProps> = ({
           },
         }}
         sx={{
-          "& .MuiDataGrid-columnHeader": {
+          '& .MuiDataGrid-columnHeaders ': {
             borderRadius: 0,
-            textTransform: "uppercase",
-            fontSize: ".8rem",
-            bgcolor: "rgb(242, 244, 247)",
+            textTransform: 'uppercase',
+            bgcolor: 'primary.main',
+            color: 'white',
+          },
+          '& .MuiDataGrid-row': {
+            fontSize: '0.9rem',
+            '&:nth-of-type(2n)': {
+              backgroundColor: '#F2F8F6',
+              '&:hover': {
+                background: ' #EBF0F4 !important',
+              },
+            },
           },
         }}
         columnHeaderHeight={40}
@@ -57,6 +66,9 @@ const MuiTable: React.FC<MuiTableProps> = ({
         getRowId={getRowId}
         hideFooter={hideFooter}
         paginationModel={paginationModel}
+        getRowClassName={(params) =>
+          params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+        }
       />
     </Card>
   );
