@@ -1,1 +1,1 @@
-export const apiBaseUrl = "https://auth-hsep.bacbonx.com/api/dev";
+export const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;

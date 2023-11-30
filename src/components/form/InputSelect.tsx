@@ -1,67 +1,46 @@
 // InputSelect.tsx
-import React from 'react';
-import { useField, FieldHookConfig } from 'formik';
-import { Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+
+import React from "react";
+import { useField, FieldHookConfig } from "formik";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 type InputSelectProps = FieldHookConfig<string> & {
   label: string;
-  options: { value: string; label: string }[];
-  fieldWidth?: number; //
+  options: any[]; // Accept any array
+  valueKey: string; // Custom value key
+  labelKey: string; // Custom label key
 };
 
 const InputSelect: React.FC<InputSelectProps> = ({
   label,
   options,
-  fieldWidth,
+  valueKey,
+  labelKey,
   ...props
 }) => {
   const [field, meta] = useField(props);
 
   return (
-    <div>
-      {label && (
-        <React.Fragment>
-          <div>
-            <InputLabel
-              sx={{
-                minWidth: 200,
-                color: 'black',
-                marginY: 1,
-                marginTop: 1,
-                fontWeight: 600,
-              }}
-            >
-              {label}
-            </InputLabel>
-          </div>
-        </React.Fragment>
-      )}
-      <div
-        style={{
-          flex: 1,
-          width: `${fieldWidth}px`,
-          marginLeft: label ? '8px' : '0',
-        }}
+    <FormControl
+      fullWidth
+      variant="filled"
+      error={meta.touched && !!meta.error}
+    >
+      <InputLabel>{label}</InputLabel>
+      <Select
+        {...field}
+        label={label}
+        value={field.value}
+        onChange={field.onChange}
+        onBlur={field.onBlur}
       >
-        <Select
-          size="small"
-          fullWidth
-          {...field}
-          label=""
-          variant="outlined"
-          error={meta.touched && !!meta.error}
-        >
-          <MenuItem value="" disabled>
-            Select Status
+        {options.map((option) => (
+          <MenuItem key={option[valueKey]} value={option[valueKey]}>
+            {option[labelKey]}
           </MenuItem>
-          {options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </div>
-    </div>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
