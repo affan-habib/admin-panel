@@ -1,0 +1,28 @@
+// components/form/Step3.tsx
+import React from 'react';
+import { InputLabel, Stack } from '@mui/material';
+import InputFile from 'components/form/InputFile';
+import InputRadio from 'components/form/InputRadio';
+import MainCard from 'components/cards/MainCard';
+
+const Step3: React.FC = () => (
+  <MainCard title="গ্লোবাল সেটিংস অ্যাড করুন">
+    <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 1 }}>
+      <InputLabel
+        sx={{
+          minWidth: 200,
+          color: 'black',
+          fontWeight: 500,
+        }}
+      >
+        Course Status{' '}
+      </InputLabel>
+      <InputRadio label="Active" name="selectedOption" value="option1" />
+      <InputRadio label="Inactive" name="selectedOption" value="option2" />
+    </Stack>
+    <InputFile name="image" label="Cover Image" />
+    <InputFile name="image" label="Cover Logo" />
+  </MainCard>
+);
+
+export default Step3;

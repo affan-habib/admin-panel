@@ -1,6 +1,13 @@
 // CourseList.tsx
 import React, { useState } from 'react';
-import { Button, Container, IconButton, Stack, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Container,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,6 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ReactTable from 'components/tables/ReactTable';
 import { Add, FilterList, SaveAlt, Search } from '@mui/icons-material';
 import PageSizeSelect from 'components/tables/PageSizeSelect';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
   { Header: 'ID', accessor: 'id' },
@@ -49,6 +57,7 @@ const rows = [
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
+  const navigate = useNavigate();
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -71,7 +80,10 @@ const CourseList: React.FC = () => {
         mb={2}
       >
         <div>
-          <PageSizeSelect pageSize={pageSize} onPageSizeChange={handlePageSizeChange}/>
+          <PageSizeSelect
+            pageSize={pageSize}
+            onPageSizeChange={handlePageSizeChange}
+          />
           <TextField
             variant="outlined"
             size="small"
@@ -90,7 +102,12 @@ const CourseList: React.FC = () => {
           <Button variant="outlined" startIcon={<FilterList />} sx={{ mr: 2 }}>
             ফিল্টার করুন
           </Button>
-          <Button variant="contained" startIcon={<Add />} sx={{ mr: 2 }}>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            sx={{ mr: 2 }}
+            onClick={() => navigate('/create-course')}
+          >
             পাঠ্যক্রমের যোগ করুন
           </Button>
           <IconButton
