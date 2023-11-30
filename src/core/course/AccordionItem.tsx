@@ -1,6 +1,6 @@
 // AccordionItem.tsx
 import React from 'react';
-import { Accordion, AccordionSummary, Typography, IconButton, Box, Button } from '@mui/material';
+import { Accordion, AccordionSummary, Typography, IconButton, Box, Button, Stack } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Delete, Edit, VideoFile } from '@mui/icons-material';
 
@@ -44,21 +44,16 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
       </Button>
       {chapter.video && (
         <div style={{ marginTop: '10px' }}>
-          <Typography>
-            <VideoFile />: {chapter.video.videoName}
+          <Stack direction='row' alignItems='center'>
+            <VideoFile />
+            <Typography variant='subtitle1'>: {chapter.video.videoName}</Typography>
             <IconButton
               onClick={onRemoveVideo}
-              style={{ marginLeft: '10px' }}
+              style={{ marginLeft: 'auto' }}
             >
               <Delete />
             </IconButton>
-            <IconButton
-              onClick={onEditVideo}
-              style={{ marginLeft: '10px' }}
-            >
-              <Edit />
-            </IconButton>
-          </Typography>
+          </Stack>
         </div>
       )}
     </Box>
