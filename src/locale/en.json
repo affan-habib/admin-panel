@@ -48,5 +48,9 @@
   "userProfile" : "User Profile",
   "fullName" : "Full Name",
   "role" : "Role",
-  "bio" : "Bio"
+  "bio" : "Bio",
+  "createCourse": "Create Course",
+  "courseList" : "Course List",
+  "addTrainer" : "Add Trainer",
+  "setTrainerLimit":"Trainer Limit"
 }
