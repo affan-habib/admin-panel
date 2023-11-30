@@ -3,7 +3,7 @@ import { styled, Theme } from '@mui/material/styles';
 import LinearProgress from '@mui/material/LinearProgress';
 
 // Define the types for the component and its props
-type ComponentType = (props: { someProp: string }) => ReactElement; // Adjust the props type according to your component's props
+type ComponentType = (props: any) => ReactElement; // Using 'any' type for props
 
 // loader style
 const LoaderWrapper = styled('div')(({ theme }: { theme: Theme }) => ({
@@ -27,10 +27,12 @@ const CustomLoader = (): JSX.Element => (
 
 // ==============================|| LOADABLE - LAZY LOADING ||============================== //
 
-const Loadable = (Component: ComponentType) => (props: { someProp: string }): ReactElement => (
-  <Suspense fallback={<CustomLoader />}>
-    <Component {...props} />
-  </Suspense>
-);
+const Loadable = (Component: ComponentType) => {
+  return (props: any): ReactElement => (
+    <Suspense fallback={<CustomLoader />}>
+      <Component {...props} />
+    </Suspense>
+  );
+};
 
 export default Loadable;
