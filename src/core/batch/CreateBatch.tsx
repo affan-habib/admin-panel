@@ -14,6 +14,7 @@ import StepOne from 'views/batch/StepOne';
 import StepTwo from 'views/batch/StepTwo';
 import StepThree from 'views/batch/StepThree';
 import DyanamicForm from 'views/batch/DyanamicForm';
+import CreateChapter from 'core/course/CreateChapter';
 
 const CreateBatch: React.FC = () => {
   const initialValues = {
@@ -117,11 +118,11 @@ const CreateBatch: React.FC = () => {
                 <Box
                   sx={{
                     border: '1px solid #D0D0D0',
-                    borderRadius: '8px',
-                    p: 2,
+                    // borderRadius: '8px',
+                  
                   }}
                 >
-                  <DyanamicForm />
+                  <CreateChapter />
                 </Box>
               </Grid>
             </Grid>

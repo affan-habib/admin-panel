@@ -1,4 +1,4 @@
-// MyForm.tsx
+// CreateChapter.tsx
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -23,7 +23,7 @@ const validationSchemaChapter = Yup.object().shape({
   chapterCode: Yup.string().required('Chapter code is required'),
 });
 
-const MyForm: React.FC = () => {
+const CreateChapter: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedChapterIndex, setSelectedChapterIndex] = useState<number | null>(null);
   const [isVideoModalOpen, setVideoModalOpen] = useState(false);
@@ -85,7 +85,7 @@ const MyForm: React.FC = () => {
   };
 
   return (
-    <Box maxWidth={500}>
+    <Box maxWidth={900}>
       {formik.values.chapters.map((chapter, chapterIndex) => (
         <AccordionItem
           key={chapterIndex}
@@ -149,4 +149,4 @@ const MyForm: React.FC = () => {
   );
 };
 
-export default MyForm;
+export default CreateChapter;
