@@ -11,25 +11,35 @@
     "@mui/material": "^5.13.7",
     "@mui/styled-engine-sc": "^5.12.0",
     "@mui/x-data-grid": "^6.12.0",
+    "@mui/x-date-pickers": "^6.18.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.36",
     "@types/react": "^18.2.13",
+    "@types/react-i18next": "^8.1.0",
     "@types/react-redux": "^7.1.25",
+    "@types/react-table": "^7.7.18",
     "axios": "^1.4.0",
+    "chart.js": "^4.4.0",
     "env-cmd": "^10.1.0",
     "formik": "^2.4.2",
+    "i18next": "^23.6.0",
     "moment": "^2.29.4",
     "papaparse": "^5.4.1",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-i18next": "^13.3.1",
     "react-query": "^3.39.3",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-table": "^7.8.0",
     "redux": "^4.2.1",
     "simplebar-react": "^3.2.4",
+    "slick-carousel": "^1.8.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
@@ -39,7 +49,9 @@
     "build": "react-scripts build",
     "build:test": "env-cmd -f .env.test react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src",
+    "format": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -60,12 +72,20 @@
     ]
   },
   "devDependencies": {
-    "@types/lodash.debounce": "^4.0.7",
-    "@types/papaparse": "^5.3.8",
-    "@types/yup": "^0.32.0",
-    "tailwindcss": "^3.3.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0"
+    "@testing-library/user-event": "^13.5.0",
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/papaparse": "^5.3.8",
+    "@types/react-slick": "^0.23.12",
+    "@types/yup": "^0.32.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3.3.3"
   }
 }

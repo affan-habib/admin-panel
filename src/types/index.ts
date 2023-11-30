@@ -1,3 +1,3 @@
-import { UserType } from "./user";
+import { UserType } from './user';
 
 export type { UserType };

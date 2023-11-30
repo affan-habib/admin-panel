@@ -1,30 +1,64 @@
 // InputField.tsx
 
-import React from "react";
-import { useField, FieldHookConfig } from "formik";
-import { TextField } from "@mui/material";
+import React from 'react';
+import { useField, FieldHookConfig } from 'formik';
+import { InputLabel, TextField, Typography } from '@mui/material';
 
 type InputFieldProps = FieldHookConfig<string | number> & {
-  label: string;
+  label?: string;
+  rows?: number;
+  placeholder?: string;
+  fieldWidth?: number; // New prop for field width
 };
 
-const InputField: React.FC<InputFieldProps> = ({ label, ...props }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  rows = 1,
+  placeholder = '',
+  fieldWidth = 690, // Default width
+  ...props
+}) => {
   const [field, meta] = useField(props);
 
   const inputType =
-    props.type === "number" || typeof field.value === "number"
-      ? "number"
-      : "text";
+    props.type === 'number' || typeof field.value === 'number'
+      ? 'number'
+      : 'text';
 
   return (
-    <TextField
-      {...field}
-      label={label}
-      type={inputType}
-      fullWidth
-      error={meta.touched && !!meta.error}
-      helperText={meta.touched && meta.error}
-    />
+    <>
+      {label && (
+        <React.Fragment>
+          <div>
+            <InputLabel
+              sx={{
+                minWidth: 200,
+                color: 'black',
+                my: 2,
+                fontWeight: 500,
+              }}
+            >
+              {label}
+            </InputLabel>
+          </div>
+        </React.Fragment>
+      )}
+
+      <TextField
+        placeholder={placeholder}
+        sx={{ bgcolor: 'white' }} // Use the fieldWidth prop
+        size="small"
+        {...field}
+        label=""
+        type={inputType}
+        fullWidth
+        multiline // Enable multiline
+        rows={rows}
+        variant="outlined"
+        error={meta.touched && !!meta.error}
+        helperText={meta.touched && meta.error}
+      />
+    </>
   );
 };
 
