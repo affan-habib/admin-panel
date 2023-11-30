@@ -11,11 +11,6 @@ import {
   DialogActions,
 } from '@mui/material';
 
-const validationSchemaVideo = Yup.object().shape({
-  videoName: Yup.string().required('Video name is required'),
-  videoUrl: Yup.string().required('Video URL is required'),
-});
-
 interface VideoFormProps {
   onClose: () => void;
   onSubmit: (values: { videoName: string; videoUrl: string }) => void;
@@ -25,17 +20,20 @@ interface VideoFormProps {
 const VideoForm: React.FC<VideoFormProps> = ({ onClose, onSubmit, initialValues }) => {
   const formik = useFormik({
     initialValues: initialValues || { videoName: '', videoUrl: '' },
-    validationSchema: validationSchemaVideo,
     onSubmit: (values) => {
       onSubmit(values);
       formik.resetForm();
       onClose();
     },
+    validationSchema: Yup.object().shape({
+      videoName: Yup.string().required('Video name is required'),
+      videoUrl: Yup.string().required('Video URL is required'),
+    }),
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <DialogTitle>{initialValues ? 'Edit Video' : 'Add Video'}</DialogTitle>
+      <DialogTitle>Add Video</DialogTitle>
       <DialogContent>
         <TextField
           id="videoName"
@@ -46,7 +44,6 @@ const VideoForm: React.FC<VideoFormProps> = ({ onClose, onSubmit, initialValues 
           error={formik.touched.videoName && Boolean(formik.errors.videoName)}
           helperText={formik.touched.videoName && formik.errors.videoName}
         />
-
         <TextField
           id="videoUrl"
           label="Video URL"

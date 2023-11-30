@@ -2,20 +2,10 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  IconButton,
-  Button,
-  Dialog,
-  TextField,
-  Box,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Delete, Edit, VideoFile } from '@mui/icons-material';
+import { Button, Dialog, Box } from '@mui/material';
 import ChapterForm from './ChapterForm';
+import VideoForm from './VideoForm';
+import AccordionItem from './AccordionItem';
 
 interface Video {
   videoName: string;
@@ -25,7 +15,7 @@ interface Video {
 interface Chapter {
   chapterName: string;
   chapterCode: string;
-  video?: any;
+  video?: Video;
 }
 
 const validationSchemaChapter = Yup.object().shape({
@@ -35,19 +25,12 @@ const validationSchemaChapter = Yup.object().shape({
 
 const MyForm: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedChapterIndex, setSelectedChapterIndex] = useState<number | null>(
-    null
-  );
+  const [selectedChapterIndex, setSelectedChapterIndex] = useState<number | null>(null);
   const [isVideoModalOpen, setVideoModalOpen] = useState(false);
-  const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(
-    null
-  );
 
   const formik = useFormik({
     initialValues: {
       chapters: [{
-
-
         chapterCode: "dddd",
         chapterName: "sfaefae"
       }] as Chapter[],
@@ -90,7 +73,6 @@ const MyForm: React.FC = () => {
   const handleVideoModalClose = () => {
     setVideoModalOpen(false);
     setSelectedChapterIndex(null);
-    setSelectedVideoIndex(null);
   };
 
   const handleRemoveVideo = (chapterIndex: number) => {
@@ -105,46 +87,14 @@ const MyForm: React.FC = () => {
   return (
     <Box maxWidth={500}>
       {formik.values.chapters.map((chapter, chapterIndex) => (
-        <Accordion key={chapterIndex} disableGutters defaultExpanded>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ height: 50 }} >
-            <Typography variant='h5' alignSelf='center'>{chapter.chapterName}</Typography>
-            <IconButton
-              onClick={() => handleRemoveChapter(chapterIndex)}
-              style={{ marginLeft: 'auto' }}
-            >
-              <Delete />
-            </IconButton>
-          </AccordionSummary>
-          <Box p={2} border={1} borderColor='lightgrey'>
-            <Button
-              size='small'
-              variant="outlined"
-              color="primary"
-              onClick={() => handleAddVideo(chapterIndex)}
-            >
-              {chapter.video ? 'Edit Video' : 'Add Video'}
-            </Button>
-            {chapter.video && (
-              <div style={{ marginTop: '10px' }}>
-                <Typography>
-                  <VideoFile />: {chapter.video.videoName}
-                  <IconButton
-                    onClick={() => handleRemoveVideo(chapterIndex)}
-                    style={{ marginLeft: '10px' }}
-                  >
-                    <Delete />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleEditVideo(chapterIndex)}
-                    style={{ marginLeft: '10px' }}
-                  >
-                    <Edit />
-                  </IconButton>
-                </Typography>
-              </div>
-            )}
-          </Box>
-        </Accordion>
+        <AccordionItem
+          key={chapterIndex}
+          chapter={chapter}
+          onRemoveChapter={() => handleRemoveChapter(chapterIndex)}
+          onAddVideo={() => handleAddVideo(chapterIndex)}
+          onEditVideo={() => handleEditVideo(chapterIndex)}
+          onRemoveVideo={() => handleRemoveVideo(chapterIndex)}
+        />
       ))}
 
       <Button
@@ -175,7 +125,7 @@ const MyForm: React.FC = () => {
         )}
 
         {isVideoModalOpen && (
-          <ChapterForm
+          <VideoForm
             onSubmit={(values) => {
               if (selectedChapterIndex !== null) {
                 formik.values.chapters[selectedChapterIndex].video = values;
@@ -192,7 +142,6 @@ const MyForm: React.FC = () => {
                 : undefined
             }
             onClose={handleVideoModalClose}
-            isVideoForm
           />
         )}
       </Dialog>
