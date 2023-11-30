@@ -18,7 +18,12 @@ interface MainCardProps {
 const MainCard: React.FC<MainCardProps> = ({ title, children }) => {
   return (
     <>
-      <Card sx={{ width: '100%' }}>
+      <Card
+        sx={{
+          border: '1px solid #D0D0D0',
+          borderRadius: '8px',
+        }}
+      >
         <Typography align="center" bgcolor="#DEEEC6" p={1} variant="subtitle1">
           {title}
         </Typography>

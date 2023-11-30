@@ -1,167 +1,222 @@
-// DynamicFieldArrayForm.tsx
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  IconButton,
   Button,
-  MenuItem,
-  Select,
-  FormControl,
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Grid,
+  Dialog,
 } from '@mui/material';
-import MainCard from 'components/cards/MainCard';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Delete, Edit, VideoFile } from '@mui/icons-material';
 
-interface Field {
-  id: string;
-  type: string;
-  value: string | boolean | FileList | null;
-}
+import ChapterForm from './ChapterForm';
+import VideoForm from './VideoForm';
 
-const initialValues = {
-  fieldArray: [] as Field[],
-  selectedType: 'text',
-};
+const validationSchemaChapter = Yup.object().shape({
+  chapterName: Yup.string().required('Chapter name is required'),
+  chapterCode: Yup.string().required('Chapter code is required'),
+});
 
-const DynamicFieldArrayForm: React.FC = () => {
-  const [selectedType, setSelectedType] = useState<string>('text');
+const MyForm: React.FC = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedChapterIndex, setSelectedChapterIndex] = useState<
+    number | null
+  >(null);
+  const [isVideoModalOpen, setVideoModalOpen] = useState(false);
+  const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(
+    null,
+  );
+  const handleSubmit = () => {
+    console.log('Form Values:', formik.values);
+  };
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      chapters: [],
+    },
+    validationSchema: validationSchemaChapter,
     onSubmit: (values) => {
-      // Handle form submission
-      console.log(values);
+      setModalOpen(false);
     },
   });
 
-  const addField = () => {
+  const handleAddChapter = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setSelectedChapterIndex(null);
+  };
+
+  const handleRemoveChapter = (index: number) => {
+    const updatedChapters = [...formik.values.chapters];
+    updatedChapters.splice(index, 1);
     formik.setValues({
       ...formik.values,
-      fieldArray: [
-        ...formik.values.fieldArray,
-        { id: Date.now().toString(), type: selectedType, value: '' },
-      ],
+      chapters: updatedChapters,
     });
   };
 
-  const removeField = (id: string) => {
-    const updatedFieldArray = formik.values.fieldArray.filter(
-      (field) => field.id !== id,
-    );
+  const handleAddVideo = (index: number) => {
+    setSelectedChapterIndex(index);
+    setVideoModalOpen(true);
+  };
+
+  const handleEditVideo = (chapterIndex: number, videoIndex: number) => {
+    setSelectedChapterIndex(chapterIndex);
+    setSelectedVideoIndex(videoIndex);
+    setVideoModalOpen(true);
+  };
+
+  const handleVideoModalClose = () => {
+    setVideoModalOpen(false);
+    setSelectedChapterIndex(null);
+    setSelectedVideoIndex(null);
+  };
+
+  const handleRemoveVideo = (chapterIndex: number, videoIndex: number) => {
+    const updatedChapters = [...formik.values.chapters];
+    updatedChapters[chapterIndex].videos.splice(videoIndex, 1);
     formik.setValues({
       ...formik.values,
-      fieldArray: updatedFieldArray,
+      chapters: updatedChapters,
     });
   };
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <FormControl variant="outlined" fullWidth>
-              <Select
-                variant="outlined"
-                size="small"
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value as string)}
-              >
-                <MenuItem value="text">Text</MenuItem>
-                <MenuItem value="checkbox">Checkbox</MenuItem>
-                <MenuItem value="file">File</MenuItem>
-                {/* Add more input types as needed */}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={9}>
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              onClick={addField}
-              fullWidth
+      {formik.values.chapters.map((chapter, chapterIndex) => (
+        <Accordion key={chapterIndex}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography>{chapter.chapterName}</Typography>
+            <IconButton
+              onClick={() => handleRemoveChapter(chapterIndex)}
+              style={{ marginLeft: 'auto' }}
             >
-              Add to Form
+              <Delete />
+            </IconButton>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Button
+              variant="outlined"
+              color="primary"
+              style={{ marginRight: '10px' }}
+            >
+              Add Assessment
             </Button>
-          </Grid>
-        </Grid>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => handleAddVideo(chapterIndex)}
+            >
+              Add Video
+            </Button>
+            {chapter.videos &&
+              chapter.videos.map((video, videoIndex) => (
+                <div key={videoIndex} style={{ marginTop: '10px' }}>
+                  <Typography>
+                    <VideoFile />: {video.videoTitle}
+                    <IconButton
+                      onClick={() =>
+                        handleRemoveVideo(chapterIndex, videoIndex)
+                      }
+                      style={{ marginLeft: '10px' }}
+                    >
+                      <Delete />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => handleEditVideo(chapterIndex, videoIndex)}
+                      style={{ marginLeft: '10px' }}
+                    >
+                      <Edit />
+                    </IconButton>
+                  </Typography>
+                </div>
+              ))}
+          </AccordionDetails>
+        </Accordion>
+      ))}
 
-        <div style={{ marginTop: '10px' }}>
-          {formik.values.fieldArray.map((field: Field) => (
-            <div key={field.id} style={{ marginBottom: '10px' }}>
-              {field.type === 'text' && (
-                <TextField
-                  label="Text Input"
-                  variant="outlined"
-                  fullWidth
-                  value={field.value as string}
-                  onChange={(e) => {
-                    const updatedFieldArray = formik.values.fieldArray.map(
-                      (f) =>
-                        f.id === field.id ? { ...f, value: e.target.value } : f,
-                    );
-                    formik.setValues({
-                      ...formik.values,
-                      fieldArray: updatedFieldArray,
-                    });
-                  }}
-                />
-              )}
+      <Button
+        type="button"
+        variant="outlined"
+        color="primary"
+        onClick={handleAddChapter}
+      >
+        Add Chapter
+      </Button>
 
-              {field.type === 'checkbox' && (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value as boolean}
-                      onChange={(e) => {
-                        const updatedFieldArray = formik.values.fieldArray.map(
-                          (f) =>
-                            f.id === field.id
-                              ? { ...f, value: e.target.checked }
-                              : f,
-                        );
-                        formik.setValues({
-                          ...formik.values,
-                          fieldArray: updatedFieldArray,
-                        });
-                      }}
-                    />
-                  }
-                  label="Checkbox"
-                />
-              )}
+      <Dialog open={isModalOpen || isVideoModalOpen} onClose={handleModalClose}>
+        {isModalOpen && (
+          <ChapterForm
+            onSubmit={(values) => {
+              formik.setValues({
+                ...formik.values,
+                chapters: [
+                  ...formik.values.chapters,
+                  { ...values, videos: [] },
+                ],
+              });
+            }}
+            onClose={handleModalClose}
+          />
+        )}
 
-              {field.type === 'file' && (
-                <input
-                  type="file"
-                  onChange={(e) => {
-                    const updatedFieldArray = formik.values.fieldArray.map(
-                      (f) =>
-                        f.id === field.id ? { ...f, value: e.target.files } : f,
-                    );
-                    formik.setValues({
-                      ...formik.values,
-                      fieldArray: updatedFieldArray,
-                    });
-                  }}
-                />
-              )}
-
-              <Button
-                type="button"
-                variant="outlined"
-                color="error"
-                onClick={() => removeField(field.id)}
-              >
-                Remove
-              </Button>
-            </div>
-          ))}
-        </div>
-      </form>
+        {isVideoModalOpen && (
+          <VideoForm
+            onClose={handleVideoModalClose}
+            onSubmit={(values) => {
+              if (
+                selectedChapterIndex !== null &&
+                selectedVideoIndex !== null
+              ) {
+                formik.values.chapters[selectedChapterIndex].videos[
+                  selectedVideoIndex
+                ] = values;
+                formik.setValues({
+                  ...formik.values,
+                  chapters: formik.values.chapters,
+                });
+              } else if (selectedChapterIndex !== null) {
+                formik.values.chapters[selectedChapterIndex].videos = formik
+                  .values.chapters[selectedChapterIndex].videos
+                  ? [
+                      ...formik.values.chapters[selectedChapterIndex].videos,
+                      { ...values },
+                    ]
+                  : [{ ...values }];
+                formik.setValues({
+                  ...formik.values,
+                  chapters: formik.values.chapters,
+                });
+              }
+              handleVideoModalClose();
+            }}
+            initialValues={
+              selectedChapterIndex !== null && selectedVideoIndex !== null
+                ? formik.values.chapters[selectedChapterIndex].videos[
+                    selectedVideoIndex
+                  ]
+                : undefined
+            }
+          />
+        )}
+      </Dialog>
+      <Button
+        type="button"
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+        style={{ marginTop: '20px' }}
+      >
+        Submit
+      </Button>
     </>
   );
 };
 
-export default DynamicFieldArrayForm;
+export default MyForm;
