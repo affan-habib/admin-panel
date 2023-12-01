@@ -2,7 +2,7 @@
 import React from 'react';
 import { Accordion, AccordionSummary, Typography, IconButton, Box, Button, Stack } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Delete, Edit, VideoFile, Assignment, PlayArrow } from '@mui/icons-material';
+import { Delete, VideoFile, Assignment } from '@mui/icons-material';
 
 interface AccordionItemProps {
   chapter: {
@@ -44,9 +44,9 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           size='small'
-          variant="outlined"
+          variant={chapter.video ? 'outlined' : 'contained'}
           color="primary"
-          onClick={onAddVideo}
+          onClick={chapter.video ? onEditVideo : onAddVideo}
           sx={{ marginRight: 2 }}
         >
           {chapter.video ? 'Edit Video' : 'Add Video'}
@@ -54,9 +54,9 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 
         <Button
           size='small'
-          variant="outlined"
+          variant={chapter.assessment ? 'outlined' : 'contained'}
           color="secondary"
-          onClick={onAddAssessment}
+          onClick={chapter.assessment ? onEditAssessment : onAddAssessment}
         >
           {chapter.assessment ? 'Edit Assessment' : 'Add Assessment'}
         </Button>
