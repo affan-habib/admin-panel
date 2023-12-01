@@ -13,7 +13,7 @@ import {
   Stack,
   Checkbox,
 } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Add, Delete } from '@mui/icons-material';
 
 interface AssessmentFormProps {
   onClose: () => void;
@@ -22,7 +22,7 @@ interface AssessmentFormProps {
 }
 
 const AssessmentForm: React.FC<AssessmentFormProps> = ({ onClose, onSubmit, initialValues }) => {
-  const [options, setOptions] = useState<string[]>(initialValues?.options || ['','']);
+  const [options, setOptions] = useState<string[]>(initialValues?.options || ['', '']);
 
   const formik = useFormik({
     initialValues: initialValues || { assessmentName: '', options: [''] },
@@ -82,14 +82,14 @@ const AssessmentForm: React.FC<AssessmentFormProps> = ({ onClose, onSubmit, init
               onChange={(e) => handleOptionChange(index, e.target.value)}
             />
             <IconButton onClick={() => handleRemoveOption(index)}>
-              <Add />
+              <Delete />
             </IconButton>
           </Stack>
         ))}
 
-        <IconButton onClick={handleAddOption}>
-          <Add />
-        </IconButton>
+        <Button onClick={handleAddOption} variant='outlined'>
+          Add new option
+        </Button>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="secondary">
