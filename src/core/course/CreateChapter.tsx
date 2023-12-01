@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Button, Dialog, Box } from '@mui/material';
 import ChapterForm from './ChapterForm';
 import VideoForm from './VideoForm';
+import AssessmentForm from './AssessmentForm';
 import AccordionItem from './AccordionItem';
 
 interface Video {
@@ -12,10 +13,16 @@ interface Video {
   videoUrl: string;
 }
 
+interface Assessment {
+  assessmentName: string;
+  options: any;
+}
+
 interface Chapter {
   chapterName: string;
   chapterCode: string;
   video?: Video;
+  assessment?: Assessment;
 }
 
 const validationSchemaChapter = Yup.object().shape({
@@ -27,6 +34,7 @@ const CreateChapter: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedChapterIndex, setSelectedChapterIndex] = useState<number | null>(null);
   const [isVideoModalOpen, setVideoModalOpen] = useState(false);
+  const [isAssessmentModalOpen, setAssessmentModalOpen] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -84,6 +92,30 @@ const CreateChapter: React.FC = () => {
     });
   };
 
+  const handleAddAssessment = (index: number) => {
+    setSelectedChapterIndex(index);
+    setAssessmentModalOpen(true);
+  };
+
+  const handleEditAssessment = (chapterIndex: number) => {
+    setSelectedChapterIndex(chapterIndex);
+    setAssessmentModalOpen(true);
+  };
+
+  const handleAssessmentModalClose = () => {
+    setAssessmentModalOpen(false);
+    setSelectedChapterIndex(null);
+  };
+
+  const handleRemoveAssessment = (chapterIndex: number) => {
+    const updatedChapters = [...formik.values.chapters];
+    updatedChapters[chapterIndex].assessment = undefined;
+    formik.setValues({
+      ...formik.values,
+      chapters: updatedChapters,
+    });
+  };
+
   return (
     <Box maxWidth={900}>
       {formik.values.chapters.map((chapter, chapterIndex) => (
@@ -94,6 +126,9 @@ const CreateChapter: React.FC = () => {
           onAddVideo={() => handleAddVideo(chapterIndex)}
           onEditVideo={() => handleEditVideo(chapterIndex)}
           onRemoveVideo={() => handleRemoveVideo(chapterIndex)}
+          onAddAssessment={() => handleAddAssessment(chapterIndex)}
+          onEditAssessment={() => handleEditAssessment(chapterIndex)}
+          onRemoveAssessment={() => handleRemoveAssessment(chapterIndex)}
         />
       ))}
 
@@ -108,7 +143,7 @@ const CreateChapter: React.FC = () => {
         Add New Chapter
       </Button>
 
-      <Dialog open={isModalOpen || isVideoModalOpen} onClose={handleModalClose}>
+      <Dialog open={isModalOpen || isVideoModalOpen || isAssessmentModalOpen} onClose={handleModalClose}>
         {isModalOpen && (
           <ChapterForm
             onSubmit={(values) => {
@@ -116,7 +151,7 @@ const CreateChapter: React.FC = () => {
                 ...formik.values,
                 chapters: [
                   ...formik.values.chapters,
-                  { ...values, video: undefined },
+                  { ...values, video: undefined, assessment: undefined },
                 ],
               });
             }}
@@ -142,6 +177,27 @@ const CreateChapter: React.FC = () => {
                 : undefined
             }
             onClose={handleVideoModalClose}
+          />
+        )}
+
+        {isAssessmentModalOpen && (
+          <AssessmentForm
+            onSubmit={(values) => {
+              if (selectedChapterIndex !== null) {
+                formik.values.chapters[selectedChapterIndex].assessment = values;
+                formik.setValues({
+                  ...formik.values,
+                  chapters: formik.values.chapters,
+                });
+              }
+              handleAssessmentModalClose();
+            }}
+            initialValues={
+              selectedChapterIndex !== null
+                ? formik.values.chapters[selectedChapterIndex].assessment
+                : undefined
+            }
+            onClose={handleAssessmentModalClose}
           />
         )}
       </Dialog>
