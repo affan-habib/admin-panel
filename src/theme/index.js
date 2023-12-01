@@ -2,11 +2,13 @@ import { createTheme as createMuiTheme } from '@mui/material';
 import { createPalette } from './create-palette';
 import { createShadows } from './create-shadows';
 import { createTypography } from './create-typography';
+import { createComponents } from './create-components';
 
 export function createTheme() {
   const palette = createPalette();
   const shadows = createShadows();
   const typography = createTypography();
+  const components = createComponents();
 
   return createMuiTheme({
     breakpoints: {
@@ -24,5 +26,6 @@ export function createTheme() {
       borderRadius: 4,
     },
     typography,
+    components
   });
 }
