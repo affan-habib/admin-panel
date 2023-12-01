@@ -6,14 +6,14 @@ const CustomTextField: React.FC<any> = ({ label, ...props }) => {
   return (
     <div>
       {label && <InputLabel htmlFor={props.id} sx={{
-        minWidth: 200,
+        // minWidth: 200,
         color: 'black',
-        my: 2,
+        mb: 2,
         fontWeight: 500,
       }}>
         {label}
       </InputLabel>}
-      <TextField {...props} variant="outlined" />
+      <TextField fullWidth {...props} variant="outlined" />
     </div>
   );
 };
