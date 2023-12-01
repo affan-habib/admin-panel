@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
-  TextField,
   Button,
   Dialog,
   DialogTitle,
@@ -14,6 +13,7 @@ import {
   Checkbox,
 } from '@mui/material';
 import { Add, Delete } from '@mui/icons-material';
+import CustomTextField from 'components/form/CustomTextField';
 
 interface AssessmentFormProps {
   onClose: () => void;
@@ -56,10 +56,10 @@ const AssessmentForm: React.FC<AssessmentFormProps> = ({ onClose, onSubmit, init
     <form onSubmit={formik.handleSubmit}>
       <DialogTitle>Add Assessment</DialogTitle>
       <DialogContent>
-        <TextField
+        <CustomTextField
           id="assessmentName"
-          label="Assessment Name"
           variant="outlined"
+          label="Assessment Name"
           fullWidth
           sx={{ marginBottom: 2 }}
           {...formik.getFieldProps('assessmentName')}
@@ -73,13 +73,12 @@ const AssessmentForm: React.FC<AssessmentFormProps> = ({ onClose, onSubmit, init
               checked={false} // You can manage the checkbox state here if needed
               onChange={() => { /* Handle checkbox change if needed */ }}
             />
-            <TextField
+            <CustomTextField
               id={`option-${index}`}
-              label={`Option ${index + 1}`}
               variant="outlined"
               fullWidth
               value={option}
-              onChange={(e) => handleOptionChange(index, e.target.value)}
+              onChange={(e: any) => handleOptionChange(index, e.target.value)}
             />
             <IconButton onClick={() => handleRemoveOption(index)}>
               <Delete />

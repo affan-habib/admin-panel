@@ -133,7 +133,6 @@ const CreateChapter: React.FC = () => {
       ))}
 
       <Button
-        size='small'
         type="button"
         variant="contained"
         color="primary"

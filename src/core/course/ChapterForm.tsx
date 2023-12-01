@@ -3,13 +3,13 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
-  TextField,
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from '@mui/material';
+import CustomTextField from 'components/form/CustomTextField';
 
 interface ChapterFormProps {
   onClose: () => void;
@@ -35,7 +35,7 @@ const ChapterForm: React.FC<ChapterFormProps> = ({ onClose, onSubmit, initialVal
     <form onSubmit={formik.handleSubmit}>
       <DialogTitle>Add Chapter</DialogTitle>
       <DialogContent>
-        <TextField
+        <CustomTextField
           id="chapterName"
           label="Chapter Name"
           variant="outlined"
@@ -44,7 +44,7 @@ const ChapterForm: React.FC<ChapterFormProps> = ({ onClose, onSubmit, initialVal
           error={formik.touched.chapterName && Boolean(formik.errors.chapterName)}
           helperText={formik.touched.chapterName && formik.errors.chapterName}
         />
-        <TextField
+        <CustomTextField
           id="chapterCode"
           label="Chapter Code"
           variant="outlined"

@@ -43,7 +43,6 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
     <Box p={2} border={1} borderColor='lightgrey'>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
-          size='small'
           variant={chapter.video ? 'outlined' : 'contained'}
           color="primary"
           onClick={chapter.video ? onEditVideo : onAddVideo}
@@ -53,7 +52,6 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
         </Button>
 
         <Button
-          size='small'
           variant={chapter.assessment ? 'outlined' : 'contained'}
           color="secondary"
           onClick={chapter.assessment ? onEditAssessment : onAddAssessment}

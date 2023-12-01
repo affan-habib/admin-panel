@@ -3,13 +3,13 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
-  TextField,
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from '@mui/material';
+import CustomTextField from 'components/form/CustomTextField';
 
 interface VideoFormProps {
   onClose: () => void;
@@ -35,16 +35,16 @@ const VideoForm: React.FC<VideoFormProps> = ({ onClose, onSubmit, initialValues 
     <form onSubmit={formik.handleSubmit}>
       <DialogTitle>Add Video</DialogTitle>
       <DialogContent>
-        <TextField
+        <CustomTextField
           id="videoName"
           label="Video Name"
-          variant="outlined"
+          placeholder="Video Name"
           sx={{ marginBottom: 2 }}
           {...formik.getFieldProps('videoName')}
           error={formik.touched.videoName && Boolean(formik.errors.videoName)}
           helperText={formik.touched.videoName && formik.errors.videoName}
         />
-        <TextField
+        <CustomTextField
           id="videoUrl"
           label="Video URL"
           variant="outlined"
