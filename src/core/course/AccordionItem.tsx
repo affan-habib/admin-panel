@@ -33,12 +33,14 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
   <Accordion disableGutters defaultExpanded>
     <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ height: 50 }} >
       <Typography variant='h5' alignSelf='center'>{chapter.chapterName}</Typography>
-      <IconButton
+      <Button
+        variant='contained'
+        color='error'
         onClick={onRemoveChapter}
-        style={{ marginLeft: 'auto' }}
+        sx={{ marginLeft: 'auto', mr: 2 }}
       >
-        <Delete />
-      </IconButton>
+        Delete Chapter
+      </Button>
     </AccordionSummary>
     <Box p={2} border={1} borderColor='lightgrey'>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -67,7 +69,8 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
             <Typography variant='subtitle1'>: {chapter.video.videoName}</Typography>
             <IconButton
               onClick={onRemoveVideo}
-              style={{ marginLeft: 'auto' }}
+              color='error'
+              sx={{ marginLeft: 'auto' }}
             >
               <Delete />
             </IconButton>
@@ -82,7 +85,8 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
             <Typography variant='subtitle1'>: {chapter.assessment.assessmentName}</Typography>
             <IconButton
               onClick={onRemoveAssessment}
-              style={{ marginLeft: 'auto' }}
+              color='error'
+              sx={{ marginLeft: 'auto' }}
             >
               <Delete />
             </IconButton>
