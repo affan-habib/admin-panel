@@ -1,26 +1,47 @@
-// components/form/StepOne.tsx
-import React from 'react';
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import the styles
 import InputField from 'components/form/InputField';
 import MainCard from 'components/cards/MainCard';
+import { InputLabel } from '@mui/material';
 
-const StepOne: React.FC = () => (
-  <MainCard title="পাঠ্যক্রম তৈরি করুন">
-    <InputField
-      name="batchName"
-      label="পাঠ্যক্রমের নাম"
-      placeholder="পাঠ্যক্রমের নাম লিখুন"
-    />
-    <InputField
-      name="batchName"
-      label="পাঠ্যক্রমের সংক্ষিপ্ত বিবরণ"
-      placeholder="সংক্ষিপ্ত বিবরণ লিখুন"
-    />
-    <InputField
-      name="batchName"
-      label="পাঠ্যক্রমের বিস্তারিত বিবরণ"
-      placeholder="বিস্তারিত বিবরণ লিখুন"
-    />
-  </MainCard>
-);
+const StepOne: React.FC = () => {
+  const [description, setDescription] = useState('');
+
+  const handleDescriptionChange = (value: any) => {
+    setDescription(value);
+  };
+
+  return (
+    <MainCard title="পাঠ্যক্রম তৈরি করুন">
+      <InputField
+        name="batchName"
+        label="পাঠ্যক্রমের নাম"
+        placeholder="পাঠ্যক্রমের নাম লিখুন"
+      />
+      <InputField
+        name="shortDescription"
+        label="পাঠ্যক্রমের সংক্ষেপ বিবরণ"
+        placeholder="সংক্ষেপ বিবরণ লিখুন"
+      />
+      <InputLabel
+        sx={{
+          minWidth: 200,
+          color: 'black',
+          my: 2,
+          fontWeight: 500,
+        }}
+      >
+        পাঠ্যক্রমের সংক্ষেপ বিবরণ
+      </InputLabel>
+      <ReactQuill
+      style={{height: '200px'}}
+        theme="snow"
+        value={description}
+        onChange={handleDescriptionChange}
+      />
+    </MainCard>
+  );
+};
 
 export default StepOne;
