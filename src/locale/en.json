@@ -52,5 +52,10 @@
   "createCourse": "Create Course",
   "courseList" : "Course List",
   "addTrainer" : "Add Trainer",
-  "setTrainerLimit":"Trainer Limit"
+  "setTrainerLimit":"Trainer Limit",
+  "settings": "Settings",
+  "adminUserList": "Admin User List",
+  "fullUserName": "Full Name Of User",
+  "userName": "User Name",
+  "userRoleName": "User Role Name"
 }
