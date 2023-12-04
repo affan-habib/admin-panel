@@ -28,8 +28,8 @@ const InputFile: React.FC<InputFileProps> = ({
           sx={{
             minWidth: 200,
             color: 'black',
-            fontWeight: 600,
-            my: 2,
+            fontWeight: 500,
+            my: 1,
           }}
         >
           {label}

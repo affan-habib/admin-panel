@@ -9,15 +9,14 @@ import {
   Breadcrumbs,
   Typography,
   Link,
-  Stack,
 } from '@mui/material';
 import StepOne from 'views/course/StepOne';
 import StepTwo from 'views/course/StepTwo';
 import StepThree from 'views/course/StepThree';
+import DyanamicForm from 'views/course/CreateChapter';
 import { useNavigate } from 'react-router-dom';
-import { Add } from '@mui/icons-material';
 
-const CreateCourse: React.FC = () => {
+const EditCourse: React.FC = () => {
   const initialValues = {
     batchName: '',
     description: '',
@@ -78,6 +77,16 @@ const CreateCourse: React.FC = () => {
                   English
                 </Button>
               </Grid>
+              <Grid item xs={6} style={{ textAlign: 'right' }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{ ml: 'auto' }}
+                  type="submit"
+                >
+                  Create New
+                </Button>
+              </Grid>
               <Grid item md={7}>
                 {selectedStep === 1 && <StepOne />}
                 {selectedStep === 2 && <StepTwo />}
@@ -85,34 +94,8 @@ const CreateCourse: React.FC = () => {
               <Grid item md={5}>
                 <StepThree />
               </Grid>
-              <Grid item xs={7} style={{ textAlign: 'right' }}>
-                <Button variant="contained" color="primary" type="submit">
-                  সাবমিট
-                </Button>
-                <Stack
-                  sx={{
-                    p: 2,
-                    border: '1px solid #D0D0D0',
-                    borderRadius: '8px',
-                    mt: 2,
-                  }}
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="h6" color="primary.main">
-                    অধ্যায় যোগ করুন
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    type="submit"
-                    startIcon={<Add />}
-                    disabled
-                  >
-                    অধ্যায় যোগ করুন
-                  </Button>
-                </Stack>
+              <Grid item md={7}>
+                <DyanamicForm/>
               </Grid>
             </Grid>
           </Form>
@@ -122,4 +105,4 @@ const CreateCourse: React.FC = () => {
   );
 };
 
-export default CreateCourse;
+export default EditCourse;

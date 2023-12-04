@@ -16,6 +16,11 @@ const StepOne: React.FC = () => {
     <MainCard title="পাঠ্যক্রম তৈরি করুন">
       <InputField
         name="batchName"
+        label="পাঠ্যক্রমের কোড"
+        placeholder="পাঠ্যক্রমের কোড লিখুন"
+      />
+      <InputField
+        name="batchName"
         label="পাঠ্যক্রমের নাম"
         placeholder="পাঠ্যক্রমের নাম লিখুন"
       />
@@ -28,14 +33,14 @@ const StepOne: React.FC = () => {
         sx={{
           minWidth: 200,
           color: 'black',
-          my: 2,
+          my: 1,
           fontWeight: 500,
         }}
       >
         পাঠ্যক্রমের সংক্ষেপ বিবরণ
       </InputLabel>
       <ReactQuill
-      style={{height: '200px'}}
+        style={{ height: '140px' }}
         theme="snow"
         value={description}
         onChange={handleDescriptionChange}

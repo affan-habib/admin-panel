@@ -1,26 +1,52 @@
-// components/form/StepOne.tsx
-import React from 'react';
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import the styles
 import InputField from 'components/form/InputField';
 import MainCard from 'components/cards/MainCard';
+import { InputLabel } from '@mui/material';
 
-const StepOne: React.FC = () => (
-  <MainCard title='Create course'>
-    <InputField
-      name="batchName"
-      label="Course Name"
-      placeholder="Enter Course Name"
-    />
-    <InputField
-      name="batchName"
-      label="Course Description"
-      placeholder="Course Description"
-    />
-    <InputField
-      name="batchName"
-      label="Course Detail Description"
-      placeholder="Course Detail Description"
-    />
-  </MainCard>
-);
+const StepOne: React.FC = () => {
+  const [description, setDescription] = useState('');
+
+  const handleDescriptionChange = (value: any) => {
+    setDescription(value);
+  };
+
+  return (
+    <MainCard title="পাঠ্যক্রম তৈরি করুন">
+      <InputField
+        name="batchName"
+        label="Course Code"
+        placeholder="Write the code here..."
+      />
+      <InputField
+        name="batchName"
+        label="Course Name"
+        placeholder="Write the name here..."
+      />
+      <InputField
+        name="shortDescription"
+        label="Short Details Of Course"
+        placeholder="Write the text here..."
+      />
+      <InputLabel
+        sx={{
+          minWidth: 200,
+          color: 'black',
+          my: 1,
+          fontWeight: 500,
+        }}
+      >
+        Long Details Of Course
+      </InputLabel>
+      <ReactQuill
+        style={{ height: '140px' }}
+        theme="snow"
+        value={description}
+        onChange={handleDescriptionChange}
+      />
+    </MainCard>
+  );
+};
 
 export default StepOne;

@@ -4,6 +4,7 @@ import { InputLabel, Stack } from '@mui/material';
 import InputFile from 'components/form/InputFile';
 import InputRadio from 'components/form/InputRadio';
 import MainCard from 'components/cards/MainCard';
+import InputField from 'components/form/InputField';
 
 const Step3: React.FC = () => (
   <MainCard title="গ্লোবাল সেটিংস অ্যাড করুন">
@@ -20,8 +21,10 @@ const Step3: React.FC = () => (
       <InputRadio label="Active" name="selectedOption" value="option1" />
       <InputRadio label="Inactive" name="selectedOption" value="option2" />
     </Stack>
-    <InputFile name="image" label="Cover Image" />
-    <InputFile name="image" label="Cover Logo" />
+    <InputFile name="featureImage" label="Feature Image" />
+    <InputFile name="icon" label="Icon" />
+    <InputFile name="supportingDoc" label="Supporting Documents" />
+    <InputField name="remarks" label="Remarks" placeholder="Remarks" />
   </MainCard>
 );
 

@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
+import EditCourse from 'core/course/EditCourse';
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
 );
@@ -44,6 +45,10 @@ const AdminRoutes = {
     { 
       path: 'create-course',
       element: < CreateCourse/>,
+    },
+    { 
+      path: 'course/edit/:id',
+      element: < EditCourse/>,
     },
   ],
 };

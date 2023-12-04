@@ -34,7 +34,7 @@ const InputField: React.FC<InputFieldProps> = ({
               sx={{
                 minWidth: 200,
                 color: 'black',
-                my: 2,
+                my: 1,
                 fontWeight: 500,
               }}
             >
