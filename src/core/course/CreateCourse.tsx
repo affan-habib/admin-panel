@@ -21,7 +21,7 @@ import { apiBaseUrl } from 'config';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
-    code: '2350',
+    code: '4444',
     name: 'Math',
     name_bn: 'গণিত',
     short_desc: 'this is sort des',
@@ -47,21 +47,30 @@ const CreateCourse: React.FC = () => {
   const navigate = useNavigate();
   const handleSubmit = async (values: any) => {
     console.log(values);
-    try {
-      // Make a POST request using Axios
-      const response = await axios.post(`${apiBaseUrl}/course`, values);
 
-      // Handle the response as needed
+    try {
+      const formData = new FormData();
+
+      // Append form data fields
+      Object.keys(values).forEach((key) => {
+        formData.append(key, values[key]);
+      });
+
+      // Make a POST request using Axios with multipart form data
+      const response = await axios.post(`${apiBaseUrl}/course`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
       console.log('API Response:', response.data);
 
       // Navigate or perform other actions after a successful request
       // navigate('/course/edit/35');
     } catch (error) {
-      // Handle any error if needed
       console.error('Error submitting form:', error);
     }
   };
-
   return (
     <Container maxWidth="xl">
       <Formik
