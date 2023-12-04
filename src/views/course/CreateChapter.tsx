@@ -11,15 +11,21 @@ import {
 import { Add } from '@mui/icons-material';
 import CreateChapterDialog from './CreateChapterDialog';
 
+interface Chapter {
+  chapterName: string;
+  chapterNameBn: string;
+  chapterCode: string;
+}
+
 const DyanamicForm: React.FC = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
-  const [chapters, setChapters] = useState<string[]>([]);
+  const [chapters, setChapters] = useState<Chapter[]>([]);
 
   const handleDialogOpen = () => setDialogOpen(true);
   const handleDialogClose = () => setDialogOpen(false);
 
-  const handleChapterAdded = (chapterName: string) => {
-    setChapters((prevChapters) => [...prevChapters, chapterName]);
+  const handleChapterAdded = (chapter: Chapter) => {
+    setChapters((prevChapters) => [...prevChapters, chapter]);
   };
 
   return (
@@ -54,14 +60,14 @@ const DyanamicForm: React.FC = () => {
         onChapterAdded={handleChapterAdded}
       />
 
-      {/* Render your chapters using the 'chapters' state */}
       {chapters.map((chapter, index) => (
         <Accordion key={index} disableGutters>
-          {/* Accordion component content with chapter name */}
           <AccordionSummary sx={{ height: 50 }}>
-            <Typography>{chapter}</Typography>
+            <Typography>{chapter.chapterName}</Typography>
           </AccordionSummary>
-          <AccordionDetails></AccordionDetails>
+          <AccordionDetails>
+            
+          </AccordionDetails>
         </Accordion>
       ))}
     </>

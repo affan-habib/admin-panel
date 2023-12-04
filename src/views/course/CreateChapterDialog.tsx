@@ -17,13 +17,7 @@ import CustomTextField from 'components/form/CustomTextField';
 interface CreateChapterDialogProps {
   open: boolean;
   onClose: () => void;
-  onChapterAdded: (chapterName: string) => void;
-}
-
-interface FormValues {
-  chapterName: string;
-  chapterNameBn: string;
-  chapterCode: string;
+  onChapterAdded: (chapter: any) => void;
 }
 
 const validationSchema = Yup.object().shape({
@@ -47,7 +41,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
     onSubmit: async (values) => {
       console.log(values);
       formik.resetForm();
-      onChapterAdded(values.chapterName);
+      onChapterAdded(values);
       onClose();
     },
   });

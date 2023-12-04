@@ -15,17 +15,17 @@ const StepOne: React.FC = () => {
   return (
     <MainCard title="পাঠ্যক্রম তৈরি করুন">
       <InputField
-        name="batchName"
+        name="code"
         label="পাঠ্যক্রমের কোড"
         placeholder="পাঠ্যক্রমের কোড লিখুন"
       />
       <InputField
-        name="batchName"
+        name="name"
         label="পাঠ্যক্রমের নাম"
         placeholder="পাঠ্যক্রমের নাম লিখুন"
       />
       <InputField
-        name="shortDescription"
+        name="short_desc"
         label="পাঠ্যক্রমের সংক্ষেপ বিবরণ"
         placeholder="সংক্ষেপ বিবরণ লিখুন"
       />

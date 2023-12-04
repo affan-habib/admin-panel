@@ -26,7 +26,19 @@ const CreateCourse: React.FC = () => {
     // file: null,
     // Add more fields as needed
   };
-
+  const obj = {
+    code: '2350',
+    name: 'Math',
+    name_bn: 'গণিত',
+    short_desc: 'this is sort des',
+    short_desc_bn: 'এই সাজানোর des',
+    long_desc: 'this is long description',
+    long_desc_bn: 'এই দীর্ঘ বিবরণ',
+    course_type_id: '1',
+    remarks: 'none',
+    created_by: '5',
+    status: '1',
+  };
   const validationSchema = Yup.object({
     // englishField: Yup.string().required('English field is required'),
     // banglaField: Yup.string().required('Bangla field is required'),
