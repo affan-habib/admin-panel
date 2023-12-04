@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css'; // Import the styles
 import InputField from 'components/form/InputField';
 import MainCard from 'components/cards/MainCard';
 import { InputLabel } from '@mui/material';
+import RichTextInput from 'components/form/RichTextInput';
 
 const StepOne: React.FC = () => {
   const [description, setDescription] = useState('');
@@ -29,22 +30,7 @@ const StepOne: React.FC = () => {
         label="Short Details Of Course"
         placeholder="Write the text here..."
       />
-      <InputLabel
-        sx={{
-          minWidth: 200,
-          color: 'black',
-          my: 1,
-          fontWeight: 500,
-        }}
-      >
-        Long Details Of Course
-      </InputLabel>
-      <ReactQuill
-        style={{ height: '140px' }}
-        theme="snow"
-        value={description}
-        onChange={handleDescriptionChange}
-      />
+      <RichTextInput label="Long Details Of Course" name="long_desc_bn" />
     </MainCard>
   );
 };

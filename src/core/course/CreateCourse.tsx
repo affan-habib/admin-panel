@@ -16,29 +16,27 @@ import StepTwo from 'views/course/StepTwo';
 import StepThree from 'views/course/StepThree';
 import { useNavigate } from 'react-router-dom';
 import { Add } from '@mui/icons-material';
+import axios from 'axios';
+import { apiBaseUrl } from 'config';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
-    batchName: '',
-    description: '',
-    selectedOption: 'option1',
-    // globalSetting: 'jjjjj',
-    // file: null,
-    // Add more fields as needed
-  };
-  const obj = {
     code: '2350',
     name: 'Math',
     name_bn: 'গণিত',
     short_desc: 'this is sort des',
     short_desc_bn: 'এই সাজানোর des',
-    long_desc: 'this is long description',
+    long_desc: '<p>hhh</p>',
     long_desc_bn: 'এই দীর্ঘ বিবরণ',
     course_type_id: '1',
     remarks: 'none',
     created_by: '5',
     status: '1',
+    icon: null,
+    supporting_doc: null,
+    featured_image: null,
   };
+
   const validationSchema = Yup.object({
     // englishField: Yup.string().required('English field is required'),
     // banglaField: Yup.string().required('Bangla field is required'),
@@ -47,10 +45,21 @@ const CreateCourse: React.FC = () => {
 
   const [selectedStep, setSelectedStep] = useState<number>(1);
   const navigate = useNavigate();
-  const handleSubmit = (values: any, actions: any) => {
-    // console.log('Form submitted:', values);
-    // actions.setSubmitting(false);
-    navigate('/course/edit/35');
+  const handleSubmit = async (values: any) => {
+    console.log(values);
+    try {
+      // Make a POST request using Axios
+      const response = await axios.post(`${apiBaseUrl}/course`, values);
+
+      // Handle the response as needed
+      console.log('API Response:', response.data);
+
+      // Navigate or perform other actions after a successful request
+      // navigate('/course/edit/35');
+    } catch (error) {
+      // Handle any error if needed
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
@@ -118,7 +127,6 @@ const CreateCourse: React.FC = () => {
                   <Button
                     variant="outlined"
                     color="primary"
-                    type="submit"
                     startIcon={<Add />}
                     disabled
                   >

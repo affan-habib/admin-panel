@@ -21,9 +21,9 @@ const Step3: React.FC = () => (
       <InputRadio label="Active" name="selectedOption" value="option1" />
       <InputRadio label="Inactive" name="selectedOption" value="option2" />
     </Stack>
-    <InputFile name="featureImage" label="Feature Image" />
+    <InputFile name="featured_image" label="Feature Image" />
     <InputFile name="icon" label="Icon" />
-    <InputFile name="supportingDoc" label="Supporting Documents" />
+    <InputFile name="supporting_doc" label="Supporting Documents" />
     <InputField name="remarks" label="Remarks" placeholder="Remarks" />
   </MainCard>
 );
