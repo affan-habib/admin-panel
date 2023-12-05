@@ -16,13 +16,11 @@ import { useParams } from 'react-router-dom';
 interface CreateChapterDialogProps {
   open: boolean;
   onClose: () => void;
-  module: any;
 }
 
-const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
+const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
   open,
   onClose,
-  module,
 }) => {
   const { id } = useParams();
   const handleSubmit = async (values: any) => {
@@ -60,7 +58,16 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ width: 600 }}>
-        <Formik initialValues={module} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={{
+            course_id: id,
+            module_code: '',
+            module_code_bn: '',
+            module_name: '',
+            module_name_bn: '',
+          }}
+          onSubmit={handleSubmit}
+        >
           <Form>
             <InputField
               name="module_code_bn"
@@ -90,4 +97,4 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
   );
 };
 
-export default EditChapterDialog;
+export default CreateChapterDialog;

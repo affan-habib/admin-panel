@@ -13,6 +13,7 @@ import EditVideoDialog from './EditVideoDialog';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VideoIcon from '@mui/icons-material/VideoLibrary';
+import ModuleActions from './ModuleActions';
 
 // ... (other imports)
 
@@ -49,28 +50,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
             }}
           >
             <Typography mt={1}>{chapter.module_name}</Typography>
-            <Box ml="auto">
-              <IconButton
-                aria-label="Edit"
-                size="small"
-                color="primary"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                aria-label="Delete"
-                size="small"
-                color="secondary"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Box>
+            <ModuleActions module={chapter} />
           </AccordionSummary>
           <>
             <AccordionDetails>
