@@ -5,7 +5,7 @@ import { Add } from '@mui/icons-material';
 import CreateChapterDialog from './CreateChapterDialog';
 import Chapters from './ChapterList';
 
-const DyanamicForm: React.FC = () => {
+const DyanamicForm: React.FC<any> = ({ modules }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogOpen = () => setDialogOpen(true);
@@ -39,7 +39,7 @@ const DyanamicForm: React.FC = () => {
 
       <CreateChapterDialog open={isDialogOpen} onClose={handleDialogClose} />
 
-      <Chapters />
+      <Chapters modules={modules} />
     </>
   );
 };

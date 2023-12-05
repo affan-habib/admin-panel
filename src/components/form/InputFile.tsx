@@ -27,6 +27,7 @@ const FileUpload: React.FC<any> = ({ label, acceptedFileTypes, ...props }) => {
         {label}
       </InputLabel>
       <TextField
+        size="small"
         fullWidth
         id={field.name}
         name={field.name}

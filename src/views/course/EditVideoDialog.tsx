@@ -16,12 +16,14 @@ import { apiBaseUrl } from 'config';
 
 interface CreateVideoDialogProps {
   open: boolean;
+  initialData: any;
   onClose: () => void;
 }
 
 const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   open,
   onClose,
+  initialData,
 }) => {
   const handleSubmit = async (values: any) => {
     console.log(values);
@@ -66,16 +68,9 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
       </DialogTitle>
       <DialogContent sx={{ width: 600 }}>
         <Formik
-          initialValues={{
-            type: 'video',
-            course_id: 9,
-            course_module_id: 3,
-            title: '',
-            url: null,
-            status: 1,
-            transcript: 'Some Transcript',
-          }}
+          initialValues={initialData}
           onSubmit={handleSubmit}
+          enableReinitialize
         >
           <Form>
             <InputField

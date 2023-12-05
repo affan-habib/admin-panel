@@ -78,7 +78,7 @@ const EditCourse: React.FC = () => {
                 <StepThree />
               </Grid>
               <Grid item md={7}>
-                <DyanamicForm />
+                <DyanamicForm modules={data?.data?.course_modules}/>
               </Grid>
             </Grid>
           </Form>

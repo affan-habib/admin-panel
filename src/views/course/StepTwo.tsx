@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import the styles
+import React from 'react';
+import 'react-quill/dist/quill.snow.css';
 import InputField from 'components/form/InputField';
 import MainCard from 'components/cards/MainCard';
-import { InputLabel } from '@mui/material';
 import RichTextInput from 'components/form/RichTextInput';
 
 const StepOne: React.FC = () => {
-  const [description, setDescription] = useState('');
-
-  const handleDescriptionChange = (value: any) => {
-    setDescription(value);
-  };
-
   return (
     <MainCard title="পাঠ্যক্রম তৈরি করুন">
       <InputField
