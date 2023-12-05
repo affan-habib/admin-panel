@@ -40,7 +40,7 @@ const rows = [
     id: 1,
     serialNo: 1,
     batchName: 'Batch 1',
-    batchDescription: 'Description for Batch 1',
+    batchDescription: 'Description for Batch 1 dev tested',
     numberOfTrainee: 25,
   },
   // Add more rows as needed
