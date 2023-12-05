@@ -1,6 +1,13 @@
 import React from 'react';
 import { Box, Modal, Typography, IconButton, Avatar, Stack } from '@mui/material';
 import { GridCloseIcon } from '@mui/x-data-grid';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
+import FormatColorTextOutlinedIcon from '@mui/icons-material/FormatColorTextOutlined';
+import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import ToggleOnOutlinedIcon from '@mui/icons-material/ToggleOnOutlined';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 
 interface UserInfo {
@@ -24,12 +31,13 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    height: 600,
+    width: 650,
+    bgcolor: 'rgba(246, 253, 252, 1)',
     boxShadow: 24,
     p: 4,
-  };
+    borderRadius: 2,
+};
 
 const ModalComponent: React.FC<ModalComponentProps> = ({ open, handleClose, userData }) => {
     const {
@@ -42,17 +50,11 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, handleClose, user
         roleName,
     } = userData;
 
+    console.log(userData);
     return (
         <Modal
             open={open}
             onClose={handleClose}
-            // aria-labelledby="modal-modal-title"
-            // aria-describedby="modal-modal-description"
-            // sx={{
-
-            //     width: 600,
-
-            // }}
         >
             <Box sx={style}>
                 <IconButton
@@ -67,38 +69,42 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, handleClose, user
                     <GridCloseIcon />
                 </IconButton>
 
-                <Stack direction="row" alignItems="center" justifyContent="center" mb={2}>
-                    <Avatar sx={{ bgcolor: 'primary.main', mr: 1 }}>
-                        <PersonIcon />
+                <Stack direction="column" alignItems="center" justifyContent="center" mb={2}>
+                    <Avatar sx={{ mb: 3, width: 60, height: 60 }}> 
+                        <PersonIcon sx={{ fontSize: 60 }} />
                     </Avatar>
-                    <Typography variant="h6" component="h2">
-                        User Information
-                    </Typography>
+                    <Box borderBottom="1px solid rgba(179, 224, 221, 1)" width="80%" />
                 </Stack>
-                <Typography variant="subtitle1" sx={{ my: 1 }}>
-                    <strong>Full Name:</strong> {fullName}
+                <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <AccountCircleOutlinedIcon sx={{ color: 'primary.main',marginLeft: '10px' }} />
+                    <strong style={{ minWidth: '300px', display: 'inline-block', margin: '0 8px' }}>ব্যবহারকারীর সম্পূর্ন নাম:</strong> {fullName}
                 </Typography>
-                <Typography variant="subtitle1" sx={{ my: 1 }}>
-                    <strong>Designation:</strong> {designation}
+                <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <BadgeOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>পদবি:</strong> {designation}
                 </Typography>
-                <Typography variant="subtitle1" sx={{ my: 1 }}>
-                    <strong>Username:</strong> {userName}
+                <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <FormatColorTextOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>ইউজার নেম:</strong> {userName}
                 </Typography>
-                <Typography variant="subtitle1" sx={{ my: 1 }}>
-                    <strong>Email:</strong> {emailAddress}
+                <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <MailOutlineOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}> ইমেল এড্রেস:</strong> {emailAddress}
                 </Typography>
-                <Typography variant="subtitle1" sx={{ my: 1 }}>
-                    <strong>Mobile Number:</strong> {mobileNumber}
+                <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <CallOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>মোবাইল নাম্বার:</strong> {mobileNumber}
                 </Typography>
-                <Typography variant="subtitle1" sx={{ my: 1 }}>
-                    <strong>Status:</strong> {status}
+                <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <ToggleOnOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>স্ট্যাটাস:</strong> {status}
                 </Typography>
-                <Typography variant="subtitle1" sx={{ my: 1 }}>
-                    <strong>Role Name:</strong> {roleName}
+                <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <AdminPanelSettingsOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>রোল নেম:</strong> {roleName}
                 </Typography>
+
+                <Stack direction="column" alignItems="center" justifyContent="center">
+                    <Box borderBottom="1px solid rgba(179, 224, 221, 1)" width="40%" sx={{ my: 3 }} />
+                </Stack>
             </Box>
         </Modal>
     );
 };
 
 export default ModalComponent;
+
