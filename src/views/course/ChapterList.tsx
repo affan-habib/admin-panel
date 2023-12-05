@@ -14,7 +14,7 @@ import CreateVideoDialog from './CreateVideoDialog';
 const Chapters: React.FC = () => {
   const { data } = useCourseModules(9);
   const [isDialogOpen, setDialogOpen] = useState(false);
-
+  console.log(data, 'sss');
   const handleDialogOpen = () => setDialogOpen(true);
   const handleDialogClose = () => setDialogOpen(false);
   return (

@@ -8,6 +8,11 @@ import InputField from 'components/form/InputField';
 
 const Step3: React.FC = () => (
   <MainCard title="গ্লোবাল সেটিংস অ্যাড করুন">
+    <InputField
+      name="code"
+      label="Course Code"
+      placeholder="Write the code here..."
+    />
     <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 1 }}>
       <InputLabel
         sx={{

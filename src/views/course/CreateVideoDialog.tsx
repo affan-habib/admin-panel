@@ -72,6 +72,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             course_module_id: 3,
             title: 'ss',
             url: null,
+            status: 1,
             transcript: 'Some Transcript',
           }}
           onSubmit={handleSubmit}

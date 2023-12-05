@@ -16,21 +16,16 @@ const StepOne: React.FC = () => {
   return (
     <MainCard title="পাঠ্যক্রম তৈরি করুন">
       <InputField
-        name="batchName"
-        label="Course Code"
-        placeholder="Write the code here..."
-      />
-      <InputField
-        name="batchName"
+        name="name"
         label="Course Name"
         placeholder="Write the name here..."
       />
       <InputField
-        name="shortDescription"
+        name="short_desc"
         label="Short Details Of Course"
         placeholder="Write the text here..."
       />
-      <RichTextInput label="Long Details Of Course" name="long_desc_bn" />
+      <RichTextInput label="Long Details Of Course" name="long_desc" />
     </MainCard>
   );
 };
