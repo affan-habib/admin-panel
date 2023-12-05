@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import {
   Container,
   Grid,
   Button,
-  Box,
   Breadcrumbs,
   Typography,
   Link,
@@ -14,36 +12,21 @@ import StepOne from 'views/course/StepOne';
 import StepTwo from 'views/course/StepTwo';
 import StepThree from 'views/course/StepThree';
 import DyanamicForm from 'views/course/CreateChapter';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import useCourseDetails from 'hooks/useCourseDetails';
 
 const EditCourse: React.FC = () => {
-  const initialValues = {
-    batchName: '',
-    description: '',
-    selectedOption: 'option1',
-    // globalSetting: 'jjjjj',
-    // file: null,
-    // Add more fields as needed
-  };
-
-  const validationSchema = Yup.object({
-    // englishField: Yup.string().required('English field is required'),
-    // banglaField: Yup.string().required('Bangla field is required'),
-    // Add more validations as needed
-  });
+  const { id } = useParams();
+  const { data } = useCourseDetails(id);
 
   const [selectedStep, setSelectedStep] = useState<number>(1);
-  const navigate = useNavigate();
-  const handleSubmit = (values: any, actions: any) => {
-    // console.log('Form submitted:', values);
-    // actions.setSubmitting(false);
-    navigate('/course/edit/35');
-  };
+  const handleSubmit = (values: any, actions: any) => {};
 
   return (
     <Container maxWidth="xl">
       <Formik
-        initialValues={initialValues}
+        enableReinitialize
+        initialValues={data?.data}
         // validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
@@ -95,7 +78,7 @@ const EditCourse: React.FC = () => {
                 <StepThree />
               </Grid>
               <Grid item md={7}>
-                <DyanamicForm/>
+                <DyanamicForm />
               </Grid>
             </Grid>
           </Form>

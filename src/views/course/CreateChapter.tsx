@@ -1,32 +1,15 @@
 // components/form/DyanamicForm.tsx
 import React, { useState } from 'react';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CreateChapterDialog from './CreateChapterDialog';
-
-interface Chapter {
-  chapterName: string;
-  chapterNameBn: string;
-  chapterCode: string;
-}
+import Chapters from './ChapterList';
 
 const DyanamicForm: React.FC = () => {
   const [isDialogOpen, setDialogOpen] = useState(false);
-  const [chapters, setChapters] = useState<Chapter[]>([]);
 
   const handleDialogOpen = () => setDialogOpen(true);
   const handleDialogClose = () => setDialogOpen(false);
-
-  const handleChapterAdded = (chapter: Chapter) => {
-    setChapters((prevChapters) => [...prevChapters, chapter]);
-  };
 
   return (
     <>
@@ -54,22 +37,9 @@ const DyanamicForm: React.FC = () => {
         </Button>
       </Stack>
 
-      <CreateChapterDialog
-        open={isDialogOpen}
-        onClose={handleDialogClose}
-        onChapterAdded={handleChapterAdded}
-      />
+      <CreateChapterDialog open={isDialogOpen} onClose={handleDialogClose} />
 
-      {chapters.map((chapter, index) => (
-        <Accordion key={index} disableGutters>
-          <AccordionSummary sx={{ height: 50 }}>
-            <Typography>{chapter.chapterName}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            
-          </AccordionDetails>
-        </Accordion>
-      ))}
+      <Chapters />
     </>
   );
 };

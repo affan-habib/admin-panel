@@ -27,7 +27,7 @@ const FileUpload: React.FC<{ label: string } & FieldHookConfig<any>> = ({
         }}
         htmlFor={field.name}
       >
-        {label} Upload:
+        {label}
       </InputLabel>
       <TextField
         fullWidth

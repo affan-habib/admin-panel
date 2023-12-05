@@ -18,8 +18,8 @@ const Step3: React.FC = () => (
       >
         Course Status{' '}
       </InputLabel>
-      <InputRadio label="Active" name="selectedOption" value="option1" />
-      <InputRadio label="Inactive" name="selectedOption" value="option2" />
+      <InputRadio label="Active" name="status" value={1} />
+      <InputRadio label="Inactive" name="status" value={2} />
     </Stack>
     <InputFile name="featured_image" label="Feature Image" />
     <InputFile name="icon" label="Icon" />

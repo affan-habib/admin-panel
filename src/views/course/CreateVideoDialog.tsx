@@ -11,34 +11,43 @@ import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
+import InputFile from 'components/form/InputFile';
+import { apiBaseUrl } from 'config';
 
-interface CreateChapterDialogProps {
+interface CreateVideoDialogProps {
   open: boolean;
   onClose: () => void;
 }
 
-const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
+const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   open,
   onClose,
 }) => {
   const handleSubmit = async (values: any) => {
+    console.log(values);
+
     try {
-      // Make a POST request to the API endpoint
+      const formData = new FormData();
+
+      Object.keys(values).forEach((key) => {
+        formData.append(key, values[key]);
+      });
+
       const response = await axios.post(
-        'http://172.16.100.209:8002/api/clms/dev/course-module',
-        values,
+        `${apiBaseUrl}/course/material/create`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       );
 
-      // Handle the response or perform actions as needed
       console.log('API Response:', response.data);
-
-      onClose();
     } catch (error) {
-      // Handle error, log it, or display a message to the user
       console.error('Error submitting form:', error);
     }
   };
-
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle
@@ -58,34 +67,27 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
       <DialogContent sx={{ width: 600 }}>
         <Formik
           initialValues={{
+            type: 'video',
             course_id: 9,
-            module_code: '',
-            module_code_bn: '',
-            module_name: '',
-            module_name_bn: '',
+            course_module_id: 3,
+            title: 'ss',
+            url: null,
+            transcript: 'Some Transcript',
           }}
           onSubmit={handleSubmit}
         >
           <Form>
             <InputField
-              name="module_code_bn"
-              label="অধ্যায়ের কোড"
-              placeholder="অধ্যায়ের কোড লিখুন"
+              name="title"
+              label="ভিডিওর নাম"
+              placeholder="ভিডিওর নাম লিখুন"
             />
+            <InputFile name="url" label="ভিডিও আপলোড করুন" />
+
             <InputField
-              name="module_code"
-              label="Chapter Name"
-              placeholder="Chapter Name (English)"
-            />
-            <InputField
-              name="module_name_bn"
-              label="অধ্যায়ের নাম"
-              placeholder="অধ্যায়ের নাম লিখুন"
-            />
-            <InputField
-              name="module_name"
-              label="Chapter Name (English)"
-              placeholder="Chapter Name"
+              name="transcript"
+              label="ভিডিওর প্রতিলিপি"
+              placeholder="ভিডিওর প্রতিলিপি লিখুন"
             />
             <Button type="submit">Submit</Button>
           </Form>
@@ -95,4 +97,4 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
   );
 };
 
-export default CreateChapterDialog;
+export default CreateVideoDialog;

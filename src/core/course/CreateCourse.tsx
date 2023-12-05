@@ -21,27 +21,21 @@ import { apiBaseUrl } from 'config';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
-    code: '4444',
-    name: 'Math',
-    name_bn: 'গণিত',
-    short_desc: 'this is sort des',
-    short_desc_bn: 'এই সাজানোর des',
-    long_desc: '<p>hhh</p>',
-    long_desc_bn: 'এই দীর্ঘ বিবরণ',
+    code: '',
+    name: '',
+    name_bn: '',
+    short_desc: '',
+    short_desc_bn: '',
+    long_desc: '',
+    long_desc_bn: '',
     course_type_id: '1',
-    remarks: 'none',
+    remarks: '',
     created_by: '5',
     status: '1',
     icon: null,
     supporting_doc: null,
     featured_image: null,
   };
-
-  const validationSchema = Yup.object({
-    // englishField: Yup.string().required('English field is required'),
-    // banglaField: Yup.string().required('Bangla field is required'),
-    // Add more validations as needed
-  });
 
   const [selectedStep, setSelectedStep] = useState<number>(1);
   const navigate = useNavigate();
@@ -51,12 +45,10 @@ const CreateCourse: React.FC = () => {
     try {
       const formData = new FormData();
 
-      // Append form data fields
       Object.keys(values).forEach((key) => {
         formData.append(key, values[key]);
       });
 
-      // Make a POST request using Axios with multipart form data
       const response = await axios.post(`${apiBaseUrl}/course`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -64,9 +56,7 @@ const CreateCourse: React.FC = () => {
       });
 
       console.log('API Response:', response.data);
-
-      // Navigate or perform other actions after a successful request
-      // navigate('/course/edit/35');
+      navigate(`/course/edit/${response.data.data.id}`);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
