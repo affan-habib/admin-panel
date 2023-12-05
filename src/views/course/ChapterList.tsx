@@ -14,12 +14,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VideoIcon from '@mui/icons-material/VideoLibrary';
 
+// ... (other imports)
+
 const Chapters: React.FC<any> = ({ modules }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [moduleId, setModuleId] = useState();
 
-  const handleDialogOpen = () => setDialogOpen(true);
+  const handleDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setDialogOpen(true);
+  };
+
   const handleDialogClose = () => setDialogOpen(false);
 
   const handleEditDialogOpen = (video: any) => {
@@ -48,7 +55,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                 size="small"
                 color="primary"
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent the accordion from expanding/collapsing
+                  e.stopPropagation();
                 }}
               >
                 <EditIcon />
@@ -58,7 +65,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                 size="small"
                 color="secondary"
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent the accordion from expanding/collapsing
+                  e.stopPropagation();
                 }}
               >
                 <DeleteIcon />
@@ -80,7 +87,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       size="small"
                       color="primary"
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent the accordion from expanding/collapsing
+                        e.stopPropagation();
                         handleEditDialogOpen(el);
                       }}
                     >
@@ -95,14 +102,20 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </IconButton>
                   </div>
                 ))}
-              <Button onClick={handleDialogOpen}>Add Video</Button>
+              <Button onClick={() => handleDialogOpen(chapter.id)}>
+                Add Video
+              </Button>
             </AccordionDetails>
           </>
         </Accordion>
       ))}
 
       {/* Create Video Dialog */}
-      <CreateVideoDialog open={isDialogOpen} onClose={handleDialogClose} />
+      <CreateVideoDialog
+        open={isDialogOpen}
+        onClose={handleDialogClose}
+        moduleId={moduleId}
+      />
 
       {/* Edit Video Dialog */}
       {selectedVideo && (

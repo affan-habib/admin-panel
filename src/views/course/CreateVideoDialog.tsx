@@ -13,16 +13,20 @@ import InputField from 'components/form/InputField';
 import axios from 'axios';
 import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
+import { useParams } from 'react-router-dom';
 
 interface CreateVideoDialogProps {
   open: boolean;
+  moduleId: any;
   onClose: () => void;
 }
 
 const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   open,
+  moduleId,
   onClose,
 }) => {
+  const { id } = useParams();
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -68,8 +72,8 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
         <Formik
           initialValues={{
             type: 'video',
-            course_id: 9,
-            course_module_id: 3,
+            course_id: id,
+            course_module_id: moduleId,
             title: '',
             url: null,
             status: 1,

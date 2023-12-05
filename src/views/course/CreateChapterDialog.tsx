@@ -11,6 +11,7 @@ import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -21,6 +22,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
   open,
   onClose,
 }) => {
+  const { id } = useParams();
   const handleSubmit = async (values: any) => {
     try {
       // Make a POST request to the API endpoint
@@ -58,7 +60,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
       <DialogContent sx={{ width: 600 }}>
         <Formik
           initialValues={{
-            course_id: 9,
+            course_id: id,
             module_code: '',
             module_code_bn: '',
             module_name: '',
