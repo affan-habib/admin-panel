@@ -1,4 +1,3 @@
-// components/form/Chapters.tsx
 import React, { useState } from 'react';
 import {
   Accordion,
@@ -7,15 +6,12 @@ import {
   Typography,
   IconButton,
   Button,
-  Collapse,
   Box,
 } from '@mui/material';
 import CreateVideoDialog from './CreateVideoDialog';
 import EditVideoDialog from './EditVideoDialog';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import VideoIcon from '@mui/icons-material/VideoLibrary';
 
 const Chapters: React.FC<any> = ({ modules }) => {
@@ -33,23 +29,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
-  const [expanded, setExpanded] = useState<string | false>(false);
-
-  const handleAccordionChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
-
   return (
     <>
       {modules?.map((chapter: any) => (
-        <Accordion
-          disableGutters
-          key={chapter.module_id}
-          expanded={expanded === `panel-${chapter.module_id}`}
-          onChange={handleAccordionChange(`panel-${chapter.module_id}`)}
-          sx={{ my: 1 }}
-        >
+        <Accordion disableGutters key={chapter.module_id} sx={{ my: 1 }}>
           <AccordionSummary
             sx={{
               height: 50,
@@ -57,13 +40,6 @@ const Chapters: React.FC<any> = ({ modules }) => {
               justifyContent: 'space-around',
               backgroundColor: '#DEEEC6',
             }}
-            expandIcon={
-              expanded === `panel-${chapter.module_id}` ? (
-                <ExpandLessIcon />
-              ) : (
-                <ExpandMoreIcon />
-              )
-            }
           >
             <Typography mt={1}>{chapter.module_name}</Typography>
             <Box ml="auto">
@@ -89,11 +65,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
               </IconButton>
             </Box>
           </AccordionSummary>
-          <Collapse
-            in={expanded === `panel-${chapter.module_id}`}
-            timeout="auto"
-            unmountOnExit
-          >
+          <>
             <AccordionDetails>
               {chapter.course_videos.length > 0 &&
                 chapter.course_videos.map((el: any) => (
@@ -125,7 +97,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                 ))}
               <Button onClick={handleDialogOpen}>Add Video</Button>
             </AccordionDetails>
-          </Collapse>
+          </>
         </Accordion>
       ))}
 
