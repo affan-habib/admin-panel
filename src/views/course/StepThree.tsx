@@ -26,9 +26,21 @@ const Step3: React.FC = () => (
       <InputRadio label="Active" name="status" value={1} />
       <InputRadio label="Inactive" name="status" value={2} />
     </Stack>
-    <InputFile name="featured_image" label="Feature Image" />
-    <InputFile name="icon" label="Icon" />
-    <InputFile name="supporting_doc" label="Supporting Documents" />
+    <InputFile
+      name="featured_image"
+      label="Feature Image"
+      acceptedFileTypes="image/*"
+    />
+    <InputFile
+      name="icon"
+      label="Icon"
+      acceptedFileTypes="image/*"
+    />
+    <InputFile
+      name="supporting_doc"
+      label="Supporting Documents"
+      acceptedFileTypes=".doc, .docx, .ppt"
+    />
     <InputField name="remarks" label="Remarks" placeholder="Remarks" />
   </MainCard>
 );
