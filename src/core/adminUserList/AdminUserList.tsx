@@ -8,7 +8,6 @@ import ReactTable from 'components/tables/ReactTable';
 import { Add } from '@mui/icons-material';
 import ModalComponent from './ModalComponent';
 import axios from 'axios';
-import { apiBaseUrl } from '../../config';
 import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from 'config';
 
@@ -34,7 +33,7 @@ const AdminUserList: React.FC = () => {
 
     const apiUrl = apiBaseUrl;
 
-    const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
+    // const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
 
     const fetchData = async () => {
         try {
@@ -55,9 +54,10 @@ const AdminUserList: React.FC = () => {
     }, [])
 
     const handleDelete = (row: any) => {
+        const token = localStorage.getItem('token');
         const id = row.original.id
         try {
-            axios.delete(`${apiUrl}/${id}`, {
+            axios.delete(`${apiBaseUrl}/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
