@@ -4,6 +4,7 @@ import Diversity2Icon from '@mui/icons-material/Diversity2';
 import GroupsIcon from '@mui/icons-material/Groups';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { useTranslation } from 'react-i18next';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 interface MenuItem {
   title: string;
@@ -89,6 +90,23 @@ export const useGetMenuItems = (): MenuItem[] => {
         },
       ],
     },
+    {
+      title: t('settings'),
+      path: '/settings',
+      icon: <SettingsIcon/>,
+      subMenu:[
+        {
+          title: t('adminUserList'),
+          icon: <LibraryBooksIcon/>,
+          path: '/admin-user-list'
+        },
+        {
+          title: t('createAdminUser'),
+          icon: <LibraryBooksIcon/>,
+          path: '/create-admin-user'
+        }
+      ]
+    }
   ];
 
   return menuItems;
