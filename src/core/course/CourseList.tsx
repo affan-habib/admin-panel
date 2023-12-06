@@ -18,16 +18,38 @@ import { Add, FilterList, SaveAlt, Search } from '@mui/icons-material';
 import PageSizeSelect from 'components/tables/PageSizeSelect';
 import { useNavigate } from 'react-router-dom';
 import useCourses from 'hooks/useCourses';
+import { useQueryClient } from 'react-query';
+import ConfirmModal from 'components/common/ConfirmModal';
+
+// Import the ConfirmModal component
 
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
+  const queryClient = useQueryClient();
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
     page: currentPage + 1, // Adjusted to use 1-based index for the API
     search: '',
   });
   const navigate = useNavigate();
+
+  // State to handle the modal visibility
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  // State to store the video ID to be deleted
+  const [videoIdToDelete, setVideoIdToDelete] = useState<number | null>(null);
+
+  // Function to open the confirm modal
+  const openConfirmModal = (videoId: number) => {
+    setVideoIdToDelete(videoId);
+    setIsConfirmModalOpen(true);
+  };
+
+  // Function to close the confirm modal
+  const closeConfirmModal = () => {
+    setVideoIdToDelete(null);
+    setIsConfirmModalOpen(false);
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -37,6 +59,30 @@ const CourseList: React.FC = () => {
     setPageSize(size);
     setCurrentPage(0);
   };
+
+  const handleDeleteClick = async (videoId: any) => {
+    // Open the confirm modal
+    openConfirmModal(videoId);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (videoIdToDelete !== null) {
+      const apiUrl = `http://172.16.100.209:8002/api/clms/dev/course/${videoIdToDelete}`;
+      try {
+        const response = await fetch(apiUrl, { method: 'DELETE' });
+
+        if (response.ok) {
+          queryClient.invalidateQueries('courses');
+        } else {
+          console.error(`Failed to delete video with ID ${videoIdToDelete}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+      closeConfirmModal();
+    }
+  };
+
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'code', accessor: 'code' },
@@ -66,20 +112,21 @@ const CourseList: React.FC = () => {
               border: '1px solid #D0D0D0',
             }}
             onClick={() => navigate(`/course/edit/${cell.row.original.id}`)}
-            // Access the correct property: cell.row.original.id
           >
             <EditIcon sx={{ color: 'primary.main' }} />
           </IconButton>
           <IconButton
-            aria-label="delete"
-            size="small"
             style={{
               backgroundColor: '#FAFAFA',
               borderRadius: '4px',
               border: '1px solid #D0D0D0',
             }}
+            aria-label="Delete"
+            size="small"
+            color="error"
+            onClick={() => handleDeleteClick(cell.row.original.id)}
           >
-            <DeleteIcon sx={{ color: 'error.main' }} />
+            <DeleteIcon />
           </IconButton>
         </Stack>
       ),
@@ -151,6 +198,14 @@ const CourseList: React.FC = () => {
           onPageSizeChange={handlePageSizeChange}
         />
       )}
+
+      <ConfirmModal
+        open={isConfirmModalOpen}
+        onClose={closeConfirmModal}
+        onConfirm={handleConfirmDelete}
+        onCancel={closeConfirmModal}
+        message="Are you sure you want to delete this course?"
+      />
     </Container>
   );
 };

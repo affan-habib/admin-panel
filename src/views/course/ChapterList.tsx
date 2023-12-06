@@ -37,6 +37,25 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
+  const handleDeleteButtonClick = (moduleId: any) => {
+    // Call the API to delete the module
+    fetch(`http://172.16.100.209:8002/api/clms/dev/course-module/${moduleId}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (response.ok) {
+          // Handle successful deletion (e.g., update state, UI, etc.)
+          console.log('Module deleted successfully');
+        } else {
+          // Handle deletion failure (e.g., show an error message)
+          console.error('Failed to delete module');
+        }
+      })
+      .catch(error => {
+        console.error('Error occurred while deleting module:', error);
+      });
+  };
+
   return (
     <>
       {modules?.map((chapter: any) => (
@@ -77,6 +96,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       aria-label="Delete"
                       size="small"
                       color="secondary"
+                      onClick={() => handleDeleteButtonClick(el.course_id)}
                     >
                       <DeleteIcon />
                     </IconButton>
