@@ -50,7 +50,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, handleClose, user
         roleName,
     } = userData;
 
-    console.log(userData);
+    // console.log(userData);
     return (
         <Modal
             open={open}
