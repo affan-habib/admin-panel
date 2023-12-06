@@ -28,8 +28,13 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   initialData,
 }) => {
   const queryClient = useQueryClient();
+
   const handleSubmit = async (values: any) => {
-    console.log({ ...values, _method: 'PUT' });
+    // Remove the "url" key if the value is a string
+    if (typeof values.url === 'string') {
+      values.url = null;
+    }
+
     const formPayload = { ...values, _method: 'PUT', type: 'video' };
 
     try {
@@ -48,6 +53,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
           },
         },
       );
+
       queryClient.invalidateQueries('courseDetails');
       onClose();
       console.log('API Response:', response.data);

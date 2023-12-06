@@ -2,7 +2,7 @@ export function createPalette() {
   return {
     primary: {
       main: '#006A4E',
-      light: '#DEEEC6'
+      light: '#B3E0DD'
     },
   };
 }

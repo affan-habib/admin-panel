@@ -87,6 +87,8 @@ const CourseList: React.FC = () => {
     { Header: 'ID', accessor: 'id' },
     { Header: 'code', accessor: 'code' },
     { Header: 'Name', accessor: 'name_bn' },
+    { Header: 'Short Description', accessor: 'short_desc_bn' },
+    { Header: 'Number of Modules', accessor: 'course_modules_count' },
     {
       Header: 'Action',
       width: 200,
