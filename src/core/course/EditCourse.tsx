@@ -23,7 +23,7 @@ const EditCourse: React.FC = () => {
   const handleSubmit = (values: any, actions: any) => {};
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ pb: 30 }}>
       <Formik
         enableReinitialize
         initialValues={data?.data}
