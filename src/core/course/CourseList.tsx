@@ -23,17 +23,46 @@ const columns = [
   { Header: 'ID', accessor: 'id' },
   { Header: 'code', accessor: 'code' },
   { Header: 'Name', accessor: 'name' },
-];
-
-const rows = [
   {
-    id: 1,
-    serialNo: 1,
-    batchName: 'Batch 1',
-    batchDescription: 'Description for Batch 1',
-    numberOfTrainee: 25,
+    Header: 'Action',
+    Cell: (row: any) => (
+      <Stack direction="row" spacing={1}>
+        <IconButton
+          aria-label="view"
+          size="small"
+          style={{
+            backgroundColor: '#FAFAFA',
+            borderRadius: '4px',
+            border: '1px solid #D0D0D0',
+          }}
+        >
+          <VisibilityIcon sx={{ color: 'primary.main' }} />
+        </IconButton>
+        <IconButton
+          aria-label="edit"
+          size="small"
+          style={{
+            backgroundColor: '#FAFAFA',
+            borderRadius: '4px',
+            border: '1px solid #D0D0D0',
+          }}
+        >
+          <EditIcon sx={{ color: 'primary.main' }} />
+        </IconButton>
+        <IconButton
+          aria-label="delete"
+          size="small"
+          style={{
+            backgroundColor: '#FAFAFA',
+            borderRadius: '4px',
+            border: '1px solid #D0D0D0',
+          }}
+        >
+          <DeleteIcon sx={{ color: 'error.main' }} />
+        </IconButton>
+      </Stack>
+    ),
   },
-  // Add more rows as needed
 ];
 
 const CourseList: React.FC = () => {
@@ -41,18 +70,18 @@ const CourseList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
-    page: 1,
+    page: currentPage + 1, // Adjusted to use 1-based index for the API
     search: '',
   });
   const navigate = useNavigate();
-  console.log(courses?.data?.data);
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   const handlePageSizeChange = (size: number) => {
     setPageSize(size);
-    setCurrentPage(0); // Reset current page when changing page size
+    setCurrentPage(0);
   };
 
   return (
@@ -109,15 +138,17 @@ const CourseList: React.FC = () => {
           </IconButton>
         </div>
       </Stack>
-      <ReactTable
-        columns={columns}
-        data={rows}
-        totalCount={40}
-        pageSize={pageSize}
-        currentPage={0}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
-      />
+      {courses?.data?.data && (
+        <ReactTable
+          columns={columns}
+          data={courses?.data?.data}
+          totalCount={courses?.data?.total || 0}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          onPageSizeChange={handlePageSizeChange}
+        />
+      )}
     </Container>
   );
 };
