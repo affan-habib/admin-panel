@@ -72,7 +72,7 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
             />
             <InputField
               name="module_code"
-              label="Chapter Name"
+              label="Module Code"
               placeholder="Chapter Name (English)"
             />
             <InputField
@@ -85,7 +85,9 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />
-            <Button type="submit">Submit</Button>
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+              Submit
+            </Button>
           </Form>
         </Formik>
       </DialogContent>

@@ -108,7 +108,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
               label="ভিডিওর প্রতিলিপি"
               placeholder="ভিডিওর প্রতিলিপি লিখুন"
             />
-            <Button type="submit">Submit</Button>
+         <Button type="submit" variant="contained" sx={{mt: 2}}>Submit</Button>
           </Form>
         </Formik>
       </DialogContent>

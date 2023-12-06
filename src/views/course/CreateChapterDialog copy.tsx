@@ -89,7 +89,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />
-            <Button type="submit">Submit</Button>
+         <Button type="submit" variant="contained" sx={{mt: 2}}>Submit</Button>
           </Form>
         </Formik>
       </DialogContent>

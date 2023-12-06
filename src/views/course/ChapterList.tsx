@@ -49,7 +49,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
               backgroundColor: '#DEEEC6',
             }}
           >
-            <Typography mt={1}>{chapter.module_name}</Typography>
+            <Typography mt={1}>{chapter.module_name_bn}</Typography>
             <ModuleActions module={chapter} />
           </AccordionSummary>
           <>
