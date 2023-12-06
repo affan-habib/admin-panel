@@ -13,6 +13,8 @@ import InputField from 'components/form/InputField';
 import axios from 'axios';
 import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
+import { useQueryClient } from 'react-query';
+import RichTextInput from 'components/form/RichTextInput';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -25,18 +27,25 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   onClose,
   initialData,
 }) => {
+  const queryClient = useQueryClient();
+
   const handleSubmit = async (values: any) => {
-    console.log(values);
+    // Remove the "url" key if the value is a string
+    if (typeof values.url === 'string') {
+      values.url = null;
+    }
+
+    const formPayload = { ...values, _method: 'PUT', type: 'video' };
 
     try {
       const formData = new FormData();
 
-      Object.keys(values).forEach((key) => {
-        formData.append(key, values[key]);
+      Object.keys(formPayload).forEach((key) => {
+        formData.append(key, formPayload[key]);
       });
 
       const response = await axios.post(
-        `${apiBaseUrl}/course/material/create`,
+        `${apiBaseUrl}/course/material/update/${values.id}`,
         formData,
         {
           headers: {
@@ -45,11 +54,14 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
         },
       );
 
+      queryClient.invalidateQueries('courseDetails');
+      onClose();
       console.log('API Response:', response.data);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
   };
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle
@@ -80,11 +92,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             />
             <InputFile name="url" label="ভিডিও আপলোড করুন" />
 
-            <InputField
-              name="transcript"
-              label="ভিডিওর প্রতিলিপি"
-              placeholder="ভিডিওর প্রতিলিপি লিখুন"
-            />
+            <RichTextInput label="ভিডিওর প্রতিলিপি" name="transcript" />
             <Button type="submit">Submit</Button>
           </Form>
         </Formik>

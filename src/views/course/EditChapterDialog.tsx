@@ -11,27 +11,35 @@ import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import { apiBaseUrl } from 'config';
 
 interface CreateChapterDialogProps {
   open: boolean;
   onClose: () => void;
+  module: any;
 }
 
-const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
+const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
   open,
   onClose,
+  module,
 }) => {
+  const { id } = useParams();
+  const queryClient = useQueryClient();
+
   const handleSubmit = async (values: any) => {
     try {
       // Make a POST request to the API endpoint
-      const response = await axios.post(
-        'http://172.16.100.209:8002/api/clms/dev/course-module',
+      const response = await axios.put(
+        `${apiBaseUrl}/course-module/${values.id}`,
         values,
       );
 
       // Handle the response or perform actions as needed
       console.log('API Response:', response.data);
-
+      queryClient.invalidateQueries('courseDetails');
       onClose();
     } catch (error) {
       // Handle error, log it, or display a message to the user
@@ -49,23 +57,14 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          অধ্যায় যোগ করুন
+          অধ্যায় ee করুন
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <Close />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ width: 600 }}>
-        <Formik
-          initialValues={{
-            course_id: 9,
-            module_code: '',
-            module_code_bn: '',
-            module_name: '',
-            module_name_bn: '',
-          }}
-          onSubmit={handleSubmit}
-        >
+        <Formik initialValues={module} onSubmit={handleSubmit}>
           <Form>
             <InputField
               name="module_code_bn"
@@ -74,7 +73,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
             />
             <InputField
               name="module_code"
-              label="Chapter Name"
+              label="Module Code"
               placeholder="Chapter Name (English)"
             />
             <InputField
@@ -87,7 +86,9 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />
-            <Button type="submit">Submit</Button>
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+              Submit
+            </Button>
           </Form>
         </Formik>
       </DialogContent>
@@ -95,4 +96,4 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
   );
 };
 
-export default CreateChapterDialog;
+export default EditChapterDialog;

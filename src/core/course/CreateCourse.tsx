@@ -60,7 +60,7 @@ const CreateCourse: React.FC = () => {
     }
   };
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ pb: 20 }}>
       <Formik
         initialValues={initialValues}
         // validationSchema={validationSchema}

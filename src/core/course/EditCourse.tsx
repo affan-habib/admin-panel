@@ -14,16 +14,40 @@ import StepThree from 'views/course/StepThree';
 import DyanamicForm from 'views/course/CreateChapter';
 import { useParams } from 'react-router-dom';
 import useCourseDetails from 'hooks/useCourseDetails';
+import { apiBaseUrl } from 'config';
+import axios from 'axios';
 
 const EditCourse: React.FC = () => {
   const { id } = useParams();
   const { data } = useCourseDetails(id);
 
   const [selectedStep, setSelectedStep] = useState<number>(1);
-  const handleSubmit = (values: any, actions: any) => {};
+  const handleSubmit = async (values: any) => {
+    console.log(values);
 
+    try {
+      const formData = new FormData();
+      Object.keys(values).forEach((key) => {
+        formData.append(key, values[key]);
+      });
+
+      const response = await axios.put(
+        `${apiBaseUrl}/course/${id}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+
+      console.log('API Response:', response.data);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ pb: 30 }}>
       <Formik
         enableReinitialize
         initialValues={data?.data}
@@ -39,7 +63,7 @@ const EditCourse: React.FC = () => {
                     অ্যাডমিন প্যানেল
                   </Link>
                   <Typography color="textPrimary">
-                    পাঠ্যক্রম তৈরি করুন
+                    পাঠ্যক্রম আপডেট করুন
                   </Typography>
                 </Breadcrumbs>
               </Grid>
@@ -67,7 +91,7 @@ const EditCourse: React.FC = () => {
                   sx={{ ml: 'auto' }}
                   type="submit"
                 >
-                  Create New
+                  আপডেট
                 </Button>
               </Grid>
               <Grid item md={7}>
@@ -78,7 +102,7 @@ const EditCourse: React.FC = () => {
                 <StepThree />
               </Grid>
               <Grid item md={7}>
-                <DyanamicForm modules={data?.data?.course_modules}/>
+                <DyanamicForm modules={data?.data?.course_modules} />
               </Grid>
             </Grid>
           </Form>
