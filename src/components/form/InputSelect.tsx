@@ -5,7 +5,7 @@ import { Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 type InputSelectProps = FieldHookConfig<string> & {
   label: string;
-  options: { value: string; label: string }[];
+  options: { value: any; label: string }[];
   fieldWidth?: number; //
 };
 
@@ -28,7 +28,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
                 color: 'black',
                 marginY: 1,
                 marginTop: 1,
-                fontWeight: 600,
+                fontWeight: 500,
               }}
             >
               {label}
@@ -40,7 +40,6 @@ const InputSelect: React.FC<InputSelectProps> = ({
         style={{
           flex: 1,
           width: `${fieldWidth}px`,
-          marginLeft: label ? '8px' : '0',
         }}
       >
         <Select
