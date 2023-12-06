@@ -19,52 +19,6 @@ import PageSizeSelect from 'components/tables/PageSizeSelect';
 import { useNavigate } from 'react-router-dom';
 import useCourses from 'hooks/useCourses';
 
-const columns = [
-  { Header: 'ID', accessor: 'id' },
-  { Header: 'code', accessor: 'code' },
-  { Header: 'Name', accessor: 'name' },
-  {
-    Header: 'Action',
-    Cell: (row: any) => (
-      <Stack direction="row" spacing={1}>
-        <IconButton
-          aria-label="view"
-          size="small"
-          style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: '4px',
-            border: '1px solid #D0D0D0',
-          }}
-        >
-          <VisibilityIcon sx={{ color: 'primary.main' }} />
-        </IconButton>
-        <IconButton
-          aria-label="edit"
-          size="small"
-          style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: '4px',
-            border: '1px solid #D0D0D0',
-          }}
-        >
-          <EditIcon sx={{ color: 'primary.main' }} />
-        </IconButton>
-        <IconButton
-          aria-label="delete"
-          size="small"
-          style={{
-            backgroundColor: '#FAFAFA',
-            borderRadius: '4px',
-            border: '1px solid #D0D0D0',
-          }}
-        >
-          <DeleteIcon sx={{ color: 'error.main' }} />
-        </IconButton>
-      </Stack>
-    ),
-  },
-];
-
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
@@ -83,6 +37,54 @@ const CourseList: React.FC = () => {
     setPageSize(size);
     setCurrentPage(0);
   };
+  const columns = [
+    { Header: 'ID', accessor: 'id' },
+    { Header: 'code', accessor: 'code' },
+    { Header: 'Name', accessor: 'name_bn' },
+    {
+      Header: 'Action',
+      width: 200,
+      Cell: (cell: any) => (
+        <Stack direction="row" spacing={1}>
+          <IconButton
+            aria-label="view"
+            size="small"
+            style={{
+              backgroundColor: '#FAFAFA',
+              borderRadius: '4px',
+              border: '1px solid #D0D0D0',
+            }}
+          >
+            <VisibilityIcon sx={{ color: 'primary.main' }} />
+          </IconButton>
+          <IconButton
+            aria-label="edit"
+            size="small"
+            style={{
+              backgroundColor: '#FAFAFA',
+              borderRadius: '4px',
+              border: '1px solid #D0D0D0',
+            }}
+            onClick={() => navigate(`/course/edit/${cell.row.original.id}`)}
+            // Access the correct property: cell.row.original.id
+          >
+            <EditIcon sx={{ color: 'primary.main' }} />
+          </IconButton>
+          <IconButton
+            aria-label="delete"
+            size="small"
+            style={{
+              backgroundColor: '#FAFAFA',
+              borderRadius: '4px',
+              border: '1px solid #D0D0D0',
+            }}
+          >
+            <DeleteIcon sx={{ color: 'error.main' }} />
+          </IconButton>
+        </Stack>
+      ),
+    },
+  ];
 
   return (
     <Container maxWidth="xl">
