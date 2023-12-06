@@ -13,6 +13,7 @@ import InputField from 'components/form/InputField';
 import axios from 'axios';
 import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
+import { useParams } from 'react-router-dom';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -25,6 +26,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   onClose,
   initialData,
 }) => {
+  const { id } = useParams();
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -36,8 +38,8 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
       });
 
       const response = await axios.post(
-        `${apiBaseUrl}/course/material/create`,
-        formData,
+        `${apiBaseUrl}/course/material/update/${id}`,
+        { _method: 'PUT', type: 'video', ...formData },
         {
           headers: {
             'Content-Type': 'multipart/form-data',

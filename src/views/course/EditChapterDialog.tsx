@@ -12,6 +12,7 @@ import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -25,17 +26,19 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
   module,
 }) => {
   const { id } = useParams();
+  const queryClient = useQueryClient();
+
   const handleSubmit = async (values: any) => {
     try {
       // Make a POST request to the API endpoint
-      const response = await axios.post(
-        'http://172.16.100.209:8002/api/clms/dev/course-module',
+      const response = await axios.put(
+        `http://172.16.100.209:8002/api/clms/dev/course-module/${id}`,
         values,
       );
 
       // Handle the response or perform actions as needed
       console.log('API Response:', response.data);
-
+      queryClient.invalidateQueries('courseDetails');
       onClose();
     } catch (error) {
       // Handle error, log it, or display a message to the user

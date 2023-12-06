@@ -67,7 +67,7 @@ const EditCourse: React.FC = () => {
                   sx={{ ml: 'auto' }}
                   type="submit"
                 >
-                  Create New
+                  Update
                 </Button>
               </Grid>
               <Grid item md={7}>
