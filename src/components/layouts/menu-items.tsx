@@ -99,6 +99,11 @@ export const useGetMenuItems = (): MenuItem[] => {
           title: t('adminUserList'),
           icon: <LibraryBooksIcon/>,
           path: '/admin-user-list'
+        },
+        {
+          title: t('createAdminUser'),
+          icon: <LibraryBooksIcon/>,
+          path: '/create-admin-user'
         }
       ]
     }

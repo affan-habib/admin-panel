@@ -57,5 +57,6 @@
   "adminUserList": "Admin User List",
   "fullUserName": "Full Name Of User",
   "userName": "User Name",
-  "userRoleName": "User Role Name"
+  "userRoleName": "User Role Name",
+  "createAdminUser": "Create Admin User"
 }
