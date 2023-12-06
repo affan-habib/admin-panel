@@ -52,5 +52,11 @@
   "createCourse": "কোর্স তৈরী করুন",
   "courseList": "কোর্স তালিকা ",
   "addTrainer" : "ট্রেইনার যোগ করুন",
-  "setTrainerLimit" : "ট্রেইনার লিমিট"
+  "setTrainerLimit" : "ট্রেইনার লিমিট",
+  "settings": "সেটিংস",
+  "adminUserList": "এডমিন ইউজার লিস্ট",
+  "fullUserName": "ব্যবহারকারীর সম্পূর্ন নাম",
+  "userName": "ইউজার নাম",
+  "userRoleName": "ইউজার রোল নেম",
+  "createAdminUser": "ক্রিয়েট এডমিন ইউজার"
 }

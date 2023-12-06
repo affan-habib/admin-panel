@@ -4,7 +4,9 @@ import {
   CardContent,
   CardHeader,
   Container,
-  Button, // Import Button from MUI
+  Button,
+  Typography,
+  Box, // Import Button from MUI
 } from '@mui/material';
 
 interface MainCardProps {
@@ -13,25 +15,21 @@ interface MainCardProps {
   modalButton?: React.ReactNode; // Add modalButton prop
 }
 
-const MainCard: React.FC<MainCardProps> = ({
-  title,
-  children,
-  modalButton,
-}) => {
+const MainCard: React.FC<MainCardProps> = ({ title, children }) => {
   return (
-    <Container maxWidth="xl">
-      <Card sx={{ width: '100%' }}>
-        <CardHeader
-          title={title}
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-          action={modalButton}
-        />
-        <CardContent>{children}</CardContent>
+    <>
+      <Card
+        sx={{
+          border: '1px solid #D0D0D0',
+          borderRadius: '8px',
+        }}
+      >
+        <Typography align="center" bgcolor="#DEEEC6" p={1} variant="subtitle1">
+          {title}
+        </Typography>
+        <Box m={2}>{children}</Box>
       </Card>
-    </Container>
+    </>
   );
 };
 
