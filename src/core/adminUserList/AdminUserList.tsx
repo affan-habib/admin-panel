@@ -9,6 +9,7 @@ import { Add } from '@mui/icons-material';
 import ModalComponent from './ModalComponent';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { apiBaseUrl } from 'config';
 
 
 interface Row {
@@ -28,13 +29,15 @@ const AdminUserList: React.FC = () => {
     const [data, setData] = useState<{ data?: any }>({});
     const [selectedUserData, setSelectedUserData] = useState<any>({});
     const [rows, setRows] = useState<Row[]>([]);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const apiUrl = apiBaseUrl;
 
     const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://172.16.100.209:8002/api/clms/dev/admins', {
+            const response = await axios.get(`${apiUrl}/admins`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -52,7 +55,7 @@ const AdminUserList: React.FC = () => {
     const handleDelete = (row: any) => {
         const id = row.original.id
         try {
-            axios.delete(`http://172.16.100.209:8002/api/clms/dev/admins/${id}`, {
+            axios.delete(`${apiUrl}/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
