@@ -29,7 +29,7 @@ const InputDate: React.FC<InputFieldProps> = ({ label, name, fieldWidth }) => {
             minWidth: 200,
             color: 'black',
             fontWeight: 600,
-            my: 2,
+            my: 1,
           }}
         >
           {label}

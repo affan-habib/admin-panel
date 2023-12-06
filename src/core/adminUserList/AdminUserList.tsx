@@ -8,6 +8,7 @@ import ReactTable from 'components/tables/ReactTable';
 import { Add } from '@mui/icons-material';
 import ModalComponent from './ModalComponent';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 interface Row {
@@ -25,9 +26,9 @@ const AdminUserList: React.FC = () => {
     const { t } = useTranslation();
 
     const [data, setData] = useState<{ data?: any }>({});
-    const [selectedUserData, setSelectedUserData] = useState<Row | null>({});
+    const [selectedUserData, setSelectedUserData] = useState<any>({});
     const [rows, setRows] = useState<Row[]>([]);
-
+    const navigate = useNavigate()
     const fetchData = async () => {
         try {
             const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
@@ -54,7 +55,7 @@ const AdminUserList: React.FC = () => {
 
     };
 
-    
+
     useEffect(() => {
         if (resData) {
             setRows(resData);
@@ -160,7 +161,7 @@ const AdminUserList: React.FC = () => {
                 alignItems="center"
                 mb={2}
             >
-                <Button variant="contained" startIcon={<Add />} sx={{ mr: 2 }}>
+                <Button variant="contained" startIcon={<Add />} sx={{ ml: 'auto', my: 2 }} onClick={() => navigate("/create-admin-user")}>
                     Create User
                 </Button>
             </Stack>

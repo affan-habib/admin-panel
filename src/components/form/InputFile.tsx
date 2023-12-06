@@ -1,62 +1,45 @@
-// InputFile.tsx
+// FileUpload.js
 import React from 'react';
-import { useField, FieldHookConfig } from 'formik';
-import {
-  InputLabel,
-  TextField,
-  InputAdornment,
-  IconButton,
-} from '@mui/material';
-import { UploadRounded } from '@mui/icons-material';
+import { useField } from 'formik';
+import { InputLabel, TextField } from '@mui/material';
 
-type InputFileProps = FieldHookConfig<File> & {
-  label: string;
-  fieldWidth?: number;
-};
+const FileUpload: React.FC<any> = ({ label, acceptedFileTypes, ...props }) => {
+  const [field, meta, helpers] = useField(props);
 
-const InputFile: React.FC<InputFileProps> = ({
-  label,
-  fieldWidth,
-  ...props
-}) => {
-  const [field, meta] = useField(props);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.currentTarget.files
+      ? event.currentTarget.files[0]
+      : null;
+    helpers.setValue(file);
+  };
 
   return (
     <div>
-      {label && (
-        <InputLabel
-          sx={{
-            minWidth: 200,
-            color: 'black',
-            fontWeight: 600,
-            my: 2,
-          }}
-        >
-          {label}
-        </InputLabel>
-      )}
-      <TextField
-        sx={{ bgcolor: 'white' }}
-        size="small"
-        {...field}
-        label=""
-        type="file"
-        fullWidth
-        variant="outlined"
-        error={meta.touched && !!meta.error}
-        helperText={meta.touched && meta.error}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton component="span">
-                <UploadRounded />
-              </IconButton>
-            </InputAdornment>
-          ),
+      <InputLabel
+        sx={{
+          minWidth: 200,
+          color: 'black',
+          my: 1,
+          fontWeight: 500,
         }}
+        htmlFor={field.name}
+      >
+        {label}
+      </InputLabel>
+      <TextField
+        size="small"
+        fullWidth
+        id={field.name}
+        name={field.name}
+        type="file"
+        inputProps={{
+          accept: acceptedFileTypes || '*', // Set accepted file types
+        }}
+        onChange={handleChange}
+        onBlur={field.onBlur}
       />
     </div>
   );
 };
 
-export default InputFile;
+export default FileUpload;
