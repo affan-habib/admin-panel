@@ -13,8 +13,8 @@ import InputField from 'components/form/InputField';
 import axios from 'axios';
 import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
-import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
+import RichTextInput from 'components/form/RichTextInput';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -92,11 +92,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             />
             <InputFile name="url" label="ভিডিও আপলোড করুন" />
 
-            <InputField
-              name="transcript"
-              label="ভিডিওর প্রতিলিপি"
-              placeholder="ভিডিওর প্রতিলিপি লিখুন"
-            />
+            <RichTextInput label="ভিডিওর প্রতিলিপি" name="transcript" />
             <Button type="submit">Submit</Button>
           </Form>
         </Formik>

@@ -15,6 +15,7 @@ import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
+import RichTextInput from 'components/form/RichTextInput';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -91,7 +92,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             title: '',
             url: null,
             status: 1,
-            transcript: 'Some Transcript',
+            transcript: '',
           }}
           onSubmit={handleSubmit}
         >
@@ -103,12 +104,10 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             />
             <InputFile name="url" label="ভিডিও আপলোড করুন" />
 
-            <InputField
-              name="transcript"
-              label="ভিডিওর প্রতিলিপি"
-              placeholder="ভিডিওর প্রতিলিপি লিখুন"
-            />
-         <Button type="submit" variant="contained" sx={{mt: 2}}>Submit</Button>
+            <RichTextInput label="ভিডিওর প্রতিলিপি" name="transcript" />
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+              Submit
+            </Button>
           </Form>
         </Formik>
       </DialogContent>
