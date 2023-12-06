@@ -23,7 +23,7 @@ interface UserInfo {
 interface ModalComponentProps {
     open: boolean;
     handleClose: () => void;
-    userData: UserInfo;
+    userData: any;
 }
 
 const style = {
@@ -41,15 +41,14 @@ const style = {
 
 const ModalComponent: React.FC<ModalComponentProps> = ({ open, handleClose, userData }) => {
     const {
-        fullName,
-        designation,
-        userName,
-        emailAddress,
-        mobileNumber,
+        name,
+        type,
+        username,
+        email,
+        mobile_no,
         status,
-        roleName,
+        // roleName,
     } = userData;
-
     // console.log(userData);
     return (
         <Modal
@@ -70,32 +69,32 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, handleClose, user
                 </IconButton>
 
                 <Stack direction="column" alignItems="center" justifyContent="center" mb={2}>
-                    <Avatar sx={{ mb: 3, width: 60, height: 60 }}> 
+                    <Avatar sx={{ mb: 3, width: 60, height: 60 }}>
                         <PersonIcon sx={{ fontSize: 60 }} />
                     </Avatar>
                     <Box borderBottom="1px solid rgba(179, 224, 221, 1)" width="80%" />
                 </Stack>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <AccountCircleOutlinedIcon sx={{ color: 'primary.main',marginLeft: '10px' }} />
-                    <strong style={{ minWidth: '300px', display: 'inline-block', margin: '0 8px' }}>ব্যবহারকারীর সম্পূর্ন নাম:</strong> {fullName}
+                    <AccountCircleOutlinedIcon sx={{ color: 'primary.main', marginLeft: '10px' }} />
+                    <strong style={{ minWidth: '300px', display: 'inline-block', margin: '0 8px' }}>ব্যবহারকারীর সম্পূর্ন নাম:</strong> {name}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <BadgeOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>পদবি:</strong> {designation}
+                    <BadgeOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>পদবি:</strong> {type}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <FormatColorTextOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>ইউজার নেম:</strong> {userName}
+                    <FormatColorTextOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>ইউজার নেম:</strong> {username}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <MailOutlineOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}> ইমেল এড্রেস:</strong> {emailAddress}
+                    <MailOutlineOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}> ইমেল এড্রেস:</strong> {email}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CallOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>মোবাইল নাম্বার:</strong> {mobileNumber}
+                    <CallOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>মোবাইল নাম্বার:</strong> {mobile_no}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <ToggleOnOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>স্ট্যাটাস:</strong> {status}
+                    <ToggleOnOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>স্ট্যাটাস:</strong> {status}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <AdminPanelSettingsOutlinedIcon sx={{ mr: 1, color: 'primary.main',marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>রোল নেম:</strong> {roleName}
+                    <AdminPanelSettingsOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>রোল নেম:</strong> {username}
                 </Typography>
 
                 <Stack direction="column" alignItems="center" justifyContent="center">
