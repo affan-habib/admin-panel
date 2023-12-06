@@ -17,30 +17,12 @@ import ReactTable from 'components/tables/ReactTable';
 import { Add, FilterList, SaveAlt, Search } from '@mui/icons-material';
 import PageSizeSelect from 'components/tables/PageSizeSelect';
 import { useNavigate } from 'react-router-dom';
+import useCourses from 'hooks/useCourses';
 
 const columns = [
   { Header: 'ID', accessor: 'id' },
-  { Header: 'Serial No', accessor: 'serialNo' },
-  { Header: 'Batch Name', accessor: 'batchName' },
-  { Header: 'Batch Description', accessor: 'batchDescription' },
-  { Header: 'Number of Trainees', accessor: 'numberOfTrainee' },
-  {
-    Header: 'Actions',
-    accessor: 'actions',
-    Cell: ({ row }: any) => (
-      <>
-        <IconButton aria-label="view" size="small">
-          <VisibilityIcon />
-        </IconButton>
-        <IconButton aria-label="edit" size="small">
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="delete" size="small">
-          <DeleteIcon />
-        </IconButton>
-      </>
-    ),
-  },
+  { Header: 'code', accessor: 'code' },
+  { Header: 'Name', accessor: 'name' },
 ];
 
 const rows = [
@@ -57,8 +39,13 @@ const rows = [
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
+  const { data: courses } = useCourses({
+    itemsPerPage: pageSize,
+    page: 1,
+    search: '',
+  });
   const navigate = useNavigate();
-
+  console.log(courses?.data?.data);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };

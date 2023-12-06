@@ -8,12 +8,13 @@ import {
   Button,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
 import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
 import { useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -27,9 +28,12 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   onClose,
 }) => {
   const { id } = useParams();
-  const handleSubmit = async (values: any) => {
-    console.log(values);
+  const queryClient = useQueryClient();
 
+  const handleSubmit = async (
+    values: any,
+    { setSubmitting }: FormikHelpers<any>,
+  ) => {
     try {
       const formData = new FormData();
 
@@ -48,10 +52,20 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
       );
 
       console.log('API Response:', response.data);
+
+      // Invalidate the query coursedetails using React Query
+      queryClient.invalidateQueries('courseDetails');
+
+      // Close the dialog after successful submission
+      onClose();
     } catch (error) {
       console.error('Error submitting form:', error);
+    } finally {
+      // Ensure to set submitting to false even if an error occurs
+      setSubmitting(false);
     }
   };
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle
