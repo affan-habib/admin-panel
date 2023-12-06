@@ -58,5 +58,6 @@
   "fullUserName": "ব্যবহারকারীর সম্পূর্ন নাম",
   "userName": "ইউজার নাম",
   "userRoleName": "ইউজার রোল নেম",
-  "createAdminUser": "ক্রিয়েট এডমিন ইউজার"
+  "createAdminUser": "ক্রিয়েট এডমিন ইউজার",
+  "roleList" : "রোল লিস্ট"
 }
