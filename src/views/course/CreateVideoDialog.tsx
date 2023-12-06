@@ -8,12 +8,14 @@ import {
   Button,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
 import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
 import { useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import RichTextInput from 'components/form/RichTextInput';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -27,9 +29,12 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   onClose,
 }) => {
   const { id } = useParams();
-  const handleSubmit = async (values: any) => {
-    console.log(values);
+  const queryClient = useQueryClient();
 
+  const handleSubmit = async (
+    values: any,
+    { setSubmitting }: FormikHelpers<any>,
+  ) => {
     try {
       const formData = new FormData();
 
@@ -48,10 +53,20 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
       );
 
       console.log('API Response:', response.data);
+
+      // Invalidate the query coursedetails using React Query
+      queryClient.invalidateQueries('courseDetails');
+
+      // Close the dialog after successful submission
+      onClose();
     } catch (error) {
       console.error('Error submitting form:', error);
+    } finally {
+      // Ensure to set submitting to false even if an error occurs
+      setSubmitting(false);
     }
   };
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle
@@ -77,7 +92,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             title: '',
             url: null,
             status: 1,
-            transcript: 'Some Transcript',
+            transcript: '',
           }}
           onSubmit={handleSubmit}
         >
@@ -89,12 +104,10 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             />
             <InputFile name="url" label="ভিডিও আপলোড করুন" />
 
-            <InputField
-              name="transcript"
-              label="ভিডিওর প্রতিলিপি"
-              placeholder="ভিডিওর প্রতিলিপি লিখুন"
-            />
-            <Button type="submit">Submit</Button>
+            <RichTextInput label="ভিডিওর প্রতিলিপি" name="transcript" />
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+              Submit
+            </Button>
           </Form>
         </Formik>
       </DialogContent>

@@ -5,6 +5,7 @@ import InputFile from 'components/form/InputFile';
 import InputRadio from 'components/form/InputRadio';
 import MainCard from 'components/cards/MainCard';
 import InputField from 'components/form/InputField';
+import InputSelect from 'components/form/InputSelect';
 
 const Step3: React.FC = () => (
   <MainCard title="গ্লোবাল সেটিংস অ্যাড করুন">
@@ -13,29 +14,22 @@ const Step3: React.FC = () => (
       label="Course Code"
       placeholder="Write the code here..."
     />
-    <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 1 }}>
-      <InputLabel
-        sx={{
-          minWidth: 200,
-          color: 'black',
-          fontWeight: 500,
-        }}
-      >
-        Course Status{' '}
-      </InputLabel>
-      <InputRadio label="Active" name="status" value={1} />
-      <InputRadio label="Inactive" name="status" value={2} />
-    </Stack>
+    <InputSelect
+      name="status"
+      label="Status"
+      options={[
+        { value: 1, label: 'Active' },
+        { value: 2, label: 'Inactive' },
+        { value: 3, label: 'Draft' },
+        { value: 4, label: 'On Hold' },
+      ]}
+    />
     <InputFile
       name="featured_image"
       label="Feature Image"
       acceptedFileTypes="image/*"
     />
-    <InputFile
-      name="icon"
-      label="Icon"
-      acceptedFileTypes="image/*"
-    />
+    <InputFile name="icon" label="Icon" acceptedFileTypes="image/*" />
     <InputFile
       name="supporting_doc"
       label="Supporting Documents"
