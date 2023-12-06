@@ -32,7 +32,7 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
     try {
       // Make a POST request to the API endpoint
       const response = await axios.put(
-        `http://172.16.100.209:8002/api/clms/dev/course-module/${id}`,
+        `http://172.16.100.209:8002/api/clms/dev/course-module/${values.id}`,
         values,
       );
 
@@ -56,7 +56,7 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          অধ্যায় যোগ করুন
+          অধ্যায় ee করুন
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <Close />

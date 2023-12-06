@@ -29,7 +29,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   const { id } = useParams();
   const handleSubmit = async (values: any) => {
     console.log(values);
-
+    
     try {
       const formData = new FormData();
 
@@ -38,8 +38,8 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
       });
 
       const response = await axios.post(
-        `${apiBaseUrl}/course/material/update/${id}`,
-        { _method: 'PUT', type: 'video', ...formData },
+        `${apiBaseUrl}/course/material/update${id}`,
+        formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -87,7 +87,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
               label="ভিডিওর প্রতিলিপি"
               placeholder="ভিডিওর প্রতিলিপি লিখুন"
             />
-         <Button type="submit" variant="contained" sx={{mt: 2}}>Submit</Button>
+            <Button type="submit">Submit</Button>
           </Form>
         </Formik>
       </DialogContent>
