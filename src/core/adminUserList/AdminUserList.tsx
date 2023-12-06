@@ -30,6 +30,9 @@ const AdminUserList: React.FC = () => {
     const [selectedUserData, setSelectedUserData] = useState<any>({});
     const [rows, setRows] = useState<Row[]>([]);
     const navigate = useNavigate()
+
+    const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
+
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -47,6 +50,20 @@ const AdminUserList: React.FC = () => {
     useEffect(() => {
         fetchData();
     }, [])
+
+    const handleDelete = (row: any) => {
+        const id = row.original.id
+        try {
+            axios.delete(`http://172.16.100.209:8002/api/clms/dev/admins/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+
+        }
+    }
 
     const resData = data?.data?.data;
 
@@ -121,6 +138,7 @@ const AdminUserList: React.FC = () => {
                     </IconButton>
                     <IconButton
                         aria-label="delete"
+                        onClick={() => handleDelete(row)}
                         size="small"
                         style={{
                             color: 'rgba(255, 74, 95, 1)',
