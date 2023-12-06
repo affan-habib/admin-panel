@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditChapterDialog from './EditChapterDialog'; // Corrected import path
+import { useQueryClient } from 'react-query';
 
 interface ModuleActionsProps {
   module: any;
@@ -11,15 +12,32 @@ interface ModuleActionsProps {
 
 const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
-
+  const queryClient = useQueryClient();
   const handleEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setEditDialogOpen(true);
   };
 
   const handleDeleteClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // Add logic for delete action if needed
+    fetch(
+      `http://172.16.100.209:8002/api/clms/dev/course-module/${module.id}`,
+      {
+        method: 'DELETE',
+      },
+    )
+      .then((response) => {
+        if (response.ok) {
+          // Handle successful deletion (e.g., update state, UI, etc.)
+          queryClient.invalidateQueries('courseDetails');
+          console.log('Module deleted successfully');
+        } else {
+          // Handle deletion failure (e.g., show an error message)
+          console.error('Failed to delete module');
+        }
+      })
+      .catch((error) => {
+        console.error('Error occurred while deleting module:', error);
+      });
   };
 
   const handleCloseEditDialog = () => {
