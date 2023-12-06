@@ -28,7 +28,7 @@ const InputSelect: React.FC<InputSelectProps> = ({
                 color: 'black',
                 marginY: 1,
                 marginTop: 1,
-                fontWeight: 600,
+                fontWeight: 500,
               }}
             >
               {label}

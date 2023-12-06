@@ -25,13 +25,13 @@ const LoginForm: React.FC = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const initialValues = {
-    pdsid: '2016810150',
+    username: 'superadmin',
     password: 'password',
     rememberMe: false,
   };
 
   const validationSchema = Yup.object({
-    pdsid: Yup.string().required(),
+    username: Yup.string().required(),
     password: Yup.string().required(),
   });
 
@@ -42,7 +42,7 @@ const LoginForm: React.FC = () => {
       setLoading(true);
 
       const response = await axios.post(`${apiBaseUrl}/login`, {
-        pdsid: values.pdsid,
+        username: values.username,
         password: values.password,
         rememberMe: values.rememberMe,
       });
@@ -71,15 +71,15 @@ const LoginForm: React.FC = () => {
         <TextField
           variant="outlined"
           size="small"
-          name="pdsid"
+          name="username"
           placeholder={t('email')}
           fullWidth
           margin="normal"
-          value={formik.values.pdsid}
+          value={formik.values.username}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          error={formik.touched.pdsid && Boolean(formik.errors.pdsid)}
-          helperText={formik.touched.pdsid && formik.errors.pdsid}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
