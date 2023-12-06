@@ -3,6 +3,7 @@ import Loadable from 'components/common/Loadable';
 import AdminUserList from 'core/adminUserList/AdminUserList';
 import CreateAdminUser from 'core/createUser/CreateAdminUser';
 import EditCourse from 'core/course/EditCourse';
+import RoleListContainer from 'core/roleList/RoleListContainer';
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
 );
@@ -60,6 +61,10 @@ const AdminRoutes = {
       path: 'course/edit/:id',
       element: < EditCourse/>,
     },
+    {
+      path: 'role-list',
+      element: <RoleListContainer/>
+    }
   ],
 };
 

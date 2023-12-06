@@ -5,6 +5,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { useTranslation } from 'react-i18next';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 
 interface MenuItem {
   title: string;
@@ -28,16 +29,6 @@ export const useGetMenuItems = (): MenuItem[] => {
       icon: <LibraryBooksIcon />,
       subMenu: [
         { title: t('createCourse'), icon: <AddCircleIcon />, path: '/create-course' },
-        // {
-        //   title: t('sendInvitation'),
-        //   icon: <LibraryBooksIcon />,
-        //   path: '/submenu2',
-        // },
-        // {
-        //   title: t('setStudentLimits'),
-        //   icon: <LibraryBooksIcon />,
-        //   path: '/submenu3',
-        // },
         {
           title: t('courseList'),
           icon: <LibraryBooksIcon />,
@@ -104,6 +95,11 @@ export const useGetMenuItems = (): MenuItem[] => {
           title: t('createAdminUser'),
           icon: <LibraryBooksIcon/>,
           path: '/create-admin-user'
+        },
+        {
+          title: t('roleList'),
+          icon: <PersonAddAltOutlinedIcon/>,
+          path: 'role-list'
         }
       ]
     }
