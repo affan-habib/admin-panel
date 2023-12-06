@@ -39,7 +39,7 @@ const EditCourse: React.FC = () => {
                     অ্যাডমিন প্যানেল
                   </Link>
                   <Typography color="textPrimary">
-                    পাঠ্যক্রম তৈরি করুন
+                    পাঠ্যক্রম আপডেট করুন
                   </Typography>
                 </Breadcrumbs>
               </Grid>
@@ -67,7 +67,7 @@ const EditCourse: React.FC = () => {
                   sx={{ ml: 'auto' }}
                   type="submit"
                 >
-                  Update
+                  আপডেট
                 </Button>
               </Grid>
               <Grid item md={7}>
@@ -78,7 +78,7 @@ const EditCourse: React.FC = () => {
                 <StepThree />
               </Grid>
               <Grid item md={7}>
-                <DyanamicForm modules={data?.data?.course_modules}/>
+                <DyanamicForm modules={data?.data?.course_modules} />
               </Grid>
             </Grid>
           </Form>

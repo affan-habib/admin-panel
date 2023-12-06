@@ -82,7 +82,12 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </IconButton>
                   </div>
                 ))}
-              <Button onClick={() => handleDialogOpen(chapter.id)}>
+              <Button
+                onClick={() => handleDialogOpen(chapter.id)}
+                variant="contained"
+                size="small"
+                sx={{ mt: 2 }}
+              >
                 Add Video
               </Button>
             </AccordionDetails>
