@@ -8,6 +8,7 @@ import ReactTable from 'components/tables/ReactTable';
 import { Add } from '@mui/icons-material';
 import ModalComponent from './ModalComponent';
 import axios from 'axios';
+import { apiBaseUrl } from '../../config';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -34,7 +35,8 @@ const AdminUserList: React.FC = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://172.16.100.209:8002/api/clms/dev/admins', {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`${apiBaseUrl}/admins`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
