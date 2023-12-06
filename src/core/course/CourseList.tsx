@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import useCourses from 'hooks/useCourses';
 import { useQueryClient } from 'react-query';
 import ConfirmModal from 'components/common/ConfirmModal';
+import { apiBaseUrl } from 'config';
 
 // Import the ConfirmModal component
 
@@ -67,7 +68,7 @@ const CourseList: React.FC = () => {
 
   const handleConfirmDelete = async () => {
     if (videoIdToDelete !== null) {
-      const apiUrl = `http://172.16.100.209:8002/api/clms/dev/course/${videoIdToDelete}`;
+      const apiUrl = `${apiBaseUrl}/course/${videoIdToDelete}`;
       try {
         const response = await fetch(apiUrl, { method: 'DELETE' });
 

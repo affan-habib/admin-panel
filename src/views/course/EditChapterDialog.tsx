@@ -13,6 +13,7 @@ import InputField from 'components/form/InputField';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
+import { apiBaseUrl } from 'config';
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -32,7 +33,7 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
     try {
       // Make a POST request to the API endpoint
       const response = await axios.put(
-        `http://172.16.100.209:8002/api/clms/dev/course-module/${values.id}`,
+        `${apiBaseUrl}/course-module/${values.id}`,
         values,
       );
 

@@ -1,11 +1,12 @@
 // Import necessary dependencies
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { apiBaseUrl } from 'config';
 
 // Define the fetch function that makes the API request
 const fetchCourses = async ({ itemsPerPage, page, search }: any) => {
   try {
-    const response = await axios.get('http://172.16.100.209:8002/api/clms/dev/course', {
+    const response = await axios.get(`${apiBaseUrl}/course`, {
       params: {
         itemsPerPage,
         page,
@@ -25,7 +26,7 @@ const useCourses = ({ itemsPerPage, page, search }: any) => {
     () => fetchCourses({ itemsPerPage, page, search }),
     {
       refetchOnWindowFocus: false, // Disable automatic refetching on window focus
-    }
+    },
   );
 };
 

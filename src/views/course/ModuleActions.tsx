@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditChapterDialog from './EditChapterDialog'; // Corrected import path
 import { useQueryClient } from 'react-query';
+import { apiBaseUrl } from 'config';
 
 interface ModuleActionsProps {
   module: any;
@@ -19,12 +20,9 @@ const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
   };
 
   const handleDeleteClick = (e: React.MouseEvent) => {
-    fetch(
-      `http://172.16.100.209:8002/api/clms/dev/course-module/${module.id}`,
-      {
-        method: 'DELETE',
-      },
-    )
+    fetch(`${apiBaseUrl}/course-module/${module.id}`, {
+      method: 'DELETE',
+    })
       .then((response) => {
         if (response.ok) {
           // Handle successful deletion (e.g., update state, UI, etc.)

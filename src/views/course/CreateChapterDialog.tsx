@@ -13,6 +13,7 @@ import InputField from 'components/form/InputField';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
+import { apiBaseUrl } from 'config';
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -29,10 +30,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
   const handleSubmit = async (values: any) => {
     try {
       // Make a POST request to the API endpoint
-      const response = await axios.post(
-        'http://172.16.100.209:8002/api/clms/dev/course-module',
-        values,
-      );
+      const response = await axios.post(`${apiBaseUrl}/course-module`, values);
 
       // Handle the response or perform actions as needed
       console.log('API Response:', response.data);
@@ -92,7 +90,9 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />
-         <Button type="submit" variant="contained" sx={{mt: 2}}>Submit</Button>
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+              Submit
+            </Button>
           </Form>
         </Formik>
       </DialogContent>
