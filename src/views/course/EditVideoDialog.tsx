@@ -32,7 +32,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
     if (typeof values.url === 'string') {
-      values.url = null;
+      delete values.url;
     }
 
     const formPayload = { ...values, _method: 'PUT', type: 'video' };
