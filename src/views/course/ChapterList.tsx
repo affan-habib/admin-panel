@@ -126,14 +126,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
               >
                 Add Assignment
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 disabled
                 size="small"
                 sx={{ ml: 2, mt: 2 }}
               >
                 Add Quiz
-              </Button>
+              </Button> */}
               <Button
                 variant="contained"
                 disabled
