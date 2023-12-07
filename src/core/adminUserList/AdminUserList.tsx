@@ -53,20 +53,6 @@ const AdminUserList: React.FC = () => {
         fetchData();
     }, [])
 
-    // const handleDelete = (row: any) => {
-    //     const id = row.original.id
-    //     try {
-    //         axios.delete(`${apiBaseUrl}/admins/${id}`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //         });
-    //         fetchData();
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-
-    //     }
-    // }
 
     const handleDelete = (row: any) => {
         // Set the selected user data
