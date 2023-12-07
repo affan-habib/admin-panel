@@ -71,5 +71,7 @@
   "designation" : "Designation",
   "mobileNo" : "Mobile No",
   "uploadImage": "Upload Image",
-  "submit" : "submit"
+  "submit" : "submit",
+  "editUser" : "Edit User",
+  "SelectThis" : "Please Select"
 }

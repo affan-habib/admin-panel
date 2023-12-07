@@ -20,7 +20,7 @@ const CreateAdminUser: React.FC = () => {
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
-  const isRequiredField = (fieldName: string) => {
+const isRequiredField = (fieldName: string) => {
     // Define an array of required field names
     const requiredFields = ['name', 'type', 'username', 'email', 'mobile_no', 'status', 'role', 'password', 'file'];
     // Check if the current field is in the array of required fields
@@ -51,6 +51,25 @@ const CreateAdminUser: React.FC = () => {
       setSnackbarOpen(true);
     }
   };
+  // const handleSubmit = async (values: any) => {
+  //   console.log(values);
+  //   const token = localStorage.getItem('token');
+  //   try {
+  //     axios.post(`${apiBaseUrl}/admins`, values, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //       .then(function (response) {
+  //         navigate("/admin-user-list")
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   }
+  // };
   return (
     <div>
 
@@ -106,11 +125,11 @@ const CreateAdminUser: React.FC = () => {
                       label="সিলেক্ট করুন"
                     // Set an empty default value
                     >
-                      <MenuItem value="superadmin">Super admin</MenuItem>
+<MenuItem value="superadmin">Super admin</MenuItem>
                       <MenuItem value="reportadmin">Report admin</MenuItem>
                       <MenuItem value="dsheadmin">DSHE admin</MenuItem>
                       <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
-                      <MenuItem value="contentadmin">Content admin</MenuItem>
+<MenuItem value="contentadmin">Content admin</MenuItem>
                       <MenuItem value="batchcoordinator">Batch Coordinator</MenuItem>
                     </Field>
                   </Grid>
@@ -172,7 +191,7 @@ const CreateAdminUser: React.FC = () => {
                       label="সিলেক্ট করুন"
                     // Set an empty default value
                     >
-                      <MenuItem value="super-admin">Super Admin</MenuItem>
+<MenuItem value="super-admin">Super Admin</MenuItem>
                       <MenuItem value="admin">Admin</MenuItem>
                       <MenuItem value="trainer">Trainer</MenuItem>
                       <MenuItem value="trainee">Trainee</MenuItem>

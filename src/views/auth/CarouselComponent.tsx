@@ -3,8 +3,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Box } from '@mui/material';
-import slider1 from '../../assets/sherebangla.svg';
-import slider2 from '../../assets/sherebangla.svg';
+import slider1 from '../../assets/1.svg';
+import slider2 from '../../assets/2.svg';
+import slider3 from '../../assets/3.svg';
 
 const CarouselComponent: React.FC = () => {
   const settings = {
@@ -14,11 +15,11 @@ const CarouselComponent: React.FC = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 4000,
   };
 
   // Array of images
-  const imageSlides = [slider1, slider2];
+  const imageSlides = [slider1, slider2, slider3];
 
   return (
     <Slider {...settings}>

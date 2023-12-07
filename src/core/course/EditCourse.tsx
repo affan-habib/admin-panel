@@ -16,12 +16,19 @@ import { useParams } from 'react-router-dom';
 import useCourseDetails from 'hooks/useCourseDetails';
 import { apiBaseUrl } from 'config';
 import axios from 'axios';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const EditCourse: React.FC = () => {
   const { id } = useParams();
   const { data } = useCourseDetails(id);
-
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
   const [selectedStep, setSelectedStep] = useState<number>(1);
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -42,9 +49,15 @@ const EditCourse: React.FC = () => {
           },
         },
       );
+      setSnackbarSeverity('success');
+      setSnackbarMessage(response.data.message);
+      setSnackbarOpen(true);
 
       console.log('API Response:', response.data);
-    } catch (error) {
+    } catch (error:any) {
+      setSnackbarSeverity('error');
+      setSnackbarMessage(error.response.data.message || 'An error occurred');
+      setSnackbarOpen(true);
       console.error('Error submitting form:', error);
     }
   };
@@ -120,6 +133,16 @@ const EditCourse: React.FC = () => {
           </Form>
         )}
       </Formik>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
