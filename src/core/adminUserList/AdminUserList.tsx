@@ -10,6 +10,7 @@ import ModalComponent from './ModalComponent';
 import axios from 'axios';
 import { apiBaseUrl } from '../../config';
 import { useNavigate } from 'react-router-dom';
+import WarningModal from 'components/common/DeleteWarning';
 
 
 interface Row {
@@ -32,6 +33,7 @@ const AdminUserList: React.FC = () => {
     const navigate = useNavigate()
 
     const token = localStorage.getItem('token');
+    const [showWarningModal, setShowWarningModal] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -51,8 +53,31 @@ const AdminUserList: React.FC = () => {
         fetchData();
     }, [])
 
+    // const handleDelete = (row: any) => {
+    //     const id = row.original.id
+    //     try {
+    //         axios.delete(`${apiBaseUrl}/admins/${id}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
+    //         fetchData();
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+
+    //     }
+    // }
+
     const handleDelete = (row: any) => {
-        const id = row.original.id
+        // Set the selected user data
+        setSelectedUserData(row.original);
+        // Show the warning modal
+        setShowWarningModal(true);
+    };
+
+    const handleDeleteConfirmed = () => {
+        // Handle the delete operation here
+        const id = selectedUserData.id;
         try {
             axios.delete(`${apiBaseUrl}/admins/${id}`, {
                 headers: {
@@ -62,10 +87,11 @@ const AdminUserList: React.FC = () => {
             fetchData();
         } catch (error) {
             console.error('Error fetching data:', error);
-
+        } finally {
+            // Close the warning modal after the operation
+            setShowWarningModal(false);
         }
-    }
-
+    };
     const resData = data?.data?.data;
 
     const handleVisibilityClick = async (row: any) => {
@@ -159,12 +185,12 @@ const AdminUserList: React.FC = () => {
     ];
 
     const handleToggleStatus = async (values: any) => {
-        console.log("values",values)
+        console.log("values", values)
         const token = localStorage.getItem('token');
 
         try {
             // Use axios.put to send a PUT request with the updated values and ID in the URL
-            await axios.put(`${apiBaseUrl}/admins/${values.id}`, {...values, belongs_hstti : values.belongs_hstti?1:0, status : values.status?0:1}, {
+            await axios.put(`${apiBaseUrl}/admins/${values.id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0, status: values.status ? 0 : 1 }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -211,7 +237,11 @@ const AdminUserList: React.FC = () => {
                 handleClose={() => setShowModal(false)}
                 userData={selectedUserData}
             />
-
+            <WarningModal
+                open={showWarningModal}
+                handleClose={() => setShowWarningModal(false)}
+                onConfirm={handleDeleteConfirmed}
+            />
         </Container>
     );
 };
