@@ -24,7 +24,7 @@ const CarouselComponent: React.FC = () => {
     <Slider {...settings}>
       {imageSlides.map((image, index) => (
         <div key={index}>
-          <Box mt={10} display="flex" justifyContent="center">
+          <Box mt={0} display="flex" justifyContent="center">
             <img src={image} alt={`slide-${index + 1}`} style={{ width: '100%', height: '100%' }} />
           </Box>
         </div>

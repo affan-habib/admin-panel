@@ -92,8 +92,12 @@ const EditAdminUser: React.FC = () => {
                                             // Set an empty default value
                                             >
 
+                                                <MenuItem value="superadmin">Super admin</MenuItem>
+                                                <MenuItem value="reportadmin">Report admin</MenuItem>
+                                                <MenuItem value="dsheadmin">DSHE admin</MenuItem>
                                                 <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
-                                                <MenuItem value="trainer">Trainer</MenuItem>
+                                                <MenuItem value="contentadmin">Content admin</MenuItem>
+                                                <MenuItem value="batchcoordinator">Batch Coordinator</MenuItem>
 
                                             </Field>
                                         </Grid>
