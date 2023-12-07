@@ -9,12 +9,14 @@ import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from '../../config';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { useTranslation } from 'react-i18next';
 
 const CreateAdminUser: React.FC = () => {
   const navigate = useNavigate()
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
+  const {t} = useTranslation();
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
@@ -71,7 +73,7 @@ const CreateAdminUser: React.FC = () => {
         <Grid container>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom sx={{ color: 'rgba(0, 106, 78, 1)' }}>
-              ইউজার তৈরি করুন
+              {t('createUser')}
             </Typography>
           </Grid>
           <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2 }}>
@@ -96,7 +98,7 @@ const CreateAdminUser: React.FC = () => {
               >
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="textField">ব্যবহারকারীর সম্পূর্ন নাম</InputLabel>
+                    <InputLabel htmlFor="textField">{t('fullUserName')}</InputLabel>
                     <Field
                       name="name"
                       as={TextField}
@@ -106,7 +108,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">পদবি</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('designation')}</InputLabel>
                     <Field
                       name="type"
                       as={TextField}
@@ -122,7 +124,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="name">ইউজার নেম</InputLabel>
+                    <InputLabel htmlFor="name">{t('userName')}</InputLabel>
                     <Field
                       name="username"
                       type="name"
@@ -133,7 +135,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="email"> ইমেইল</InputLabel>
+                    <InputLabel htmlFor="email">{t('email')}</InputLabel>
                     <Field
                       name="email"
                       as={TextField}
@@ -142,7 +144,7 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="number"> মোবাইল নাম্বার</InputLabel>
+                    <InputLabel htmlFor="number">{t('mobileNo')}</InputLabel>
                     <Field
                       name="mobile_no"
                       as={TextField}
@@ -151,7 +153,7 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">স্ট্যাটাস</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('status')}</InputLabel>
                     <Field
                       name="status"
                       as={TextField}
@@ -168,7 +170,7 @@ const CreateAdminUser: React.FC = () => {
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">ইউজার রোল নেম</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('userRoleName')}</InputLabel>
                     <Field
                       name="role"
                       as={TextField}
@@ -185,7 +187,7 @@ const CreateAdminUser: React.FC = () => {
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="password">পাসওয়ার্ড</InputLabel>
+                    <InputLabel htmlFor="password">{t('password')}</InputLabel>
                     <Field
                       name="password"
                       type="password"
@@ -195,7 +197,7 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="file">আপলোড ইমেজ</InputLabel>
+                    <InputLabel htmlFor="file">{t('uploadImage')}</InputLabel>
                     <Field
                       name="file"
                       type="file"
@@ -221,7 +223,7 @@ const CreateAdminUser: React.FC = () => {
                     alignItems: 'center',
                   }}
                 >
-                  সাবমিট
+                  {t('submit')}
                 </Button>
               </Form>
             </Formik>

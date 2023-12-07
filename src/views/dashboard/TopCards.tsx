@@ -72,6 +72,7 @@ import Icon from '@mui/material/Icon';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Groups2Icon from '@mui/icons-material/Groups2';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import { useTranslation } from 'react-i18next';
 
 interface CardData {
   title: string;
@@ -80,14 +81,16 @@ interface CardData {
   icon: React.ReactNode; 
 }
 
-const cardsData: CardData[] = [
-  { title: 'চলমান ব্যাচ', digit: '৪২', backgroundColor: '#C6E2F9', icon: <Groups2Icon /> },
-  { title: 'প্রশিক্ষক', digit: '২৫', backgroundColor: '#E3C3FB', icon: <PersonOutlineIcon /> },
-  { title: 'নথিভুক্ত প্রশিক্ষণার্থী', digit: '৪০০', backgroundColor: '#A0B879', icon: <PersonOutlineIcon /> },
-  { title: 'পাঠ্যক্রম', digit: '২৫', backgroundColor: '#F2BDBD', icon: <MenuBookIcon /> },
-];
-
 const TopCards: React.FC = () => {
+  const { t } = useTranslation();
+
+  const cardsData: CardData[] = [
+    { title: t('currentBatch'), digit: '৪২', backgroundColor: '#C6E2F9', icon: <Groups2Icon /> },
+    { title: t('trainer'), digit: '২৫', backgroundColor: '#E3C3FB', icon: <PersonOutlineIcon /> },
+    { title: t('enrolledTrainees'), digit: '৪০০', backgroundColor: '#A0B879', icon: <PersonOutlineIcon /> },
+    { title: t('curriculum'), digit: '২৫', backgroundColor: '#F2BDBD', icon: <MenuBookIcon /> },
+  ];
+
   const CustomCard: React.FC<CardData> = ({
     title,
     digit,

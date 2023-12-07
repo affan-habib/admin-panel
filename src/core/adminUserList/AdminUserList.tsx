@@ -8,8 +8,8 @@ import ReactTable from 'components/tables/ReactTable';
 import { Add } from '@mui/icons-material';
 import ModalComponent from './ModalComponent';
 import axios from 'axios';
-import { apiBaseUrl } from '../../config';
 import { useNavigate } from 'react-router-dom';
+import { apiBaseUrl } from 'config';
 import WarningModal from 'components/common/DeleteWarning';
 
 
@@ -30,7 +30,7 @@ const AdminUserList: React.FC = () => {
     const [data, setData] = useState<{ data?: any }>({});
     const [selectedUserData, setSelectedUserData] = useState<any>({});
     const [rows, setRows] = useState<Row[]>([]);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const token = localStorage.getItem('token');
     const [showWarningModal, setShowWarningModal] = useState(false);
