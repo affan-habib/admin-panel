@@ -64,16 +64,6 @@ const LoginPage: React.FC = () => {
                   {t('loginHere')}
                   {/* প্রবেশ করুন */}
                 </Button>
-                <Button
-                  variant={
-                    selectedButton === 'register' ? 'contained' : 'outlined'
-                  }
-                  sx={{ flex: 1 }}
-                  onClick={() => handleButtonClick('register')}
-                >
-                  {t('registerHere')}
-                  {/* নিবন্ধন করুন */}
-                </Button>
               </ButtonGroup>
               <Box>
                 {selectedButton === 'login' ? (

@@ -7,28 +7,62 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from '../../config';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const CreateAdminUser: React.FC = () => {
   const navigate = useNavigate()
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
   const handleSubmit = async (values: any) => {
     console.log(values);
     const token = localStorage.getItem('token');
+
     try {
-      axios.post(`${apiBaseUrl}/admins`, values, {
+      const response = await axios.post(`${apiBaseUrl}/admins`, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-        .then(function (response) {
-          navigate("/admin-user-list")
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } catch (error) {
+      });
+      console.log("response.data.message", response.data.message)
+      // Assuming the API returns a success message in the response
+      setSnackbarSeverity('success');
+      setSnackbarMessage(response.data.message);
+      setSnackbarOpen(true);
+
+      navigate("/admin-user-list");
+    } catch (error:any) {
       console.error('Error submitting form:', error);
+      // Assuming the API returns an error message in the response
+      setSnackbarSeverity('error');
+      setSnackbarMessage(error.response.data.message || 'An error occurred');
+      setSnackbarOpen(true);
     }
   };
+  // const handleSubmit = async (values: any) => {
+  //   console.log(values);
+  //   const token = localStorage.getItem('token');
+  //   try {
+  //     axios.post(`${apiBaseUrl}/admins`, values, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //       .then(function (response) {
+  //         navigate("/admin-user-list")
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   }
+  // };
   return (
     <div>
 
@@ -193,7 +227,18 @@ const CreateAdminUser: React.FC = () => {
             </Formik>
           </Grid>
         </Grid>
+        <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       </Container>
+      
     </div>
 
 
