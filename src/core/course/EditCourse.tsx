@@ -27,11 +27,13 @@ const EditCourse: React.FC = () => {
 
     try {
       const formData = new FormData();
+      formData.append('_method', 'PUT'); // Add "_method" key with value "PUT"
+
       Object.keys(values).forEach((key) => {
         formData.append(key, values[key]);
       });
 
-      const response = await axios.put(
+      const response = await axios.post(
         `${apiBaseUrl}/course/${id}`,
         formData,
         {
