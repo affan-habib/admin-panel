@@ -20,7 +20,12 @@ const CreateAdminUser: React.FC = () => {
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
-
+const isRequiredField = (fieldName: string) => {
+    // Define an array of required field names
+    const requiredFields = ['name', 'type', 'username', 'email', 'mobile_no', 'status', 'role', 'password', 'file'];
+    // Check if the current field is in the array of required fields
+    return requiredFields.includes(fieldName);
+  };
   const handleSubmit = async (values: any) => {
     console.log(values);
     const token = localStorage.getItem('token');
@@ -98,7 +103,9 @@ const CreateAdminUser: React.FC = () => {
               >
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="textField">{t('fullUserName')}</InputLabel>
+                    <InputLabel htmlFor="textField">{t('fullUserName')} 
+                    <span style={{ color: 'red' }}>*</span>
+                    </InputLabel>
                     <Field
                       name="name"
                       as={TextField}
@@ -108,7 +115,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('designation')}</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('designation')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="type"
                       as={TextField}
@@ -118,13 +125,17 @@ const CreateAdminUser: React.FC = () => {
                       label="সিলেক্ট করুন"
                     // Set an empty default value
                     >
-
+<MenuItem value="superadmin">Super admin</MenuItem>
+                      <MenuItem value="reportadmin">Report admin</MenuItem>
+                      <MenuItem value="dsheadmin">DSHE admin</MenuItem>
                       <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
+<MenuItem value="contentadmin">Content admin</MenuItem>
+                      <MenuItem value="batchcoordinator">Batch Coordinator</MenuItem>
                     </Field>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="name">{t('userName')}</InputLabel>
+                    <InputLabel htmlFor="name">{t('userName')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="username"
                       type="name"
@@ -135,7 +146,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="email">{t('email')}</InputLabel>
+                    <InputLabel htmlFor="email">{t('email')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="email"
                       as={TextField}
@@ -144,7 +155,7 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="number">{t('mobileNo')}</InputLabel>
+                    <InputLabel htmlFor="number">{t('mobileNo')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="mobile_no"
                       as={TextField}
@@ -153,7 +164,7 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('status')}</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('status')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="status"
                       as={TextField}
@@ -171,7 +182,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('userRoleName')}</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('userRoleName')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="role"
                       as={TextField}
@@ -181,14 +192,14 @@ const CreateAdminUser: React.FC = () => {
                       label="সিলেক্ট করুন"
                     // Set an empty default value
                     >
-
+<MenuItem value="super-admin">Super Admin</MenuItem>
                       <MenuItem value="admin">Admin</MenuItem>
                       <MenuItem value="trainer">Trainer</MenuItem>
-                      <MenuItem value="trainee">trainee</MenuItem>
+                      <MenuItem value="trainee">Trainee</MenuItem>
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="password">{t('password')}</InputLabel>
+                    <InputLabel htmlFor="password">{t('password')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="password"
                       type="password"

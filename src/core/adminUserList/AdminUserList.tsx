@@ -172,11 +172,12 @@ const AdminUserList: React.FC = () => {
 
     const handleToggleStatus = async (values: any) => {
         console.log("values", values)
+        delete values.roles;
         const token = localStorage.getItem('token');
 
         try {
             // Use axios.put to send a PUT request with the updated values and ID in the URL
-            await axios.put(`${apiBaseUrl}/admins/${values.id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0, status: values.status ? 0 : 1 }, {
+            await axios.put(`${apiBaseUrl}/admins/${values.id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0, status: values.status ? 0 : 1 , role:"super-admin"}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

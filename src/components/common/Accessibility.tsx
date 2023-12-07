@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import { MonochromePhotos, NoMeetingRoom, Restore } from '@mui/icons-material';
+import AccessibleIcon from '@mui/icons-material/Accessible';
 
 interface AccessibilityProps {
   selectedButton: string;
@@ -57,7 +58,7 @@ const Accessibility: React.FC<AccessibilityProps> = ({
           borderRadius: '50%',
         }}
       >
-        <AccessibilityNewIcon />
+        <AccessibleIcon />
       </Fab>
 
       <Popover
