@@ -9,8 +9,16 @@ import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from '../../config';
 import { useParams } from 'react-router-dom';
 import useAdminUserDetails from 'hooks/useAdminUserDetails';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const EditAdminUser: React.FC = () => {
+    const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+    const [snackbarMessage, setSnackbarMessage] = React.useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false);
+    };
     const { id } = useParams<{ id: string }>();
     const { data } = useAdminUserDetails(id);
     const navigate = useNavigate();
@@ -21,14 +29,19 @@ const EditAdminUser: React.FC = () => {
 
         try {
             // Use axios.put to send a PUT request with the updated values and ID in the URL
-            await axios.put(`${apiBaseUrl}/admins/${id}`, {...values, belongs_hstti : values.belongs_hstti?1:0}, {
+            const response = await axios.put(`${apiBaseUrl}/admins/${id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0 }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
+            setSnackbarSeverity('success');
+            setSnackbarMessage(response.data.message);
+            setSnackbarOpen(true);
             navigate("/admin-user-list");
-        } catch (error) {
+        } catch (error: any) {
+            setSnackbarSeverity('error');
+            setSnackbarMessage(error.response.data.message || 'An error occurred');
+            setSnackbarOpen(true);
             console.error('Error updating user data:', error);
         }
     };
@@ -193,6 +206,16 @@ const EditAdminUser: React.FC = () => {
                         )}
                     </Grid>
                 </Grid>
+                <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={6000}
+                    onClose={handleCloseSnackbar}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                >
+                    <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+                        {snackbarMessage}
+                    </Alert>
+                </Snackbar>
             </Container>
         </div>
 
