@@ -96,11 +96,14 @@ const CreateCourse: React.FC = () => {
                   English
                 </Button>
               </Grid>
-              <Grid item md={7}>
+              <Grid item xs={6}>
+            
+              </Grid>
+              <Grid item md={6}>
                 {selectedStep === 1 && <StepOne />}
                 {selectedStep === 2 && <StepTwo />}
               </Grid>
-              <Grid item md={5}>
+              <Grid item md={6}>
                 <StepThree />
               </Grid>
               <Grid
@@ -121,6 +124,7 @@ const CreateCourse: React.FC = () => {
                   সাবমিট
                 </Button>
               </Grid>
+              
             </Grid>
           </Form>
         )}

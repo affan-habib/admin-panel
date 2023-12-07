@@ -105,7 +105,7 @@ const CourseList: React.FC = () => {
               border: '1px solid #D0D0D0',
             }}
           >
-            <VisibilityIcon  />
+            <VisibilityIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
