@@ -59,5 +59,12 @@
   "userName": "User Name",
   "userRoleName": "User Role Name",
   "createAdminUser": "Create Admin User",
-  "roleList" : "Role List"
+  "roleList" : "Role List",
+  "currentBatch" : "Current Batch",
+  "trainer": "Trainer",
+  "enrolledTrainees": "Enrolled Trainees",
+  "summaryOfTraining": "Summary of Higher Secondary Teacher Training Institute",
+  "venDiagram": "Ven of Higher Secondary Teacher Training Institute",
+  "barDiagram": "Bar Chart of Higher Secondary Teacher Training Institute",
+  "pieChart" : "Pie Chart of Higher Secondary Teacher Training Institute"
 }

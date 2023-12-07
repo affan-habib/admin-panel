@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import Chart from 'chart.js/auto';
 import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const StackChart = () => {
     const chartRef = useRef(null);
+    const {t} = useTranslation();
 
     useEffect(() => {
         if (chartRef && chartRef.current) {
@@ -69,7 +71,7 @@ const StackChart = () => {
 
     return (
         <Box height={390} style={{ width: '97%', backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '10px', marginTop: '10px',padding:'20px'}}>
-            <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের বার চার্ট</Typography>
+            <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>{t('barDiagram')}</Typography>
             <Box height = {320}>
                 <canvas ref={chartRef} style={{ width: '100%' }} />
             </Box>

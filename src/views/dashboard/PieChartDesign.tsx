@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import Chart, { ChartConfiguration, ChartType } from 'chart.js/auto';
 import { Box, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const PieChartDesign: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
@@ -49,7 +51,7 @@ const PieChartDesign: React.FC = () => {
       }}
     >
       <Box sx={{ mb: 2 }}>
-        <Typography style={{ color: 'rgba(21, 83, 19, 1)' }}>উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের পাই চার্ট</Typography>
+        <Typography style={{ color: 'rgba(21, 83, 19, 1)' }}>{t('pieChart')}</Typography>
       </Box>
       <Box
         width={400}
