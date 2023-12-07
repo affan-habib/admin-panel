@@ -2,8 +2,10 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Group26 from '../../assets/Group26.svg';
 import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const VennDiagram = () => {
+  const {t} = useTranslation();
   return (
     <Box
       height={315}
@@ -19,7 +21,7 @@ const VennDiagram = () => {
       }}
     >
       <Box sx={{ mb: 2 }}>
-        <Typography style={{color:'rgba(21, 83, 19, 1)'}}>উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইনস্টিটিউটের ভেন</Typography>
+        <Typography style={{color:'rgba(21, 83, 19, 1)'}}>{t('venDiagram')}</Typography>
       </Box>
       <Box
       width={400}

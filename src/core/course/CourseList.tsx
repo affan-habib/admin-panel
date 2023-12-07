@@ -96,6 +96,7 @@ const CourseList: React.FC = () => {
       Cell: (cell: any) => (
         <Stack direction="row" spacing={1}>
           <IconButton
+            disabled
             aria-label="view"
             size="small"
             style={{
@@ -104,7 +105,7 @@ const CourseList: React.FC = () => {
               border: '1px solid #D0D0D0',
             }}
           >
-            <VisibilityIcon sx={{ color: 'primary.main' }} />
+            <VisibilityIcon />
           </IconButton>
           <IconButton
             aria-label="edit"

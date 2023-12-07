@@ -1,32 +1,70 @@
 import React from 'react';
-import {
-  Container,
-  Grid,
-  Typography,
-  InputLabel,
-  MenuItem,
-  Button,
-} from '@mui/material';
+import { Container, Grid, Typography, InputLabel } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from '../../config';
-
-
-interface ApiErrorResponse {
-  response: {
-    data: Response; // Your actual response structure
-    status: number;
-    statusText: string;
-    headers: Record<string, string>;
-    config: Record<string, unknown>;
-  };
-  request?: unknown;
-  message: string;
-}
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import { useTranslation } from 'react-i18next';
 
 const CreateAdminUser: React.FC = () => {
-  const token = localStorage.getItem('token');
+  const navigate = useNavigate()
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
+  const {t} = useTranslation();
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleSubmit = async (values: any) => {
+    console.log(values);
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await axios.post(`${apiBaseUrl}/admins`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("response.data.message", response.data.message)
+      // Assuming the API returns a success message in the response
+      setSnackbarSeverity('success');
+      setSnackbarMessage(response.data.message);
+      setSnackbarOpen(true);
+
+      navigate("/admin-user-list");
+    } catch (error:any) {
+      console.error('Error submitting form:', error);
+      // Assuming the API returns an error message in the response
+      setSnackbarSeverity('error');
+      setSnackbarMessage(error.response.data.message || 'An error occurred');
+      setSnackbarOpen(true);
+    }
+  };
+  // const handleSubmit = async (values: any) => {
+  //   console.log(values);
+  //   const token = localStorage.getItem('token');
+  //   try {
+  //     axios.post(`${apiBaseUrl}/admins`, values, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //       .then(function (response) {
+  //         navigate("/admin-user-list")
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   } catch (error) {
+  //     console.error('Error submitting form:', error);
+  //   }
+  // };
   return (
     <div>
 
@@ -35,7 +73,7 @@ const CreateAdminUser: React.FC = () => {
         <Grid container>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom sx={{ color: 'rgba(0, 106, 78, 1)' }}>
-              ইউজার তৈরি করুন
+              {t('createUser')}
             </Typography>
           </Grid>
           <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2 }}>
@@ -43,56 +81,13 @@ const CreateAdminUser: React.FC = () => {
               initialValues={{
                 name: '',
                 type: '',
-                userName: '',
-                email: '',
-                number: '',
-                status: '',
-                role: '',
                 password: '',
-                hstti_code: '123',
-                zone: 'dhaka',
-                belongs_hstti: '1'
+                username: '',
+                belongs_hstti: 1,
+                hstti_code: "123",
+                zone: "Dhaka",
               }}
-              onSubmit={async (values) => {
-                try {
-                  const response = await axios.post(
-                    `${apiBaseUrl}/admins`,
-
-                    JSON.stringify({
-                      name: values.name,
-                      type: values.type,
-                      username: values.userName,
-                      email: values.email,
-                      mobile_no: values.number,
-                      status: values.status,
-                      role: values.role,
-                      password: values.password,
-                      hstti_code: '123',
-                      zone: 'dhaka',
-                      belongs_hstti: '1'
-                      // Add other fields as needed
-                    }),
-                    {
-                      headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                      },
-                    }
-                  );
-                  console.log('API Response:', response);
-
-                  console.log('API Response Data:', response.data);
-
-                  // Handle success, e.g., show a success message or redirect
-                }catch (error: unknown) {
-                  console.error('Error submitting form:', error);
-              
-                  // if (axios.isAxiosError(error)) {
-                  //   const axiosError = error as ApiErrorResponse;
-                  //   console.error('Server Response:', axiosError.response.data);
-                  // }
-                }
-              }}
+              onSubmit={handleSubmit}
             >
               <Form
                 style={{
@@ -103,7 +98,7 @@ const CreateAdminUser: React.FC = () => {
               >
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="textField">ব্যবহারকারীর সম্পূর্ন নাম</InputLabel>
+                    <InputLabel htmlFor="textField">{t('fullUserName')}</InputLabel>
                     <Field
                       name="name"
                       as={TextField}
@@ -113,7 +108,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">পদবি</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('designation')}</InputLabel>
                     <Field
                       name="type"
                       as={TextField}
@@ -121,16 +116,17 @@ const CreateAdminUser: React.FC = () => {
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
+                    // Set an empty default value
                     >
-                      <MenuItem value="hsttiadmin">hsttiadmin</MenuItem>
-                      {/* Add other MenuItem elements as needed */}
+
+                      <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
                     </Field>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="name">ইউজার নেম</InputLabel>
+                    <InputLabel htmlFor="name">{t('userName')}</InputLabel>
                     <Field
-                      name="userName"
+                      name="username"
                       type="name"
                       as={TextField}
                       fullWidth
@@ -139,7 +135,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="email"> ইমেইল</InputLabel>
+                    <InputLabel htmlFor="email">{t('email')}</InputLabel>
                     <Field
                       name="email"
                       as={TextField}
@@ -148,16 +144,16 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="number"> মোবাইল নাম্বার</InputLabel>
+                    <InputLabel htmlFor="number">{t('mobileNo')}</InputLabel>
                     <Field
-                      name="number"
+                      name="mobile_no"
                       as={TextField}
                       fullWidth
                       size="small"
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">স্ট্যাটাস</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('status')}</InputLabel>
                     <Field
                       name="status"
                       as={TextField}
@@ -165,14 +161,17 @@ const CreateAdminUser: React.FC = () => {
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
+                    // Set an empty default value
                     >
-                      <MenuItem value={1}>1</MenuItem>
-                      <MenuItem value={0}>0</MenuItem>
+
+                      <MenuItem value="1">Active</MenuItem>
+                      <MenuItem value="2">Inactive</MenuItem>
+
                     </Field>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">ইউজার রোল নেম</InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('userRoleName')}</InputLabel>
                     <Field
                       name="role"
                       as={TextField}
@@ -183,12 +182,13 @@ const CreateAdminUser: React.FC = () => {
                     // Set an empty default value
                     >
 
-                      <MenuItem value="reportadmin">reportadmin</MenuItem>
-
+                      <MenuItem value="admin">Admin</MenuItem>
+                      <MenuItem value="trainer">Trainer</MenuItem>
+                      <MenuItem value="trainee">trainee</MenuItem>
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="password">পাসওয়ার্ড</InputLabel>
+                    <InputLabel htmlFor="password">{t('password')}</InputLabel>
                     <Field
                       name="password"
                       type="password"
@@ -197,25 +197,24 @@ const CreateAdminUser: React.FC = () => {
                       size="small"
                     />
                   </Grid>
-
-                  {/* <Grid item xs={12} md={3}>
-                  <InputLabel htmlFor="file">আপলোড ইমেজ</InputLabel>
-                  <Field
-                    name="file"
-                    type="file"
-                    as={TextField} // Use TextField for consistent styling
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{ shrink: true }} // Keep the label from floating to the top
-                  />
-                </Grid> */}
+                  <Grid item xs={12} md={3}>
+                    <InputLabel htmlFor="file">{t('uploadImage')}</InputLabel>
+                    <Field
+                      name="file"
+                      type="file"
+                      as={TextField} // Use TextField for consistent styling
+                      fullWidth
+                      size="small"
+                      InputLabelProps={{ shrink: true }} // Keep the label from floating to the top
+                    />
+                  </Grid>
                 </Grid>
 
                 <Button
                   type="submit"
                   aria-label="toggle-status"
                   size="small"
-                  variant="contained"
+                  variant='contained'
                   style={{
                     backgroundColor: 'primary.main',
                     color: 'white',
@@ -223,16 +222,26 @@ const CreateAdminUser: React.FC = () => {
                     display: 'inline-flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginTop: '16px',
                   }}
                 >
-                  সাবমিট
+                  {t('submit')}
                 </Button>
               </Form>
             </Formik>
           </Grid>
         </Grid>
+        <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       </Container>
+      
     </div>
 
 

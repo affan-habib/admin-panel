@@ -27,11 +27,13 @@ const EditCourse: React.FC = () => {
 
     try {
       const formData = new FormData();
+      formData.append('_method', 'PUT'); // Add "_method" key with value "PUT"
+
       Object.keys(values).forEach((key) => {
         formData.append(key, values[key]);
       });
 
-      const response = await axios.put(
+      const response = await axios.post(
         `${apiBaseUrl}/course/${id}`,
         formData,
         {
@@ -84,22 +86,32 @@ const EditCourse: React.FC = () => {
                   English
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{ textAlign: 'right' }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ ml: 'auto' }}
-                  type="submit"
-                >
-                  আপডেট
-                </Button>
-              </Grid>
-              <Grid item md={7}>
+              <Grid item xs={6}></Grid>
+
+              <Grid item md={6}>
                 {selectedStep === 1 && <StepOne />}
                 {selectedStep === 2 && <StepTwo />}
               </Grid>
-              <Grid item md={5}>
+              <Grid item md={6}>
                 <StepThree />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                style={{ textAlign: 'right' }}
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  size="large"
+                  sx={{ width: 400, textAlign: 'center' }}
+                >
+                  সাবমিট
+                </Button>
               </Grid>
               <Grid item md={7}>
                 <DyanamicForm modules={data?.data?.course_modules} />
