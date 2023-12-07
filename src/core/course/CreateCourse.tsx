@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { Add } from '@mui/icons-material';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
+import { useSnackbar } from 'context/SnackbarConext';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
@@ -36,6 +37,7 @@ const CreateCourse: React.FC = () => {
   };
 
   const [selectedStep, setSelectedStep] = useState<number>(1);
+  const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const handleSubmit = async (values: any) => {
     console.log(values);
@@ -52,11 +54,16 @@ const CreateCourse: React.FC = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+      showSnackbar('Operation successful!', 'success');
       console.log('API Response:', response.data);
       navigate(`/course/edit/${response.data.data.id}`);
-    } catch (error) {
-      console.error('Error submitting form:', error);
+    } catch (error: any) {
+      // Use type assertion to tell TypeScript that 'error' is of type 'Error'
+      const errorMessage = (error as Error).message;
+
+      // Show Snackbar with error message
+      showSnackbar(error.response?.data?.message || errorMessage || 'Something went wrong!', 'error');
+      console.error('Error submitting form:', errorMessage);
     }
   };
   return (
@@ -97,7 +104,7 @@ const CreateCourse: React.FC = () => {
                 </Button>
               </Grid>
               <Grid item xs={6}>
-            
+
               </Grid>
               <Grid item md={6}>
                 {selectedStep === 1 && <StepOne />}
@@ -124,7 +131,7 @@ const CreateCourse: React.FC = () => {
                   সাবমিট
                 </Button>
               </Grid>
-              
+
             </Grid>
           </Form>
         )}
