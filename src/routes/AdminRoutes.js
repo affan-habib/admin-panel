@@ -1,7 +1,8 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
-import AdminUserList from 'core/adminUserList/AdminUserList';
+// import AdminUserList from 'core/adminUserList/AdminUserList';
 import CreateAdminUser from 'core/createUser/CreateAdminUser';
+// import EditAdminUser from 'core/createUser/EditAdminUser';
 import EditCourse from 'core/course/EditCourse';
 import RoleListContainer from 'core/roleList/RoleListContainer';
 const PrivateRoute = Loadable(
@@ -16,6 +17,8 @@ const CreateBatch = Loadable(lazy(() => import('core/batch/CreateBatch')));
 const CreateCourse = Loadable(lazy(() => import('core/course/CreateCourse')));
 const CourseList = Loadable(lazy(() => import('core/course/CourseList')));
 const UserProfile = Loadable(lazy(() => import('core/userProfile/UserProfile')));
+const AdminUserList = Loadable(lazy(() => import('core/adminUserList/AdminUserList')));
+const EditAdminUser = Loadable(lazy(() => import('core/createUser/EditAdminUser')));
 
 const AdminRoutes = {
   path: '/',
@@ -52,6 +55,10 @@ const AdminRoutes = {
     {
       path: 'create-admin-user',
       element: <CreateAdminUser/>
+    },
+    {
+      path: 'edit-admin-user/:id',
+      element: <EditAdminUser/>
     },
     { 
       path: 'create-course',

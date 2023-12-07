@@ -66,5 +66,10 @@
   "summaryOfTraining": "Summary of Higher Secondary Teacher Training Institute",
   "venDiagram": "Ven of Higher Secondary Teacher Training Institute",
   "barDiagram": "Bar Chart of Higher Secondary Teacher Training Institute",
-  "pieChart" : "Pie Chart of Higher Secondary Teacher Training Institute"
+  "pieChart" : "Pie Chart of Higher Secondary Teacher Training Institute",
+  "createUser" : "Create User",
+  "designation" : "Designation",
+  "mobileNo" : "Mobile No",
+  "uploadImage": "Upload Image",
+  "submit" : "submit"
 }
