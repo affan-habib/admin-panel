@@ -86,22 +86,31 @@ const EditCourse: React.FC = () => {
                   English
                 </Button>
               </Grid>
-              <Grid item xs={6} style={{ textAlign: 'right' }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ ml: 'auto' }}
-                  type="submit"
-                >
-                  আপডেট
-                </Button>
-              </Grid>
+
               <Grid item md={7}>
                 {selectedStep === 1 && <StepOne />}
                 {selectedStep === 2 && <StepTwo />}
               </Grid>
               <Grid item md={5}>
                 <StepThree />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                style={{ textAlign: 'right' }}
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  size="large"
+                  sx={{ width: 400, textAlign: 'center' }}
+                >
+                  সাবমিট
+                </Button>
               </Grid>
               <Grid item md={7}>
                 <DyanamicForm modules={data?.data?.course_modules} />
