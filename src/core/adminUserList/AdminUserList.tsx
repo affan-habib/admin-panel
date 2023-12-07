@@ -31,7 +31,7 @@ const AdminUserList: React.FC = () => {
     const [rows, setRows] = useState<Row[]>([]);
     const navigate = useNavigate()
 
-    const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
+    const token = localStorage.getItem('token');
 
     const fetchData = async () => {
         try {
@@ -54,11 +54,12 @@ const AdminUserList: React.FC = () => {
     const handleDelete = (row: any) => {
         const id = row.original.id
         try {
-            axios.delete(`http://172.16.100.209:8002/api/clms/dev/admins/${id}`, {
+            axios.delete(`${apiBaseUrl}/admins/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            fetchData();
         } catch (error) {
             console.error('Error fetching data:', error);
 
@@ -73,6 +74,9 @@ const AdminUserList: React.FC = () => {
 
     };
 
+    const editUser = async (row: any) => {
+        navigate(`/edit-admin-user/${row.id}`)
+    };
 
     useEffect(() => {
         if (resData) {
@@ -93,7 +97,7 @@ const AdminUserList: React.FC = () => {
                     aria-label="toggle-status"
                     size="small"
                     variant='contained'
-                    onClick={() => handleToggleStatus(row.original.id)}
+                    onClick={() => handleToggleStatus(row.original)}
                     style={{
                         backgroundColor: row.original.status === 1 ? 'primary.main' : 'red',
                         color: 'white',
@@ -121,6 +125,7 @@ const AdminUserList: React.FC = () => {
                             borderRadius: 8,
                             border: '1px solid rgba(208, 208, 208, 1)',
                         }}
+                        onClick={() => editUser(row.original)}
                     >
                         <BorderColorOutlinedIcon />
                     </IconButton>
@@ -153,14 +158,22 @@ const AdminUserList: React.FC = () => {
         },
     ];
 
-    const handleToggleStatus = (id: number) => {
-        setRows((prevRows) =>
-            prevRows.map((row) =>
-                row.id === id
-                    ? { ...row, status: row.status === 'Active' ? 'Deactive' : 'Active' }
-                    : row
-            )
-        );
+    const handleToggleStatus = async (values: any) => {
+        console.log("values",values)
+        const token = localStorage.getItem('token');
+
+        try {
+            // Use axios.put to send a PUT request with the updated values and ID in the URL
+            await axios.put(`${apiBaseUrl}/admins/${values.id}`, {...values, belongs_hstti : values.belongs_hstti?1:0, status : values.status?0:1}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            fetchData()
+        } catch (error) {
+            console.error('Error updating user data:', error);
+        }
     };
 
     const handlePageChange = (page: number) => {

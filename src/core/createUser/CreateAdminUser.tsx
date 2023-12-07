@@ -1,14 +1,37 @@
 import React from 'react';
-import { Container, Grid,Typography, InputLabel } from '@mui/material';
+import { Container, Grid, Typography, InputLabel } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { apiBaseUrl } from '../../config';
 
 const CreateAdminUser: React.FC = () => {
+  const navigate = useNavigate()
+  const handleSubmit = async (values: any) => {
+    console.log(values);
+    const token = localStorage.getItem('token');
+    try {
+      axios.post(`${apiBaseUrl}/admins`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(function (response) {
+          navigate("/admin-user-list")
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
   return (
     <div>
-     
+
 
       <Container maxWidth="xl" style={{ marginTop: '20px' }}>
         <Grid container>
@@ -20,15 +43,15 @@ const CreateAdminUser: React.FC = () => {
           <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2 }}>
             <Formik
               initialValues={{
-                textField: '',
-                dropdown: '',
+                name: '',
+                type: '',
                 password: '',
-                phone: '',
+                username: '',
+                belongs_hstti: 1,
+                hstti_code: "123",
+                zone: "Dhaka",
               }}
-              onSubmit={(values) => {
-                // Handle form submission logic
-                console.log(values);
-              }}
+              onSubmit={handleSubmit}
             >
               <Form
                 style={{
@@ -41,7 +64,7 @@ const CreateAdminUser: React.FC = () => {
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="textField">ব্যবহারকারীর সম্পূর্ন নাম</InputLabel>
                     <Field
-                      name="textField"
+                      name="name"
                       as={TextField}
                       fullWidth
                       size="small"
@@ -51,25 +74,23 @@ const CreateAdminUser: React.FC = () => {
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="dropdown">পদবি</InputLabel>
                     <Field
-                      name="dropdown"
+                      name="type"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
-                       // Set an empty default value
+                    // Set an empty default value
                     >
-                      
-                      <MenuItem value="option1">Option 1</MenuItem>
-                      <MenuItem value="option2">Option 2</MenuItem>
-                      <MenuItem value="option3">Option 3</MenuItem>
+
+                      <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
                     </Field>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="name">ইউজার নেম</InputLabel>
                     <Field
-                      name="name"
+                      name="username"
                       type="name"
                       as={TextField}
                       fullWidth
@@ -89,7 +110,7 @@ const CreateAdminUser: React.FC = () => {
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="number"> মোবাইল নাম্বার</InputLabel>
                     <Field
-                      name="number"
+                      name="mobile_no"
                       as={TextField}
                       fullWidth
                       size="small"
@@ -98,35 +119,35 @@ const CreateAdminUser: React.FC = () => {
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="dropdown">স্ট্যাটাস</InputLabel>
                     <Field
-                      name="dropdown"
+                      name="status"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
-                       // Set an empty default value
+                    // Set an empty default value
                     >
-                      
-                      <MenuItem value="option1">Option 1</MenuItem>
-                      <MenuItem value="option2">Option 2</MenuItem>
-                      <MenuItem value="option3">Option 3</MenuItem>
+
+                      <MenuItem value="1">Active</MenuItem>
+                      <MenuItem value="2">Inactive</MenuItem>
+
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="dropdown">ইউজার রোল নেম</InputLabel>
                     <Field
-                      name="dropdown"
+                      name="role"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
-                       // Set an empty default value
+                    // Set an empty default value
                     >
-                      
-                      <MenuItem value="option1">Option 1</MenuItem>
-                      <MenuItem value="option2">Option 2</MenuItem>
-                      <MenuItem value="option3">Option 3</MenuItem>
+
+                      <MenuItem value="admin">Admin</MenuItem>
+                      <MenuItem value="trainer">Trainer</MenuItem>
+                      <MenuItem value="trainee">trainee</MenuItem>
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
@@ -140,32 +161,33 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                  <InputLabel htmlFor="file">আপলোড ইমেজ</InputLabel>
-                  <Field
-                    name="file"
-                    type="file"
-                    as={TextField} // Use TextField for consistent styling
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{ shrink: true }} // Keep the label from floating to the top
-                  />
-                </Grid>
+                    <InputLabel htmlFor="file">আপলোড ইমেজ</InputLabel>
+                    <Field
+                      name="file"
+                      type="file"
+                      as={TextField} // Use TextField for consistent styling
+                      fullWidth
+                      size="small"
+                      InputLabelProps={{ shrink: true }} // Keep the label from floating to the top
+                    />
+                  </Grid>
                 </Grid>
 
                 <Button
-                    aria-label="toggle-status"
-                    size="small"
-                    variant='contained'
-                    style={{
-                        backgroundColor:'primary.main',
-                        color: 'white',
-                        width: '100px',
-                        display: 'inline-flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
+                  type="submit"
+                  aria-label="toggle-status"
+                  size="small"
+                  variant='contained'
+                  style={{
+                    backgroundColor: 'primary.main',
+                    color: 'white',
+                    width: '100px',
+                    display: 'inline-flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
                 >
-                   সাবমিট
+                  সাবমিট
                 </Button>
               </Form>
             </Formik>
