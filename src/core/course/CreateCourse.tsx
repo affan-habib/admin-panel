@@ -16,6 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import { Add } from '@mui/icons-material';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
@@ -34,9 +36,14 @@ const CreateCourse: React.FC = () => {
     supporting_doc: null,
     featured_image: null,
   };
-
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
   const [selectedStep, setSelectedStep] = useState<number>(1);
   const navigate = useNavigate();
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -52,10 +59,16 @@ const CreateCourse: React.FC = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
+      setSnackbarSeverity('success');
+      setSnackbarMessage(response.data.message);
+      setSnackbarOpen(true);
 
       console.log('API Response:', response.data);
       navigate(`/course/edit/${response.data.data.id}`);
-    } catch (error) {
+    } catch (error:any) {
+      setSnackbarSeverity('error');
+      setSnackbarMessage(error.response.data.message || 'An error occurred');
+      setSnackbarOpen(true);
       console.error('Error submitting form:', error);
     }
   };
@@ -96,11 +109,14 @@ const CreateCourse: React.FC = () => {
                   English
                 </Button>
               </Grid>
-              <Grid item md={7}>
+              <Grid item xs={6}>
+            
+              </Grid>
+              <Grid item md={6}>
                 {selectedStep === 1 && <StepOne />}
                 {selectedStep === 2 && <StepTwo />}
               </Grid>
-              <Grid item md={5}>
+              <Grid item md={6}>
                 <StepThree />
               </Grid>
               <Grid
@@ -116,15 +132,26 @@ const CreateCourse: React.FC = () => {
                   color="primary"
                   type="submit"
                   size="large"
-                  sx={{ width: 400, textAlign: 'center' }}
+                  sx={{ width: 250, textAlign: 'center' }}
                 >
                   সাবমিট
                 </Button>
               </Grid>
+              
             </Grid>
           </Form>
         )}
       </Formik>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

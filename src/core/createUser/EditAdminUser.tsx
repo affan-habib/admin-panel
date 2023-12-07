@@ -14,8 +14,8 @@ import Alert from '@mui/material/Alert';
 import { useTranslation } from 'react-i18next';
 
 const EditAdminUser: React.FC = () => {
-    const [snackbarOpen, setSnackbarOpen] = React.useState(false);
     const { t } = useTranslation();
+    const [snackbarOpen, setSnackbarOpen] = React.useState(false);
     const [snackbarMessage, setSnackbarMessage] = React.useState('');
     const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
     const handleCloseSnackbar = () => {
@@ -54,7 +54,7 @@ const EditAdminUser: React.FC = () => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography variant="h6" gutterBottom sx={{ color: 'rgba(0, 106, 78, 1)' }}>
-                            {t('editUser')}
+                        {t('editUser')}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2 }}>
@@ -94,8 +94,12 @@ const EditAdminUser: React.FC = () => {
                                             // Set an empty default value
                                             >
 
+                                                <MenuItem value="superadmin">Super admin</MenuItem>
+                                                <MenuItem value="reportadmin">Report admin</MenuItem>
+                                                <MenuItem value="dsheadmin">DSHE admin</MenuItem>
                                                 <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
-                                                <MenuItem value="trainer">Trainer</MenuItem>
+                                                <MenuItem value="contentadmin">Content admin</MenuItem>
+                                                <MenuItem value="batchcoordinator">Batch Coordinator</MenuItem>
 
                                             </Field>
                                         </Grid>
@@ -112,7 +116,7 @@ const EditAdminUser: React.FC = () => {
                                         </Grid>
 
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="email">{t('email')}</InputLabel>
+                                            <InputLabel htmlFor="email"> {t('email')}</InputLabel>
                                             <Field
                                                 name="email"
                                                 as={TextField}

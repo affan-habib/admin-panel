@@ -118,6 +118,38 @@ const Chapters: React.FC<any> = ({ modules }) => {
               >
                 Add Video
               </Button>
+              <Button
+                variant="contained"
+                disabled
+                size="small"
+                sx={{ mt: 2, ml: 2 }}
+              >
+                Add Assignment
+              </Button>
+              {/* <Button
+                variant="contained"
+                disabled
+                size="small"
+                sx={{ ml: 2, mt: 2 }}
+              >
+                Add Quiz
+              </Button> */}
+              <Button
+                variant="contained"
+                disabled
+                size="small"
+                sx={{ mt: 2, ml: 2 }}
+              >
+                Add Assesnment
+              </Button>
+              <Button
+                disabled
+                variant="contained"
+                size="small"
+                sx={{ ml: 2, mt: 2 }}
+              >
+                Add Quiz
+              </Button>
             </AccordionDetails>
           </>
         </Accordion>
