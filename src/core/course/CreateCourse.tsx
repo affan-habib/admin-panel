@@ -103,33 +103,23 @@ const CreateCourse: React.FC = () => {
               <Grid item md={5}>
                 <StepThree />
               </Grid>
-              <Grid item xs={7} style={{ textAlign: 'right' }}>
-                <Button variant="contained" color="primary" type="submit">
+              <Grid
+                item
+                xs={12}
+                style={{ textAlign: 'right' }}
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  size="large"
+                  sx={{ width: 400, textAlign: 'center' }}
+                >
                   সাবমিট
                 </Button>
-                <Stack
-                  sx={{
-                    p: 2,
-                    border: '1px solid #D0D0D0',
-                    borderRadius: '8px',
-                    mt: 2,
-                  }}
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="h6" color="primary.main">
-                    অধ্যায় যোগ করুন
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<Add />}
-                    disabled
-                  >
-                    অধ্যায় যোগ করুন
-                  </Button>
-                </Stack>
               </Grid>
             </Grid>
           </Form>
