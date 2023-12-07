@@ -26,12 +26,14 @@ const EditAdminUser: React.FC = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (values: any) => {
+        
+        delete values.roles;
         console.log(values);
         const token = localStorage.getItem('token');
 
         try {
             // Use axios.put to send a PUT request with the updated values and ID in the URL
-            const response = await axios.put(`${apiBaseUrl}/admins/${id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0 }, {
+            const response = await axios.put(`${apiBaseUrl}/admins/${id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0 , role:"super-admin"}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
