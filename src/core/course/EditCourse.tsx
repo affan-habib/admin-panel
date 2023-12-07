@@ -108,7 +108,7 @@ const EditCourse: React.FC = () => {
                   color="primary"
                   type="submit"
                   size="large"
-                  sx={{ width: 400, textAlign: 'center' }}
+                  sx={{ width: 250, textAlign: 'center' }}
                 >
                   সাবমিট
                 </Button>
