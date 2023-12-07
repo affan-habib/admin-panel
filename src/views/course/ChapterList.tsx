@@ -14,10 +14,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VideoIcon from '@mui/icons-material/VideoLibrary';
 import ModuleActions from './ModuleActions';
+import { apiBaseUrl } from 'config';
+import { useQueryClient } from 'react-query';
 
 // ... (other imports)
 
 const Chapters: React.FC<any> = ({ modules }) => {
+  const queryClient = useQueryClient();
+
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
@@ -34,13 +38,36 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setSelectedVideo(video);
     setEditDialogOpen(true);
   };
+  const handleDeleteClick = (id: any) => {
+    fetch(`${apiBaseUrl}/course/material/delete/${id}?type=video`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Handle successful deletion (e.g., update state, UI, etc.)
+          queryClient.invalidateQueries('courseDetails');
+          console.log('Module deleted successfully');
+        } else {
+          // Handle deletion failure (e.g., show an error message)
+          console.error('Failed to delete module');
+        }
+      })
+      .catch((error) => {
+        console.error('Error occurred while deleting module:', error);
+      });
+  };
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
   return (
     <>
       {modules?.map((chapter: any) => (
-        <Accordion disableGutters key={chapter.module_id} sx={{ my: 1 }}>
+        <Accordion
+          disableGutters
+          key={chapter.module_id}
+          sx={{ my: 1 }}
+          expanded
+        >
           <AccordionSummary
             sx={{
               height: 50,
@@ -77,6 +104,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       aria-label="Delete"
                       size="small"
                       color="secondary"
+                      onClick={() => handleDeleteClick(el.id)}
                     >
                       <DeleteIcon />
                     </IconButton>
