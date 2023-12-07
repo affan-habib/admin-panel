@@ -1,14 +1,35 @@
 import React from 'react';
-import { Container, Grid,Typography, InputLabel } from '@mui/material';
+import {
+  Container,
+  Grid,
+  Typography,
+  InputLabel,
+  MenuItem,
+  Button,
+} from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
+import axios from 'axios';
+import { apiBaseUrl } from '../../config';
+
+
+interface ApiErrorResponse {
+  response: {
+    data: Response; // Your actual response structure
+    status: number;
+    statusText: string;
+    headers: Record<string, string>;
+    config: Record<string, unknown>;
+  };
+  request?: unknown;
+  message: string;
+}
 
 const CreateAdminUser: React.FC = () => {
+  const token = localStorage.getItem('token');
   return (
     <div>
-     
+
 
       <Container maxWidth="xl" style={{ marginTop: '20px' }}>
         <Grid container>
@@ -20,14 +41,57 @@ const CreateAdminUser: React.FC = () => {
           <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2 }}>
             <Formik
               initialValues={{
-                textField: '',
-                dropdown: '',
+                name: '',
+                type: '',
+                userName: '',
+                email: '',
+                number: '',
+                status: '',
+                role: '',
                 password: '',
-                phone: '',
+                hstti_code: '123',
+                zone: 'dhaka',
+                belongs_hstti: '1'
               }}
-              onSubmit={(values) => {
-                // Handle form submission logic
-                console.log(values);
+              onSubmit={async (values) => {
+                try {
+                  const response = await axios.post(
+                    `${apiBaseUrl}/admins`,
+
+                    JSON.stringify({
+                      name: values.name,
+                      type: values.type,
+                      username: values.userName,
+                      email: values.email,
+                      mobile_no: values.number,
+                      status: values.status,
+                      role: values.role,
+                      password: values.password,
+                      hstti_code: '123',
+                      zone: 'dhaka',
+                      belongs_hstti: '1'
+                      // Add other fields as needed
+                    }),
+                    {
+                      headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                      },
+                    }
+                  );
+                  console.log('API Response:', response);
+
+                  console.log('API Response Data:', response.data);
+
+                  // Handle success, e.g., show a success message or redirect
+                }catch (error: unknown) {
+                  console.error('Error submitting form:', error);
+              
+                  // if (axios.isAxiosError(error)) {
+                  //   const axiosError = error as ApiErrorResponse;
+                  //   console.error('Server Response:', axiosError.response.data);
+                  // }
+                }
               }}
             >
               <Form
@@ -41,7 +105,7 @@ const CreateAdminUser: React.FC = () => {
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="textField">ব্যবহারকারীর সম্পূর্ন নাম</InputLabel>
                     <Field
-                      name="textField"
+                      name="name"
                       as={TextField}
                       fullWidth
                       size="small"
@@ -51,25 +115,22 @@ const CreateAdminUser: React.FC = () => {
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="dropdown">পদবি</InputLabel>
                     <Field
-                      name="dropdown"
+                      name="type"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
-                       // Set an empty default value
                     >
-                      
-                      <MenuItem value="option1">Option 1</MenuItem>
-                      <MenuItem value="option2">Option 2</MenuItem>
-                      <MenuItem value="option3">Option 3</MenuItem>
+                      <MenuItem value="hsttiadmin">hsttiadmin</MenuItem>
+                      {/* Add other MenuItem elements as needed */}
                     </Field>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="name">ইউজার নেম</InputLabel>
                     <Field
-                      name="name"
+                      name="userName"
                       type="name"
                       as={TextField}
                       fullWidth
@@ -98,35 +159,32 @@ const CreateAdminUser: React.FC = () => {
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="dropdown">স্ট্যাটাস</InputLabel>
                     <Field
-                      name="dropdown"
+                      name="status"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
-                       // Set an empty default value
                     >
-                      
-                      <MenuItem value="option1">Option 1</MenuItem>
-                      <MenuItem value="option2">Option 2</MenuItem>
-                      <MenuItem value="option3">Option 3</MenuItem>
+                      <MenuItem value={1}>1</MenuItem>
+                      <MenuItem value={0}>0</MenuItem>
                     </Field>
                   </Grid>
+
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="dropdown">ইউজার রোল নেম</InputLabel>
                     <Field
-                      name="dropdown"
+                      name="role"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
                       label="সিলেক্ট করুন"
-                       // Set an empty default value
+                    // Set an empty default value
                     >
-                      
-                      <MenuItem value="option1">Option 1</MenuItem>
-                      <MenuItem value="option2">Option 2</MenuItem>
-                      <MenuItem value="option3">Option 3</MenuItem>
+
+                      <MenuItem value="reportadmin">reportadmin</MenuItem>
+
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
@@ -139,7 +197,8 @@ const CreateAdminUser: React.FC = () => {
                       size="small"
                     />
                   </Grid>
-                  <Grid item xs={12} md={3}>
+
+                  {/* <Grid item xs={12} md={3}>
                   <InputLabel htmlFor="file">আপলোড ইমেজ</InputLabel>
                   <Field
                     name="file"
@@ -149,23 +208,25 @@ const CreateAdminUser: React.FC = () => {
                     size="small"
                     InputLabelProps={{ shrink: true }} // Keep the label from floating to the top
                   />
-                </Grid>
+                </Grid> */}
                 </Grid>
 
                 <Button
-                    aria-label="toggle-status"
-                    size="small"
-                    variant='contained'
-                    style={{
-                        backgroundColor:'primary.main',
-                        color: 'white',
-                        width: '100px',
-                        display: 'inline-flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
+                  type="submit"
+                  aria-label="toggle-status"
+                  size="small"
+                  variant="contained"
+                  style={{
+                    backgroundColor: 'primary.main',
+                    color: 'white',
+                    width: '100px',
+                    display: 'inline-flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '16px',
+                  }}
                 >
-                   সাবমিট
+                  সাবমিট
                 </Button>
               </Form>
             </Formik>

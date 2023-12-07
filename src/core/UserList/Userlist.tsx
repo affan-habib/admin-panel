@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, IconButton, Typography } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, Button, Container, IconButton, Stack, Typography } from '@mui/material';
 import axios from 'axios';
 import ReactTable from 'components/tables/ReactTable';
-import PageSizeSelect from 'components/tables/PageSizeSelect';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import UserModal from './UserModal';
-
-
+import { apiBaseUrl } from '../../config';
+import { useNavigate } from 'react-router-dom';
+import { Add } from '@mui/icons-material';
 
 
 const CourseList: React.FC = () => {
@@ -19,15 +16,15 @@ const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate()
   const handleVisibilityClick = async (row: any) => {
     try {
-      const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
-  
-      const response = await axios.get(`http://172.16.100.209:8002/api/clms/dev/admins/${row.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const token = localStorage.getItem('token');
+            const response = await axios.get(`${apiBaseUrl}/admins/${row.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
   
       if (response.data && response.data.data) {
         // Log the response for debugging purposes
@@ -94,18 +91,15 @@ const CourseList: React.FC = () => {
       ),
     },
   ];
-
-
- 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = '8IyxRvGlZN8vqSyLoz6xF2tU3vGC7YmFWJwjAxwWoCjWnB5YicoVSMXuyuXSkRTpuCGg8ApRmRa4A5FpbntXIlK0FHfjt1V2yA8176taCN3eUqER9eHJmmnuyjIfXDaLaYzIgV5mWstHLB1E0C1VpnKlRvxQ6kNVa4I4ay1wJ965FBSttPx7aF5bU8eYVnHz75Ycud0tNt7AFNB6bW56hllyVmyXxqRkDOeoWMtZANn7dZeT';
-        const response = await axios.get('http://172.16.100.209:8002/api/clms/dev/admins', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const token = localStorage.getItem('token');
+            const response = await axios.get(`${apiBaseUrl}/admins`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
         if (response.data && response.data.data && Array.isArray(response.data.data.data)) {
           // Log the response for debugging purposes
@@ -140,9 +134,16 @@ const CourseList: React.FC = () => {
 
   return (
     <Container maxWidth="xl">
-      <Typography variant="h6" color="primary.main" mb={2}>
-        পাঠ্যক্রমের তালিকা
-      </Typography>
+      <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={2}
+            >
+                <Button variant="contained" startIcon={<Add />} sx={{ ml: 'auto', my: 2 }} onClick={() => navigate("/create-admin-user")}>
+                    Create User
+                </Button>
+            </Stack>
 
       <ReactTable
         columns={columns}
