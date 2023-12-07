@@ -16,7 +16,7 @@ const CreateAdminUser: React.FC = () => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
@@ -38,7 +38,7 @@ const CreateAdminUser: React.FC = () => {
       setSnackbarOpen(true);
 
       navigate("/admin-user-list");
-    } catch (error:any) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
       // Assuming the API returns an error message in the response
       setSnackbarSeverity('error');
@@ -217,7 +217,8 @@ const CreateAdminUser: React.FC = () => {
                   style={{
                     backgroundColor: 'primary.main',
                     color: 'white',
-                    width: '100px',
+                    width: '250px',
+                    height: '40px',
                     display: 'inline-flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -225,22 +226,23 @@ const CreateAdminUser: React.FC = () => {
                 >
                   {t('submit')}
                 </Button>
+
               </Form>
             </Formik>
           </Grid>
         </Grid>
         <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
       </Container>
-      
+
     </div>
 
 
