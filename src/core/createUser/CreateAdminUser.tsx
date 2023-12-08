@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Grid, Typography, InputLabel } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { CircularProgress, Container, Grid, Typography, InputLabel } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,24 +10,24 @@ import { apiBaseUrl } from '../../config';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'context/SnackbarContext';
+
 
 const CreateAdminUser: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const { showSnackbar } = useSnackbar();
   const navigate = useNavigate()
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
-const isRequiredField = (fieldName: string) => {
-    // Define an array of required field names
-    const requiredFields = ['name', 'type', 'username', 'email', 'mobile_no', 'status', 'role', 'password', 'file'];
-    // Check if the current field is in the array of required fields
-    return requiredFields.includes(fieldName);
-  };
+
   const handleSubmit = async (values: any) => {
-    console.log(values);
+    setLoading(true); // Set loading to true when submitting
     const token = localStorage.getItem('token');
 
     try {
@@ -36,40 +36,16 @@ const isRequiredField = (fieldName: string) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response.data.message", response.data.message)
-      // Assuming the API returns a success message in the response
-      setSnackbarSeverity('success');
-      setSnackbarMessage(response.data.message);
-      setSnackbarOpen(true);
-
+      showSnackbar(response.data.message == 'success' ? "Data saved succesfully" : '' , 'success');
       navigate("/admin-user-list");
-    } catch (error:any) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
-      // Assuming the API returns an error message in the response
-      setSnackbarSeverity('error');
-      setSnackbarMessage(error.response.data.message || 'An error occurred');
-      setSnackbarOpen(true);
+      showSnackbar(error.response.data.message, 'error');
+    } finally {
+      setLoading(false); // Set loading to false regardless of success or error
     }
   };
-  // const handleSubmit = async (values: any) => {
-  //   console.log(values);
-  //   const token = localStorage.getItem('token');
-  //   try {
-  //     axios.post(`${apiBaseUrl}/admins`, values, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //       .then(function (response) {
-  //         navigate("/admin-user-list")
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   } catch (error) {
-  //     console.error('Error submitting form:', error);
-  //   }
-  // };
+
   return (
     <div>
 
@@ -103,8 +79,8 @@ const isRequiredField = (fieldName: string) => {
               >
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="textField">{t('fullUserName')} 
-                    <span style={{ color: 'red' }}>*</span>
+                    <InputLabel htmlFor="textField">{t('fullUserName')}
+                      <span style={{ color: 'red' }}>*</span>
                     </InputLabel>
                     <Field
                       name="name"
@@ -114,7 +90,7 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={3} >
                     <InputLabel htmlFor="dropdown">{t('designation')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="type"
@@ -125,11 +101,11 @@ const isRequiredField = (fieldName: string) => {
                       label="সিলেক্ট করুন"
                     // Set an empty default value
                     >
-<MenuItem value="superadmin">Super admin</MenuItem>
+                      <MenuItem value="superadmin">Super admin</MenuItem>
                       <MenuItem value="reportadmin">Report admin</MenuItem>
                       <MenuItem value="dsheadmin">DSHE admin</MenuItem>
                       <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
-<MenuItem value="contentadmin">Content admin</MenuItem>
+                      <MenuItem value="contentadmin">Content admin</MenuItem>
                       <MenuItem value="batchcoordinator">Batch Coordinator</MenuItem>
                     </Field>
                   </Grid>
@@ -191,7 +167,7 @@ const isRequiredField = (fieldName: string) => {
                       label="সিলেক্ট করুন"
                     // Set an empty default value
                     >
-<MenuItem value="super-admin">Super Admin</MenuItem>
+                      <MenuItem value="super-admin">Super Admin</MenuItem>
                       <MenuItem value="admin">Admin</MenuItem>
                       <MenuItem value="trainer">Trainer</MenuItem>
                       <MenuItem value="trainee">Trainee</MenuItem>
@@ -219,39 +195,46 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
                 </Grid>
+                {loading ? (
+                  // Show the loader if loading
+                  <CircularProgress size={20} color="inherit" />
+                ) : (
+                  // Show the 'Submit' text when not loading
+                  <Button
+                    type="submit"
+                    aria-label="toggle-status"
+                    size="small"
+                    variant='contained'
+                    style={{
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                      width: '100px',
+                      display: 'inline-flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {t('submit')}
+                  </Button>
+                )}
 
-                <Button
-                  type="submit"
-                  aria-label="toggle-status"
-                  size="small"
-                  variant='contained'
-                  style={{
-                    backgroundColor: 'primary.main',
-                    color: 'white',
-                    width: '100px',
-                    display: 'inline-flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  {t('submit')}
-                </Button>
+
               </Form>
             </Formik>
           </Grid>
         </Grid>
         <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
       </Container>
-      
+
     </div>
 
 

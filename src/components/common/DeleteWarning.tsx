@@ -25,11 +25,13 @@ const WarningModal: React.FC<WarningModalProps> = ({
         Are you sure you want to delete this user?
       </DialogContent>
       <DialogActions>
-      
-        <Button onClick={handleClose} color="primary">
-          No
+        <Button 
+          onClick={handleClose} 
+          style={{ backgroundColor: 'red', color: 'white' }}
+        >
+          Cancel
         </Button>
-        <Button onClick={onConfirm} color="primary">
+        <Button onClick={onConfirm} style={{ backgroundColor: 'green', color: 'white' }} >
           Yes
         </Button>
       </DialogActions>
