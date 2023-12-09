@@ -9,12 +9,14 @@ type InputFieldProps = FieldHookConfig<string | number> & {
   rows?: number;
   placeholder?: string;
   fieldWidth?: number; // New prop for field width
+  required?: boolean; // New prop for field width
 };
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
   rows = 1,
   placeholder = '',
+  required,
   fieldWidth = 690, // Default width
   ...props
 }) => {
@@ -38,7 +40,7 @@ const InputField: React.FC<InputFieldProps> = ({
                 fontWeight: 500,
               }}
             >
-              {label}
+              {label} {required && <span style={{ color: 'red' }}>*</span>}
             </InputLabel>
           </div>
         </React.Fragment>

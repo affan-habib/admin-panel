@@ -13,6 +13,7 @@ const Step3: React.FC = () => (
       <Grid item md={6}>
 
         <InputField
+          required={true}
           name="code"
           label="Course Code"
           placeholder="Write the code here..."
