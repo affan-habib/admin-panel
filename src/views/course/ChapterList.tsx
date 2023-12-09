@@ -109,7 +109,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     <IconButton
                       aria-label="Delete"
                       size="small"
-                      color="secondary"
+                      color="error"
                       onClick={() => handleDeleteClick(el.id)}
                     >
                       <DeleteIcon />

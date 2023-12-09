@@ -59,7 +59,7 @@ const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
         <IconButton
           aria-label="Delete"
           size="small"
-          color="secondary"
+          color="error"
           onClick={handleDeleteClick}
         >
           <DeleteIcon />
