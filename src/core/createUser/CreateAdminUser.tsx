@@ -164,14 +164,15 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('status')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="dropdown">{t('status')} <span style={{ color: 'red'}}>*</span></InputLabel>
                     <Field
                       name="status"
                       as={TextField}
                       select
                       fullWidth
-                      size="small"
+                      size="small"                      
                       label="সিলেক্ট করুন"
+
                     // Set an empty default value
                     >
 
@@ -188,7 +189,8 @@ const isRequiredField = (fieldName: string) => {
                       select
                       fullWidth
                       size="small"
-                      label="সিলেক্ট করুন"
+                      //label="সিলেক্ট করুন"
+                      label={t('loginHere')}
                     // Set an empty default value
                     >
 <MenuItem value="super-admin">Super Admin</MenuItem>
