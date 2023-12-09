@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditChapterDialog from './EditChapterDialog'; // Corrected import path
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
+import { useSnackbar } from 'context/SnackbarContext';
 
 interface ModuleActionsProps {
   module: any;
@@ -14,6 +15,8 @@ interface ModuleActionsProps {
 const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const queryClient = useQueryClient();
+  const { showSnackbar } = useSnackbar();
+
   const handleEditClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setEditDialogOpen(true);
@@ -56,7 +59,7 @@ const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
         <IconButton
           aria-label="Delete"
           size="small"
-          color="secondary"
+          color="error"
           onClick={handleDeleteClick}
         >
           <DeleteIcon />

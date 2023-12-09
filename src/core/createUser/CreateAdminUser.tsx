@@ -48,8 +48,6 @@ const CreateAdminUser: React.FC = () => {
 
   return (
     <div>
-
-
       <Container maxWidth="xl" style={{ marginTop: '20px' }}>
         <Grid container>
           <Grid item xs={12}>
@@ -79,7 +77,7 @@ const CreateAdminUser: React.FC = () => {
               >
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="textField">{t('fullUserName')}
+                    <InputLabel htmlFor="textField" style={{marginBottom: '7px' }}>{t('fullUserName')}
                       <span style={{ color: 'red' }}>*</span>
                     </InputLabel>
                     <Field
@@ -91,14 +89,15 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3} >
-                    <InputLabel htmlFor="dropdown">{t('designation')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('designation')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="type"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
-                      label="সিলেক্ট করুন"
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
                     // Set an empty default value
                     >
                       <MenuItem value="superadmin">Super admin</MenuItem>
@@ -111,7 +110,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="name">{t('userName')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="name" style={{marginBottom: '7px' }}>{t('userName')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="username"
                       type="name"
@@ -122,7 +121,7 @@ const CreateAdminUser: React.FC = () => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="email">{t('email')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="email" style={{marginBottom: '7px' }}>{t('email')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="email"
                       as={TextField}
@@ -131,7 +130,7 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="number">{t('mobileNo')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="number" style={{marginBottom: '7px' }}>{t('mobileNo')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="mobile_no"
                       as={TextField}
@@ -140,32 +139,32 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('status')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('status')} <span style={{ color: 'red'}}>*</span></InputLabel>
                     <Field
                       name="status"
                       as={TextField}
                       select
                       fullWidth
-                      size="small"
-                      label="সিলেক্ট করুন"
-                    // Set an empty default value
+                      size="small"                      
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
+                      // Set an empty default value
                     >
-
                       <MenuItem value="1">Active</MenuItem>
                       <MenuItem value="2">Inactive</MenuItem>
-
                     </Field>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('userRoleName')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('userRoleName')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="role"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
-                      label="সিলেক্ট করুন"
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
                     // Set an empty default value
                     >
                       <MenuItem value="super-admin">Super Admin</MenuItem>
@@ -175,7 +174,7 @@ const CreateAdminUser: React.FC = () => {
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="password">{t('password')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="password" style={{marginBottom: '7px' }}>{t('password')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="password"
                       type="password"
@@ -185,7 +184,7 @@ const CreateAdminUser: React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="file">{t('uploadImage')}</InputLabel>
+                    <InputLabel htmlFor="file" style={{marginBottom: '7px' }}>{t('uploadImage')}</InputLabel>
                     <Field
                       name="file"
                       type="file"
@@ -208,18 +207,21 @@ const CreateAdminUser: React.FC = () => {
                     variant='contained'
                     style={{
                       backgroundColor: 'primary.main',
-                      color: 'white',
-                      width: '100px',
+                      color: '#FAFAFA',
+                      width: '249px',
+                      height: '40px',
                       display: 'inline-flex',
                       justifyContent: 'center',
                       alignItems: 'center',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      fontFamily: 'Roboto',
+                      marginTop: '14px',
                     }}
                   >
                     {t('submit')}
                   </Button>
                 )}
-
-
               </Form>
             </Formik>
           </Grid>
@@ -235,13 +237,8 @@ const CreateAdminUser: React.FC = () => {
           </Alert>
         </Snackbar>
       </Container>
-
     </div>
-
-
-
   );
-
 };
 
 export default CreateAdminUser;

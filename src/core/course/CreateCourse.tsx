@@ -8,6 +8,7 @@ import {
   Typography,
   Link,
   Stack,
+  ButtonGroup,
 } from '@mui/material';
 import StepOne from 'views/course/StepOne';
 import StepTwo from 'views/course/StepTwo';
@@ -18,6 +19,8 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { useSnackbar } from 'context/SnackbarContext';
+import MainCard from 'components/cards/MainCard';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
@@ -36,14 +39,11 @@ const CreateCourse: React.FC = () => {
     supporting_doc: null,
     featured_image: null,
   };
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
+
   const [selectedStep, setSelectedStep] = useState<number>(1);
   const navigate = useNavigate();
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
+  const { showSnackbar } = useSnackbar();
+
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -51,7 +51,10 @@ const CreateCourse: React.FC = () => {
       const formData = new FormData();
 
       Object.keys(values).forEach((key) => {
-        formData.append(key, values[key]);
+        // Check if the value is not null before appending to formData
+        if (values[key] !== null) {
+          formData.append(key, values[key]);
+        }
       });
 
       const response = await axios.post(`${apiBaseUrl}/course`, formData, {
@@ -59,16 +62,13 @@ const CreateCourse: React.FC = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setSnackbarSeverity('success');
-      setSnackbarMessage(response.data.message);
-      setSnackbarOpen(true);
+      showSnackbar(response.data.message, 'success');
 
       console.log('API Response:', response.data);
       navigate(`/course/edit/${response.data.data.id}`);
-    } catch (error:any) {
-      setSnackbarSeverity('error');
-      setSnackbarMessage(error.response.data.message || 'An error occurred');
-      setSnackbarOpen(true);
+    } catch (error: any) {
+
+      showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
     }
   };
@@ -81,7 +81,7 @@ const CreateCourse: React.FC = () => {
       >
         {({ isSubmitting, isValid }) => (
           <Form>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ border: '1px dashed grey', pr: 2, pb: 2, mt: 2 , borderRadius: 2}}>
               <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="inherit" href="/dashboard">
@@ -92,29 +92,26 @@ const CreateCourse: React.FC = () => {
                   </Typography>
                 </Breadcrumbs>
               </Grid>
-              <Grid item xs={6}>
-                <Button
-                  variant={selectedStep === 1 ? 'contained' : 'outlined'}
-                  color="primary"
-                  sx={{ mr: 2 }}
-                  onClick={() => setSelectedStep(1)}
-                >
-                  Bangla
-                </Button>
-                <Button
-                  variant={selectedStep === 2 ? 'contained' : 'outlined'}
-                  color="primary"
-                  onClick={() => setSelectedStep(2)}
-                >
-                  English
-                </Button>
-              </Grid>
-              <Grid item xs={6}>
-            
-              </Grid>
               <Grid item md={6}>
-                {selectedStep === 1 && <StepOne />}
-                {selectedStep === 2 && <StepTwo />}
+                <MainCard title="পাঠ্যক্রম তৈরি করুন" rightButton={<ButtonGroup>
+                  <Button
+                    variant={selectedStep === 1 ? 'contained' : 'outlined'}
+                    color="primary"
+                    onClick={() => setSelectedStep(1)}
+                  >
+                    Bangla
+                  </Button>
+                  <Button
+                    variant={selectedStep === 2 ? 'contained' : 'outlined'}
+                    color="primary"
+                    onClick={() => setSelectedStep(2)}
+                  >
+                    English
+                  </Button>
+                </ButtonGroup>}>
+                  {selectedStep === 1 && <StepOne />}
+                  {selectedStep === 2 && <StepTwo />}
+                </MainCard>
               </Grid>
               <Grid item md={6}>
                 <StepThree />
@@ -124,7 +121,7 @@ const CreateCourse: React.FC = () => {
                 xs={12}
                 style={{ textAlign: 'right' }}
                 alignItems="center"
-                justifyContent="center"
+                justifyContent="right"
                 display="flex"
               >
                 <Button
@@ -132,26 +129,16 @@ const CreateCourse: React.FC = () => {
                   color="primary"
                   type="submit"
                   size="large"
-                  sx={{ width: 250, textAlign: 'center' }}
+                  sx={{ width: 250 }}
                 >
                   সাবমিট
                 </Button>
               </Grid>
-              
+
             </Grid>
           </Form>
         )}
       </Formik>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </Container>
   );
 };
