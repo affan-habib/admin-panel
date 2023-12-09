@@ -16,6 +16,7 @@ import VideoIcon from '@mui/icons-material/VideoLibrary';
 import ModuleActions from './ModuleActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
+import { DragHandle, OpenWith } from '@mui/icons-material';
 
 // ... (other imports)
 
@@ -73,10 +74,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
               height: 50,
               display: 'flex',
               justifyContent: 'space-around',
+              alignItems: 'center',
               backgroundColor: '#DEEEC6',
             }}
           >
-            <Typography mt={1}>{chapter.module_name_bn}</Typography>
+            <Box mt={1} mr={2}>
+
+              <OpenWith />
+            </Box>
+            <Typography mt={1}>{chapter.module_code_bn} : {chapter.module_name_bn}</Typography>
             <ModuleActions module={chapter} />
           </AccordionSummary>
           <>
@@ -168,7 +174,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-          // onEdit={handleVideoEdit}
+        // onEdit={handleVideoEdit}
         />
       )}
     </>

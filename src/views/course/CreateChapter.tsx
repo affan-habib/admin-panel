@@ -1,7 +1,7 @@
 // components/form/DyanamicForm.tsx
 import React, { useState } from 'react';
 import { Button, IconButton, Stack, Typography } from '@mui/material';
-import { Add, AddCircle } from '@mui/icons-material';
+import { Add, AddCircle, AddCircleOutline, AddOutlined } from '@mui/icons-material';
 import CreateChapterDialog from './CreateChapterDialog';
 import Chapters from './ChapterList';
 
@@ -31,8 +31,9 @@ const DyanamicForm: React.FC<any> = ({ modules }) => {
           variant="contained"
           color="primary"
           onClick={handleDialogOpen}
+          sx={{width: 30}}
         >
-          <AddCircle />
+          <AddCircleOutline />
         </Button>
       </Stack>
 

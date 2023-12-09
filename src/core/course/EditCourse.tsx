@@ -113,7 +113,7 @@ const EditCourse: React.FC = () => {
                   size="large"
                   sx={{ width: 250 }}
                 >
-                  সাবমিট
+                  আপডেট করুন
                 </Button>
               </Grid>
               <Grid item md={7}>
