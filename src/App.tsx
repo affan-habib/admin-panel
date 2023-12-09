@@ -30,6 +30,7 @@ const App: React.FC = () => {
             onButtonSelect={handleButtonSelect}
           />
           <BrowserRouter>
+
             <Routes />
           </BrowserRouter>
         </Box>
