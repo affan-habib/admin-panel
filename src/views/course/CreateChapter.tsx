@@ -1,7 +1,7 @@
 // components/form/DyanamicForm.tsx
 import React, { useState } from 'react';
-import { Button, Stack, Typography } from '@mui/material';
-import { Add } from '@mui/icons-material';
+import { Button, IconButton, Stack, Typography } from '@mui/material';
+import { Add, AddCircle } from '@mui/icons-material';
 import CreateChapterDialog from './CreateChapterDialog';
 import Chapters from './ChapterList';
 
@@ -28,12 +28,11 @@ const DyanamicForm: React.FC<any> = ({ modules }) => {
           অধ্যায় যোগ করুন
         </Typography>
         <Button
-          variant="outlined"
+          variant="contained"
           color="primary"
           onClick={handleDialogOpen}
-          startIcon={<Add />}
         >
-          অধ্যায় যোগ করুন
+          <AddCircle />
         </Button>
       </Stack>
 
