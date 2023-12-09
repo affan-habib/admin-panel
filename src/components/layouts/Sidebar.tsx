@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   List,
   ListItem,
@@ -7,7 +7,7 @@ import {
   ListItemIcon,
 } from '@mui/material';
 import { ExpandLess, ExpandMore, Logout } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import UseGetMenuItems from './menu-items';
 import { useTranslation } from 'react-i18next';
 
@@ -23,11 +23,49 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
   const [menuStates, setMenuStates] = useState<{ [key: string]: boolean }>({});
-  const [selectedMenu, setSelectedMenu] = useState<string | null>('/dashboard');
+  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
   const [selectedSubMenu, setSelectedSubMenu] = useState<string | null>(null);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // Call the hook within the component body
+  const menuItems = UseGetMenuItems();
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+
+    let matchingMenu: MenuItem | undefined;
+    let matchingSubMenu: MenuItem | undefined;
+
+    for (const item of menuItems) {
+      if (currentPath === item.path) {
+        matchingMenu = item;
+        break;
+      }
+
+      if (item.subMenu) {
+        matchingSubMenu = item.subMenu.find((subItem) => currentPath === subItem.path);
+
+        if (matchingSubMenu) {
+          matchingMenu = item;
+          break;
+        }
+      }
+    }
+
+    if (matchingMenu) {
+      setSelectedMenu(matchingMenu.path);
+    } else {
+      setSelectedMenu(null);
+    }
+
+    if (matchingSubMenu) {
+      setSelectedSubMenu(matchingSubMenu.path);
+    } else {
+      setSelectedSubMenu(null);
+    }
+  }, [location.pathname, menuItems]);
   const handleToggle = (path: string) => {
     setMenuStates((prevStates) => ({
       ...prevStates,
@@ -50,7 +88,6 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
     navigate(path);
   };
 
-  const menuItems = UseGetMenuItems();
 
   return (
     <List>
@@ -66,10 +103,10 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
             }}
             sx={{
               backgroundColor:
-                selectedMenu === item.path ? 'white' : 'primary.main',
-              color: selectedMenu === item.path ? 'primary.main' : 'white',
+                selectedMenu === item.path ? 'primary.main' : 'primary.main',
+              color: selectedMenu === item.path ? 'white' : 'white',
               '&:hover': {
-                backgroundColor: 'white',
+                backgroundColor: '#DEEEC6',
                 color: 'primary.main',
               },
             }}
@@ -77,10 +114,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
             {item.icon && (
               <ListItemIcon
                 sx={{
-                  color: selectedMenu === item.path ? 'primary.main' : 'white',
-                  '&:hover': {
-                    color: 'red',
-                  },
+                  color: "white",
+
                 }}
               >
                 {item.icon}
@@ -100,6 +135,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
               <List component="div" disablePadding>
                 {item.subMenu.map((subItem, subIndex) => (
                   <ListItem
+                    component='div'
                     key={subIndex}
                     onClick={() => handleSubMenuClick(subItem.path)}
                     selected={selectedSubMenu === subItem.path}
@@ -111,8 +147,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
                       color:
                         selectedSubMenu === subItem.path ? 'yellow' : 'white',
                       '&:hover': {
-                        backgroundColor: '#4caf50',
-                        color: 'white',
+                        backgroundColor: '#DEEEC6',
+                        color: 'black',
                       },
                     }}
                   >
@@ -122,7 +158,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
                           color:
                             selectedSubMenu === subItem.path
                               ? 'yellow'
-                              : 'white',
+                              : '#DEEEC6',
                         }}
                       >
                         {subItem.icon}
