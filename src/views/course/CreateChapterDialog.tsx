@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
+import { useSnackbar } from 'context/SnackbarContext';
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -26,6 +27,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
 }) => {
   const { id } = useParams();
   const queryClient = useQueryClient();
+  const { showSnackbar } = useSnackbar();
 
   const handleSubmit = async (values: any) => {
     try {
@@ -34,9 +36,12 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
 
       // Handle the response or perform actions as needed
       console.log('API Response:', response.data);
+      showSnackbar(response.data.message, 'success');
+
       queryClient.invalidateQueries('courseDetails');
       onClose();
-    } catch (error) {
+    } catch (error: any) {
+      showSnackbar(error.response.data.message, 'error');
       // Handle error, log it, or display a message to the user
       console.error('Error submitting form:', error);
     }
@@ -76,7 +81,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
               placeholder="অধ্যায়ের কোড লিখুন"
             />
             <InputField
-              name="module_code"
+              name="module_code_en"
               label="Module Code"
               placeholder="Chapter Name (English)"
             />
@@ -86,7 +91,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
               placeholder="অধ্যায়ের নাম লিখুন"
             />
             <InputField
-              name="module_name"
+              name="module_name_en"
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />

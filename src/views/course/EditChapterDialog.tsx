@@ -73,7 +73,7 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
             />
             <InputField
               name="module_code"
-              label="Module Code"
+              label="Module Code_en"
               placeholder="Chapter Name (English)"
             />
             <InputField
@@ -82,7 +82,7 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
               placeholder="অধ্যায়ের নাম লিখুন"
             />
             <InputField
-              name="module_name"
+              name="module_name_en"
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />
