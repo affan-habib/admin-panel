@@ -1,5 +1,6 @@
 {
   "welcomeMessage": "Welcome to LMS Admin Panel",
+  "welcomeTo" : "Welcome to",
   "email": "E-mail",
   "password": "Password",
   "remeberPassword": "Remember Password",

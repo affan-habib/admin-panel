@@ -9,7 +9,7 @@ import slider3 from '../../assets/3.svg';
 
 const CarouselComponent: React.FC = () => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,

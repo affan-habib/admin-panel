@@ -21,12 +21,23 @@ import LanguageSelect from 'components/common/LanguageSelect';
 import logo from 'assets/logo.svg';
 
 const LoginPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedButton, setSelectedButton] = useState('login');
+  const [loginPageTitle, setLoginPageTitle] = useState('');
+
   const handleButtonClick = (buttonType: string) => {
     setSelectedButton(buttonType);
   };
-
+  const handleCardClick = (value: string) => {
+    // Do something with the value received from LoginFooter cards
+    console.log(`Value received from LoginFooter card: ${value}`, i18n.language);
+    if(i18n.language == 'en') {
+      setLoginPageTitle(`Welcome to ${value}`)
+    }
+    if(i18n.language == 'bn') {
+      setLoginPageTitle(`LMS - ${value} এ স্বাগতম`)
+    }
+  };
   return (
     <div>
       <CssBaseline />
@@ -51,7 +62,7 @@ const LoginPage: React.FC = () => {
           <Grid item xs={12} sm={4} display="flex" direction="column">
             <Paper style={{ padding: 20, minHeight: 400 }}>
               <Typography variant="h6" color="#002F6C" mb={2}>
-                {t('welcomeMessage')}
+               {!loginPageTitle ? t('welcomeMessage') : loginPageTitle} 
               </Typography>
               <Box>
                 {selectedButton === 'login' ? (
@@ -64,11 +75,11 @@ const LoginPage: React.FC = () => {
           </Grid>
 
           <Grid item xs={12} sx={{ mt: 2 }}>
-            <FooterContainer />
+            <FooterContainer onCardClick={handleCardClick}/>
           </Grid>
 
           <Grid item xs={12}>
-            <LoginFooter />
+            <LoginFooter/>
           </Grid>
         </Grid>
       </Container>

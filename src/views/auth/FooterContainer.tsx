@@ -4,8 +4,14 @@ import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
 import { useTranslation } from 'react-i18next';
 
-const FooterContainer: React.FC = () => {
+interface LoginFooterProps {
+  onCardClick: (value: string) => void;
+}
+const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
   const { t } = useTranslation();
+  const handleCardClick = (value: string) => {
+    onCardClick(value);
+  };
   const cardStyle = {
     height: '180px',
     boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)',
@@ -32,7 +38,7 @@ const FooterContainer: React.FC = () => {
     <Grid container spacing={{ xs: 3, md: 2 }} mt="20px">
       {cardData.map((card, index) => (
         <Grid item key={index} xs={12} md={2.4} sm={6}>
-          <Card sx={cardStyle}>
+          <Card sx={cardStyle} onClick={() => handleCardClick(`${card.title}`)}>
             <CardMedia
               component="img"
               alt={card.title}
@@ -45,7 +51,7 @@ const FooterContainer: React.FC = () => {
               }}
             />
             <CardContent>
-              <Typography variant="body2" color="text.secondary" align="center" className="title">
+              <Typography variant="body2" color="text.secondary" align="center" className="title" onClick={() => handleCardClick('Card1')}>
                 {card.title}
               </Typography>
             </CardContent>
