@@ -7,7 +7,9 @@ import Divider from '@mui/material/Divider';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
-
+import { useMediaQuery } from '@mui/material';
+import { useEffect } from 'react';
+import logo from '../../assets/images/hseplogo.png';
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -68,28 +70,50 @@ interface DashboardLayoutProps {
 }
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const [open, setOpen] = React.useState(true);
+  const [shouldSidebarBeOpen, setShouldSidebarBeOpen] = React.useState(true);
   const navigate = useNavigate();
+
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
+
+  useEffect(() => {
+    // Close the sidebar when the screen is small (mobile)
+    if (isMobile) {
+      setShouldSidebarBeOpen(false);
+    } else {
+      // Open the sidebar when the screen is larger
+      setShouldSidebarBeOpen(true);
+    }
+  }, [isMobile]);
+
   const handleToggleDrawer = () => {
-    setOpen(!open);
+    setShouldSidebarBeOpen(!shouldSidebarBeOpen);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Header
-        open={open}
+        open={shouldSidebarBeOpen}
         handleToggleDrawer={handleToggleDrawer}
         handleLogout={handleLogout}
       />
       <Box minHeight={'100vh'}>
-        <Drawer variant="permanent" open={open}>
-          <DrawerHeader sx={{ bgcolor: 'white' }}>Logo</DrawerHeader>
+        <Drawer variant="permanent" open={shouldSidebarBeOpen}>
+          <DrawerHeader sx={{ bgcolor: 'rgba(0, 106, 78, 1)' }}><img
+          src={logo}
+          alt=""
+          style={{
+            width: '164px', // Set maximum width relative to its container
+            height:'auto'
+            
+          }}/></DrawerHeader>
           <Divider />
-          <Sidebar handleLogout={handleLogout} />
+          <Sidebar handleLogout={handleLogout} isSidebarOpen={shouldSidebarBeOpen} />
         </Drawer>
       </Box>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

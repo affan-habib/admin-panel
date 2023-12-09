@@ -19,6 +19,7 @@ const CourseList = Loadable(lazy(() => import('core/course/CourseList')));
 const UserProfile = Loadable(lazy(() => import('core/userProfile/UserProfile')));
 const AdminUserList = Loadable(lazy(() => import('core/adminUserList/AdminUserList')));
 const EditAdminUser = Loadable(lazy(() => import('core/createUser/EditAdminUser')));
+const Userlist = Loadable(lazy(() => import('core/UserList/Userlist')));
 
 const AdminRoutes = {
   path: '/',

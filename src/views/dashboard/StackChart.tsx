@@ -70,13 +70,11 @@ const StackChart = () => {
     }, []);
 
     return (
-        <Box height={390} style={{ width: '97%', backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '10px', marginTop: '10px',padding:'20px'}}>
-            <Typography style={{ color: 'rgba(21, 83, 19, 1)' }} mb={2}>{t('barDiagram')}</Typography>
-            <Box height = {320}>
+        <Box  height={390} style={{  backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '8px',padding:'20px'}}>
+            <Typography style={{ color: 'rgba(21, 83, 19, 1)' , fontSize:'17px',fontWeight:"500" }} mb={2}>{t('barDiagram')}</Typography>
+            <Box height={320}>
                 <canvas ref={chartRef} style={{ width: '100%' }} />
             </Box>
-
-
         </Box>
     );
 };
