@@ -48,8 +48,6 @@ const CreateAdminUser: React.FC = () => {
 
   return (
     <div>
-
-
       <Container maxWidth="xl" style={{ marginTop: '20px' }}>
         <Grid container>
           <Grid item xs={12}>
@@ -98,7 +96,8 @@ const CreateAdminUser: React.FC = () => {
                       select
                       fullWidth
                       size="small"
-                      label="সিলেক্ট করুন"
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
                     // Set an empty default value
                     >
                       <MenuItem value="superadmin">Super admin</MenuItem>
@@ -147,14 +146,12 @@ const CreateAdminUser: React.FC = () => {
                       select
                       fullWidth
                       size="small"                      
-                      label="সিলেক্ট করুন"
-
-                    // Set an empty default value
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
+                      // Set an empty default value
                     >
-
                       <MenuItem value="1">Active</MenuItem>
                       <MenuItem value="2">Inactive</MenuItem>
-
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
@@ -166,7 +163,7 @@ const CreateAdminUser: React.FC = () => {
                       fullWidth
                       size="small"
                       //label="সিলেক্ট করুন"
-                      label={t('loginHere')}
+                      label={t('SelectThis')}
                     // Set an empty default value
                     >
                       <MenuItem value="super-admin">Super Admin</MenuItem>
@@ -209,18 +206,25 @@ const CreateAdminUser: React.FC = () => {
                     variant='contained'
                     style={{
                       backgroundColor: 'primary.main',
-                      color: 'white',
-                      width: '100px',
+                      color: '#FAFAFA',
+                      width: '249px',
+                      height: '40px',
                       display: 'inline-flex',
                       justifyContent: 'center',
                       alignItems: 'center',
+                      fontSize: '16px',
+
+                    //   color: var(--White---FAFAFA, #FAFAFA);
+                    //     font-family: Roboto;
+                    //     font-size: 16px;
+                    //     font-style: normal;
+                    //     font-weight: 600;
+                    //     line-height: normal;
                     }}
                   >
                     {t('submit')}
                   </Button>
                 )}
-
-
               </Form>
             </Formik>
           </Grid>
@@ -236,13 +240,8 @@ const CreateAdminUser: React.FC = () => {
           </Alert>
         </Snackbar>
       </Container>
-
     </div>
-
-
-
   );
-
 };
 
 export default CreateAdminUser;
