@@ -23,10 +23,26 @@
     "numberOfTrainee" : "5০",
     "number1":"25",
     "number2":"400",
+    "green":"Green",
     "red":"Red",
-    "blue":"Blue",
-    "yellow":"Yellow",
+    "purple":"Purple",
     "proceedings":"Proceedings",
-    "progress":"Progress"
+    "progresses":"Progress",
+    "number0":"0",
+    "number10":"10",
+    "number20":"20",
+    "number30":"30",
+    "number40":"40",
+    "number50":"50",
+    "number60":"60",
+    "number70":"70",
+    "number80":"80",
+    "number90":"90",
+    "number100":"100",
+    "adminPanel": "Admin Panel"
+
+
+    
+
     
 }

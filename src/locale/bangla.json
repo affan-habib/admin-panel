@@ -23,11 +23,22 @@
     "numberOfTrainee" : "৫০",
     "number1":"২৫",
     "number2":"৪০০",
+    "green":"সবুজ",
     "red":"লাল",
-    "blue":"নীল",
-    "yellow":"হলুদ",
+    "purple":"বেগুনি",
     "proceedings":"কার্যধারা",
-    "progress":"অগ্রগতি"
-
+    "progresses":"অগ্রগতি",
+    "number0":"0",
+    "number10":"১০",
+    "number20":"20",
+    "number30":"৩0",
+    "number40":"৪0",
+    "number50":"৫0",
+    "number60":"৬0",
+    "number70":"৭0",
+    "number80":"৮0",
+    "number90":"৯0",
+    "number100":"১০0",
+    "adminPanel": "অ্যাডমিন প্যানেল"
 }
 
