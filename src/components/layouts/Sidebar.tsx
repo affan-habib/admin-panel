@@ -5,6 +5,7 @@ import {
   ListItemText,
   Collapse,
   ListItemIcon,
+  useMediaQuery,
 } from '@mui/material';
 import { ExpandLess, ExpandMore, Logout } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -17,11 +18,13 @@ interface MenuItem {
   path: string;
   subMenu?: MenuItem[];
 }
+
 interface SidebarProps {
   handleLogout: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  isSidebarOpen: boolean;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
   const [menuStates, setMenuStates] = useState<{ [key: string]: boolean }>({});
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
   const [selectedSubMenu, setSelectedSubMenu] = useState<string | null>(null);
