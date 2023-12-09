@@ -154,6 +154,7 @@ const CreateAdminUser: React.FC = () => {
                       <MenuItem value="2">Inactive</MenuItem>
                     </Field>
                   </Grid>
+
                   <Grid item xs={12} md={3}>
                     <InputLabel htmlFor="dropdown">{t('userRoleName')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
