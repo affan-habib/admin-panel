@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import vendiagram from '../../assets/images/ven.png';
+import ven from '../../assets/ven.svg';
 import { Grid, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -38,7 +38,7 @@ const VennDiagram = () => {
         }}
       >
         <img
-          src={vendiagram}
+          src={ven}
           alt=""
           style={{
             maxWidth: '100%', // Set maximum width relative to its container

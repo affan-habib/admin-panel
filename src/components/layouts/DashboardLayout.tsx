@@ -9,7 +9,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import { useMediaQuery } from '@mui/material';
 import { useEffect } from 'react';
-import logo from '../../assets/images/hseplogo.png';
+import logo from '../../assets/logo.svg';
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({

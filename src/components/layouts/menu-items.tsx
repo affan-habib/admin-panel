@@ -79,11 +79,7 @@ export const useGetMenuItems = (): MenuItem[] => {
           icon: <LibraryBooksIcon />,
           path: '/submenu3',
         },
-        {
-          title: t('Admin UserList'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu5',
-        },
+        
         // {
         //   title: t('Create Admin User'),
         //   icon: <LibraryBooksIcon />,
