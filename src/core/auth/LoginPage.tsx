@@ -53,18 +53,6 @@ const LoginPage: React.FC = () => {
               <Typography variant="h6" color="#002F6C" mb={2}>
                 {t('welcomeMessage')}
               </Typography>
-              <ButtonGroup sx={{ width: '100%' }}>
-                <Button
-                  variant={
-                    selectedButton === 'login' ? 'contained' : 'outlined'
-                  }
-                  sx={{ flex: 1 }}
-                  onClick={() => handleButtonClick('login')}
-                >
-                  {t('loginHere')}
-                  {/* প্রবেশ করুন */}
-                </Button>
-              </ButtonGroup>
               <Box>
                 {selectedButton === 'login' ? (
                   <LoginForm />
