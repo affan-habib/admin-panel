@@ -10,7 +10,10 @@ const PieChartDesign: React.FC = () => {
   useEffect(() => {
     if (chartRef && chartRef.current) {
       const data = {
-        labels: ['Red', 'Blue', 'Yellow'],
+        labels: [
+          'Red', 
+          'Blue', 
+          'Yellow'],
         datasets: [
           {
             label: 'My First Dataset',
@@ -38,32 +41,36 @@ const PieChartDesign: React.FC = () => {
 
   return (
     <Box
-      height={390}
-      width={490}
+      
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',
-        borderRadius: '10px',
-        mt: 1,
+        borderRadius: '8px',
+        padding:'20px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        height:390
+        // height:450
       }}
     >
-      <Box sx={{ mb: 2 }}>
-        <Typography style={{ color: 'rgba(21, 83, 19, 1)' }}>{t('pieChart')}</Typography>
+      <Box sx={{marginBottom:'8px'  }}>
+        <Typography style={{ color: 'rgba(21, 83, 19, 1)',fontWeight:"500" }}>{t('pieChart')}</Typography>
       </Box>
       <Box
-        width={400}
-        height={280}
+        
         sx={{
           backgroundColor: 'rgba(254, 254, 254, 1)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          width:'100%',
+          height:'90%',
+          borderRadius:'8px',
+          border: '1px solid rgba(250, 250, 250, 1)'
         }}
       >
-        <canvas ref={chartRef} style={{padding:'10px'}} />
+        <canvas ref={chartRef} style={{borderRadius:'8px'}} />
       </Box>
     </Box>
   );
