@@ -15,6 +15,7 @@ import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
+import { useSnackbar } from 'context/SnackbarContext';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -28,6 +29,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   initialData,
 }) => {
   const queryClient = useQueryClient();
+  const { showSnackbar } = useSnackbar();
 
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
@@ -53,11 +55,13 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
           },
         },
       );
+      showSnackbar(response.data.message, 'success');
 
       queryClient.invalidateQueries('courseDetails');
       onClose();
       console.log('API Response:', response.data);
-    } catch (error) {
+    } catch (error: any) {
+      showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
     }
   };

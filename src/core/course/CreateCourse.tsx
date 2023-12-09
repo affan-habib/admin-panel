@@ -18,6 +18,7 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { useSnackbar } from 'context/SnackbarContext';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
@@ -36,14 +37,11 @@ const CreateCourse: React.FC = () => {
     supporting_doc: null,
     featured_image: null,
   };
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
+
   const [selectedStep, setSelectedStep] = useState<number>(1);
   const navigate = useNavigate();
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
+  const { showSnackbar } = useSnackbar();
+
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -51,24 +49,24 @@ const CreateCourse: React.FC = () => {
       const formData = new FormData();
 
       Object.keys(values).forEach((key) => {
-        formData.append(key, values[key]);
+        // Check if the value is not null before appending to formData
+        if (values[key] !== null) {
+          formData.append(key, values[key]);
+        }
       });
-
+  
       const response = await axios.post(`${apiBaseUrl}/course`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setSnackbarSeverity('success');
-      setSnackbarMessage(response.data.message);
-      setSnackbarOpen(true);
-
+      showSnackbar(response.data.message , 'success');
+      
       console.log('API Response:', response.data);
       navigate(`/course/edit/${response.data.data.id}`);
     } catch (error:any) {
-      setSnackbarSeverity('error');
-      setSnackbarMessage(error.response.data.message || 'An error occurred');
-      setSnackbarOpen(true);
+      
+      showSnackbar(error.response.data.message , 'error');
       console.error('Error submitting form:', error);
     }
   };
@@ -142,16 +140,6 @@ const CreateCourse: React.FC = () => {
           </Form>
         )}
       </Formik>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </Container>
   );
 };
