@@ -104,7 +104,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
             sx={{
               backgroundColor:
                 selectedMenu === item.path ? 'primary.main' : 'primary.main',
-              color: selectedMenu === item.path ? 'white' : 'white',
+              color: selectedMenu === item.path ? 'yellow' : 'white',
               '&:hover': {
                 backgroundColor: '#DEEEC6',
                 color: 'primary.main',
@@ -114,7 +114,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
             {item.icon && (
               <ListItemIcon
                 sx={{
-                  color: "white",
+                  color: selectedMenu === item.path ? 'yellow' : 'white',
 
                 }}
               >
