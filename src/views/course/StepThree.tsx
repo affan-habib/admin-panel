@@ -35,7 +35,7 @@ const Step3: React.FC = () => (
       label="Supporting Documents"
       acceptedFileTypes=".doc, .docx, .ppt"
     />
-    <InputField name="remarks" label="Remarks" placeholder="Remarks" />
+    <InputField name="remarks" label="Remarks" placeholder="Remarks" rows={3}/>
   </MainCard>
 );
 

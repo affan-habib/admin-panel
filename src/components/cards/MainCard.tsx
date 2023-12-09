@@ -1,12 +1,8 @@
 import React from 'react';
 import {
   Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Button,
   Typography,
-  Box, // Import Button from MUI
+  Box,
 } from '@mui/material';
 
 interface MainCardProps {
