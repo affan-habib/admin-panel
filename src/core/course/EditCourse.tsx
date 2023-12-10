@@ -20,8 +20,10 @@ import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import MainCard from 'components/cards/MainCard';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const EditCourse: React.FC = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { data } = useCourseDetails(id);
   const [selectedStep, setSelectedStep] = useState<number>(1);
@@ -72,15 +74,15 @@ const EditCourse: React.FC = () => {
               <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="inherit" href="/dashboard">
-                    অ্যাডমিন প্যানেল
+                  {t('adminPanel')}
                   </Link>
                   <Typography color="textPrimary">
-                    পাঠ্যক্রম আপডেট করুন
+                  {t('updateCourse')}
                   </Typography>
                 </Breadcrumbs>
               </Grid>
               <Grid item md={6}>
-                <MainCard title="পাঠ্যক্রম তৈরি করুন" rightButton={<ButtonGroup>
+                <MainCard title={t('createCourse')} rightButton={<ButtonGroup>
                   <Button
                     variant={selectedStep === 1 ? 'contained' : 'outlined'}
                     color="primary"
@@ -118,7 +120,7 @@ const EditCourse: React.FC = () => {
                   size="large"
                   sx={{ width: 250 }}
                 >
-                  আপডেট করুন
+                  {t('update')}
                 </Button>
               </Grid>
               <Grid item md={7}>
