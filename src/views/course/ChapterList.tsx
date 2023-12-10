@@ -83,7 +83,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
               <OpenWith />
             </Box>
-            <Typography mt={1}>{chapter.module_code_bn} : {chapter.module_name_bn}</Typography>
+            <Typography mt={1}>{chapter.module_code} : {chapter.module_name_bn}</Typography>
             <ModuleActions module={chapter} />
           </AccordionSummary>
           <>
