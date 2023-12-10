@@ -87,6 +87,7 @@
   "iconLimit": "আইকন ইমেজ 300 X 300 এবং 100KB এর কম হতে পারে৷",
   "supDocLimit" : "5 MB এর কম",
   "updateCourse": "পাঠ্যক্রম আপডেট করুন",
-  "update": " আপডেট করুন"
+  "update": " আপডেট করুন",
+  "profileImageLimit": "সর্বাধিক আকার 100KB"
  
 }

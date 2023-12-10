@@ -213,7 +213,7 @@ const CreateAdminUser: React.FC = () => {
                       />
                     </Grid>
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="file" style={{ marginBottom: '7px' }}>{t('uploadImage')} - maximum size 100KB</InputLabel>
+                      <InputLabel htmlFor="file" style={{ marginBottom: '7px' }}>{t('uploadImage')} - {t('profileImageLimit')}</InputLabel>
                       <Field
                         name="file"
                         type="file"

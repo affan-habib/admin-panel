@@ -94,7 +94,7 @@ const EditAdminUser: React.FC = () => {
                                                 fullWidth
                                                 size="small"
                                                 //label="সিলেক্ট করুন"
-                                                label={t('SelectThis')}
+                                                // label={t('SelectThis')}
                                             // Set an empty default value
                                             >
 
@@ -146,7 +146,7 @@ const EditAdminUser: React.FC = () => {
                                                 fullWidth
                                                 size="small"
                                                 //label="সিলেক্ট করুন"
-                                                label={t('SelectThis')}
+                                                // label={t('SelectThis')}
                                             // Set an empty default value
                                             >
 
@@ -164,7 +164,7 @@ const EditAdminUser: React.FC = () => {
                                                 fullWidth
                                                 size="small"
                                                 //label="সিলেক্ট করুন"
-                                                label={t('SelectThis')}
+                                                // label={t('SelectThis')}
                                                 disabled={true}
                                             // Set an empty default value
                                             >
@@ -185,7 +185,7 @@ const EditAdminUser: React.FC = () => {
                                             />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="file" style={{ marginBottom: '7px' }}>{t('uploadImage')}</InputLabel>
+                                            <InputLabel htmlFor="file" style={{ marginBottom: '7px' }}>{t('uploadImage')} - {t('profileImageLimit')}</InputLabel>
                                             <Field
                                                 name="file"
                                                 type="file"

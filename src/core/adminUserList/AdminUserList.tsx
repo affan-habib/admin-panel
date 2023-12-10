@@ -230,7 +230,7 @@ const AdminUserList: React.FC = () => {
                     mb={2}
                 >
                     <Button variant="contained" startIcon={<Add />} sx={{ ml: 'auto', my: 2 }} onClick={() => navigate("/create-admin-user")}>
-                        Create User
+                        {t('createUser')}
                     </Button>
                 </Stack>
                 <ReactTable
