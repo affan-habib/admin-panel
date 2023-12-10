@@ -5,23 +5,26 @@ import InputFile from 'components/form/InputFile';
 import MainCard from 'components/cards/MainCard';
 import InputField from 'components/form/InputField';
 import InputSelect from 'components/form/InputSelect';
+import { useTranslation } from 'react-i18next';
 
-const Step3: React.FC = () => (
-  <MainCard title="গ্লোবাল সেটিংস অ্যাড করুন">
+const Step3: React.FC = () => {
+  const { t } = useTranslation();
+  return(
+  <MainCard title={t('addCourseSettings')}>
     <Grid container spacing={2}>
       <Grid item md={6}>
         <InputField
           required={true}
           name="code"
           type="number"
-          label="Course Code"
+          label={t('courseCode')}
           placeholder="Write the code here..."
         />
       </Grid>
       <Grid item md={6}>
         <InputSelect
           name="status"
-          label="Status"
+          label={t('status')}
           options={[
             { value: 1, label: 'Active' },
             { value: 2, label: 'Inactive' },
@@ -33,24 +36,25 @@ const Step3: React.FC = () => (
     </Grid>
     <InputFile
       name="featured_image"
-      label="Feature Image"
+      label={t('featureImage')}
       acceptedFileTypes="image/*"
-      limit="Feature image: 300X500 and less than 200KB, File upload size"
+      limit={t('featureImgLimit')}
     />
     <InputFile
       name="icon"
-      label="Icon"
+      label={t('icon')}
       acceptedFileTypes="image/*"
-      limit="Icon image can be 300 X 300 and less than 100KB"
+      limit={t('iconLimit')}
     />
     <InputFile
       name="supporting_doc"
-      label="Supporting Documents"
+      label={t('supportingDoc')}
       acceptedFileTypes=".doc, .docx, .ppt"
-      limit="less than 5 MB"
+      limit={t('supDocLimit')}
     />
-    <InputField name="remarks" label="Remarks" placeholder="Remarks" rows={3} />
+    <InputField name="remarks" label={t('remarks')} placeholder={t('remarks')} rows={3} />
   </MainCard>
-);
+  )
+};
 
 export default Step3;

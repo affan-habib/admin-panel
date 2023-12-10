@@ -49,7 +49,7 @@
   "fullName": "পুরো নাম",
   "role": "ভূমিকা",
   "bio": "বায়ো",
-  "createCourse": "কোর্স তৈরী করুন",
+  "createCourse": "পাঠ্যক্রম তৈরি করুন",
   "courseList": "কোর্স তালিকা ",
   "addTrainer" : "ট্রেইনার যোগ করুন",
   "setTrainerLimit" : "ট্রেইনার লিমিট",
@@ -74,6 +74,17 @@
   "submit" : "সাবমিট",
   "editUser" : " ইউজার এডিট করুন",
   "SelectThis" : "সিলেক্ট করুন",
-  "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?"
+  "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?",
+  "courseName": "পাঠ্যক্রমের নাম",
+  "adminPanel": "অ্যাডমিন প্যানেল",
+  "addCourseSettings": "কোর্স সেটিংস অ্যাড করুন",
+  "courseCode": "কোর্স কোড",
+  "featureImage": "ফীচার ইমেজ",
+  "icon":"আইকন",
+  "supportingDoc": "সাপোর্টিং ডকুমেন্ট",
+  "remarks": "মন্তব্য",
+  "featureImgLimit" : "ফিচার ইমেজ: 300X500 এবং 200KB এর কম, ফাইল আপলোড সাইজ",
+  "iconLimit": "আইকন ইমেজ 300 X 300 এবং 100KB এর কম হতে পারে৷",
+  "supDocLimit" : "5 MB এর কম"
  
 }

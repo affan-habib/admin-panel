@@ -18,8 +18,10 @@ import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
 import MainCard from 'components/cards/MainCard';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const CreateCourse: React.FC = () => {
+  const { t } = useTranslation();
   const initialValues = {
     code: null,
     name_en: '',
@@ -129,16 +131,16 @@ const CreateCourse: React.FC = () => {
               <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="inherit" href="/dashboard">
-                    অ্যাডমিন প্যানেল
+                    {t('adminPanel')}
                   </Link>
                   <Typography color="textPrimary">
-                    পাঠ্যক্রম তৈরি করুন
+                    {t('createCourse')}
                   </Typography>
                 </Breadcrumbs>
               </Grid>
               <Grid item md={6}>
                 <MainCard
-                  title="পাঠ্যক্রম তৈরি করুন"
+                  title={t('createCourse')}
                   rightButton={
                     <ButtonGroup>
                       <Button
@@ -180,7 +182,7 @@ const CreateCourse: React.FC = () => {
                   size="large"
                   sx={{ width: 250 }}
                 >
-                  সাবমিট
+                  {t('submit')}
                 </Button>
               </Grid>
             </Grid>

@@ -75,6 +75,17 @@
   "submit" : "submit",
   "editUser" : "Edit User",
   "SelectThis" : "Please Select",
-  "forgotPassword":"Forgot Password?"
-  
+  "forgotPassword":"Forgot Password?",
+  "courseName": "Course Name",
+  "adminPanel": "Admin Panel",
+  "addCourseSettings": "Add Course Settings",
+  "courseCode": "Course Code",
+  "featureImage": "Feature Image",
+  "icon":"Icon",
+  "supportingDoc": "Supporting Documents",
+  "remarks": "Remarks",
+  "featureImgLimit" : "Feature image: 300X500 and less than 200KB, File upload size",
+  "iconLimit": "Icon image can be 300 X 300 and less than 100KB",
+  "supDocLimit" : "less than 5 MB"
+ 
 }
