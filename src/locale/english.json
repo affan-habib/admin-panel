@@ -54,7 +54,8 @@
     "code":"Code",
     "name":"Name",
     "numberOfModule":"Number of Modules",
-    "action":"Action"
+    "action":"Action",
+    "userCreation":"Create User"
 
     
 }
