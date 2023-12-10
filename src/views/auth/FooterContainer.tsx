@@ -1,8 +1,10 @@
+import React, { useEffect } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import image1 from '../../assets/learningManagement.svg';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
 import { useTranslation } from 'react-i18next';
+import i18n from 'i18n';
 
 interface LoginFooterProps {
   onCardClick: (value: string) => void;
@@ -13,7 +15,7 @@ const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
     onCardClick(value);
   };
   const cardStyle = {
-    height: '180px',
+    height: '190px',
     boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)',
     transition: 'transform 0.3s, background-color 0.3s',
     cursor: 'pointer', // Add pointer cursor on hover
@@ -27,15 +29,18 @@ const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
   };
 
   const cardData = [
-    { title: `${t('learningManagementSystem')}`, imageUrl: image3 },
-    { title: `${t('eLibrary')}`, imageUrl: image2 },
-    { title: `${t('teachersGuide')}`, imageUrl: image3 },
-    { title: `${t('formativeAssessmentSystem')}`, imageUrl: image2 },
-    { title: `${t('socialLearningPlatform')}`, imageUrl: image3 },
+    { title: `${t('learningManagementSystem')}`, specificText: `${t('CLMS')}`, imageUrl: image3 },
+    { title: `${t('eLibrary')}`, specificText: `${t('Elibrary')}`, imageUrl: image2 },
+    { title: `${t('teachersGuide')}`, specificText: `${t('guide')}`, imageUrl: image3 },
+    { title: `${t('formativeAssessmentSystem')}`, specificText: `${t('formative')}`, imageUrl: image2 },
+    { title: `${t('socialLearningPlatform')}`, specificText: `${t('social')}`, imageUrl: image3 },
   ];
-
+  useEffect(() => {
+    // Log language change
+    console.log('Language changed to', i18n.language);
+  }, [i18n.language]);
   return (
-    <Grid container spacing={{ xs: 3, md: 2 }} mt="20px">
+    <Grid container spacing={{ xs: 3, md: 8 }} mt="20px">
       {cardData.map((card, index) => (
         <Grid item key={index} xs={12} md={2.4} sm={6}>
           <Card sx={cardStyle} onClick={() => handleCardClick(`${card.title}`)}>

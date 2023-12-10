@@ -141,17 +141,24 @@ const LoginForm: React.FC = () => {
             }
           />
         </div>
+        <Box sx={{
+              display: 'flex', justifyContent: 'center', 
+            }}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
 
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          fullWidth
-          disabled={loading}
-          startIcon={loading ? <RefreshIcon /> : null}
-        >
-          {t('login')}
-        </Button>
+            disabled={loading}
+            startIcon={loading ? <RefreshIcon /> : null}
+            sx={{
+              marginTop:'15px',
+            }}
+          >
+            {t('login')}
+          </Button>
+        </Box>
+
       </form>
     </>
   );

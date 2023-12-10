@@ -9,6 +9,7 @@ import slider3 from '../../assets/3.svg';
 
 const CarouselComponent: React.FC = () => {
   const settings = {
+    // dots: true,
     dots: false,
     infinite: true,
     speed: 500,
@@ -16,6 +17,7 @@ const CarouselComponent: React.FC = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
+    arrows: false,
   };
 
   // Array of images
