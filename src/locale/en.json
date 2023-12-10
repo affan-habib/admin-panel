@@ -86,6 +86,9 @@
   "remarks": "Remarks",
   "featureImgLimit" : "Feature image: 300X500 and less than 200KB, File upload size",
   "iconLimit": "Icon image can be 300 X 300 and less than 100KB",
-  "supDocLimit" : "less than 5 MB"
+  "supDocLimit" : "less than 5 MB",
+  "updateCourse": "Update Course",
+  "update": "Update",
+  "profileImageLimit": "Maximum size 100KB"
  
 }
