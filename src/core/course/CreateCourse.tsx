@@ -32,9 +32,9 @@ const CreateCourse: React.FC = () => {
     remarks: '',
     created_by: '5',
     status: '1',
-    icon: null,
-    supporting_doc: null,
-    featured_image: null,
+    icon: undefined,
+    supporting_doc: undefined,
+    featured_image: undefined,
   };
 
   const [selectedStep, setSelectedStep] = useState<number>(1);
@@ -52,7 +52,7 @@ const CreateCourse: React.FC = () => {
       'fileSize',
       'Icon image should be less than 100KB',
       (value) => {
-        if (value instanceof File && value.size) {
+        if (value && value instanceof File && value.size) {
           return value.size <= 100 * 1024; // 100KB
         }
         return true; // Allow null or undefined values
@@ -63,7 +63,7 @@ const CreateCourse: React.FC = () => {
       'fileSize',
       'Featured image should be less than 200KB',
       (value) => {
-        if (value instanceof File && value.size) {
+        if (value && value instanceof File && value.size) {
           return value.size <= 200 * 1024; // 200KB
         }
         return true; // Allow null or undefined values
@@ -74,7 +74,7 @@ const CreateCourse: React.FC = () => {
       'fileSize',
       'Supporting document should be less than 5MB',
       (value) => {
-        if (value instanceof File && value.size) {
+        if (value && value instanceof File && value.size) {
           return value.size <= 5 * 1024 * 1024; // 5MB
         }
         return true; // Allow null or undefined values

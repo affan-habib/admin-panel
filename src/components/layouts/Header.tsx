@@ -17,7 +17,7 @@ import LanguageSelect from 'components/common/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import notificationIcon from 'assets/Notification.svg';
 import { useNavigate } from 'react-router-dom';
-
+import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({
   };
   const navigate = useNavigate();
   return (
-    <AppBar position="fixed" open={open} sx={{ bgcolor: 'white' }}>
+    <AppBar position="fixed" open={open} sx={{ bgcolor: 'rgba(151, 71, 255, 1)' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton
@@ -74,6 +74,7 @@ const Header: React.FC<HeaderProps> = ({
             onClick={handleToggleDrawer}
             edge="start"
             sx={{
+              color: 'white', // Set the color to white
               marginRight: 2,
             }}
           >
@@ -81,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({
           </IconButton>
           <Typography
             variant="h6"
-            color="black"
+            color="white"
             sx={{
               marginRight: 2,
               '@media (max-width: 600px)': {
@@ -96,6 +97,10 @@ const Header: React.FC<HeaderProps> = ({
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {/* Notification Icon */}
+          <Box  sx={{marginRight:'15px'}}>
+            <DashboardCustomizeOutlinedIcon sx={{ fontSize: 34 }}/>
+          </Box>
+          
           <Box mr={2}>
             <LanguageSelect />
           </Box>
