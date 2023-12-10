@@ -223,34 +223,43 @@ const CreateAdminUser: React.FC = () => {
                         InputLabelProps={{ shrink: true }} // Keep the label from floating to the top
                       />
                     </Grid>
+
+
+                    <Grid
+                      item
+                      xs={12}
+                      style={{ textAlign: 'right' }}
+                      alignItems="center"
+                      justifyContent="right"
+                      display="flex"
+                    > {loading ? (
+                      // Show the loader if loading
+                      <CircularProgress size={20} color="inherit" />
+                    ) : (
+                      <Button
+                        type="submit"
+                        aria-label="toggle-status"
+                        size="small"
+                        variant='contained'
+                        style={{
+                          backgroundColor: 'primary.main',
+                          color: '#FAFAFA',
+                          width: '249px',
+                          height: '40px',
+                          display: 'inline-flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          fontFamily: 'Roboto',
+                          marginTop: '14px',
+                        }}
+                      >
+                        {t('submit')}
+                      </Button>
+                    )}
+                    </Grid>
                   </Grid>
-                  {loading ? (
-                    // Show the loader if loading
-                    <CircularProgress size={20} color="inherit" />
-                  ) : (
-                    // Show the 'Submit' text when not loading
-                    <Button
-                      type="submit"
-                      aria-label="toggle-status"
-                      size="small"
-                      variant='contained'
-                      style={{
-                        backgroundColor: 'primary.main',
-                        color: '#FAFAFA',
-                        width: '249px',
-                        height: '40px',
-                        display: 'inline-flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        fontSize: '16px',
-                        fontWeight: '600',
-                        fontFamily: 'Roboto',
-                        marginTop: '14px',
-                      }}
-                    >
-                      {t('submit')}
-                    </Button>
-                  )}
                 </Form>
               )}
             </Formik>
