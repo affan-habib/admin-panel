@@ -58,7 +58,7 @@ const LoginPage: React.FC = () => {
           </Grid>
           <Grid item xs={12} sm={1}></Grid>
           <Grid item xs={12} sm={4} display="flex" direction="column">
-            <Paper style={{ padding: 20, minHeight: 400 }}>
+            <Paper style={{ padding: 20, minHeight: 330 }}>
               <Typography variant="h6" color="#002F6C" mb={2}>
                {!loginPageTitle ? t('welcomeMessage') : loginPageTitle} 
               </Typography>

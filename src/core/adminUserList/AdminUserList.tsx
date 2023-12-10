@@ -234,7 +234,7 @@ const AdminUserList: React.FC = () => {
                 <ReactTable
                     columns={columns}
                     data={rows}
-                    totalCount={40}
+                    totalCount={7}
                     pageSize={pageSize}
                     currentPage={currentPage}
                     onPageChange={handlePageChange}

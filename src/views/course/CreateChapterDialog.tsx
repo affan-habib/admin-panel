@@ -69,7 +69,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
             course_id: id,
             module_code: '',
             // module_code_bn: '',
-            module_name: '',
+            module_name_en: '',
             module_name_bn: '',
           }}
           onSubmit={handleSubmit}
