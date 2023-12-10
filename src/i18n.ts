@@ -30,6 +30,7 @@ i18n
     },
   });
 
+
 export default i18n;
 
 // Add useEffect to handle language change
