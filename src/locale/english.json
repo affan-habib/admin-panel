@@ -39,7 +39,12 @@
     "number80":"80",
     "number90":"90",
     "number100":"100",
-    "adminPanel": "Admin Panel"
+    "adminPanel": "Admin Panel",
+    "CLMS":"Login to CLMS",
+    "Elibrary":"Login to E-Library",
+    "guide":"Login to Teachers Guide",
+    "formative":"Login to Formative Assessment System",
+    "social":"Social Learning Platform"
 
 
     

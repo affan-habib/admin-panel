@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   Container,
   Grid,
   Paper,
   Typography,
-  Button,
   Box,
   CssBaseline,
-  ButtonGroup,
 } from '@mui/material';
 
 import FooterContainer from 'views/auth/FooterContainer';
@@ -21,14 +19,36 @@ import LanguageSelect from 'components/common/LanguageSelect';
 import logo from 'assets/logo.svg';
 
 const LoginPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedButton, setSelectedButton] = useState('login');
+  const [selectedCard, setSelectedCard] = useState<string | null>('CLMS');
+
+
   const handleButtonClick = (buttonType: string) => {
     setSelectedButton(buttonType);
   };
 
+  const handleCardClick = (translationKey: string) => {
+    setSelectedCard(translationKey);
+  };
+
+  const translatedCard = useMemo(() => t(selectedCard || ''), [selectedCard, t]);
+
+  useEffect(() => {
+    // Update selectedCard when language changes
+    if (selectedCard !== null) {
+      const translatedCard = t(selectedCard);
+      
+      // Ensure that the translation is not the same as the current selectedCard
+      if (translatedCard !== selectedCard) {
+        setSelectedCard(translatedCard);
+      }
+    }
+  }, [i18n.language, selectedCard, t]);
+  
+  
   return (
-    <div>
+    <div style={{ backgroundColor: 'rgba(245, 245, 247, 1)' }}>
       <CssBaseline />
 
       <Container maxWidth="lg" sx={{ mt: 6 }}>
@@ -49,10 +69,11 @@ const LoginPage: React.FC = () => {
           </Grid>
           <Grid item xs={12} sm={1}></Grid>
           <Grid item xs={12} sm={4} display="flex" direction="column">
-            <Paper style={{ padding: 20, minHeight: 400 }}>
-              <Typography variant="h6" color="#002F6C" mb={2}>
-                {t('welcomeMessage')}
+            <Paper style={{ padding: 20, minHeight: 328 }}>
+              <Typography variant="body1" sx={{ color: 'rgba(0, 106, 78, 1)', fontSize: '24px', fontWeight: '500' }}>
+                {translatedCard || ''}
               </Typography>
+
               <Box>
                 {selectedButton === 'login' ? (
                   <LoginForm />
@@ -64,7 +85,7 @@ const LoginPage: React.FC = () => {
           </Grid>
 
           <Grid item xs={12} sx={{ mt: 2 }}>
-            <FooterContainer />
+            <FooterContainer onCardClick={handleCardClick} />
           </Grid>
 
           <Grid item xs={12}>
