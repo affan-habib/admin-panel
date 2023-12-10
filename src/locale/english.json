@@ -44,10 +44,17 @@
     "Elibrary":"Login to E-Library",
     "guide":"Login to Teachers Guide",
     "formative":"Login to Formative Assessment System",
-    "social":"Social Learning Platform"
-
-
-    
+    "social":"Social Learning Platform",
+    "curriculumList":"Course List",
+    "searchList":"Search List",
+    "filterList":"Filter List",
+    "addCurriculum":"Add Course",
+    "pageSize":"Page Size",
+    "id":"Id",
+    "code":"Code",
+    "name":"Name",
+    "numberOfModule":"Number of Modules",
+    "action":"Action"
 
     
 }
