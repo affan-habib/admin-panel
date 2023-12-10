@@ -45,9 +45,6 @@ const CreateCourse: React.FC = () => {
     name_bn: Yup.string()
       .matches(/^[^$%^&:;()]*$/, 'Special characters ^$%^&:;() are not allowed')
       .required('Course name is required'),
-    name_en: Yup.string()
-      .matches(/^[A-Za-z\s]+$/, 'course name should only contain letters') // Regex to match only letters
-      .required('course name is required'),
     icon: Yup.mixed().test(
       'fileSize',
       'Icon image should be less than 100KB',
@@ -90,7 +87,7 @@ const CreateCourse: React.FC = () => {
 
       Object.keys(values).forEach((key) => {
         // Check if the value is not null before appending to formData
-        if (values[key] !== null) {
+        if (values[key] !== undefined) {
           formData.append(key, values[key]);
         }
       });
