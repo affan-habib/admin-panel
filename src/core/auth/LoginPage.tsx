@@ -23,6 +23,11 @@ const LoginPage: React.FC = () => {
   const [selectedButton, setSelectedButton] = useState('login');
   const [loginPageTitle, setLoginPageTitle] = useState('');
 
+  useEffect(() => {
+    // Log language change
+    console.log('current language', i18n.language);
+  }, [i18n.language]);
+
   const handleButtonClick = (buttonType: string) => {
     setSelectedButton(buttonType);
   };
