@@ -2,8 +2,9 @@
 import React from 'react';
 import { useField } from 'formik';
 import { InputLabel, TextField } from '@mui/material';
+import { ProductionQuantityLimitsRounded } from '@mui/icons-material';
 
-const FileUpload: React.FC<any> = ({ label, acceptedFileTypes, ...props }) => {
+const FileUpload: React.FC<any> = ({ label, limit, acceptedFileTypes, ...props }) => {
   const [field, meta, helpers] = useField(props);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,7 @@ const FileUpload: React.FC<any> = ({ label, acceptedFileTypes, ...props }) => {
         onChange={handleChange}
         onBlur={field.onBlur}
       />
+      {limit && <span style={{ fontSize: '15px', color: 'grey' }}>{limit}</span>}
     </div>
   );
 };

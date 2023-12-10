@@ -75,11 +75,13 @@ import InstituteList from 'views/dashboard/InstituteList';
 import StackChart from 'views/dashboard/StackChart';
 import PieChartDesign from 'views/dashboard/PieChartDesign';
 import VennDiagram from 'views/dashboard/VennDiagram';
-
+import { useTranslation } from 'react-i18next';
 const Dashboard: React.FC = () => {
+  
+  const { t } = useTranslation();
   return (
     <Container maxWidth="xl">
-      <p style={{fontSize:'14px',fontWeight:'500', marginBottom:'8px' ,color:'rgba(244, 42, 65, 1)'}}>অ্যাডমিন প্যানেল</p>
+      <p style={{fontSize:'14px',fontWeight:'500', marginBottom:'8px' ,color:'rgba(244, 42, 65, 1)'}}>{t('adminPanel')}</p>
       <TopCards />
       <Grid container spacing={2}>
         <Grid item xs={12} md={8} lg={8}>

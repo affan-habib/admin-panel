@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   Container,
   Grid,
   Paper,
   Typography,
-  Button,
   Box,
   CssBaseline,
-  ButtonGroup,
 } from '@mui/material';
 
 import FooterContainer from 'views/auth/FooterContainer';
@@ -39,7 +37,7 @@ const LoginPage: React.FC = () => {
     }
   };
   return (
-    <div>
+    <div style={{ backgroundColor: 'rgba(245, 245, 247, 1)' }}>
       <CssBaseline />
 
       <Container maxWidth="lg" sx={{ mt: 6 }}>
@@ -64,6 +62,7 @@ const LoginPage: React.FC = () => {
               <Typography variant="h6" color="#002F6C" mb={2}>
                {!loginPageTitle ? t('welcomeMessage') : loginPageTitle} 
               </Typography>
+
               <Box>
                 {selectedButton === 'login' ? (
                   <LoginForm />

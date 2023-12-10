@@ -19,13 +19,18 @@ import { apiBaseUrl } from 'config';
 import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import MainCard from 'components/cards/MainCard';
+import * as Yup from 'yup';
 
 const EditCourse: React.FC = () => {
   const { id } = useParams();
   const { data } = useCourseDetails(id);
   const [selectedStep, setSelectedStep] = useState<number>(1);
   const { showSnackbar } = useSnackbar();
-
+  const validationSchema = Yup.object({
+    code: Yup.string().required('Course code is required'),
+    name_bn: Yup.string().required('Bangla course name is required'),
+    short_desc_bn: Yup.string().required('Bangla short description is required'),
+  });
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -58,7 +63,7 @@ const EditCourse: React.FC = () => {
       <Formik
         enableReinitialize
         initialValues={data?.data}
-        // validationSchema={validationSchema}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, isValid }) => (

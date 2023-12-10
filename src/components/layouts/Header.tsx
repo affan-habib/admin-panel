@@ -79,9 +79,19 @@ const Header: React.FC<HeaderProps> = ({
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="black" sx={{ marginRight: 2 }}>
+          <Typography
+            variant="h6"
+            color="black"
+            sx={{
+              marginRight: 2,
+              '@media (max-width: 600px)': {
+                display: 'none',
+              },
+            }}
+          >
             {t('welcomeToLms')}
           </Typography>
+
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>

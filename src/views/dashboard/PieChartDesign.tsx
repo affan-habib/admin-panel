@@ -5,18 +5,23 @@ import { useTranslation } from 'react-i18next';
 
 const PieChartDesign: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
-  const {t} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
+    const generateLabels = () => {
+      return [
+        t('green'),
+        t('red'),
+        t('purple'),
+      ];
+    };
+
     if (chartRef && chartRef.current) {
       const data = {
-        labels: [
-          'Red', 
-          'Blue', 
-          'Yellow'],
+        labels: generateLabels(),
         datasets: [
           {
-            label: 'My First Dataset',
+            label: t('myFirstDataset'),
             data: [300, 50, 100],
             backgroundColor: ['rgba(21, 83, 19, 1)', 'rgba(238, 106, 118, 1)', 'rgb(227, 195, 251)'],
             hoverOffset: 4,
@@ -37,40 +42,37 @@ const PieChartDesign: React.FC = () => {
         }
       };
     }
-  }, []);
+  }, [t, i18n.language]);
 
   return (
     <Box
-      
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',
         borderRadius: '8px',
-        padding:'20px',
+        padding: '20px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height:390
-        // height:450
+        height: 390,
       }}
     >
-      <Box sx={{marginBottom:'8px'  }}>
-        <Typography style={{ color: 'rgba(21, 83, 19, 1)',fontWeight:"500" }}>{t('pieChart')}</Typography>
+      <Box sx={{ marginBottom: '8px' }}>
+        <Typography style={{ color: 'rgba(21, 83, 19, 1)', fontWeight: '500' }}>{t('pieChart')}</Typography>
       </Box>
       <Box
-        
         sx={{
           backgroundColor: 'rgba(254, 254, 254, 1)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width:'100%',
-          height:'90%',
-          borderRadius:'8px',
-          border: '1px solid rgba(250, 250, 250, 1)'
+          width: '100%',
+          height: '90%',
+          borderRadius: '8px',
+          border: '1px solid rgba(250, 250, 250, 1)',
         }}
       >
-        <canvas ref={chartRef} style={{borderRadius:'8px'}} />
+        <canvas ref={chartRef} style={{ borderRadius: '8px' }} />
       </Box>
     </Box>
   );
