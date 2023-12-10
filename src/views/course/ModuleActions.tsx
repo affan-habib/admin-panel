@@ -1,9 +1,9 @@
-// components/form/ModuleActions.tsx
 import { Box, IconButton } from '@mui/material';
 import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditChapterDialog from './EditChapterDialog';
+import axios from 'axios'; // Import Axios
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
@@ -22,25 +22,24 @@ const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
     setEditDialogOpen(true);
   };
 
-  const handleDeleteClick = (e: React.MouseEvent) => {
-    fetch(`${apiBaseUrl}/course-module/${module.id}`, {
-      method: 'DELETE',
-    })
-      .then((response: any) => {
-        if (response.ok) {
-          // Handle successful deletion (e.g., update state, UI, etc.)
-          console.log(response)
-          showSnackbar(response.data.message, 'success');
-          queryClient.invalidateQueries('courseDetails');
-          console.log('Module deleted successfully');
-        } else {
-          // Handle deletion failure (e.g., show an error message)
-          console.error('Failed to delete module');
-        }
-      })
-      .catch((error) => {
-        console.error('Error occurred while deleting module:', error);
-      });
+  const handleDeleteClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    try {
+      const response = await axios.delete(
+        `${apiBaseUrl}/course-module/${module.id}`,
+      );
+
+      if (response.status === 200) {
+        showSnackbar(response.data.data.message, 'error');
+        queryClient.invalidateQueries('courseDetails');
+        console.log('Module deleted successfully');
+      } else {
+        console.error('Failed to delete module');
+      }
+    } catch (error) {
+      console.error('Error occurred while deleting module:', error);
+    }
   };
 
   const handleCloseEditDialog = () => {
