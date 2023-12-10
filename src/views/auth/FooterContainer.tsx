@@ -39,6 +39,7 @@ const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
     // Log language change
     console.log('Language changed to', i18n.language);
   }, [i18n.language]);
+
   return (
     <Grid container spacing={{ xs: 3, md: 8 }} mt="20px">
       {cardData.map((card, index) => (
@@ -56,7 +57,8 @@ const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
               }}
             />
             <CardContent>
-              <Typography variant="body2" color="text.secondary" align="center" className="title" onClick={() => handleCardClick('Card1')}>
+              <Typography variant="body2" color="text.secondary" align="center" className="title" 
+              onClick={() => handleCardClick(`${card.title}`)}>
                 {card.title}
               </Typography>
             </CardContent>
