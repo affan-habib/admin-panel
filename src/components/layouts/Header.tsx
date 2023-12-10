@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import notificationIcon from 'assets/Notification.svg';
 import { useNavigate } from 'react-router-dom';
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -104,18 +105,20 @@ const Header: React.FC<HeaderProps> = ({
           <Box mr={2}>
             <LanguageSelect />
           </Box>
-          <img
+          {/* <img
             src={notificationIcon}
             alt="Notification Icon"
             style={{ height: 25, width: 25, marginRight: 20 }}
-          />
-
+          /> */}
+            <Box >
+              <NotificationsActiveOutlinedIcon sx={{ fontSize: 28 }} />
+            </Box>
           {/* Avatar and ExpandMore Icon */}
           <IconButton
             color="primary"
             aria-label="user-options"
             onClick={handleClick}
-            sx={{ ml: 1 }}
+            sx={{ ml: 1, mb: 1 }}
           >
             <Avatar alt="User Avatar" sx={{ height: 25, width: 25 }}>
               <Person />
