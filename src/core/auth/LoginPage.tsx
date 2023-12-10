@@ -23,11 +23,6 @@ const LoginPage: React.FC = () => {
   const [selectedButton, setSelectedButton] = useState('login');
   const [loginPageTitle, setLoginPageTitle] = useState('');
 
-  useEffect(() => {
-    // Log language change
-    console.log('current language', i18n.language);
-  }, [i18n.language]);
-
   const handleButtonClick = (buttonType: string) => {
     setSelectedButton(buttonType);
   };
@@ -64,7 +59,7 @@ const LoginPage: React.FC = () => {
           <Grid item xs={12} sm={1}></Grid>
           <Grid item xs={12} sm={4} display="flex" direction="column">
             <Paper style={{ padding: 20, minHeight: 330 }}>
-              <Typography variant="h6" color="primary.main" mb={2}>
+              <Typography variant="h6" color="#002F6C" mb={2}>
                {!loginPageTitle ? t('welcomeMessage') : loginPageTitle} 
               </Typography>
 
