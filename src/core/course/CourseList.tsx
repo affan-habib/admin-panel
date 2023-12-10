@@ -22,6 +22,7 @@ import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import useDebounce from 'hooks/useDebounce';
+import { useTranslation } from 'react-i18next';
 
 // Import the ConfirmModal component
 
@@ -32,6 +33,8 @@ const CourseList: React.FC = () => {
   const search = useDebounce(searchTerm, 500);
   const queryClient = useQueryClient();
   const { openModal } = useDeleteModal();
+  const {t} = useTranslation();
+
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
     page: currentPage + 1, // Adjusted to use 1-based index for the API
@@ -63,13 +66,13 @@ const CourseList: React.FC = () => {
   };
 
   const columns = [
-    { Header: 'ID', accessor: 'id' },
-    { Header: 'code', accessor: 'code' },
-    { Header: 'Name', accessor: 'name_bn' },
+    { Header: t('id'), accessor: 'id' },
+    { Header: t('code'), accessor: 'code' },
+    { Header: t('name'), accessor: 'name_bn' },
     // { Header: 'Short Description', accessor: 'short_desc_bn' },
-    { Header: 'Number of Modules', accessor: 'course_modules_count' },
+    { Header: t('numberOfModule'), accessor: 'course_modules_count' },
     {
-      Header: 'Action',
+      Header: t('action'),
       width: 200,
       Cell: (cell: any) => (
         <Stack direction="row" spacing={1}>
@@ -120,7 +123,7 @@ const CourseList: React.FC = () => {
   return (
     <Container maxWidth="xl">
       <Typography variant="h6" color="primary.main" mb={2}>
-        পাঠ্যক্রমের তালিকা
+        {t('curriculumList')}
       </Typography>
       <Stack
         direction="row"
@@ -137,7 +140,7 @@ const CourseList: React.FC = () => {
             variant="outlined"
             size="small"
             sx={{ width: 450 }}
-            placeholder="অনুসন্ধান করুন..."
+            placeholder= {t('searchList')}
             InputProps={{
               startAdornment: (
                 <IconButton>
@@ -151,7 +154,7 @@ const CourseList: React.FC = () => {
         </div>
         <div>
           <Button variant="outlined" startIcon={<FilterList />} sx={{ mr: 2 }}>
-            ফিল্টার করুন
+            {t('filterList')}
           </Button>
           <Button
             variant="contained"
@@ -159,7 +162,7 @@ const CourseList: React.FC = () => {
             sx={{ mr: 2 }}
             onClick={() => navigate('/create-course')}
           >
-            পাঠ্যক্রম যোগ করুন
+            {t('addCurriculum')}
           </Button>
           <IconButton
             size="small"
