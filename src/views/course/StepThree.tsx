@@ -35,19 +35,19 @@ const Step3: React.FC = () => (
       name="featured_image"
       label="Feature Image"
       acceptedFileTypes="image/*"
-      limit="max 400kb"
+      limit="Feature image: 300X500 and less than 200KB, File upload size"
     />
     <InputFile
       name="icon"
       label="Icon"
       acceptedFileTypes="image/*"
-      limit="max 400kb"
+      limit="Icon image can be 300 X 300 and less than 100KB"
     />
     <InputFile
       name="supporting_doc"
       label="Supporting Documents"
       acceptedFileTypes=".doc, .docx, .ppt"
-      limit="max 400kb"
+      limit="less than 5 MB"
     />
     <InputField name="remarks" label="Remarks" placeholder="Remarks" rows={3} />
   </MainCard>

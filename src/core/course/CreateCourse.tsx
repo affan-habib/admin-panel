@@ -42,11 +42,44 @@ const CreateCourse: React.FC = () => {
   const { showSnackbar } = useSnackbar();
   const validationSchema = Yup.object({
     code: Yup.string().required('Course code is required'),
-    name_bn: Yup.string().required('Bangla course name is required'),
-    short_desc_bn: Yup.string().required(
-      'Bangla short description is required',
+
+    name_en: Yup.string()
+      .matches(/^[A-Za-z\s]+$/, 'course name should only contain letters') // Regex to match only letters
+      .required('course name is required'),
+    icon: Yup.mixed().test(
+      'fileSize',
+      'Icon image should be less than 100KB',
+      (value) => {
+        if (value instanceof File && value.size) {
+          return value.size <= 100 * 1024; // 100KB
+        }
+        return true; // Allow null or undefined values
+      },
+    ),
+
+    featured_image: Yup.mixed().test(
+      'fileSize',
+      'Featured image should be less than 200KB',
+      (value) => {
+        if (value instanceof File && value.size) {
+          return value.size <= 200 * 1024; // 200KB
+        }
+        return true; // Allow null or undefined values
+      },
+    ),
+
+    supporting_doc: Yup.mixed().test(
+      'fileSize',
+      'Supporting document should be less than 5MB',
+      (value) => {
+        if (value instanceof File && value.size) {
+          return value.size <= 5 * 1024 * 1024; // 5MB
+        }
+        return true; // Allow null or undefined values
+      },
     ),
   });
+
   const handleSubmit = async (values: any) => {
     console.log(values);
 

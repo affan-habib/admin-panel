@@ -33,13 +33,15 @@ const FileUpload: React.FC<any> = ({ label, limit, acceptedFileTypes, ...props }
         id={field.name}
         name={field.name}
         type="file"
+        error={meta.touched && !!meta.error}
+        helperText={meta.touched && meta.error}
         inputProps={{
           accept: acceptedFileTypes || '*', // Set accepted file types
         }}
         onChange={handleChange}
         onBlur={field.onBlur}
       />
-      {limit && <span style={{ fontSize: '15px', color: 'grey' }}>{limit}</span>}
+      {limit && <span style={{ fontSize: '13px', color: 'grey' }}>{limit}</span>}
     </div>
   );
 };
