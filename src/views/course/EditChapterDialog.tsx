@@ -67,14 +67,9 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
         <Formik initialValues={module} onSubmit={handleSubmit}>
           <Form>
             <InputField
-              name="module_code_bn"
+              name="module_code"
               label="অধ্যায়ের কোড"
               placeholder="অধ্যায়ের কোড লিখুন"
-            />
-            <InputField
-              name="module_code"
-              label="Module Code_en"
-              placeholder="Chapter Name (English)"
             />
             <InputField
               name="module_name_bn"

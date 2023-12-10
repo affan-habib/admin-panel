@@ -4,12 +4,15 @@ import React from 'react';
 import { useField, FieldHookConfig } from 'formik';
 import { InputLabel, TextField, Typography } from '@mui/material';
 
+// ... (existing imports)
+
 type InputFieldProps = FieldHookConfig<string | number> & {
   label?: string;
   rows?: number;
   placeholder?: string;
-  fieldWidth?: number; // New prop for field width
-  required?: boolean; // New prop for field width
+  fieldWidth?: number;
+  required?: boolean;
+  type?: 'text' | 'number'; // New optional type prop
 };
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -17,15 +20,14 @@ const InputField: React.FC<InputFieldProps> = ({
   rows = 1,
   placeholder = '',
   required,
-  fieldWidth = 690, // Default width
+  type = 'text', // Default type is text
   ...props
 }) => {
   const [field, meta] = useField(props);
 
-  const inputType =
-    props.type === 'number' || typeof field.value === 'number'
-      ? 'number'
-      : 'text';
+  const inputType = type === 'number' ? 'number' : 'text';
+  const parsedValue =
+    type === 'number' ? parseFloat(field.value as string) || 0 : field.value;
 
   return (
     <>
@@ -48,17 +50,18 @@ const InputField: React.FC<InputFieldProps> = ({
 
       <TextField
         placeholder={placeholder}
-        sx={{ bgcolor: 'white' }} // Use the fieldWidth prop
+        sx={{ bgcolor: 'white'}} // Set field width
         size="small"
         {...field}
         label=""
         type={inputType}
         fullWidth
-        multiline // Enable multiline
+        multiline
         rows={rows}
         variant="outlined"
         error={meta.touched && !!meta.error}
         helperText={meta.touched && meta.error}
+        value={parsedValue} // Use parsedValue instead of field.value
       />
     </>
   );

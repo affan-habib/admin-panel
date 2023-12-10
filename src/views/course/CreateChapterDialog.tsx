@@ -68,7 +68,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
           initialValues={{
             course_id: id,
             module_code: '',
-            module_code_bn: '',
+            // module_code_bn: '',
             module_name: '',
             module_name_bn: '',
           }}
@@ -76,14 +76,9 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
         >
           <Form>
             <InputField
-              name="module_code_bn"
+              name="module_code"
               label="অধ্যায়ের কোড"
               placeholder="অধ্যায়ের কোড লিখুন"
-            />
-            <InputField
-              name="module_code_en"
-              label="Module Code"
-              placeholder="Chapter Name (English)"
             />
             <InputField
               name="module_name_bn"
