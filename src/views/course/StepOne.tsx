@@ -13,7 +13,6 @@ const StepOne: React.FC = () => {
         required={true}
       />
       <InputField
-        required={true}
         name="short_desc_bn"
         label="পাঠ্যক্রমের সংক্ষেপ বিবরণ"
         placeholder="সংক্ষেপ বিবরণ লিখুন"
