@@ -13,6 +13,7 @@ const Step3: React.FC = () => (
       <Grid item md={6}>
 
         <InputField
+          required={true}
           name="code"
           label="Course Code"
           placeholder="Write the code here..."
@@ -35,12 +36,14 @@ const Step3: React.FC = () => (
       name="featured_image"
       label="Feature Image"
       acceptedFileTypes="image/*"
+      limit="max 400kb"
     />
-    <InputFile name="icon" label="Icon" acceptedFileTypes="image/*" />
+    <InputFile name="icon" label="Icon" acceptedFileTypes="image/*" limit="max 400kb"/>
     <InputFile
       name="supporting_doc"
       label="Supporting Documents"
       acceptedFileTypes=".doc, .docx, .ppt"
+      limit="max 400kb"
     />
     <InputField name="remarks" label="Remarks" placeholder="Remarks" rows={3} />
   </MainCard>

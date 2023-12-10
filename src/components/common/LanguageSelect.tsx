@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useTranslation } from 'react-i18next';
-
+import ensvg from 'assets/en.svg'
+import bnsvg from 'assets/bn.svg'
 const LanguageSwitch: React.FC = () => {
   const [language, setLanguage] = useState<string>(
     localStorage.getItem('language') || 'bn',
@@ -20,19 +21,10 @@ const LanguageSwitch: React.FC = () => {
   };
 
   return (
-    <div style={{ width: 110 }}>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={language === 'bn'}
-            onChange={handleChange}
-            color="primary"
-          />
-        }
-        label={language === 'en' ? 'English' : 'Bangla'}
-        labelPlacement="start"
-        sx={{ color: 'black' }}
-      />
+    <div style={{ width: 70 }}>
+
+      {language == 'en' && <img src={ensvg} style={{ cursor: 'pointer' }} onClick={handleChange} />}
+      {language == 'bn' && <img src={bnsvg} style={{ cursor: 'pointer' }} onClick={handleChange} />}
     </div>
   );
 };

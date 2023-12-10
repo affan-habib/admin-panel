@@ -21,15 +21,16 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useSnackbar } from 'context/SnackbarContext';
 import MainCard from 'components/cards/MainCard';
+import * as Yup from 'yup';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
     code: '',
     name: '',
     name_bn: '',
-    short_desc: '',
+    short_desc_en: '',
     short_desc_bn: '',
-    long_desc: '',
+    long_desc_en: '',
     long_desc_bn: '',
     course_type_id: '1',
     remarks: '',
@@ -43,7 +44,11 @@ const CreateCourse: React.FC = () => {
   const [selectedStep, setSelectedStep] = useState<number>(1);
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
-
+  const validationSchema = Yup.object({
+    code: Yup.string().required('Course code is required'),
+    name_bn: Yup.string().required('Bangla course name is required'),
+    short_desc_bn: Yup.string().required('Bangla short description is required'),
+  });
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -76,12 +81,12 @@ const CreateCourse: React.FC = () => {
     <Container maxWidth="xl" sx={{ pb: 20 }}>
       <Formik
         initialValues={initialValues}
-        // validationSchema={validationSchema}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, isValid }) => (
           <Form>
-            <Grid container spacing={3} sx={{ border: '1px dashed grey', pr: 2, pb: 2, mt: 2 , borderRadius: 2}}>
+            <Grid container spacing={3} sx={{ border: '1px dashed grey', pr: 2, pb: 2, mt: 2, borderRadius: 2 }}>
               <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="inherit" href="/dashboard">

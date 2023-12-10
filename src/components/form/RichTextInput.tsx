@@ -50,7 +50,7 @@ const RichTextInput: React.FC<RichTextInputProps> = ({
         modules={modules}
         formats={formats}
         theme="snow"
-        style={{ backgroundColor: 'white', width: '100%', height: '200px' }}
+        style={{ backgroundColor: 'white', width: '100%', height: '280px' }}
       />
 
       {meta.touched && meta.error && (

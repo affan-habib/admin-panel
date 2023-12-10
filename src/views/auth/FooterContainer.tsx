@@ -4,9 +4,16 @@ import image1 from '../../assets/learningManagement.svg';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
 import { useTranslation } from 'react-i18next';
+import i18n from 'i18n';
 
-const FooterContainer: React.FC<{ onCardClick: (text: string) => void }> = ({ onCardClick }) => {
-  const { t, i18n } = useTranslation();
+interface LoginFooterProps {
+  onCardClick: (value: string) => void;
+}
+const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
+  const { t } = useTranslation();
+  const handleCardClick = (value: string) => {
+    onCardClick(value);
+  };
   const cardStyle = {
     height: '190px',
     boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)',
@@ -36,10 +43,7 @@ const FooterContainer: React.FC<{ onCardClick: (text: string) => void }> = ({ on
     <Grid container spacing={{ xs: 3, md: 8 }} mt="20px">
       {cardData.map((card, index) => (
         <Grid item key={index} xs={12} md={2.4} sm={6}>
-          <Card
-            sx={cardStyle}
-            onClick={() => onCardClick(card.specificText)}
-          >
+          <Card sx={cardStyle} onClick={() => handleCardClick(`${card.title}`)}>
             <CardMedia
               component="img"
               alt={card.title}
@@ -52,7 +56,7 @@ const FooterContainer: React.FC<{ onCardClick: (text: string) => void }> = ({ on
               }}
             />
             <CardContent>
-              <Typography variant="body2" color="text.secondary" align="center" className="title">
+              <Typography variant="body2" color="text.secondary" align="center" className="title" onClick={() => handleCardClick('Card1')}>
                 {card.title}
               </Typography>
             </CardContent>
