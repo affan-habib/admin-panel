@@ -17,7 +17,7 @@
   "fastStartGuide": "দ্রুত স্টার্ট গাইড",
   "phone": "০১৩১০৪৩৯৪২৪",
   "knowledgeShare": "জ্ঞান উন্মোচন, শিক্ষার ক্ষমতায়ন |",
-  "call": "এ কল করুন",
+  "call": " এ কল করুন",
   "hsep": "এইচএসইপি",
   "yourPathForLearningSuccess": "শেখার সাফল্যের জন্য আপনার পথ",
   "copyright": "কপিরাইট © ২০২৩",
@@ -73,6 +73,7 @@
   "uploadImage" : "আপলোড ইমেজ",
   "submit" : "সাবমিট",
   "editUser" : " ইউজার এডিট করুন",
-  "SelectThis" : "সিলেক্ট করুন"
+  "SelectThis" : "সিলেক্ট করুন",
+  "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?"
  
 }

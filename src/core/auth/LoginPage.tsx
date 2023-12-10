@@ -40,7 +40,7 @@ const LoginPage: React.FC = () => {
     <div style={{ backgroundColor: 'rgba(245, 245, 247, 1)' }}>
       <CssBaseline />
 
-      <Container maxWidth="lg" sx={{ mt: 6 }}>
+      <Container maxWidth="lg" sx={{ pt: 6, minHeight:'100vh' }}>
         <Grid container spacing={2}>
           <Grid
             item
@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
           <Grid item xs={12} sm={1}></Grid>
           <Grid item xs={12} sm={4} display="flex" direction="column">
             <Paper style={{ padding: 20, minHeight: 330 }}>
-              <Typography variant="h6" color="#002F6C" mb={2}>
+              <Typography variant="h6" color="primary.main" mb={2}>
                {!loginPageTitle ? t('welcomeMessage') : loginPageTitle} 
               </Typography>
 
