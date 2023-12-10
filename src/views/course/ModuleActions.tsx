@@ -3,7 +3,7 @@ import { Box, IconButton } from '@mui/material';
 import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditChapterDialog from './EditChapterDialog'; // Corrected import path
+import EditChapterDialog from './EditChapterDialog';
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
@@ -26,9 +26,11 @@ const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
     fetch(`${apiBaseUrl}/course-module/${module.id}`, {
       method: 'DELETE',
     })
-      .then((response) => {
+      .then((response: any) => {
         if (response.ok) {
           // Handle successful deletion (e.g., update state, UI, etc.)
+          console.log(response)
+          showSnackbar(response.data.message, 'success');
           queryClient.invalidateQueries('courseDetails');
           console.log('Module deleted successfully');
         } else {

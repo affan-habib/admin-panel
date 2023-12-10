@@ -21,21 +21,23 @@ import useCourses from 'hooks/useCourses';
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useDeleteModal } from 'context/DeleteModalContext';
+import useDebounce from 'hooks/useDebounce';
 
 // Import the ConfirmModal component
 
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const search = useDebounce(searchTerm, 500);
   const queryClient = useQueryClient();
   const { openModal } = useDeleteModal();
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
     page: currentPage + 1, // Adjusted to use 1-based index for the API
-    search: '',
+    search: search,
   });
   const navigate = useNavigate();
-
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -60,13 +62,11 @@ const CourseList: React.FC = () => {
     }
   };
 
-
-
   const columns = [
     { Header: 'ID', accessor: 'id' },
     { Header: 'code', accessor: 'code' },
     { Header: 'Name', accessor: 'name_bn' },
-    { Header: 'Short Description', accessor: 'short_desc_bn' },
+    // { Header: 'Short Description', accessor: 'short_desc_bn' },
     { Header: 'Number of Modules', accessor: 'course_modules_count' },
     {
       Header: 'Action',
@@ -106,11 +106,12 @@ const CourseList: React.FC = () => {
             aria-label="Delete"
             size="small"
             color="error"
-            onClick={() => openModal(() => handleDeleteClick(cell.row.original.id))}
+            onClick={() =>
+              openModal(() => handleDeleteClick(cell.row.original.id))
+            }
           >
             <DeleteIcon />
           </IconButton>
-
         </Stack>
       ),
     },
@@ -144,6 +145,8 @@ const CourseList: React.FC = () => {
                 </IconButton>
               ),
             }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div>

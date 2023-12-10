@@ -7,26 +7,22 @@ import {
   Breadcrumbs,
   Typography,
   Link,
-  Stack,
   ButtonGroup,
 } from '@mui/material';
 import StepOne from 'views/course/StepOne';
 import StepTwo from 'views/course/StepTwo';
 import StepThree from 'views/course/StepThree';
 import { useNavigate } from 'react-router-dom';
-import { Add } from '@mui/icons-material';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 import { useSnackbar } from 'context/SnackbarContext';
 import MainCard from 'components/cards/MainCard';
 import * as Yup from 'yup';
 
 const CreateCourse: React.FC = () => {
   const initialValues = {
-    code: '',
-    name: '',
+    code: null,
+    name_en: '',
     name_bn: '',
     short_desc_en: '',
     short_desc_bn: '',
@@ -46,9 +42,46 @@ const CreateCourse: React.FC = () => {
   const { showSnackbar } = useSnackbar();
   const validationSchema = Yup.object({
     code: Yup.string().required('Course code is required'),
-    name_bn: Yup.string().required('Bangla course name is required'),
-    short_desc_bn: Yup.string().required('Bangla short description is required'),
+    name_bn: Yup.string()
+      .matches(/^[^$%^&:;()]*$/, 'Special characters ^$%^&:;() are not allowed')
+      .required('Course name is required'),
+    name_en: Yup.string()
+      .matches(/^[A-Za-z\s]+$/, 'course name should only contain letters') // Regex to match only letters
+      .required('course name is required'),
+    icon: Yup.mixed().test(
+      'fileSize',
+      'Icon image should be less than 100KB',
+      (value) => {
+        if (value instanceof File && value.size) {
+          return value.size <= 100 * 1024; // 100KB
+        }
+        return true; // Allow null or undefined values
+      },
+    ),
+
+    featured_image: Yup.mixed().test(
+      'fileSize',
+      'Featured image should be less than 200KB',
+      (value) => {
+        if (value instanceof File && value.size) {
+          return value.size <= 200 * 1024; // 200KB
+        }
+        return true; // Allow null or undefined values
+      },
+    ),
+
+    supporting_doc: Yup.mixed().test(
+      'fileSize',
+      'Supporting document should be less than 5MB',
+      (value) => {
+        if (value instanceof File && value.size) {
+          return value.size <= 5 * 1024 * 1024; // 5MB
+        }
+        return true; // Allow null or undefined values
+      },
+    ),
   });
+
   const handleSubmit = async (values: any) => {
     console.log(values);
 
@@ -72,7 +105,6 @@ const CreateCourse: React.FC = () => {
       console.log('API Response:', response.data);
       navigate(`/course/edit/${response.data.data.id}`);
     } catch (error: any) {
-
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
     }
@@ -86,7 +118,17 @@ const CreateCourse: React.FC = () => {
       >
         {({ isSubmitting, isValid }) => (
           <Form>
-            <Grid container spacing={3} sx={{ border: '1px dashed grey', pr: 2, pb: 2, mt: 2, borderRadius: 2 }}>
+            <Grid
+              container
+              spacing={3}
+              sx={{
+                border: '1px dashed grey',
+                pr: 2,
+                pb: 2,
+                mt: 2,
+                borderRadius: 2,
+              }}
+            >
               <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="inherit" href="/dashboard">
@@ -98,22 +140,27 @@ const CreateCourse: React.FC = () => {
                 </Breadcrumbs>
               </Grid>
               <Grid item md={6}>
-                <MainCard title="পাঠ্যক্রম তৈরি করুন" rightButton={<ButtonGroup>
-                  <Button
-                    variant={selectedStep === 1 ? 'contained' : 'outlined'}
-                    color="primary"
-                    onClick={() => setSelectedStep(1)}
-                  >
-                    Bangla
-                  </Button>
-                  <Button
-                    variant={selectedStep === 2 ? 'contained' : 'outlined'}
-                    color="primary"
-                    onClick={() => setSelectedStep(2)}
-                  >
-                    English
-                  </Button>
-                </ButtonGroup>}>
+                <MainCard
+                  title="পাঠ্যক্রম তৈরি করুন"
+                  rightButton={
+                    <ButtonGroup>
+                      <Button
+                        variant={selectedStep === 1 ? 'contained' : 'outlined'}
+                        color="primary"
+                        onClick={() => setSelectedStep(1)}
+                      >
+                        Bangla
+                      </Button>
+                      <Button
+                        variant={selectedStep === 2 ? 'contained' : 'outlined'}
+                        color="primary"
+                        onClick={() => setSelectedStep(2)}
+                      >
+                        English
+                      </Button>
+                    </ButtonGroup>
+                  }
+                >
                   {selectedStep === 1 && <StepOne />}
                   {selectedStep === 2 && <StepTwo />}
                 </MainCard>
@@ -139,7 +186,6 @@ const CreateCourse: React.FC = () => {
                   সাবমিট
                 </Button>
               </Grid>
-
             </Grid>
           </Form>
         )}
