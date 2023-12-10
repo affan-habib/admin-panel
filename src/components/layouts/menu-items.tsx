@@ -36,57 +36,57 @@ export const useGetMenuItems = (): MenuItem[] => {
         },
       ],
     },
-    {
-      title: t('batch'),
-      path: '/batch',
-      icon: <Diversity2Icon />,
-      subMenu: [
-        {
-          title: t('batchSubmenu1'),
-          icon: <AddCircleIcon />,
-          path: '/create-batch',
-        },
-        {
-          title: t('batchSubmenu2'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu2',
-        },
-        {
-          title: t('batchSubmenu3'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu3',
-        },
-        {
-          title: t('batchSubmenu4'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu4',
-        },
-      ],
-    },
-    {
-      title: t('trainerList'),
-      path: '/trainerList',
-      icon: <GroupsIcon />,
-      subMenu: [
-        { title: t('addTrainer'), icon: <AddCircleIcon />, path: '/add-trainer' },
-        {
-          title: t('batchSubmenu2'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu2',
-        },
-        {
-          title: t('setTrainerLimit'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu3',
-        },
+    // {
+    //   title: t('batch'),
+    //   path: '/batch',
+    //   icon: <Diversity2Icon />,
+    //   subMenu: [
+    //     {
+    //       title: t('batchSubmenu1'),
+    //       icon: <AddCircleIcon />,
+    //       path: '/create-batch',
+    //     },
+    //     {
+    //       title: t('batchSubmenu2'),
+    //       icon: <LibraryBooksIcon />,
+    //       path: '/submenu2',
+    //     },
+    //     {
+    //       title: t('batchSubmenu3'),
+    //       icon: <LibraryBooksIcon />,
+    //       path: '/submenu3',
+    //     },
+    //     {
+    //       title: t('batchSubmenu4'),
+    //       icon: <LibraryBooksIcon />,
+    //       path: '/submenu4',
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: t('trainerList'),
+    //   path: '/trainerList',
+    //   icon: <GroupsIcon />,
+    //   subMenu: [
+    //     { title: t('addTrainer'), icon: <AddCircleIcon />, path: '/add-trainer' },
+    //     {
+    //       title: t('batchSubmenu2'),
+    //       icon: <LibraryBooksIcon />,
+    //       path: '/submenu2',
+    //     },
+    //     {
+    //       title: t('setTrainerLimit'),
+    //       icon: <LibraryBooksIcon />,
+    //       path: '/submenu3',
+    //     },
         
-        // {
-        //   title: t('Create Admin User'),
-        //   icon: <LibraryBooksIcon />,
-        //   path: '/submenu6',
-        // },
-      ],
-    },
+    //     // {
+    //     //   title: t('Create Admin User'),
+    //     //   icon: <LibraryBooksIcon />,
+    //     //   path: '/submenu6',
+    //     // },
+    //   ],
+    // },
     {
       title: t('settings'),
       path: '/settings',
@@ -102,11 +102,11 @@ export const useGetMenuItems = (): MenuItem[] => {
           icon: <LibraryBooksIcon/>,
           path: '/create-admin-user'
         },
-        {
-          title: t('roleList'),
-          icon: <PersonAddAltOutlinedIcon/>,
-          path: 'role-list'
-        }
+        // {
+        //   title: t('roleList'),
+        //   icon: <PersonAddAltOutlinedIcon/>,
+        //   path: 'role-list'
+        // }
       ]
     }
   ];
