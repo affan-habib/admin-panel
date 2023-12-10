@@ -57,7 +57,7 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          অধ্যায় ee করুন
+          অধ্যায় আপডেট করুন
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <Close />

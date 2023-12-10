@@ -18,12 +18,14 @@ import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import { DragHandle, OpenWith } from '@mui/icons-material';
 import { useDeleteModal } from 'context/DeleteModalContext';
+import { useSnackbar } from 'context/SnackbarContext';
 
 // ... (other imports)
 
 const Chapters: React.FC<any> = ({ modules }) => {
   const queryClient = useQueryClient();
-  const {openModal} = useDeleteModal()
+  const { showSnackbar } = useSnackbar();
+  const { openModal } = useDeleteModal();
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
@@ -44,12 +46,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
     fetch(`${apiBaseUrl}/course/material/delete/${id}?type=video`, {
       method: 'DELETE',
     })
-      .then((response) => {
-        if (response.ok) {
+      .then((response: any) => {
+        if (response.status === 200) {
           // Handle successful deletion (e.g., update state, UI, etc.)
+          console.log(response.data.message, 'ssssssssss');
+          showSnackbar(response.data.message, 'success');
           queryClient.invalidateQueries('courseDetails');
           console.log('Module deleted successfully');
         } else {
+          showSnackbar('Successfully Deleted', 'success');
           // Handle deletion failure (e.g., show an error message)
           console.error('Failed to delete module');
         }
@@ -80,10 +85,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
             }}
           >
             <Box mt={1} mr={2}>
-
               <OpenWith />
             </Box>
-            <Typography mt={1}>{chapter.module_code} : {chapter.module_name_bn}</Typography>
+            <Typography mt={1}>
+              {chapter.module_code} : {chapter.module_name_bn}
+            </Typography>
             <ModuleActions module={chapter} />
           </AccordionSummary>
           <>
@@ -175,7 +181,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-        // onEdit={handleVideoEdit}
+          // onEdit={handleVideoEdit}
         />
       )}
     </>
