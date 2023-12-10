@@ -98,8 +98,8 @@ const Header: React.FC<HeaderProps> = ({
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {/* Notification Icon */}
-          <Box  sx={{marginRight:'15px'}}>
-            <DashboardCustomizeOutlinedIcon sx={{ fontSize: 34 }}/>
+          <Box  sx={{marginRight:'18px'}}>
+            <DashboardCustomizeOutlinedIcon sx={{ fontSize: 24 }}/>
           </Box>
           
           <Box mr={2}>
@@ -111,7 +111,7 @@ const Header: React.FC<HeaderProps> = ({
             style={{ height: 25, width: 25, marginRight: 20 }}
           /> */}
             <Box >
-              <NotificationsActiveOutlinedIcon sx={{ fontSize: 28 }} />
+              <NotificationsActiveOutlinedIcon sx={{ fontSize: 25 }} />
             </Box>
           {/* Avatar and ExpandMore Icon */}
           <IconButton
