@@ -124,7 +124,7 @@ const LoginForm: React.FC = () => {
             ),
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-between' }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -135,11 +135,12 @@ const LoginForm: React.FC = () => {
               />
             }
             label={
-              <Box component="div" fontSize={14}>
+              <Box component="div" fontSize={12} sx={{fontWeight:400}}>
                 {t('remeberPassword')}
               </Box>
             }
           />
+          <Box><h6 style={{fontSize:'12px', fontWeight:400}}>{t('forgotPassword')}</h6></Box>
         </div>
         <Box sx={{
               display: 'flex', justifyContent: 'center', 
@@ -152,7 +153,12 @@ const LoginForm: React.FC = () => {
             disabled={loading}
             startIcon={loading ? <RefreshIcon /> : null}
             sx={{
-              marginTop:'15px',
+              marginTop:'20px',
+              height:'40px',
+              width:'200px',
+              fontSize:'18px',
+              fontWeight:500
+
             }}
           >
             {t('login')}

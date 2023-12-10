@@ -74,6 +74,7 @@
   "uploadImage": "Upload Image",
   "submit" : "submit",
   "editUser" : "Edit User",
-  "SelectThis" : "Please Select"
+  "SelectThis" : "Please Select",
+  "forgotPassword":"Forgot Password?"
   
 }
