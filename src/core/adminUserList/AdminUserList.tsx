@@ -184,7 +184,7 @@ const AdminUserList: React.FC = () => {
     ];
 
     const handleToggleStatus = async (values: any) => {
-        console.log("values", values)
+        setLoading(true)
         delete values.roles;
         const token = localStorage.getItem('token');
 
@@ -197,8 +197,10 @@ const AdminUserList: React.FC = () => {
             });
 
             fetchData()
+            setLoading(true)
         } catch (error) {
             console.error('Error updating user data:', error);
+            setLoading(true)
         }
     };
 
@@ -234,7 +236,7 @@ const AdminUserList: React.FC = () => {
                 <ReactTable
                     columns={columns}
                     data={rows}
-                    totalCount={40}
+                    totalCount={7}
                     pageSize={pageSize}
                     currentPage={currentPage}
                     onPageChange={handlePageChange}

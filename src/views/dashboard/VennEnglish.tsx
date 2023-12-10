@@ -1,10 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import vennBng from '../../assets/vennBng.svg';
+import vennEng from '../../assets/vennEng.svg';
 import { Grid, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const VennDiagram = () => {
+const VennEnglish
+ = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   return (
@@ -20,9 +21,9 @@ const VennDiagram = () => {
         alignItems: 'center',
         padding: "20px",
         height:300,
-        marginTop: '10px', // Default margin for small screens
+        marginTop: '10px', 
         [theme.breakpoints.up('md')]: {
-          marginTop: '40px', // Apply for medium and large screens
+          marginTop: '40px', 
         },
       }}
     >
@@ -31,14 +32,11 @@ const VennDiagram = () => {
       </Grid>
       <Grid
         sx={{
-          backgroundColor: 'rgba(237, 244, 242, 1)',
-          // display: 'flex',
-          //   justifyContent: 'center',
-          //   alignItems: 'center',
+          backgroundColor: 'rgba(237, 244, 242, 1)'
         }}
       >
         <img
-          src={vennBng}
+          src={vennEng}
           alt=""
           style={{
             maxWidth: '100%', // Set maximum width relative to its container
@@ -51,4 +49,5 @@ const VennDiagram = () => {
   );
 };
 
-export default VennDiagram;
+export default VennEnglish
+;

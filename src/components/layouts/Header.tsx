@@ -17,7 +17,8 @@ import LanguageSelect from 'components/common/LanguageSelect';
 import { useTranslation } from 'react-i18next';
 import notificationIcon from 'assets/Notification.svg';
 import { useNavigate } from 'react-router-dom';
-
+import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -65,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({
   };
   const navigate = useNavigate();
   return (
-    <AppBar position="fixed" open={open} sx={{ bgcolor: 'white' }}>
+    <AppBar position="fixed" open={open} sx={{ bgcolor: 'rgba(151, 71, 255, 1)' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton
@@ -74,6 +75,7 @@ const Header: React.FC<HeaderProps> = ({
             onClick={handleToggleDrawer}
             edge="start"
             sx={{
+              color: 'white', // Set the color to white
               marginRight: 2,
             }}
           >
@@ -81,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({
           </IconButton>
           <Typography
             variant="h6"
-            color="black"
+            color="white"
             sx={{
               marginRight: 2,
               '@media (max-width: 600px)': {
@@ -96,21 +98,27 @@ const Header: React.FC<HeaderProps> = ({
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {/* Notification Icon */}
+          <Box  sx={{marginRight:'18px'}}>
+            <DashboardCustomizeOutlinedIcon sx={{ fontSize: 24 }}/>
+          </Box>
+          
           <Box mr={2}>
             <LanguageSelect />
           </Box>
-          <img
+          {/* <img
             src={notificationIcon}
             alt="Notification Icon"
             style={{ height: 25, width: 25, marginRight: 20 }}
-          />
-
+          /> */}
+            <Box >
+              <NotificationsActiveOutlinedIcon sx={{ fontSize: 25 }} />
+            </Box>
           {/* Avatar and ExpandMore Icon */}
           <IconButton
             color="primary"
             aria-label="user-options"
             onClick={handleClick}
-            sx={{ ml: 1 }}
+            sx={{ ml: 1, mb: 1 }}
           >
             <Avatar alt="User Avatar" sx={{ height: 25, width: 25 }}>
               <Person />
