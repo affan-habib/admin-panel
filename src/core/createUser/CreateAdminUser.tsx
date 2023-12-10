@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Grid, Typography, InputLabel } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { CircularProgress, Container, Grid, Typography, InputLabel } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,8 +10,12 @@ import { apiBaseUrl } from '../../config';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'context/SnackbarContext';
+
 
 const CreateAdminUser: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const { showSnackbar } = useSnackbar();
   const navigate = useNavigate()
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
@@ -20,14 +24,9 @@ const CreateAdminUser: React.FC = () => {
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
-const isRequiredField = (fieldName: string) => {
-    // Define an array of required field names
-    const requiredFields = ['name', 'type', 'username', 'email', 'mobile_no', 'status', 'role', 'password', 'file'];
-    // Check if the current field is in the array of required fields
-    return requiredFields.includes(fieldName);
-  };
+
   const handleSubmit = async (values: any) => {
-    console.log(values);
+    setLoading(true); // Set loading to true when submitting
     const token = localStorage.getItem('token');
 
     try {
@@ -36,44 +35,18 @@ const isRequiredField = (fieldName: string) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response.data.message", response.data.message)
-      // Assuming the API returns a success message in the response
-      setSnackbarSeverity('success');
-      setSnackbarMessage(response.data.message);
-      setSnackbarOpen(true);
-
+      showSnackbar(response.data.message == 'success' ? "Data saved succesfully" : '' , 'success');
       navigate("/admin-user-list");
     } catch (error: any) {
       console.error('Error submitting form:', error);
-      // Assuming the API returns an error message in the response
-      setSnackbarSeverity('error');
-      setSnackbarMessage(error.response.data.message || 'An error occurred');
-      setSnackbarOpen(true);
+      showSnackbar(error.response.data.message, 'error');
+    } finally {
+      setLoading(false); // Set loading to false regardless of success or error
     }
   };
-  // const handleSubmit = async (values: any) => {
-  //   console.log(values);
-  //   const token = localStorage.getItem('token');
-  //   try {
-  //     axios.post(`${apiBaseUrl}/admins`, values, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //       .then(function (response) {
-  //         navigate("/admin-user-list")
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   } catch (error) {
-  //     console.error('Error submitting form:', error);
-  //   }
-  // };
+
   return (
     <div>
-
-
       <Container maxWidth="xl" style={{ marginTop: '20px' }}>
         <Grid container>
           <Grid item xs={12}>
@@ -103,8 +76,8 @@ const isRequiredField = (fieldName: string) => {
               >
                 <Grid container spacing={3}>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="textField">{t('fullUserName')} 
-                    <span style={{ color: 'red' }}>*</span>
+                    <InputLabel htmlFor="textField" style={{marginBottom: '7px' }}>{t('fullUserName')}
+                      <span style={{ color: 'red' }}>*</span>
                     </InputLabel>
                     <Field
                       name="name"
@@ -114,28 +87,29 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('designation')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                  <Grid item xs={12} md={3} >
+                    <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('designation')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="type"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
-                      label="সিলেক্ট করুন"
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
                     // Set an empty default value
                     >
-<MenuItem value="superadmin">Super admin</MenuItem>
+                      <MenuItem value="superadmin">Super admin</MenuItem>
                       <MenuItem value="reportadmin">Report admin</MenuItem>
                       <MenuItem value="dsheadmin">DSHE admin</MenuItem>
                       <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
-<MenuItem value="contentadmin">Content admin</MenuItem>
+                      <MenuItem value="contentadmin">Content admin</MenuItem>
                       <MenuItem value="batchcoordinator">Batch Coordinator</MenuItem>
                     </Field>
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="name">{t('userName')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="name" style={{marginBottom: '7px' }}>{t('userName')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="username"
                       type="name"
@@ -146,7 +120,7 @@ const isRequiredField = (fieldName: string) => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="email">{t('email')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="email" style={{marginBottom: '7px' }}>{t('email')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="email"
                       as={TextField}
@@ -155,7 +129,7 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="number">{t('mobileNo')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="number" style={{marginBottom: '7px' }}>{t('mobileNo')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="mobile_no"
                       as={TextField}
@@ -164,41 +138,42 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('status')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('status')} <span style={{ color: 'red'}}>*</span></InputLabel>
                     <Field
                       name="status"
                       as={TextField}
                       select
                       fullWidth
-                      size="small"
-                      label="সিলেক্ট করুন"
-                    // Set an empty default value
+                      size="small"                      
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
+                      // Set an empty default value
                     >
-
                       <MenuItem value="1">Active</MenuItem>
                       <MenuItem value="2">Inactive</MenuItem>
-
                     </Field>
                   </Grid>
+
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="dropdown">{t('userRoleName')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('userRoleName')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="role"
                       as={TextField}
                       select
                       fullWidth
                       size="small"
-                      label="সিলেক্ট করুন"
+                      //label="সিলেক্ট করুন"
+                      label={t('SelectThis')}
                     // Set an empty default value
                     >
-<MenuItem value="super-admin">Super Admin</MenuItem>
+                      <MenuItem value="super-admin">Super Admin</MenuItem>
                       <MenuItem value="admin">Admin</MenuItem>
                       <MenuItem value="trainer">Trainer</MenuItem>
                       <MenuItem value="trainee">Trainee</MenuItem>
                     </Field>
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="password">{t('password')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <InputLabel htmlFor="password" style={{marginBottom: '7px' }}>{t('password')} <span style={{ color: 'red' }}>*</span></InputLabel>
                     <Field
                       name="password"
                       type="password"
@@ -208,7 +183,7 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
                   <Grid item xs={12} md={3}>
-                    <InputLabel htmlFor="file">{t('uploadImage')}</InputLabel>
+                    <InputLabel htmlFor="file" style={{marginBottom: '7px' }}>{t('uploadImage')}</InputLabel>
                     <Field
                       name="file"
                       type="file"
@@ -219,25 +194,33 @@ const isRequiredField = (fieldName: string) => {
                     />
                   </Grid>
                 </Grid>
-
-                <Button
-                  type="submit"
-                  aria-label="toggle-status"
-                  size="small"
-                  variant='contained'
-                  style={{
-                    backgroundColor: 'primary.main',
-                    color: 'white',
-                    width: '250px',
-                    height: '40px',
-                    display: 'inline-flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  {t('submit')}
-                </Button>
-
+                {loading ? (
+                  // Show the loader if loading
+                  <CircularProgress size={20} color="inherit" />
+                ) : (
+                  // Show the 'Submit' text when not loading
+                  <Button
+                    type="submit"
+                    aria-label="toggle-status"
+                    size="small"
+                    variant='contained'
+                    style={{
+                      backgroundColor: 'primary.main',
+                      color: '#FAFAFA',
+                      width: '249px',
+                      height: '40px',
+                      display: 'inline-flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      fontFamily: 'Roboto',
+                      marginTop: '14px',
+                    }}
+                  >
+                    {t('submit')}
+                  </Button>
+                )}
               </Form>
             </Formik>
           </Grid>
@@ -253,13 +236,8 @@ const isRequiredField = (fieldName: string) => {
           </Alert>
         </Snackbar>
       </Container>
-
     </div>
-
-
-
   );
-
 };
 
 export default CreateAdminUser;

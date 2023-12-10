@@ -79,6 +79,7 @@ import VennDiagram from 'views/dashboard/VennDiagram';
 const Dashboard: React.FC = () => {
   return (
     <Container maxWidth="xl">
+      <p style={{fontSize:'14px',fontWeight:'500', marginBottom:'8px' ,color:'rgba(244, 42, 65, 1)'}}>অ্যাডমিন প্যানেল</p>
       <TopCards />
       <Grid container spacing={2}>
         <Grid item xs={12} md={8} lg={8}>

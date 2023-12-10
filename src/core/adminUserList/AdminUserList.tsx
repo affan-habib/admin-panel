@@ -11,7 +11,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from 'config';
 import WarningModal from 'components/common/DeleteWarning';
-
+import { useSnackbar } from 'context/SnackbarContext';
+import Loader from '../../components/common/circularLoader';
 
 interface Row {
     id: number;
@@ -22,6 +23,8 @@ interface Row {
 }
 
 const AdminUserList: React.FC = () => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const { showSnackbar } = useSnackbar();
     const [pageSize, setPageSize] = useState(10);
     const [currentPage, setCurrentPage] = useState(0);
     const [showModal, setShowModal] = useState(false);
@@ -38,11 +41,13 @@ const AdminUserList: React.FC = () => {
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
+            setLoading(true);
             const response = await axios.get(`${apiBaseUrl}/admins`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            setLoading(false);
             setData(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -50,7 +55,9 @@ const AdminUserList: React.FC = () => {
     };
 
     useEffect(() => {
+
         fetchData();
+
     }, [])
 
 
@@ -61,23 +68,29 @@ const AdminUserList: React.FC = () => {
         setShowWarningModal(true);
     };
 
-    const handleDeleteConfirmed = () => {
+    const handleDeleteConfirmed = async () => {
         // Handle the delete operation here
         const id = selectedUserData.id;
         try {
-            axios.delete(`${apiBaseUrl}/admins/${id}`, {
+            setLoading(true);
+            const response = await axios.delete(`${apiBaseUrl}/admins/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            showSnackbar("Data deleted successfully", 'success');
             fetchData();
-        } catch (error) {
-            console.error('Error fetching data:', error);
+            setLoading(false);
+        } catch (error: any) {
+            showSnackbar(error.response.data.message, 'error');
+            console.error('Error deleting data:', error.response.data.message);
         } finally {
             // Close the warning modal after the operation
             setShowWarningModal(false);
+            setLoading(false);
         }
     };
+
     const resData = data?.data?.data;
 
     const handleVisibilityClick = async (row: any) => {
@@ -172,11 +185,12 @@ const AdminUserList: React.FC = () => {
 
     const handleToggleStatus = async (values: any) => {
         console.log("values", values)
+        delete values.roles;
         const token = localStorage.getItem('token');
 
         try {
             // Use axios.put to send a PUT request with the updated values and ID in the URL
-            await axios.put(`${apiBaseUrl}/admins/${values.id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0, status: values.status ? 0 : 1 }, {
+            await axios.put(`${apiBaseUrl}/admins/${values.id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0, status: values.status ? 0 : 1, role: "super-admin" }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -197,39 +211,51 @@ const AdminUserList: React.FC = () => {
         setCurrentPage(0);
     };
 
+
     return (
+
         <Container maxWidth="xl">
-            <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-                mb={2}
-            >
-                <Button variant="contained" startIcon={<Add />} sx={{ ml: 'auto', my: 2 }} onClick={() => navigate("/create-admin-user")}>
-                    Create User
-                </Button>
-            </Stack>
-            <ReactTable
-                columns={columns}
-                data={rows}
-                totalCount={40}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-                onPageSizeChange={handlePageSizeChange}
-            />
-            <ModalComponent
-                open={showModal}
-                handleClose={() => setShowModal(false)}
-                userData={selectedUserData}
-            />
-            <WarningModal
-                open={showWarningModal}
-                handleClose={() => setShowWarningModal(false)}
-                onConfirm={handleDeleteConfirmed}
-            />
+            {loading && (
+                // Show the loader while loading
+                <Loader />
+            )}
+
+            <>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    mb={2}
+                >
+                    <Button variant="contained" startIcon={<Add />} sx={{ ml: 'auto', my: 2 }} onClick={() => navigate("/create-admin-user")}>
+                        Create User
+                    </Button>
+                </Stack>
+                <ReactTable
+                    columns={columns}
+                    data={rows}
+                    totalCount={40}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                    onPageSizeChange={handlePageSizeChange}
+                />
+                <ModalComponent
+                    open={showModal}
+                    handleClose={() => setShowModal(false)}
+                    userData={selectedUserData}
+                />
+                <WarningModal
+                    open={showWarningModal}
+                    handleClose={() => setShowWarningModal(false)}
+                    onConfirm={handleDeleteConfirmed}
+                />
+            </>
+
         </Container>
     );
+
+
 };
 
 export default AdminUserList;

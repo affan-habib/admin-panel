@@ -1,86 +1,47 @@
-// import React from 'react';
-// import Box from '@mui/material/Box';
-// import Group26 from '../../assets/Group26.svg';
-// import { Typography } from '@mui/material';
-// import { useTranslation } from 'react-i18next';
-
-// const VennDiagram = () => {
-//   const {t} = useTranslation();
-//   return (
-//     <Box
-//       height={315}
-//       width={490}
-//       sx={{
-//         backgroundColor: 'rgba(237, 244, 242, 1)',
-//         borderRadius: '10px',
-//         mt: 4,
-//         display: 'flex',
-//         flexDirection: 'column',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//       }}
-//     >
-//       <Box sx={{ mb: 2 }}>
-//         <Typography style={{color:'rgba(21, 83, 19, 1)'}}>{t('venDiagram')}</Typography>
-//       </Box>
-//       <Box
-//       width={400}
-//       height={200}
-//         sx={{
-//           backgroundColor: 'rgba(254, 254, 254, 1)',
-//           display: 'flex',
-//           justifyContent: 'center',
-//           alignItems: 'center',
-//         }}
-//       >
-//         <img src={Group26} alt=""
-//         //  style={{padding:'40px'}}
-//           />
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default VennDiagram;
-
-
 import React from 'react';
 import Box from '@mui/material/Box';
-import vendiagram from '../../assets/images/ven.png';
-import { Grid, Typography } from '@mui/material';
+import ven from '../../assets/ven.svg';
+import { Grid, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const VennDiagram = () => {
   const { t } = useTranslation();
-
+  const theme = useTheme();
   return (
     <Grid
       
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',
         borderRadius: '8px',
-        marginTop: "40px",
+       
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         padding: "20px",
-        height: 305
+        height:300,
+        marginTop: '10px', // Default margin for small screens
+        [theme.breakpoints.up('md')]: {
+          marginTop: '40px', // Apply for medium and large screens
+        },
       }}
     >
-      <Grid sx={{paddingBottom:'8px'}}>
-        <Typography style={{ color: 'rgba(21, 83, 19, 1)',fontSize:'16px',fontWeight:'500'}}>{t('venDiagram')}</Typography>
+      <Grid sx={{paddingBottom:"8px"}}>
+        <Typography style={{ color: 'rgba(21, 83, 19, 1)',fontSize:'17px',fontWeight:'500'}}>{t('venDiagram')}</Typography>
       </Grid>
       <Grid
         sx={{
           backgroundColor: 'rgba(237, 244, 242, 1)',
+          // display: 'flex',
+          //   justifyContent: 'center',
+          //   alignItems: 'center',
         }}
       >
         <img
-          src={vendiagram}
+          src={ven}
           alt=""
           style={{
-            maxWidth: '100%',
+            maxWidth: '100%', // Set maximum width relative to its container
             height:'auto'
             
           }}

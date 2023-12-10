@@ -22,25 +22,25 @@ const TopCards: React.FC = () => {
   const cardsData: CardData[] = [
     {
       title: t('currentBatch'),
-      digit: '৪২',
+      digit: t('number1'),
       backgroundColor: '#C6E2F9',
       icon: <Groups2Icon sx={{ fontSize: '35px' }} />, 
     },
     {
       title: t('trainer'),
-      digit: '২৫',
+      digit: t('number2'),
       backgroundColor: '#E3C3FB',
       icon: <PersonOutlineIcon sx={{ fontSize: '35px' }} />,
     },
     {
       title: t('enrolledTrainees'),
-      digit: '৪০০',
+      digit: t('number1'),
       backgroundColor: '#A0B879',
       icon: <PersonOutlineIcon sx={{ fontSize: '35px' }} />, 
     },
     {
       title: t('curriculum'),
-      digit: '২৫',
+      digit: t('number2'),
       backgroundColor: '#F2BDBD',
       icon: <MenuBookIcon sx={{ fontSize: '35px' }} />, 
     }

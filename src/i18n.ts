@@ -3,17 +3,18 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import enTranslations from 'locale/en.json';
 import bnTranslations from 'locale/bn.json';
-import tableListBangla from 'locale/tableListBangla.json';
-import tableListEnglish from 'locale/tableListEnglish.json';
-
+import bangla from 'locale/bangla.json';
+import english from 'locale/english.json';
 i18n.use(initReactI18next).init({
   resources: {
     en: {
-      translation: { ...enTranslations, ...tableListEnglish },
+      translation: { ...enTranslations, ...english },
     },
     bn: {
-      translation: { ...bnTranslations, ...tableListBangla },
+      translation: { ...bnTranslations, ...bangla },
     },
+
+
     // Add more languages as needed
   },
   lng: 'bn',

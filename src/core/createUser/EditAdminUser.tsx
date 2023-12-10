@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Typography, InputLabel } from '@mui/material';
+import { CircularProgress, Container, Grid, Typography, InputLabel } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,8 +12,12 @@ import useAdminUserDetails from 'hooks/useAdminUserDetails';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'context/SnackbarContext';
 
 const EditAdminUser: React.FC = () => {
+
+    const [loading, setLoading] = useState<boolean>(false);
+    const { showSnackbar } = useSnackbar();
     const { t } = useTranslation();
     const [snackbarOpen, setSnackbarOpen] = React.useState(false);
     const [snackbarMessage, setSnackbarMessage] = React.useState('');
@@ -26,25 +30,24 @@ const EditAdminUser: React.FC = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (values: any) => {
+        setLoading(true);
+        delete values.roles;
         console.log(values);
         const token = localStorage.getItem('token');
 
         try {
             // Use axios.put to send a PUT request with the updated values and ID in the URL
-            const response = await axios.put(`${apiBaseUrl}/admins/${id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0 }, {
+            const response = await axios.put(`${apiBaseUrl}/admins/${id}`, { ...values, belongs_hstti: values.belongs_hstti ? 1 : 0, role: "super-admin" }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setSnackbarSeverity('success');
-            setSnackbarMessage(response.data.message);
-            setSnackbarOpen(true);
+            showSnackbar(response.data.message, 'success');
             navigate("/admin-user-list");
+            setLoading(false);
         } catch (error: any) {
-            setSnackbarSeverity('error');
-            setSnackbarMessage(error.response.data.message || 'An error occurred');
-            setSnackbarOpen(true);
-            console.error('Error updating user data:', error);
+            showSnackbar(error.response.data.message, 'error');
+            setLoading(false);
         }
     };
 
@@ -54,7 +57,7 @@ const EditAdminUser: React.FC = () => {
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography variant="h6" gutterBottom sx={{ color: 'rgba(0, 106, 78, 1)' }}>
-                        {t('editUser')}
+                            {t('editUser')}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2 }}>
@@ -73,7 +76,7 @@ const EditAdminUser: React.FC = () => {
                                 >
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="textField">{t('fullUserName')}</InputLabel>
+                                            <InputLabel htmlFor="textField" style={{marginBottom: '7px' }}>{t('fullUserName')}</InputLabel>
                                             <Field
                                                 name="name"
                                                 as={TextField}
@@ -83,14 +86,15 @@ const EditAdminUser: React.FC = () => {
                                         </Grid>
 
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="dropdown">{t('designation')}</InputLabel>
+                                            <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('designation')}</InputLabel>
                                             <Field
                                                 name="type"
                                                 as={TextField}
                                                 select
                                                 fullWidth
                                                 size="small"
-                                                label="সিলেক্ট করুন"
+                                                //label="সিলেক্ট করুন"
+                                                label={t('SelectThis')}
                                             // Set an empty default value
                                             >
 
@@ -105,7 +109,7 @@ const EditAdminUser: React.FC = () => {
                                         </Grid>
 
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="name">{t('userName')}</InputLabel>
+                                            <InputLabel htmlFor="name" style={{marginBottom: '7px' }}>{t('userName')}</InputLabel>
                                             <Field
                                                 name="username"
                                                 type="name"
@@ -116,7 +120,7 @@ const EditAdminUser: React.FC = () => {
                                         </Grid>
 
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="email"> {t('email')}</InputLabel>
+                                            <InputLabel htmlFor="email" style={{marginBottom: '7px' }}> {t('email')}</InputLabel>
                                             <Field
                                                 name="email"
                                                 as={TextField}
@@ -125,7 +129,7 @@ const EditAdminUser: React.FC = () => {
                                             />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="number">{t('mobileNo')}</InputLabel>
+                                            <InputLabel htmlFor="number" style={{marginBottom: '7px' }}>{t('mobileNo')}</InputLabel>
                                             <Field
                                                 name="mobile_no"
                                                 as={TextField}
@@ -134,14 +138,15 @@ const EditAdminUser: React.FC = () => {
                                             />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="dropdown">{t('status')}</InputLabel>
+                                            <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('status')}</InputLabel>
                                             <Field
                                                 name="status"
                                                 as={TextField}
                                                 select
                                                 fullWidth
                                                 size="small"
-                                                label="সিলেক্ট করুন"
+                                                //label="সিলেক্ট করুন"
+                                                label={t('SelectThis')}
                                             // Set an empty default value
                                             >
 
@@ -151,14 +156,15 @@ const EditAdminUser: React.FC = () => {
                                             </Field>
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="dropdown">{t('userRoleName')}</InputLabel>
+                                            <InputLabel htmlFor="dropdown" style={{marginBottom: '7px' }}>{t('userRoleName')}</InputLabel>
                                             <Field
                                                 name="role"
                                                 as={TextField}
                                                 select
                                                 fullWidth
                                                 size="small"
-                                                label="সিলেক্ট করুন"
+                                                //label="সিলেক্ট করুন"
+                                                label={t('SelectThis')}
                                                 disabled={true}
                                             // Set an empty default value
                                             >
@@ -169,7 +175,7 @@ const EditAdminUser: React.FC = () => {
                                             </Field>
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="password">{t('password')}</InputLabel>
+                                            <InputLabel htmlFor="password" style={{marginBottom: '7px' }}>{t('password')}</InputLabel>
                                             <Field
                                                 name="password"
                                                 type="password"
@@ -179,7 +185,7 @@ const EditAdminUser: React.FC = () => {
                                             />
                                         </Grid>
                                         <Grid item xs={12} md={3}>
-                                            <InputLabel htmlFor="file">{t('uploadImage')}</InputLabel>
+                                            <InputLabel htmlFor="file" style={{marginBottom: '7px' }}>{t('uploadImage')}</InputLabel>
                                             <Field
                                                 name="file"
                                                 type="file"
@@ -190,25 +196,32 @@ const EditAdminUser: React.FC = () => {
                                             />
                                         </Grid>
                                     </Grid>
-
-                                    <Button
-                                        type="submit"
-                                        aria-label="toggle-status"
-                                        size="small"
-                                        variant='contained'
-                                        style={{
-                                            backgroundColor: 'primary.main',
-                                            color: 'white',
-                                            width: '250px',
-                                            height: '40px',
-                                            display: 'inline-flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        {t('submit')}
-                                    </Button>
-
+                                    {loading ? (
+                                        // Show the loader if loading
+                                        <CircularProgress size={20} color="inherit" />
+                                    ) : (
+                                        <Button
+                                            type="submit"
+                                            aria-label="toggle-status"
+                                            size="small"
+                                            variant='contained'
+                                            style={{
+                                                backgroundColor: 'primary.main',
+                                                color: '#FAFAFA',
+                                                width: '249px',
+                                                height: '40px',
+                                                display: 'inline-flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                fontSize: '16px',
+                                                fontWeight: '600',
+                                                fontFamily: 'Roboto',
+                                                marginTop: '14px',
+                                            }}
+                                        >
+                                            {t('submit')}
+                                        </Button>
+                                    )}
                                 </Form>
                             </Formik>
                         )}

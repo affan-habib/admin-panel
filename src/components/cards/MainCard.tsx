@@ -1,21 +1,18 @@
 import React from 'react';
 import {
   Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Button,
   Typography,
-  Box, // Import Button from MUI
+  Box,
+  Stack,
 } from '@mui/material';
 
 interface MainCardProps {
   title: string;
   children: React.ReactNode;
-  modalButton?: React.ReactNode; // Add modalButton prop
+  rightButton?: React.ReactNode; // Make rightButton prop optional
 }
 
-const MainCard: React.FC<MainCardProps> = ({ title, children }) => {
+const MainCard: React.FC<MainCardProps> = ({ title, children, rightButton }) => {
   return (
     <>
       <Card
@@ -24,9 +21,14 @@ const MainCard: React.FC<MainCardProps> = ({ title, children }) => {
           borderRadius: '8px',
         }}
       >
-        <Typography align="center" bgcolor="#DEEEC6" p={1} variant="subtitle1">
-          {title}
-        </Typography>
+        <Stack sx={{ bgcolor: "#DEEEC6", height:38 }} justifyContent='space-between' direction='row' alignItems='center'>
+          <Typography variant="subtitle1" sx={{ ml: 2 }}>
+            {title}
+          </Typography>
+          <Box>
+            {rightButton && <Box>{rightButton}</Box>}
+          </Box>
+        </Stack>
         <Box m={2}>{children}</Box>
       </Card>
     </>

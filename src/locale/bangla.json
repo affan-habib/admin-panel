@@ -1,0 +1,33 @@
+{
+    "january":"জানুয়ারী",
+    "february":"ফেব্রুয়ারী",
+    "march":"মার্চ",
+    "april":"এপ্রিল",
+    "may":"মে",
+    "june":"জুন",
+    "july":"জুলাই",
+    "august":"অগাস্ট",
+    "september":"সেপ্টেম্বর",
+    "october":"অক্টোবর",
+    "november":"নভেম্বর",
+    "december":"ডিসেম্বর",
+    "currentbatch": "চলমান ব্যাচ",
+    "activeCourse": "সক্রিয় কোর্স ",
+    "traineeNumber": "প্রশিক্ষণার্থীর সংখ্যা",
+    "batchSituation": "ব্যাচের অবস্থা",
+    "courseTimeline": "কোর্স সময়কাল",
+    "batchNo" : "ব্যাচ নং",
+    "learningField" : "শিক্ষা নীতি এবং শিক্ষা প্রশাসন শিখন ক্ষেত্র ১",
+    "progress" : "সক্রিয়",
+    "courseDuration" : "অনলাইন: ১০ দিন",
+    "numberOfTrainee" : "৫০",
+    "number1":"২৫",
+    "number2":"৪০০",
+    "red":"লাল",
+    "blue":"নীল",
+    "yellow":"হলুদ",
+    "proceedings":"কার্যধারা",
+    "progress":"অগ্রগতি"
+
+}
+

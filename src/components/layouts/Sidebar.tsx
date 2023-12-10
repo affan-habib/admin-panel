@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   List,
   ListItem,
   ListItemText,
   Collapse,
   ListItemIcon,
+  useMediaQuery,
 } from '@mui/material';
 import { ExpandLess, ExpandMore, Logout } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -17,16 +18,26 @@ interface MenuItem {
   path: string;
   subMenu?: MenuItem[];
 }
+
 interface SidebarProps {
   handleLogout: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  isSidebarOpen: boolean;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
   const [menuStates, setMenuStates] = useState<{ [key: string]: boolean }>({});
   const [selectedMenu, setSelectedMenu] = useState<string | null>('/dashboard');
   const [selectedSubMenu, setSelectedSubMenu] = useState<string | null>(null);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const isMobile = useMediaQuery('(max-width: 750px)'); // Adjust the breakpoint as needed
+
+  useEffect(() => {
+    // Close the sidebar when it's closed in the header or on mobile
+    if (!isSidebarOpen || isMobile) {
+      setMenuStates({});
+    }
+  }, [isSidebarOpen, isMobile]);
 
   const handleToggle = (path: string) => {
     setMenuStates((prevStates) => ({

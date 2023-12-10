@@ -42,7 +42,7 @@
   "traineeNumber": "প্রশিক্ষণার্থীর সংখ্যা",
   "timeLine": "সময়কাল",
   "batchCode": "ব্যাচের কোড",
-   "status": "স্টেটাস",
+  "status": "স্ট্যাটাস",
   "actionButton": "অ্যাকশন বাটন",
   "formativeAssessmentSystem": "ফর্মাটিভ এসেসমেন্ট সিটেম",
   "userProfile": "ব্যবহারকারী প্রোফাইল",
@@ -74,4 +74,5 @@
   "submit" : "সাবমিট",
   "editUser" : " ইউজার এডিট করুন",
   "SelectThis" : "সিলেক্ট করুন"
+ 
 }
