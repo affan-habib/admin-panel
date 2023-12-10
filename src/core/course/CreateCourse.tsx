@@ -42,7 +42,9 @@ const CreateCourse: React.FC = () => {
   const { showSnackbar } = useSnackbar();
   const validationSchema = Yup.object({
     code: Yup.string().required('Course code is required'),
-
+    name_bn: Yup.string()
+      .matches(/^[^$%^&:;()]*$/, 'Special characters ^$%^&:;() are not allowed')
+      .required('Course name is required'),
     name_en: Yup.string()
       .matches(/^[A-Za-z\s]+$/, 'course name should only contain letters') // Regex to match only letters
       .required('course name is required'),
