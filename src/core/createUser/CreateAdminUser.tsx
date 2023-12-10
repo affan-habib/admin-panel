@@ -21,7 +21,6 @@ const CreateAdminUser: React.FC = () => {
   const [snackbarMessage, setSnackbarMessage] = React.useState('');
   const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
   const { t } = useTranslation();
-
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
