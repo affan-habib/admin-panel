@@ -17,12 +17,13 @@ import ModuleActions from './ModuleActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import { DragHandle, OpenWith } from '@mui/icons-material';
+import { useDeleteModal } from 'context/DeleteModalContext';
 
 // ... (other imports)
 
 const Chapters: React.FC<any> = ({ modules }) => {
   const queryClient = useQueryClient();
-
+  const {openModal} = useDeleteModal()
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
@@ -110,7 +111,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       aria-label="Delete"
                       size="small"
                       color="error"
-                      onClick={() => handleDeleteClick(el.id)}
+                      onClick={() => openModal(() => handleDeleteClick(el.id))}
                     >
                       <DeleteIcon />
                     </IconButton>

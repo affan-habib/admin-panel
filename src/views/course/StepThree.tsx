@@ -1,8 +1,7 @@
 // components/form/Step3.tsx
 import React from 'react';
-import { Grid, InputLabel, Stack } from '@mui/material';
+import { Grid } from '@mui/material';
 import InputFile from 'components/form/InputFile';
-import InputRadio from 'components/form/InputRadio';
 import MainCard from 'components/cards/MainCard';
 import InputField from 'components/form/InputField';
 import InputSelect from 'components/form/InputSelect';
@@ -11,10 +10,10 @@ const Step3: React.FC = () => (
   <MainCard title="গ্লোবাল সেটিংস অ্যাড করুন">
     <Grid container spacing={2}>
       <Grid item md={6}>
-
         <InputField
           required={true}
           name="code"
+          type="number"
           label="Course Code"
           placeholder="Write the code here..."
         />
@@ -38,7 +37,12 @@ const Step3: React.FC = () => (
       acceptedFileTypes="image/*"
       limit="max 400kb"
     />
-    <InputFile name="icon" label="Icon" acceptedFileTypes="image/*" limit="max 400kb"/>
+    <InputFile
+      name="icon"
+      label="Icon"
+      acceptedFileTypes="image/*"
+      limit="max 400kb"
+    />
     <InputFile
       name="supporting_doc"
       label="Supporting Documents"
