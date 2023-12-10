@@ -33,7 +33,7 @@ const LoginPage: React.FC = () => {
       setLoginPageTitle(`Welcome to ${value}`)
     }
     if(i18n.language == 'bn') {
-      setLoginPageTitle(`LMS - ${value} এ স্বাগতম`)
+      setLoginPageTitle(`CLMS - ${value} এ স্বাগতম`)
     }
   };
   return (
