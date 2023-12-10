@@ -33,7 +33,7 @@ interface Data {
 const tableData: Data[] = [
   {
     role: 'All',
-    permissions: ['Read', 'Write', 'Delete'],
+    permissions: ['Create Category', 'Create Sub Category', 'Edit Category', 'Edit Category','Edit Category','Edit Category','Edit Category','Edit Category','Edit Category','Edit Category'],
   },
   {
     role: 'Admin',
@@ -72,9 +72,9 @@ const RoleList: React.FC = () => {
               {tableData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
                   <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd' }}>{row.role}</TableCell>
-                  <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd' }}>
+                  <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', width:'800px' }}>
                     {row.permissions.map((permission, index) => (
-                      <Badge key={index} color="primary" sx={{ backgroundColor: 'rgba(0, 106, 78, 1)', color: 'white', padding: '8px', borderRadius: '10px', marginBottom: '8px', marginRight: 1 }}>
+                      <Badge key={index} color="primary" sx={{ backgroundColor: 'rgba(0, 106, 78, 1)', color: 'white', padding: '4px 10px 4px 10px',  borderRadius: '10px', marginBottom: '8px', marginRight: 1 }}>
                         {permission}
                       </Badge>
                     ))}
