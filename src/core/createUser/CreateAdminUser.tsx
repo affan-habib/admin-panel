@@ -117,7 +117,7 @@ const CreateAdminUser: React.FC = () => {
                         fullWidth
                         size="small"
                         //label="সিলেক্ট করুন"
-                        label={t('SelectThis')}
+                        //
                       // Set an empty default value
                       >
                         <MenuItem value="superadmin">Super admin</MenuItem>
@@ -176,7 +176,7 @@ const CreateAdminUser: React.FC = () => {
                         fullWidth
                         size="small"
                         //label="সিলেক্ট করুন"
-                        label={t('SelectThis')}
+                       
                       // Set an empty default value
                       >
                         <MenuItem value="1">Active</MenuItem>
@@ -193,7 +193,7 @@ const CreateAdminUser: React.FC = () => {
                         fullWidth
                         size="small"
                         //label="সিলেক্ট করুন"
-                        label={t('SelectThis')}
+                       
                       // Set an empty default value
                       >
                         <MenuItem value="super-admin">Super Admin</MenuItem>
