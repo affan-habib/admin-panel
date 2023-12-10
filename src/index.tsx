@@ -26,9 +26,9 @@ if (rootElement) {
           <ThemeProvider theme={theme}>
             <I18nextProvider i18n={i18n}>
               <App />
-              {process.env.NODE_ENV === 'development' && (
+              {/* {process.env.NODE_ENV === 'development' && (
                 <ReactQueryDevtools initialIsOpen={false} />
-              )}
+              )} */}
             </I18nextProvider>
           </ThemeProvider>
         </QueryClientProvider>

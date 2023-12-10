@@ -31,7 +31,17 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMenuHovered, setIsMenuHovered] = useState<string | null>(null);
+  const [isSubMenuHovered, setIsSubMenuHovered] = useState<string | null>(null);
 
+  const handleMouseEnter = (path: string) => {
+    setIsMenuHovered(path);
+  };
+
+  const handleMouseLeave = () => {
+    setIsMenuHovered(null);
+    setIsSubMenuHovered(null);
+  };
   // Call the hook within the component body
   const menuItems = UseGetMenuItems();
 
@@ -48,7 +58,9 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
       }
 
       if (item.subMenu) {
-        matchingSubMenu = item.subMenu.find((subItem) => currentPath === subItem.path);
+        matchingSubMenu = item.subMenu.find(
+          (subItem) => currentPath === subItem.path,
+        );
 
         if (matchingSubMenu) {
           matchingMenu = item;
@@ -91,7 +103,6 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
     navigate(path);
   };
 
-
   return (
     <List>
       {menuItems.map((item, index) => (
@@ -100,6 +111,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
             disableRipple
             divider
             button
+            onMouseEnter={() => handleMouseEnter(item.path)}
+            onMouseLeave={() => setIsMenuHovered(null)}
             onClick={() => {
               handleToggle(item.path);
               handleMenuClick(item);
@@ -117,8 +130,12 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
             {item.icon && (
               <ListItemIcon
                 sx={{
-                  color: selectedMenu === item.path ? 'yellow' : 'white',
-
+                  color:
+                    isMenuHovered === item.path
+                      ? 'primary.main'
+                      : selectedMenu === item.path
+                      ? 'yellow'
+                      : 'white',
                 }}
               >
                 {item.icon}
@@ -138,11 +155,14 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
               <List component="div" disablePadding>
                 {item.subMenu.map((subItem, subIndex) => (
                   <ListItem
-                    component='div'
+                    component="div"
                     key={subIndex}
+                    onMouseEnter={() => handleMouseEnter(subItem.path)}
+                    onMouseLeave={() => setIsMenuHovered(null)}
                     onClick={() => handleSubMenuClick(subItem.path)}
                     selected={selectedSubMenu === subItem.path}
                     sx={{
+                      pl: 4,
                       backgroundColor:
                         selectedSubMenu === subItem.path
                           ? '#4caf50'
@@ -159,9 +179,11 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                       <ListItemIcon
                         sx={{
                           color:
-                            selectedSubMenu === subItem.path
+                            isMenuHovered === subItem.path
+                              ? 'black'
+                              : selectedSubMenu === subItem.path
                               ? 'yellow'
-                              : '#DEEEC6',
+                              : 'white',
                         }}
                       >
                         {subItem.icon}
