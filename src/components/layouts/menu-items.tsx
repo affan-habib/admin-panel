@@ -28,12 +28,12 @@ export const useGetMenuItems = (): MenuItem[] => {
       path: '/study',
       icon: <LibraryBooksIcon />,
       subMenu: [
-        { title: t('createCourse'), icon: <AddCircleIcon />, path: '/create-course' },
         {
           title: t('courseList'),
           icon: <LibraryBooksIcon />,
           path: '/course-list',
         },
+        { title: t('createCourse'), icon: <AddCircleIcon />, path: '/create-course' }, 
       ],
     },
     // {
