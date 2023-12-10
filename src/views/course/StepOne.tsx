@@ -12,8 +12,10 @@ const StepOne: React.FC = () => {
         name="name_bn"
         label="পাঠ্যক্রমের নাম"
         placeholder="পাঠ্যক্রমের নাম লিখুন"
+        required={true}
       />
       <InputField
+        required={true}
         name="short_desc_bn"
         label="পাঠ্যক্রমের সংক্ষেপ বিবরণ"
         placeholder="সংক্ষেপ বিবরণ লিখুন"
