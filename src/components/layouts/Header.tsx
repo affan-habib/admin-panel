@@ -126,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({
             <Avatar alt="User Avatar" sx={{ height: 25, width: 25 }}>
               <Person />
             </Avatar>
-            <ExpandMoreIcon style={{ color: '#fff' }} />
+            <ExpandMoreIcon style={{color: '#FFF'}} />
           </IconButton>
 
           {/* User Options Menu */}

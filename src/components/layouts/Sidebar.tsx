@@ -173,6 +173,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                         backgroundColor: '#DEEEC6',
                         color: 'black',
                       },
+                      cursor: 'pointer'
                     }}
                   >
                     {subItem.icon && (
