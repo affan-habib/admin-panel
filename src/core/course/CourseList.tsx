@@ -66,7 +66,7 @@ const CourseList: React.FC = () => {
   };
 
   const columns = [
-    { Header: t('id'), accessor: 'id' },
+    { Header: '#', accessor: (row: any, index: any) => index + 1 },
     { Header: t('code'), accessor: 'code' },
     { Header: t('name'), accessor: `name_${language}` },
     // { Header: 'Short Description', accessor: 'short_desc_bn' },
@@ -80,7 +80,7 @@ const CourseList: React.FC = () => {
             disabled
             aria-label="view"
             size="small"
-            style={{ 
+            style={{
               backgroundColor: '#FAFAFA',
               borderRadius: '4px',
               border: '1px solid #D0D0D0',
