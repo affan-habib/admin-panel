@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import image1 from '../../assets/learningManagement.svg';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
 import { useTranslation } from 'react-i18next';
-import i18n from 'i18n';
 
 interface LoginFooterProps {
+  loginPageTitle: string;
   onCardClick: (value: string) => void;
 }
-const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
+const FooterContainer: React.FC<LoginFooterProps> = ({
+  onCardClick,
+  loginPageTitle,
+}) => {
   const { t } = useTranslation();
   const handleCardClick = (value: string) => {
     onCardClick(value);
@@ -29,22 +31,39 @@ const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
   };
 
   const cardData = [
-    { title: `${t('learningManagementSystem')}`, specificText: `${t('CLMS')}`, imageUrl: image3 },
-    { title: `${t('eLibrary')}`, specificText: `${t('Elibrary')}`, imageUrl: image2 },
-    { title: `${t('teachersGuide')}`, specificText: `${t('guide')}`, imageUrl: image3 },
-    { title: `${t('formativeAssessmentSystem')}`, specificText: `${t('formative')}`, imageUrl: image2 },
-    { title: `${t('socialLearningPlatform')}`, specificText: `${t('social')}`, imageUrl: image3 },
+    {
+      title: 'learningManagementSystem',
+      imageUrl: image3,
+    },
+    {
+      title: 'eLibrary',
+      imageUrl: image2,
+    },
+    {
+      title: 'teachersGuide',
+      imageUrl: image3,
+    },
+    {
+      title: 'formativeAssessmentSystem',
+      imageUrl: image2,
+    },
+    {
+      title: 'socialLearningPlatform',
+      imageUrl: image3,
+    },
   ];
-  useEffect(() => {
-    // Log language change
-    console.log('Language changed to', i18n.language);
-  }, [i18n.language]);
 
   return (
     <Grid container spacing={{ xs: 3, md: 8 }} mt="20px">
       {cardData.map((card, index) => (
         <Grid item key={index} xs={12} md={2.4} sm={6}>
-          <Card sx={cardStyle} onClick={() => handleCardClick(`${card.title}`)}>
+          <Card
+            sx={cardStyle}
+            onClick={() => handleCardClick(card.title)}
+            style={{
+              background: loginPageTitle == card.title ? '#e0f7fa' : 'inherit',
+            }}
+          >
             <CardMedia
               component="img"
               alt={card.title}
@@ -57,9 +76,13 @@ const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
               }}
             />
             <CardContent>
-              <Typography variant="body2" color="text.secondary" align="center" className="title" 
-              onClick={() => handleCardClick(`${card.title}`)}>
-                {card.title}
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                align="center"
+                className="title"
+              >
+                {t(card.title)}
               </Typography>
             </CardContent>
           </Card>

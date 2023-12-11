@@ -21,7 +21,7 @@ const MainCard: React.FC<MainCardProps> = ({ title, children, rightButton }) => 
           borderRadius: '8px',
         }}
       >
-        <Stack sx={{ bgcolor: "#DEEEC6", height:38 }} justifyContent='space-between' direction='row' alignItems='center'>
+        <Stack sx={{ bgcolor: "#DEEEC6", height:37 }} justifyContent='space-between' direction='row' alignItems='center'>
           <Typography variant="subtitle1" sx={{ ml: 2 }}>
             {title}
           </Typography>

@@ -17,23 +17,9 @@ const App: React.FC = () => {
   return (
     <DeleteModalProvider>
       <SnackbarProvider>
-        <Box
-          sx={{
-            filter:
-              selectedButton === 'monochrome'
-                ? 'grayscale(100%)'
-                : 'grayscale(0%)',
-          }}
-        >
-          <Accessibility
-            selectedButton={selectedButton}
-            onButtonSelect={handleButtonSelect}
-          />
-          <BrowserRouter>
-
-            <Routes />
-          </BrowserRouter>
-        </Box>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
       </SnackbarProvider>
     </DeleteModalProvider>
   );
