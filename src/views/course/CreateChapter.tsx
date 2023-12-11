@@ -1,13 +1,19 @@
 // components/form/DyanamicForm.tsx
 import React, { useState } from 'react';
 import { Button, IconButton, Stack, Typography } from '@mui/material';
-import { Add, AddCircle, AddCircleOutline, AddOutlined } from '@mui/icons-material';
+import {
+  Add,
+  AddCircle,
+  AddCircleOutline,
+  AddOutlined,
+} from '@mui/icons-material';
 import CreateChapterDialog from './CreateChapterDialog';
 import Chapters from './ChapterList';
+import { useTranslation } from 'react-i18next';
 
 const DyanamicForm: React.FC<any> = ({ modules }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
-
+  const { t } = useTranslation();
   const handleDialogOpen = () => setDialogOpen(true);
   const handleDialogClose = () => setDialogOpen(false);
 
@@ -25,13 +31,13 @@ const DyanamicForm: React.FC<any> = ({ modules }) => {
         alignItems="center"
       >
         <Typography variant="h6" color="primary.main">
-          অধ্যায় যোগ করুন
+          {t("addChapter")}
         </Typography>
         <Button
           variant="contained"
           color="primary"
           onClick={handleDialogOpen}
-          sx={{width: 30}}
+          sx={{ width: 30 }}
         >
           <AddCircleOutline />
         </Button>

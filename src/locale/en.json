@@ -94,5 +94,11 @@
   "supDocLimit": "less than 5 MB",
   "updateCourse": "Update Course",
   "update": "Update",
-  "profileImageLimit": "Maximum size 100KB"
+  "profileImageLimit": "Maximum size 100KB",
+  "vdo": "Video",
+  "assigmnment": "Assigmnment",
+  "vdoWithQuiz": "Video with quiz",
+  "assesment": "Assesment",
+  "selectTopic": "Select Topic to add",
+  "addChapter": "Add Chapter"
 }
