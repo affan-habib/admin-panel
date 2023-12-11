@@ -68,7 +68,7 @@ const CourseList: React.FC = () => {
   const columns = [
     { Header: t('id'), accessor: 'id' },
     { Header: t('code'), accessor: 'code' },
-    { Header: t('name'), accessor: `name_bn_${language}` },
+    { Header: t('name'), accessor: `name_${language}` },
     // { Header: 'Short Description', accessor: 'short_desc_bn' },
     { Header: t('numberOfModule'), accessor: 'course_modules_count' },
     {
