@@ -94,5 +94,10 @@
   "supDocLimit": "less than 5 MB",
   "updateCourse": "Update Course",
   "update": "Update",
-  "profileImageLimit": "Maximum size 100KB"
+  "profileImageLimit": "Maximum size 100KB",
+  "warning":"Warning",
+  "message":"Do you want to delete it permanently?",
+  "confirmation":"The item will be permanently deleted and you will not be able to retrieve it.",
+  "cancel":"Cancel",
+  "remove":"Delete"
 }
