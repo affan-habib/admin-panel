@@ -66,7 +66,7 @@ const CourseList: React.FC = () => {
   };
 
   const columns = [
-    { Header: t('id'), accessor: (row: any, index: any) => index + 1 },
+    { Header: '#', accessor: (row: any, index: any) => index + 1 },
     { Header: t('code'), accessor: 'code' },
     { Header: t('name'), accessor: `name_${language}` },
     // { Header: 'Short Description', accessor: 'short_desc_bn' },
