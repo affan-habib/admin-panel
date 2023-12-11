@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 interface CustomBoxProps {
   icon: ReactNode;
   title: string;
-  onClick: (event: MouseEvent<HTMLDivElement>) => void;
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   disabled?: boolean;
 }
 
@@ -19,6 +19,7 @@ const CustomButton: React.FC<CustomBoxProps> = ({
     <Box
       sx={{
         width: '100px',
+        cursor: disabled ? 'normal' : 'pointer',
         height: '100px',
         border: '1px solid rgba(208, 208, 208, 1)',
         display: 'flex',
@@ -27,14 +28,16 @@ const CustomButton: React.FC<CustomBoxProps> = ({
         justifyContent: 'center',
         transition: 'background-color 0.3s',
         '&:hover': {
-          backgroundColor: 'primary.main',
-          color: 'white',
+          backgroundColor: disabled ? 'inherit' : 'primary.main',
+          color: disabled ? 'inherit' : 'white',
           '& svg': {
-            color: 'white',
+            color: disabled ? 'inherit' : 'white',
           },
           '& div:nth-of-type(2)': {
-            backgroundColor: 'primary.main',
-            color: 'white',
+            backgroundColor: disabled
+              ? 'rgba(217, 217, 217, 1)'
+              : 'primary.main',
+            color: disabled ? 'inherit' : 'white',
           },
         },
       }}
@@ -60,12 +63,14 @@ const CustomButton: React.FC<CustomBoxProps> = ({
           justifyContent: 'center',
           transition: 'background-color 0.3s',
           '&:hover': {
-            backgroundColor: 'primary.main',
-            color: 'white',
+            backgroundColor: disabled ? 'inherit' : 'primary.main',
+            color: disabled ? 'inherit' : 'white',
           },
         }}
       >
-        <Typography>{title}</Typography>
+        <Typography align="center" sx={{ fontSize: 15 }}>
+          {title}
+        </Typography>
       </Box>
     </Box>
   );

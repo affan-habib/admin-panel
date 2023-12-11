@@ -7,6 +7,7 @@ import {
   IconButton,
   Button,
   Box,
+  Stack,
 } from '@mui/material';
 import CreateVideoDialog from './CreateVideoDialog';
 import EditVideoDialog from './EditVideoDialog';
@@ -16,12 +17,13 @@ import VideoIcon from '@mui/icons-material/VideoLibrary';
 import ModuleActions from './ModuleActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
-import { DragHandle, OpenWith } from '@mui/icons-material';
+import { DragHandle, OpenWith, PlayArrowOutlined } from '@mui/icons-material';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import { useSnackbar } from 'context/SnackbarContext';
-
-// ... (other imports)
-
+import CustomButton from './CustomButton';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import QuizIcon from '@mui/icons-material/Quiz';
 const Chapters: React.FC<any> = ({ modules }) => {
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
@@ -123,46 +125,34 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </IconButton>
                   </div>
                 ))}
-              <Button
-                onClick={() => handleDialogOpen(chapter.id)}
-                variant="contained"
-                size="small"
-                sx={{ mt: 2 }}
-              >
-                Add Video
-              </Button>
-              <Button
-                variant="contained"
-                disabled
-                size="small"
-                sx={{ mt: 2, ml: 2 }}
-              >
-                Add Assignment
-              </Button>
-              {/* <Button
-                variant="contained"
-                disabled
-                size="small"
-                sx={{ ml: 2, mt: 2 }}
-              >
-                Add Quiz
-              </Button> */}
-              <Button
-                variant="contained"
-                disabled
-                size="small"
-                sx={{ mt: 2, ml: 2 }}
-              >
-                Add Assesnment
-              </Button>
-              <Button
-                disabled
-                variant="contained"
-                size="small"
-                sx={{ ml: 2, mt: 2 }}
-              >
-                Add Quiz
-              </Button>
+              <Stack width="100%" alignItems="center">
+                <Typography mt={2}>আপনার বিষয়ের ধরন নির্বাচন করুন</Typography>
+                <Stack direction="row" spacing={2} mt={2}>
+                  <CustomButton
+                    onClick={() => handleDialogOpen(chapter.id)}
+                    title="ভিডিও"
+                    icon={<PlayCircleFilledIcon />}
+                  />
+                  <CustomButton
+                    onClick={() => {}}
+                    title="অ্যাসাইনমেন্ট"
+                    disabled={true}
+                    icon={<AssignmentIcon />}
+                  />
+                  <CustomButton
+                    onClick={() => {}}
+                    title="ভিডিও উইথ কুইজ"
+                    disabled={true}
+                    icon={<AssignmentIcon />}
+                  />
+                  <CustomButton
+                    disabled={true}
+                    onClick={() => {}}
+                    title="এসেসমেন্ট"
+                    icon={<QuizIcon />}
+                  />
+                </Stack>
+              </Stack>
             </AccordionDetails>
           </>
         </Accordion>
