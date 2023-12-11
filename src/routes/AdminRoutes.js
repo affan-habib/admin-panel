@@ -24,9 +24,9 @@ const EditAdminUser = Loadable(lazy(() => import('core/createUser/EditAdminUser'
 const AdminRoutes = {
   path: '/',
   element: (
-    <>
+    <PrivateRoute>
       <DashboardLayout />
-    </>
+    </PrivateRoute>
   ),
   children: [
     { 

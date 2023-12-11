@@ -144,11 +144,12 @@ const CreateCourse: React.FC = () => {
                   rightButton={
                     <ButtonGroup>
                       <Button
+                        sx={{ width: 90 }}
                         variant={selectedStep === 1 ? 'contained' : 'outlined'}
                         color="primary"
                         onClick={() => setSelectedStep(1)}
                       >
-                        Bangla
+                        বাংলা
                       </Button>
                       <Button
                         variant={selectedStep === 2 ? 'contained' : 'outlined'}
