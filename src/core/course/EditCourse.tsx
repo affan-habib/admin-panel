@@ -31,7 +31,9 @@ const EditCourse: React.FC = () => {
   const validationSchema = Yup.object({
     code: Yup.string().required('Course code is required'),
     name_bn: Yup.string().required('Bangla course name is required'),
-    short_desc_bn: Yup.string().required('Bangla short description is required'),
+    short_desc_bn: Yup.string().required(
+      'Bangla short description is required',
+    ),
   });
   const handleSubmit = async (values: any) => {
     console.log(values);
@@ -70,34 +72,50 @@ const EditCourse: React.FC = () => {
       >
         {({ isSubmitting, isValid }) => (
           <Form>
-            <Grid container spacing={3} sx={{ border: '1px dashed grey', pr: 2, pb: 2, mt: 2, borderRadius: 2 }}>
+            <Grid
+              container
+              spacing={3}
+              sx={{
+                border: '1px dashed grey',
+                pr: 2,
+                pb: 2,
+                mt: 2,
+                borderRadius: 2,
+              }}
+            >
               <Grid item xs={12}>
                 <Breadcrumbs aria-label="breadcrumb">
                   <Link color="inherit" href="/dashboard">
-                  {t('adminPanel')}
+                    {t('adminPanel')}
                   </Link>
                   <Typography color="textPrimary">
-                  {t('updateCourse')}
+                    {t('updateCourse')}
                   </Typography>
                 </Breadcrumbs>
               </Grid>
               <Grid item md={6}>
-                <MainCard title={t('createCourse')} rightButton={<ButtonGroup>
-                  <Button
-                    variant={selectedStep === 1 ? 'contained' : 'outlined'}
-                    color="primary"
-                    onClick={() => setSelectedStep(1)}
-                  >
-                    Bangla
-                  </Button>
-                  <Button
-                    variant={selectedStep === 2 ? 'contained' : 'outlined'}
-                    color="primary"
-                    onClick={() => setSelectedStep(2)}
-                  >
-                    English
-                  </Button>
-                </ButtonGroup>}>
+                <MainCard
+                  title={t('createCourse')}
+                  rightButton={
+                    <ButtonGroup>
+                      <Button
+                        sx={{ width: 90 }}
+                        variant={selectedStep === 1 ? 'contained' : 'outlined'}
+                        color="primary"
+                        onClick={() => setSelectedStep(1)}
+                      >
+                        বাংলা
+                      </Button>
+                      <Button
+                        variant={selectedStep === 2 ? 'contained' : 'outlined'}
+                        color="primary"
+                        onClick={() => setSelectedStep(2)}
+                      >
+                        English
+                      </Button>
+                    </ButtonGroup>
+                  }
+                >
                   {selectedStep === 1 && <StepOne />}
                   {selectedStep === 2 && <StepTwo />}
                 </MainCard>
