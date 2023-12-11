@@ -93,5 +93,11 @@
   "supDocLimit": "5 MB এর কম",
   "updateCourse": "পাঠ্যক্রম আপডেট করুন",
   "update": " আপডেট করুন",
-  "profileImageLimit": "সর্বাধিক আকার 100KB"
+  "profileImageLimit": "সর্বাধিক আকার 100KB",
+  "vdo": "ভিডিও",
+  "assigmnment": "অ্যাসাইনমেন্ট",
+  "vdoWithQuiz": "ভিডিও উইথ কুইজ",
+  "assesment": "এসেসমেন্ট",
+  "selectTopic": "আপনার বিষয়ের ধরন নির্বাচন করুন",
+  "addChapter": "অধ্যায় যোগ করুন"
 }

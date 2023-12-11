@@ -24,8 +24,10 @@ import CustomButton from './CustomButton';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QuizIcon from '@mui/icons-material/Quiz';
+import { useTranslation } from 'react-i18next';
 const Chapters: React.FC<any> = ({ modules }) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
   const { openModal } = useDeleteModal();
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -126,29 +128,29 @@ const Chapters: React.FC<any> = ({ modules }) => {
                   </div>
                 ))}
               <Stack width="100%" alignItems="center">
-                <Typography mt={2}>আপনার বিষয়ের ধরন নির্বাচন করুন</Typography>
+                <Typography mt={2}>{t('selectTopic')}</Typography>
                 <Stack direction="row" spacing={2} mt={2}>
                   <CustomButton
                     onClick={() => handleDialogOpen(chapter.id)}
-                    title="ভিডিও"
+                    title={t('vdo')}
                     icon={<PlayCircleFilledIcon />}
                   />
                   <CustomButton
                     onClick={() => {}}
-                    title="অ্যাসাইনমেন্ট"
+                    title={t('assigmnment')}
                     disabled={true}
                     icon={<AssignmentIcon />}
                   />
                   <CustomButton
                     onClick={() => {}}
-                    title="ভিডিও উইথ কুইজ"
+                    title={t('vdoWithQuiz')}
                     disabled={true}
                     icon={<AssignmentIcon />}
                   />
                   <CustomButton
                     disabled={true}
                     onClick={() => {}}
-                    title="এসেসমেন্ট"
+                    title={t('assesment')}
                     icon={<QuizIcon />}
                   />
                 </Stack>
