@@ -142,9 +142,9 @@ const CreateCourse: React.FC = () => {
                 <MainCard
                   title={t('createCourse')}
                   rightButton={
-                    <ButtonGroup>
+                    <ButtonGroup sx={{ borderRadius: 0 }}>
                       <Button
-                        sx={{ width: 90 }}
+                        sx={{ width: 90, borderRadius: 0, borderColor: '#D0D0D0' }}
                         variant={selectedStep === 1 ? 'contained' : 'outlined'}
                         color="primary"
                         onClick={() => setSelectedStep(1)}
@@ -152,6 +152,11 @@ const CreateCourse: React.FC = () => {
                         বাংলা
                       </Button>
                       <Button
+                        sx={{
+                          width: 90,
+                          borderRadius: 0,
+                          borderTopRightRadius: '8px',
+                        }}
                         variant={selectedStep === 2 ? 'contained' : 'outlined'}
                         color="primary"
                         onClick={() => setSelectedStep(2)}
