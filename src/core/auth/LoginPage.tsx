@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Grid,
@@ -7,40 +7,27 @@ import {
   Box,
   CssBaseline,
 } from '@mui/material';
-
+import logo from 'assets/logo.svg';
 import FooterContainer from 'views/auth/FooterContainer';
 import LoginFooter from 'views/auth/LoginFooter';
 import { useTranslation } from 'react-i18next';
 import LoginForm from 'views/auth/LoginForm';
-import RegistrationForm from 'views/auth/RegistrationForm';
 import CarouselComponent from 'views/auth/CarouselComponent';
-
 import LanguageSelect from 'components/common/LanguageSelect';
-import logo from 'assets/logo.svg';
 
 const LoginPage: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const [selectedButton, setSelectedButton] = useState('login');
-  const [loginPageTitle, setLoginPageTitle] = useState('');
+  const { t } = useTranslation();
+  const [loginPageTitle, setLoginPageTitle] = useState(
+    'learningManagementSystem',
+  );
 
-  const handleButtonClick = (buttonType: string) => {
-    setSelectedButton(buttonType);
-  };
   const handleCardClick = (value: string) => {
-    // Do something with the value received from LoginFooter cards
-    console.log(`Value received from LoginFooter card: ${value}`, i18n.language);
-    if(i18n.language == 'en') {
-      setLoginPageTitle(`Welcome to ${value}`)
-    }
-    if(i18n.language == 'bn') {
-      setLoginPageTitle(`CLMS - ${value} এ স্বাগতম`)
-    }
+    setLoginPageTitle(value);
   };
   return (
     <div style={{ backgroundColor: 'rgba(245, 245, 247, 1)' }}>
       <CssBaseline />
-
-      <Container maxWidth="lg" sx={{ pt: 6, minHeight:'100vh' }}>
+      <Container maxWidth="lg" sx={{ pt: 6, minHeight: '100vh' }}>
         <Grid container spacing={2}>
           <Grid
             item
@@ -60,25 +47,18 @@ const LoginPage: React.FC = () => {
           <Grid item xs={12} sm={4} display="flex" direction="column">
             <Paper style={{ padding: 20, minHeight: 330 }}>
               <Typography variant="h6" color="primary.main" mb={2}>
-               {!loginPageTitle ? t('CLMS') : loginPageTitle} 
+                {t(`${loginPageTitle}LoginTitle`)}
               </Typography>
-
               <Box>
-                {selectedButton === 'login' ? (
-                  <LoginForm />
-                ) : (
-                  <RegistrationForm />
-                )}
+                <LoginForm />
               </Box>
             </Paper>
           </Grid>
-
           <Grid item xs={12} sx={{ mt: 2 }}>
-            <FooterContainer onCardClick={handleCardClick}/>
+            <FooterContainer onCardClick={handleCardClick} />
           </Grid>
-
           <Grid item xs={12}>
-            <LoginFooter/>
+            <LoginFooter />
           </Grid>
         </Grid>
       </Container>
