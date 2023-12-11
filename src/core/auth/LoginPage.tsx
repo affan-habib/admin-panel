@@ -55,7 +55,10 @@ const LoginPage: React.FC = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} sx={{ mt: 2 }}>
-            <FooterContainer onCardClick={handleCardClick} />
+            <FooterContainer
+              onCardClick={handleCardClick}
+              loginPageTitle={loginPageTitle}
+            />
           </Grid>
           <Grid item xs={12}>
             <LoginFooter />

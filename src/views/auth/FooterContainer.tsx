@@ -5,9 +5,13 @@ import image3 from '../../assets/teachersGuide.svg';
 import { useTranslation } from 'react-i18next';
 
 interface LoginFooterProps {
+  loginPageTitle: string;
   onCardClick: (value: string) => void;
 }
-const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
+const FooterContainer: React.FC<LoginFooterProps> = ({
+  onCardClick,
+  loginPageTitle,
+}) => {
   const { t } = useTranslation();
   const handleCardClick = (value: string) => {
     onCardClick(value);
@@ -53,7 +57,13 @@ const FooterContainer: React.FC<LoginFooterProps> = ({ onCardClick }) => {
     <Grid container spacing={{ xs: 3, md: 8 }} mt="20px">
       {cardData.map((card, index) => (
         <Grid item key={index} xs={12} md={2.4} sm={6}>
-          <Card sx={cardStyle} onClick={() => handleCardClick(card.title)}>
+          <Card
+            sx={cardStyle}
+            onClick={() => handleCardClick(card.title)}
+            style={{
+              background: loginPageTitle == card.title ? '#e0f7fa' : 'inherit',
+            }}
+          >
             <CardMedia
               component="img"
               alt={card.title}
