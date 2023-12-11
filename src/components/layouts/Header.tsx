@@ -66,7 +66,11 @@ const Header: React.FC<HeaderProps> = ({
   };
   const navigate = useNavigate();
   return (
-    <AppBar position="fixed" open={open} sx={{ bgcolor: 'rgba(151, 71, 255, 1)' }}>
+    <AppBar
+      position="fixed"
+      open={open}
+      sx={{ bgcolor: 'rgb(0, 106, 65,0.8)' }}
+    >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButton
@@ -93,15 +97,14 @@ const Header: React.FC<HeaderProps> = ({
           >
             {t('welcomeToLms')}
           </Typography>
-
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           {/* Notification Icon */}
-          <Box  sx={{marginRight:'18px'}}>
-            <DashboardCustomizeOutlinedIcon sx={{ fontSize: 24 }}/>
+          <Box sx={{ marginRight: '18px' }}>
+            <DashboardCustomizeOutlinedIcon sx={{ fontSize: 24 }} />
           </Box>
-          
+
           <Box mr={2}>
             <LanguageSelect />
           </Box>
@@ -110,9 +113,9 @@ const Header: React.FC<HeaderProps> = ({
             alt="Notification Icon"
             style={{ height: 25, width: 25, marginRight: 20 }}
           /> */}
-            <Box >
-              <NotificationsActiveOutlinedIcon sx={{ fontSize: 25 }} />
-            </Box>
+          <Box>
+            <NotificationsActiveOutlinedIcon sx={{ fontSize: 25 }} />
+          </Box>
           {/* Avatar and ExpandMore Icon */}
           <IconButton
             color="primary"
