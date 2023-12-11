@@ -33,8 +33,8 @@ const CourseList: React.FC = () => {
   const search = useDebounce(searchTerm, 500);
   const queryClient = useQueryClient();
   const { openModal } = useDeleteModal();
-  const {t} = useTranslation();
-
+  const { t } = useTranslation();
+  const language = localStorage.getItem('language');
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
     page: currentPage + 1, // Adjusted to use 1-based index for the API
@@ -68,7 +68,7 @@ const CourseList: React.FC = () => {
   const columns = [
     { Header: t('id'), accessor: 'id' },
     { Header: t('code'), accessor: 'code' },
-    { Header: t('name'), accessor: 'name_bn' },
+    { Header: t('name'), accessor: `name_bn_${language}` },
     // { Header: 'Short Description', accessor: 'short_desc_bn' },
     { Header: t('numberOfModule'), accessor: 'course_modules_count' },
     {
@@ -80,7 +80,7 @@ const CourseList: React.FC = () => {
             disabled
             aria-label="view"
             size="small"
-            style={{
+            style={{ 
               backgroundColor: '#FAFAFA',
               borderRadius: '4px',
               border: '1px solid #D0D0D0',
@@ -140,7 +140,7 @@ const CourseList: React.FC = () => {
             variant="outlined"
             size="small"
             sx={{ width: 450 }}
-            placeholder= {t('searchList')}
+            placeholder={t('searchList')}
             InputProps={{
               startAdornment: (
                 <IconButton>
