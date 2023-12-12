@@ -99,5 +99,10 @@
   "message":"Do you want to delete it permanently?",
   "confirmation":"The item will be permanently deleted and you will not be able to retrieve it.",
   "cancel":"Cancel",
-  "remove":"Delete"
+  "remove":"Delete",
+  "fullName":"Full name of the user:",
+  "username":"User name:",
+  "emailAddress":"Email address:",
+  "mobileNumber":"Mobile number:",
+  "roleName":"Role name:"
 }
