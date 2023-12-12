@@ -34,19 +34,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const { showSnackbar } = useSnackbar();
   const { openModal } = useDeleteModal();
   const [isDialogOpen, setDialogOpen] = useState(false);
-
-  const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
-  // const [inputValues, setInputValues] = useState<string[]>([]);
-
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
   const [moduleId, setModuleId] = useState();
 
-  const handleDialogOpen = (module_id: any) => {
-    setModuleId(module_id);
-    setDialogOpen(true);
-  };
+  //assesment modal state
+  const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
 
+  //assesment modal handling function
   const handleAssesmentDialogOpen = (module_id: any) => {
     setModuleId(module_id);
     setAssesmentDialogOpen(true);
@@ -55,6 +50,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssesmentDialogOpen(false)
   }
 
+  const handleDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setDialogOpen(true);
+  };
+  
   const handleDialogClose = () => setDialogOpen(false);
 
   const handleEditDialogOpen = (video: any) => {

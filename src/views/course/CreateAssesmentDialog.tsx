@@ -14,6 +14,7 @@ import InputField from 'components/form/InputField';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { useSnackbar } from 'context/SnackbarContext';
+import { useTranslation } from 'react-i18next';
 
 interface CreateAssesmentDialogProps {
   open: boolean;
@@ -27,50 +28,16 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   onClose,
 }) => {
   const { id } = useParams();
+  const {t} = useTranslation()
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
+  const res = 'Congrats, you are console logging form data';
 
   const handleSubmit = (values : any) =>{
     console.log('Form values:', values);
+    onClose();
+    showSnackbar(res,'success');
   }
-
-  // const handleSubmit = async (
-  //   values: any,
-  //   { setSubmitting }: FormikHelpers<any>,
-  // ) => {
-  //   try {
-  //     const formData = new FormData();
-
-  //     Object.keys(values).forEach((key) => {
-  //       formData.append(key, values[key]);
-  //     });
-
-  //     const response = await axios.post(
-  //       `${apiBaseUrl}/course/material/create`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           'Content-Type': 'multipart/form-data',
-  //         },
-  //       },
-  //     );
-  //     showSnackbar(response.data.message, 'success');
-
-  //     console.log('API Response:', response.data);
-
-  //     // Invalidate the query coursedetails using React Query
-  //     queryClient.invalidateQueries('courseDetails');
-
-  //     // Close the dialog after successful submission
-  //     onClose();
-  //   } catch (error: any) {
-  //     console.error('Error submitting form:', error);
-  //     showSnackbar(error.response.data.message, 'error');
-  //   } finally {
-  //     // Ensure to set submitting to false even if an error occurs
-  //     setSubmitting(false);
-  //   }
-  // };
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -82,7 +49,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          এসেসমেন্ট যোগ করুন (কারবালা প্রান্তর)
+          {t('addAssesment')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <Close />
@@ -106,22 +73,22 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
           <Form>
             <InputField
               name="assesmentTitle"
-              label="এসেসমেন্টের নাম"
-              placeholder="এসেসমেন্ট ১"
+              label={t("assesmentName")}
+              placeholder={t("assesmentNo")}
             />
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <InputField
                   name="mark"
-                  label="মার্ক ইনপুট দিন"
-                  placeholder="১"
+                  label={t("markInput")}
+                  placeholder={t('placeHolderNumber')}
                 />
               </Grid>
               <Grid item xs={6}>
                 <InputField
                   name="passMark"
-                  label="পাস মার্ক ইনপুট দিন"
-                  placeholder="১"
+                  label={t("passmarkInput")}
+                  placeholder={t('placeHolderNumber')}
                 />
               </Grid>
             </Grid>
@@ -130,15 +97,15 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               <Grid item xs={6}>
                 <InputField
                   name="negativeMark"
-                  label="নেগেটিভ মার্ক ইনপুট দিন"
-                  placeholder="১"
+                  label={t('negativeMarkInput')}
+                  placeholder={t('placeHolderNumber')}
                 />
               </Grid>
               <Grid item xs={6}>
                 <InputField
                   name="time"
-                  label="সময় ইনপুট দিন"
-                  placeholder="১"
+                  label={t('enterTime')}
+                  placeholder={t('placeHolderNumber')}
                 />
               </Grid>
             </Grid>
