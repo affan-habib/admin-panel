@@ -48,14 +48,14 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
           </InputLabel>
         </div>
       )}
-      <Box p={5} border={1} borderColor="#ccc" borderRadius={2} mb={2}>
+      <Box p={4} border={1} borderColor="#ccc" borderRadius={2} mb={2}>
         <Box
           {...getRootProps()}
           sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 120,
+            height: 150,
             border: '2px dashed #ccc',
             backgroundColor: '#f5f5f7',
             '&:hover': {
