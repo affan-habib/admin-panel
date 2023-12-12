@@ -5,7 +5,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
-import { InputLabel } from '@mui/material';
+import { IconButton, InputLabel, Stack } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
 interface VideoUploadBoxProps {
   name: string;
@@ -48,7 +49,7 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
           </InputLabel>
         </div>
       )}
-      <Box p={4} border={1} borderColor="#ccc" borderRadius={2} mb={2}>
+      <Box p={3} border={1} borderColor="#ccc" borderRadius={2} mb={2}>
         <Box
           {...getRootProps()}
           sx={{
@@ -72,13 +73,18 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
                 width: '100%',
               }}
             >
-              <Typography variant="subtitle1">
-                <strong>{field.value.name}</strong> -{' '}
-                {Math.round(field.value.size / 1024)} KB
-              </Typography>
-              <Button type="button" onClick={removeFile} variant="outlined">
-                Remove
-              </Button>
+              <div>
+                <Typography variant="subtitle1">
+                  <strong>{field.value.name}</strong> -{' '}
+                  <IconButton onClick={removeFile}>
+                    <Delete />
+                  </IconButton>
+                </Typography>
+                <Typography sx={{ float: 'left' }}>
+                  {' '}
+                  {Math.round(field.value.size / 1024)} KB
+                </Typography>
+              </div>
             </Box>
           ) : typeof field.value != 'string' ? (
             <Box
@@ -87,15 +93,21 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
                 cursor: 'pointer',
               }}
             >
-              <OndemandVideoIcon sx={{ width: 50, height: 50 }} />
-              <Typography
-                variant="body1"
-                color="#1976D2"
-                sx={{ color: '#1976D2', cursor: 'pointer' }}
-              >
-                Click to upload
-              </Typography>
-              <Typography variant="body1">or drag and drop</Typography>
+              <IconButton sx={{ bgcolor: '#DEEEC6', mb: 2 }}>
+                <OndemandVideoIcon
+                  sx={{ width: 30, height: 30 }}
+                  color="primary"
+                />
+              </IconButton>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Typography
+                  // variant="text"
+                  sx={{ color: '#1976D2', cursor: 'pointer' }}
+                >
+                  Click to upload
+                </Typography>
+                <Typography variant="body1"> or drag and drop</Typography>
+              </Stack>
             </Box>
           ) : (
             <Box
