@@ -6,35 +6,30 @@ import {
   DialogActions,
   Button,
 } from '@mui/material';
-
+import { useTranslation } from 'react-i18next';
 interface WarningModalProps {
   open: boolean;
   handleClose: () => void;
   onConfirm: () => void;
 }
 
+
 const WarningModal: React.FC<WarningModalProps> = ({
   open,
   handleClose,
   onConfirm,
 }) => {
+  const { t } = useTranslation();
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Warning</DialogTitle>
+      <DialogTitle>{t('message')}</DialogTitle>
       <DialogContent>
-        Are you sure you want to delete this user?
+        {t('confirmation')}
       </DialogContent>
       <DialogActions>
-        <Button 
-          onClick={handleClose} 
-          style={{ backgroundColor: 'red', color: 'white' }}
-        >
-          Cancel
-        </Button>
-        <Button onClick={onConfirm} style={{ backgroundColor: 'green', color: 'white' }} >
-          Yes
-        </Button>
-      </DialogActions>
+                    <Button variant='contained' onClick={onConfirm}>{t('remove')}</Button>
+                    <Button onClick={handleClose} variant='outlined' color='error' sx={{ ml: 2 }}>{t('cancel')}</Button>
+                </DialogActions>
     </Dialog>
   );
 };

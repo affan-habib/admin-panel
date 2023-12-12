@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Button, Dialog, DialogTitle, DialogActions } from '@mui/material';
 
+import { useTranslation } from 'react-i18next';
 interface DeleteModalContextProps {
     children: ReactNode;
 }
@@ -31,17 +32,17 @@ export const DeleteModalProvider: React.FC<DeleteModalContextProps> = ({ childre
         callback();
         closeModal();
     };
-
+    const { t } = useTranslation();
     return (
         <DeleteModalContext.Provider value={{ isOpen, openModal, closeModal }}>
             {children}
 
             <Dialog open={isOpen} onClose={closeModal}>
-                <DialogTitle>আপনি কি এটি স্থায়ীভাবে মুছে ফেলতে চান?</DialogTitle>
-                <span style={{ marginRight: ' 20px', marginLeft: '20px' }}>আইটেমটি স্থায়ী ভাবে মুছে যাবে এবং আপনি এগুলি আর ফিরিয়ে আনতে পারবেন না|</span>
+                <DialogTitle>{t('message')}</DialogTitle>
+                <span style={{ marginRight: ' 20px', marginLeft: '20px' }}>{t('confirmation')}</span>
                 <DialogActions>
-                    <Button variant='contained' onClick={handleConfirm}>স্থায়ীভাবে মুছুন</Button>
-                    <Button onClick={closeModal} variant='outlined' color='error' sx={{ ml: 2 }}>বাতিল করুন</Button>
+                    <Button variant='contained' onClick={handleConfirm}>{t('remove')}</Button>
+                    <Button onClick={closeModal} variant='outlined' color='error' sx={{ ml: 2 }}>{t('cancel')}</Button>
                 </DialogActions>
             </Dialog>
         </DeleteModalContext.Provider>
