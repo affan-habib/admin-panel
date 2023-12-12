@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -7,13 +7,16 @@ import axios from 'axios'; // Import Axios
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
+import { Add } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
-interface ModuleActionsProps {
-  module: any;
-}
-
-const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
+const ModuleActions: React.FC<any> = ({
+  module,
+  setVisibleAddTopicId,
+  visibleAddTopicId,
+}) => {
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
 
@@ -49,6 +52,15 @@ const ModuleActions: React.FC<ModuleActionsProps> = ({ module }) => {
   return (
     <>
       <Box ml="auto">
+        <Button
+          endIcon={<Add />}
+          variant="contained"
+          sx={{ mr: 2, alignSelf: 'center' }}
+          size="small"
+          onClick={() => setVisibleAddTopicId(module.id)}
+        >
+          {t('addTopic')}
+        </Button>
         <IconButton
           aria-label="Edit"
           size="small"

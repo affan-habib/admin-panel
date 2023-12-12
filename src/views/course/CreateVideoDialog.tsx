@@ -109,7 +109,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             />
             <VideoUploadBox name="url" label="ভিডিও আপলোড করুন" />
             <RichTextInput label="ভিডিওর প্রতিলিপি" name="transcript" />
-            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+            <Button type="submit" variant="contained" sx={{ float: 'right' }}>
               Submit
             </Button>
           </Form>
