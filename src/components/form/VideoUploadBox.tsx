@@ -30,23 +30,23 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  const isFileObject = field.value instanceof File;
+
   return (
     <>
       {label && (
-        <React.Fragment>
-          <div>
-            <InputLabel
-              sx={{
-                minWidth: 200,
-                color: 'black',
-                my: 1,
-                fontWeight: 500,
-              }}
-            >
-              {label}
-            </InputLabel>
-          </div>
-        </React.Fragment>
+        <div>
+          <InputLabel
+            sx={{
+              minWidth: 200,
+              color: 'black',
+              my: 1,
+              fontWeight: 500,
+            }}
+          >
+            {label}
+          </InputLabel>
+        </div>
       )}
       <Box p={5} border={1} borderColor="#ccc" borderRadius={2} mb={2}>
         <Box
@@ -55,7 +55,7 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 200,
+            height: 120,
             border: '2px dashed #ccc',
             backgroundColor: '#f5f5f7',
             '&:hover': {
@@ -63,7 +63,7 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
             },
           }}
         >
-          {field.value ? (
+          {isFileObject ? (
             <Box
               sx={{
                 display: 'flex',
@@ -80,7 +80,7 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
                 Remove
               </Button>
             </Box>
-          ) : (
+          ) : typeof field.value != 'string' ? (
             <Box
               sx={{
                 textAlign: 'center',
@@ -96,6 +96,20 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
                 Click to upload
               </Typography>
               <Typography variant="body1">or drag and drop</Typography>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
+            >
+              <Typography variant="subtitle1">
+                <strong>{field.value}</strong> -{' '}
+              </Typography>
+              <Button type="button" variant="outlined">
+                Replace
+              </Button>
             </Box>
           )}
           {meta.touched && meta.error && (
