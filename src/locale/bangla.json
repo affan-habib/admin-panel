@@ -55,6 +55,15 @@
     "name":"নাম",
     "numberOfModule":"মডিউল নাম্বার",
     "action":"অ্যাকশন",
-    "userCreation":"ক্রিয়েট ইউজার"
+    "userCreation":"ক্রিয়েট ইউজার",
+    "addAssesment":"এসেসমেন্ট যোগ করুন",
+    "assesmentName":"এসেসমেন্টের নাম",
+    "assesmentNo":"এসেসমেন্ট ১",
+    "markInput":"মার্ক ইনপুট দিন",
+    "passmarkInput":"পাস মার্ক ইনপুট দিন",
+    "negativeMarkInput":"নেগেটিভ মার্ক ইনপুট দিন",
+    "enterTime":"সময় ইনপুট দিন",
+    "placeHolderNumber":"১"
+
 }
 

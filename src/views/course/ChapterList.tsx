@@ -30,7 +30,10 @@ import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
+import CreateAssesmentDialog from './CreateAssesmentDialog';
+
 const Chapters: React.FC<any> = ({ modules }) => {
+  console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -40,6 +43,18 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
   const [visibleAddTopicId, setVisibleAddTopicId] = useState<any>('');
   const [moduleId, setModuleId] = useState();
+
+  //assesment modal state
+  const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
+
+  //assesment modal handling function
+  const handleAssesmentDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setAssesmentDialogOpen(true);
+  };
+  const handleAssesmentDialogClose = () => {
+    setAssesmentDialogOpen(false)
+  }
 
   const handleDialogOpen = (module_id: any) => {
     setModuleId(module_id);
@@ -147,20 +162,19 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<PlayCircleFilledIcon />}
                     />
                     <CustomButton
-                      onClick={() => {}}
+                      onClick={() => { }}
                       title={t('assigmnment')}
                       disabled={true}
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => {}}
+                      onClick={() => { }}
                       title={t('vdoWithQuiz')}
                       disabled={true}
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      disabled={true}
-                      onClick={() => {}}
+                      onClick={() => handleAssesmentDialogOpen(chapter.id)}
                       title={t('assesment')}
                       icon={<QuizIcon />}
                     />
@@ -179,13 +193,20 @@ const Chapters: React.FC<any> = ({ modules }) => {
         moduleId={moduleId}
       />
 
+      {/* Create assesment dialog */}
+      <CreateAssesmentDialog
+        open={isAssesmentDialogOpen}
+        onClose={handleAssesmentDialogClose}
+        moduleId={moduleId}
+      />
+
       {/* Edit Video Dialog */}
       {selectedVideo && (
         <EditVideoDialog
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-          // onEdit={handleVideoEdit}
+        // onEdit={handleVideoEdit}
         />
       )}
     </>
