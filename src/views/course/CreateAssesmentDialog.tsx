@@ -7,6 +7,8 @@ import {
   Typography,
   Button,
   Grid,
+  Box,
+  Stack,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
@@ -15,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useTranslation } from 'react-i18next';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 interface CreateAssesmentDialogProps {
   open: boolean;
@@ -28,15 +31,15 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   onClose,
 }) => {
   const { id } = useParams();
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
   const res = 'Congrats, you are console logging form data';
 
-  const handleSubmit = (values : any) =>{
+  const handleSubmit = (values: any) => {
     console.log('Form values:', values);
     onClose();
-    showSnackbar(res,'success');
+    showSnackbar(res, 'success');
   }
 
   return (
@@ -52,7 +55,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
           {t('addAssesment')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
-          <Close />
+          <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ width: 600 }}>
@@ -60,10 +63,10 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
           initialValues={{
             assesmentTitle: '',
             course_id: id,
-            mark:'',
-            passMark:'',
-            negativeMark:'',
-            time:'',
+            mark: '',
+            passMark: '',
+            negativeMark: '',
+            time: '',
             course_module_id: moduleId,
             url: null,
             status: 1,
@@ -93,7 +96,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
             </Grid>
 
-            <Grid container spacing={2}>
+            <Grid container spacing={2} marginBottom={2}>
               <Grid item xs={6}>
                 <InputField
                   name="negativeMark"
@@ -110,9 +113,15 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
             </Grid>
 
-            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-              Submit
-            </Button>
+            <Stack direction="column" alignItems="center" justifyContent="center">
+              <Box borderBottom="1px solid rgba(208, 208, 208, 1)" width="100%" sx={{ my: 2 }} />
+            </Stack>
+
+            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+              <Button type="submit" variant="contained" sx={{ mt: 1 }}>
+                {t('submit')}
+              </Button>
+            </Box>
           </Form>
         </Formik>
       </DialogContent>
