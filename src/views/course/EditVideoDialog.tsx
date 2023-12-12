@@ -16,6 +16,7 @@ import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
 import { useSnackbar } from 'context/SnackbarContext';
+import VideoUploadBox from 'components/form/VideoUploadBox';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -94,8 +95,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
               label="ভিডিওর নাম"
               placeholder="ভিডিওর নাম লিখুন"
             />
-            <InputFile name="url" label="ভিডিও আপলোড করুন" />
-
+            <VideoUploadBox name="url" label="ভিডিও আপলোড করুন" />
             <RichTextInput label="ভিডিওর প্রতিলিপি" name="transcript" />
             <Button type="submit">Submit</Button>
           </Form>

@@ -10,12 +10,14 @@ type RichTextInputProps = FieldHookConfig<string> & {
   label?: string;
   modules?: Record<string, any>;
   formats?: string[];
+  height?: string;
 };
 
 const RichTextInput: React.FC<RichTextInputProps> = ({
   label,
   modules,
   formats,
+  height,
   ...props
 }) => {
   const [field, meta, helpers] = useField(props);
@@ -50,7 +52,11 @@ const RichTextInput: React.FC<RichTextInputProps> = ({
         modules={modules}
         formats={formats}
         theme="snow"
-        style={{ backgroundColor: 'white', width: '100%', height: '280px' }}
+        style={{
+          backgroundColor: 'white',
+          width: '100%',
+          height: height || 100,
+        }}
       />
 
       {meta.touched && meta.error && (
