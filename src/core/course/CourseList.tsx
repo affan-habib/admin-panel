@@ -64,7 +64,7 @@ const CourseList: React.FC = () => {
       console.error('Error:', error);
     }
   };
-
+  console.log(courses?.data);
   const columns = [
     { Header: '#', accessor: (row: any, index: any) => index + 1 },
     { Header: t('code'), accessor: 'code' },
@@ -176,11 +176,11 @@ const CourseList: React.FC = () => {
           </IconButton>
         </div>
       </Stack>
-      {courses?.data?.data && (
+      {courses?.data && (
         <ReactTable
           columns={columns}
-          data={courses?.data?.data}
-          totalCount={courses?.data?.total || 0}
+          data={courses?.data}
+          totalCount={courses?.data?.total}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={handlePageChange}

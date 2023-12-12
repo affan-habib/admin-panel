@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
 import { useSnackbar } from 'context/SnackbarContext';
+import VideoUploadBox from 'components/form/VideoUploadBox';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -53,18 +54,18 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
           },
         },
       );
-      showSnackbar(response.data.message , 'success');
-      
+      showSnackbar(response.data.message, 'success');
+
       console.log('API Response:', response.data);
-      
+
       // Invalidate the query coursedetails using React Query
       queryClient.invalidateQueries('courseDetails');
-      
+
       // Close the dialog after successful submission
       onClose();
-    } catch (error : any) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
-      showSnackbar(error.response.data.message , 'error');
+      showSnackbar(error.response.data.message, 'error');
     } finally {
       // Ensure to set submitting to false even if an error occurs
       setSubmitting(false);
@@ -106,8 +107,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
               label="ভিডিওর নাম"
               placeholder="ভিডিওর নাম লিখুন"
             />
-            <InputFile name="url" label="ভিডিও আপলোড করুন" />
-
+            <VideoUploadBox name="url" label="ভিডিও আপলোড করুন" />
             <RichTextInput label="ভিডিওর প্রতিলিপি" name="transcript" />
             <Button type="submit" variant="contained" sx={{ mt: 2 }}>
               Submit

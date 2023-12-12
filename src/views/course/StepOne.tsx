@@ -17,7 +17,7 @@ const StepOne: React.FC = () => {
         label="পাঠ্যক্রমের সংক্ষেপ বিবরণ"
         placeholder="সংক্ষেপ বিবরণ লিখুন"
       />
-      <RichTextInput label="পাঠ্যক্রমের বিস্তারিত বিবরণ" name="long_desc_bn" />
+      <RichTextInput label="পাঠ্যক্রমের বিস্তারিত বিবরণ" name="long_desc_bn" height='280px'/>
     </>
   );
 };
