@@ -9,7 +9,7 @@ import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
-
+import RemoveIcon from '@mui/icons-material/Remove';
 const ModuleActions: React.FC<any> = ({
   module,
   setVisibleAddTopicId,
@@ -52,15 +52,28 @@ const ModuleActions: React.FC<any> = ({
   return (
     <>
       <Box ml="auto">
-        <Button
-          endIcon={<Add />}
-          variant="contained"
-          sx={{ mr: 2, alignSelf: 'center' }}
-          size="small"
-          onClick={() => setVisibleAddTopicId(module.id)}
-        >
-          {t('addTopic')}
-        </Button>
+        {visibleAddTopicId != module.id ? (
+          <Button
+            endIcon={<Add />}
+            variant="contained"
+            sx={{ mr: 2, alignSelf: 'center' }}
+            size="small"
+            onClick={() => setVisibleAddTopicId(module.id)}
+          >
+            {t('addTopic')}
+          </Button>
+        ) : (
+          <Button
+            endIcon={<RemoveIcon />}
+            variant="contained"
+            sx={{ mr: 2, alignSelf: 'center' }}
+            size="small"
+            onClick={() => setVisibleAddTopicId(null)}
+          >
+            {t('addTopic')}
+          </Button>
+        )}
+
         <IconButton
           aria-label="Edit"
           size="small"

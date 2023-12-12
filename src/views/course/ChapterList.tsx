@@ -68,7 +68,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setEditDialogOpen(true);
   };
   const handleDeleteClick = (id: any) => {
-    fetch(`${apiBaseUrl}/course/material/delete/${id}?type=video`, {
+    fetch(`${apiBaseUrl}/course/video/delete/${id}?type=video`, {
       method: 'DELETE',
     })
       .then((response: any) => {

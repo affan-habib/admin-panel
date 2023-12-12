@@ -48,7 +48,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
       });
 
       const response = await axios.post(
-        `${apiBaseUrl}/course/material/update/${values.id}`,
+        `${apiBaseUrl}/course/video/update/${values.id}`,
         formData,
         {
           headers: {
