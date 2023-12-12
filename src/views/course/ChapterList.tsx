@@ -25,6 +25,7 @@ import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
+import CreateAssignmentDialog from './CreateAssignmentDialog';
 const Chapters: React.FC<any> = ({ modules }) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -70,6 +71,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
+  const [isAssignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
+  const handleAssignmentDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setAssignmentDialogOpen(true);
+  };
+  const handleAssignmentDialogClose = () =>{
+    setAssignmentDialogOpen(false)
+  }
   return (
     <>
       {modules?.map((chapter: any) => (
@@ -136,9 +145,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     icon={<PlayCircleFilledIcon />}
                   />
                   <CustomButton
-                    onClick={() => {}}
+                    onClick={() => {handleAssignmentDialogOpen(chapter.id)}}
                     title={t('assigmnment')}
-                    disabled={true}
+                    disabled={false}
                     icon={<AssignmentIcon />}
                   />
                   <CustomButton
@@ -176,6 +185,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
           // onEdit={handleVideoEdit}
         />
       )}
+
+        {/* Assignment Dialog */}
+        <CreateAssignmentDialog
+        open={isAssignmentDialogOpen}
+        onClose={handleAssignmentDialogClose}
+        moduleId={moduleId}
+        />
+
+        
+
     </>
   );
 };

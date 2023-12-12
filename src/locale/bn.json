@@ -109,5 +109,9 @@
   "vdoWithQuiz": "ভিডিও উইথ কুইজ",
   "assesment": "এসেসমেন্ট",
   "selectTopic": "আপনার বিষয়ের ধরন নির্বাচন করুন",
-  "addChapter": "অধ্যায় যোগ করুন"
+  "addChapter": "অধ্যায় যোগ করুন",
+  "userList":"ইউজার লিস্ট",
+  "addAssignment":"এসাইনমেন্ট যোগ করুন",
+  "assignmentname":"অ্যাসাইনমেন্টের নাম লিখুন"
+
 }
