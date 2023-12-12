@@ -25,12 +25,19 @@ import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
+import CreateAssesmentDialog from './CreateAssesmentDialog';
+
 const Chapters: React.FC<any> = ({ modules }) => {
+  console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
   const { openModal } = useDeleteModal();
   const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
+  // const [inputValues, setInputValues] = useState<string[]>([]);
+
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
   const [moduleId, setModuleId] = useState();
@@ -39,6 +46,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setModuleId(module_id);
     setDialogOpen(true);
   };
+
+  const handleAssesmentDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setAssesmentDialogOpen(true);
+  };
+  const handleAssesmentDialogClose = () =>{
+    setAssesmentDialogOpen(false)
+  }
 
   const handleDialogClose = () => setDialogOpen(false);
 
@@ -148,8 +163,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     icon={<AssignmentIcon />}
                   />
                   <CustomButton
-                    disabled={true}
-                    onClick={() => {}}
+                    onClick={() => handleAssesmentDialogOpen(chapter.id)}
                     title={t('assesment')}
                     icon={<QuizIcon />}
                   />
@@ -165,6 +179,13 @@ const Chapters: React.FC<any> = ({ modules }) => {
         open={isDialogOpen}
         onClose={handleDialogClose}
         moduleId={moduleId}
+      />
+
+    {/* Create assesment dialog */}
+      <CreateAssesmentDialog
+      open={isAssesmentDialogOpen}
+      onClose={handleAssesmentDialogClose}
+      moduleId={moduleId}
       />
 
       {/* Edit Video Dialog */}
