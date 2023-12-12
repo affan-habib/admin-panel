@@ -96,7 +96,7 @@ const EditCourse: React.FC = () => {
               }}
             >
 
-              <Grid item md={6}>
+              <Grid item md={8}>
                 <MainCard
                   title={t('createCourse')}
                   rightButton={
@@ -139,7 +139,7 @@ const EditCourse: React.FC = () => {
                   {selectedStep === 2 && <StepTwo />}
                 </MainCard>
               </Grid>
-              <Grid item md={6}>
+              <Grid item md={4}>
                 <StepThree />
               </Grid>
               <Grid
