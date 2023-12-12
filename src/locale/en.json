@@ -89,7 +89,7 @@
   "icon": "Icon",
   "supportingDoc": "Supporting Documents",
   "remarks": "Remarks",
-  "featureImgLimit": "Feature image: 300X500 and less than 200KB, File upload size",
+  "featureImgLimit": "Feature image: 500X300 and less than 200KB, File upload size",
   "iconLimit": "Icon image can be 300 X 300 and less than 100KB",
   "supDocLimit": "less than 5 MB",
   "updateCourse": "Update Course",
@@ -104,5 +104,11 @@
   "username":"User name:",
   "emailAddress":"Email address:",
   "mobileNumber":"Mobile number:",
-  "roleName":"Role name:"
+  "roleName":"Role name:",
+  "vdo": "Video",
+  "assigmnment": "Assigmnment",
+  "vdoWithQuiz": "Video with quiz",
+  "assesment": "Assesment",
+  "selectTopic": "Select Topic to add",
+  "addChapter": "Add Chapter"
 }
