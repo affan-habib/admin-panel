@@ -17,7 +17,12 @@ import VideoIcon from '@mui/icons-material/VideoLibrary';
 import ModuleActions from './ModuleActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
-import { DragHandle, OpenWith, PlayArrowOutlined } from '@mui/icons-material';
+import {
+  Add,
+  DragHandle,
+  OpenWith,
+  PlayArrowOutlined,
+} from '@mui/icons-material';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import { useSnackbar } from 'context/SnackbarContext';
 import CustomButton from './CustomButton';
@@ -33,6 +38,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [visibleAddTopicId, setVisibleAddTopicId] = useState<any>('');
   const [moduleId, setModuleId] = useState();
 
   const handleDialogOpen = (module_id: any) => {
@@ -83,7 +89,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
             sx={{
               height: 50,
               display: 'flex',
-              justifyContent: 'space-around',
+              // justifyContent: 'space-around',
               alignItems: 'center',
               backgroundColor: '#DEEEC6',
             }}
@@ -94,7 +100,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
             <Typography mt={1}>
               {chapter.module_code} : {chapter.module_name_bn}
             </Typography>
-            <ModuleActions module={chapter} />
+            <ModuleActions
+              module={chapter}
+              setVisibleAddTopicId={setVisibleAddTopicId}
+              visibleAddTopicId={visibleAddTopicId}
+            />
           </AccordionSummary>
           <>
             <AccordionDetails>
@@ -127,34 +137,36 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </IconButton>
                   </div>
                 ))}
-              <Stack width="100%" alignItems="center">
-                <Typography mt={2}>{t('selectTopic')}</Typography>
-                <Stack direction="row" spacing={2} mt={2}>
-                  <CustomButton
-                    onClick={() => handleDialogOpen(chapter.id)}
-                    title={t('vdo')}
-                    icon={<PlayCircleFilledIcon />}
-                  />
-                  <CustomButton
-                    onClick={() => {}}
-                    title={t('assigmnment')}
-                    disabled={true}
-                    icon={<AssignmentIcon />}
-                  />
-                  <CustomButton
-                    onClick={() => {}}
-                    title={t('vdoWithQuiz')}
-                    disabled={true}
-                    icon={<AssignmentIcon />}
-                  />
-                  <CustomButton
-                    disabled={true}
-                    onClick={() => {}}
-                    title={t('assesment')}
-                    icon={<QuizIcon />}
-                  />
+              {chapter.id === visibleAddTopicId && (
+                <Stack width="100%" alignItems="center">
+                  <Typography mt={2}>{t('selectTopic')}</Typography>
+                  <Stack direction="row" spacing={2} mt={2}>
+                    <CustomButton
+                      onClick={() => handleDialogOpen(chapter.id)}
+                      title={t('vdo')}
+                      icon={<PlayCircleFilledIcon />}
+                    />
+                    <CustomButton
+                      onClick={() => {}}
+                      title={t('assigmnment')}
+                      disabled={true}
+                      icon={<AssignmentIcon />}
+                    />
+                    <CustomButton
+                      onClick={() => {}}
+                      title={t('vdoWithQuiz')}
+                      disabled={true}
+                      icon={<AssignmentIcon />}
+                    />
+                    <CustomButton
+                      disabled={true}
+                      onClick={() => {}}
+                      title={t('assesment')}
+                      icon={<QuizIcon />}
+                    />
+                  </Stack>
                 </Stack>
-              </Stack>
+              )}
             </AccordionDetails>
           </>
         </Accordion>
