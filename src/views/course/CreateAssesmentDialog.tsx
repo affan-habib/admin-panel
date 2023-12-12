@@ -79,7 +79,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               label={t("assesmentName")}
               placeholder={t("assesmentNo")}
             />
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{marginTop:'2px'}}>
               <Grid item xs={6}>
                 <InputField
                   name="mark"
@@ -96,7 +96,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
             </Grid>
 
-            <Grid container spacing={2} marginBottom={2}>
+            <Grid container spacing={2} marginBottom={1}  sx={{marginTop:'2px'}}>
               <Grid item xs={6}>
                 <InputField
                   name="negativeMark"
