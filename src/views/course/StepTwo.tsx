@@ -17,7 +17,11 @@ const StepOne: React.FC = () => {
         label="Short Details Of Course"
         placeholder="Write the text here..."
       />
-      <RichTextInput label="Long Details Of Course" name="long_desc_en" />
+      <RichTextInput
+        label="Long Details Of Course"
+        name="long_desc_en"
+        height="280px"
+      />
     </>
   );
 };

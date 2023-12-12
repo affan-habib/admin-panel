@@ -17,7 +17,12 @@ import VideoIcon from '@mui/icons-material/VideoLibrary';
 import ModuleActions from './ModuleActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
-import { DragHandle, OpenWith, PlayArrowOutlined } from '@mui/icons-material';
+import {
+  Add,
+  DragHandle,
+  OpenWith,
+  PlayArrowOutlined,
+} from '@mui/icons-material';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import { useSnackbar } from 'context/SnackbarContext';
 import CustomButton from './CustomButton';
@@ -26,7 +31,10 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
 import CreateAssignmentDialog from './CreateAssignmentDialog';
+import CreateAssesmentDialog from './CreateAssesmentDialog';
+
 const Chapters: React.FC<any> = ({ modules }) => {
+  console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -34,7 +42,20 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [visibleAddTopicId, setVisibleAddTopicId] = useState<any>('');
   const [moduleId, setModuleId] = useState();
+
+  //assesment modal state
+  const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
+
+  //assesment modal handling function
+  const handleAssesmentDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setAssesmentDialogOpen(true);
+  };
+  const handleAssesmentDialogClose = () => {
+    setAssesmentDialogOpen(false)
+  }
 
   const handleDialogOpen = (module_id: any) => {
     setModuleId(module_id);
@@ -48,7 +69,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setEditDialogOpen(true);
   };
   const handleDeleteClick = (id: any) => {
-    fetch(`${apiBaseUrl}/course/material/delete/${id}?type=video`, {
+    fetch(`${apiBaseUrl}/course/video/delete/${id}?type=video`, {
       method: 'DELETE',
     })
       .then((response: any) => {
@@ -92,7 +113,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
             sx={{
               height: 50,
               display: 'flex',
-              justifyContent: 'space-around',
+              // justifyContent: 'space-around',
               alignItems: 'center',
               backgroundColor: '#DEEEC6',
             }}
@@ -103,7 +124,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
             <Typography mt={1}>
               {chapter.module_code} : {chapter.module_name_bn}
             </Typography>
-            <ModuleActions module={chapter} />
+            <ModuleActions
+              module={chapter}
+              setVisibleAddTopicId={setVisibleAddTopicId}
+              visibleAddTopicId={visibleAddTopicId}
+            />
           </AccordionSummary>
           <>
             <AccordionDetails>
@@ -136,34 +161,35 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </IconButton>
                   </div>
                 ))}
-              <Stack width="100%" alignItems="center">
-                <Typography mt={2}>{t('selectTopic')}</Typography>
-                <Stack direction="row" spacing={2} mt={2}>
-                  <CustomButton
-                    onClick={() => handleDialogOpen(chapter.id)}
-                    title={t('vdo')}
-                    icon={<PlayCircleFilledIcon />}
-                  />
-                  <CustomButton
-                    onClick={() => {handleAssignmentDialogOpen(chapter.id)}}
-                    title={t('assigmnment')}
-                    disabled={false}
-                    icon={<AssignmentIcon />}
-                  />
-                  <CustomButton
-                    onClick={() => {}}
-                    title={t('vdoWithQuiz')}
-                    disabled={true}
-                    icon={<AssignmentIcon />}
-                  />
-                  <CustomButton
-                    disabled={true}
-                    onClick={() => {}}
-                    title={t('assesment')}
-                    icon={<QuizIcon />}
-                  />
+              {chapter.id === visibleAddTopicId && (
+                <Stack width="100%" alignItems="center">
+                  <Typography mt={2}>{t('selectTopic')}</Typography>
+                  <Stack direction="row" spacing={2} mt={2}>
+                    <CustomButton
+                      onClick={() => handleDialogOpen(chapter.id)}
+                      title={t('vdo')}
+                      icon={<PlayCircleFilledIcon />}
+                    />
+                    <CustomButton
+                      onClick={() => {handleAssignmentDialogOpen(chapter.id)}}
+                      title={t('assigmnment')}
+                      disabled={false}
+                      icon={<AssignmentIcon />}
+                    />
+                    <CustomButton
+                      onClick={() => { }}
+                      title={t('vdoWithQuiz')}
+                      disabled={true}
+                      icon={<AssignmentIcon />}
+                    />
+                    <CustomButton
+                      onClick={() => handleAssesmentDialogOpen(chapter.id)}
+                      title={t('assesment')}
+                      icon={<QuizIcon />}
+                    />
+                  </Stack>
                 </Stack>
-              </Stack>
+              )}
             </AccordionDetails>
           </>
         </Accordion>
@@ -176,13 +202,20 @@ const Chapters: React.FC<any> = ({ modules }) => {
         moduleId={moduleId}
       />
 
+      {/* Create assesment dialog */}
+      <CreateAssesmentDialog
+        open={isAssesmentDialogOpen}
+        onClose={handleAssesmentDialogClose}
+        moduleId={moduleId}
+      />
+
       {/* Edit Video Dialog */}
       {selectedVideo && (
         <EditVideoDialog
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-          // onEdit={handleVideoEdit}
+        // onEdit={handleVideoEdit}
         />
       )}
 

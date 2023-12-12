@@ -113,5 +113,6 @@
   "addChapter": "Add Chapter",
   "userList":"User list",
   "addAssignment":"Add Assignment",
-  "assignmentname":"Enter the name of the assignment"
+  "assignmentname":"Enter the name of the assignment",
+  "addTopic": "Add Topic"
 }

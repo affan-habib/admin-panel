@@ -22,6 +22,7 @@ import RichTextInput from 'components/form/RichTextInput';
 import { useSnackbar } from 'context/SnackbarContext';
 import VideoUploadBox from 'components/form/VideoUploadBox';
 import { useTranslation } from 'react-i18next';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 interface CreateAssignmentDialogProps {
     open: boolean;
     moduleId: any;
@@ -84,7 +85,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                     {t('addAssignment')} (কারবালা প্রান্তর)
                 </Typography>
                 <IconButton aria-label="close" onClick={onClose} color="error">
-                    <Close />
+                    <HighlightOffIcon />
                 </IconButton>
             </DialogTitle>
             <DialogContent sx={{ width: 600 }}>

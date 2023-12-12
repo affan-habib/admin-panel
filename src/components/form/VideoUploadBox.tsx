@@ -5,7 +5,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
-import { InputLabel } from '@mui/material';
+import { IconButton, InputLabel, Stack } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
 interface VideoUploadBoxProps {
   name: string;
@@ -30,32 +31,32 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  const isFileObject = field.value instanceof File;
+
   return (
     <>
       {label && (
-        <React.Fragment>
-          <div>
-            <InputLabel
-              sx={{
-                minWidth: 200,
-                color: 'black',
-                my: 1,
-                fontWeight: 500,
-              }}
-            >
-              {label}
-            </InputLabel>
-          </div>
-        </React.Fragment>
+        <div>
+          <InputLabel
+            sx={{
+              minWidth: 200,
+              color: 'black',
+              my: 1,
+              fontWeight: 500,
+            }}
+          >
+            {label}
+          </InputLabel>
+        </div>
       )}
-      <Box p={5} border={1} borderColor="#ccc" borderRadius={2} mb={2}>
+      <Box p={3} border={1} borderColor="#ccc" borderRadius={2} mb={2}>
         <Box
           {...getRootProps()}
           sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: 200,
+            height: 150,
             border: '2px dashed #ccc',
             backgroundColor: '#f5f5f7',
             '&:hover': {
@@ -63,7 +64,7 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
             },
           }}
         >
-          {field.value ? (
+          {isFileObject ? (
             <Box
               sx={{
                 display: 'flex',
@@ -72,13 +73,41 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
                 width: '100%',
               }}
             >
-              <Typography variant="subtitle1">
-                <strong>{field.value.name}</strong> -{' '}
-                {Math.round(field.value.size / 1024)} KB
-              </Typography>
-              <Button type="button" onClick={removeFile} variant="outlined">
-                Remove
-              </Button>
+              <div>
+                <Typography variant="subtitle1">
+                  <strong>{field.value.name}</strong> -{' '}
+                  <IconButton onClick={removeFile}>
+                    <Delete />
+                  </IconButton>
+                </Typography>
+                <Typography sx={{ float: 'left' }}>
+                  {' '}
+                  {Math.round(field.value.size / 1024)} KB
+                </Typography>
+              </div>
+            </Box>
+          ) : typeof field.value != 'string' ? (
+            <Box
+              sx={{
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
+            >
+              <IconButton sx={{ bgcolor: '#DEEEC6', mb: 2 }}>
+                <OndemandVideoIcon
+                  sx={{ width: 30, height: 30 }}
+                  color="primary"
+                />
+              </IconButton>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Typography
+                  // variant="text"
+                  sx={{ color: '#1976D2', cursor: 'pointer' }}
+                >
+                  Click to upload
+                </Typography>
+                <Typography variant="body1"> or drag and drop</Typography>
+              </Stack>
             </Box>
           ) : (
             <Box
@@ -87,15 +116,12 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
                 cursor: 'pointer',
               }}
             >
-              <OndemandVideoIcon sx={{ width: 50, height: 50 }} />
-              <Typography
-                variant="body1"
-                color="#1976D2"
-                sx={{ color: '#1976D2', cursor: 'pointer' }}
-              >
-                Click to upload
+              <Typography variant="subtitle1">
+                <strong>{field.value}</strong> -{' '}
               </Typography>
-              <Typography variant="body1">or drag and drop</Typography>
+              <Button type="button" variant="outlined">
+                Replace
+              </Button>
             </Box>
           )}
           {meta.touched && meta.error && (
