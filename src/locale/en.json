@@ -49,6 +49,8 @@
   "timeLine": "Timeline",
   "batchCode": "Batch Code",
   "status": "Status",
+  "active": "Active",
+  "disabled": "Disabled",
   "actionButton": "Action Button",
   "formativeAssessmentSystem": "Formative Assessment System",
   "userProfile": "User Profile",
