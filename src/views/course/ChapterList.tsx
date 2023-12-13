@@ -17,6 +17,7 @@ import VideoIcon from '@mui/icons-material/VideoLibrary';
 import ModuleActions from './ModuleActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import {
   Add,
   DragHandle,
@@ -32,6 +33,7 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
 import CreateAssignmentDialog from './CreateAssignmentDialog';
 import CreateAssesmentDialog from './CreateAssesmentDialog';
+import EditAssignmentDialog from './EditAssignmentDialog';
 
 const Chapters: React.FC<any> = ({ modules }) => {
   console.log(modules);
@@ -42,6 +44,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [selectedAssignment, setselectedAssignment] = useState<any>(null);
   const [visibleAddTopicId, setVisibleAddTopicId] = useState<any>('');
   const [moduleId, setModuleId] = useState();
 
@@ -105,6 +108,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
+    // Assignment dialog start
   const [isAssignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
   const handleAssignmentDialogOpen = (module_id: any) => {
     setModuleId(module_id);
@@ -113,6 +117,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const handleAssignmentDialogClose = () => {
     setAssignmentDialogOpen(false)
   }
+  const [isEditAssignmentDialogOpen, setEditAssignmentDialogOpen] = useState(false);
+  const handleEditAssignmentDialogOpen = (assignment: any) => {
+    setselectedAssignment(assignment);
+    setEditAssignmentDialogOpen(true);
+  };
+  const handleEditAssignmentDialogClose = () => {
+    setEditAssignmentDialogOpen(false)
+  }
+   // Assignment dialog End
   return (
     <>
       {modules?.map((chapter: any) => (
@@ -186,6 +199,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     style={{ display: 'flex', alignItems: 'center' }}
                   >
                     {/* Assignment details */}
+                    <AssignmentOutlinedIcon sx={{ marginRight: 1 }} />
                     <Typography sx={{ flexGrow: 1 }}>{assignment.title_en}</Typography>
                     <IconButton
                       aria-label="Edit Assignment"
@@ -193,7 +207,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       color="primary"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleAssignmentDialogOpen(assignment);
+                        handleEditAssignmentDialogOpen(assignment);
                       }}
                     >
                       <EditIcon />
@@ -274,9 +288,17 @@ const Chapters: React.FC<any> = ({ modules }) => {
         onClose={handleAssignmentDialogClose}
         moduleId={moduleId}
       />
+      
 
-
-
+       {/* Edit Assignment Dialog */}
+      {selectedAssignment && (
+        <EditAssignmentDialog
+          open={isEditAssignmentDialogOpen}
+          onClose={handleEditAssignmentDialogClose}
+          initialData={selectedAssignment}
+       
+        />
+      )}
     </>
   );
 };
