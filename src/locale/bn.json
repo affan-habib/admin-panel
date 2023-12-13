@@ -48,6 +48,8 @@
   "timeLine": "সময়কাল",
   "batchCode": "ব্যাচের কোড",
   "status": "স্ট্যাটাস",
+  "active": "সক্রিয়",
+  "disabled": "নিষ্ক্রিয়",
   "actionButton": "অ্যাকশন বাটন",
   "formativeAssessmentSystem": "ফর্মাটিভ এসেসমেন্ট সিটেম",
   "userProfile": "ব্যবহারকারী প্রোফাইল",
@@ -113,5 +115,13 @@
   "userList":"ইউজার লিস্ট",
   "addAssignment":"এসাইনমেন্ট যোগ করুন",
   "assignmentname":"অ্যাসাইনমেন্টের নাম লিখুন",
-  "addTopic": "টপিক যোগ করুন"
+  "addTopic": "টপিক যোগ করুন",
+  "assignmentInstruct":"অ্যাসাইনমেন্টের নির্দেশাবলী",
+  "assignmentMark":"অ্যাসাইনমেন্টের মার্ক দিন",
+  "assignMarkPlace":"অ্যাসাইনমেন্টের মার্ক লিখুন...",
+  "assignDuration":"সময় ইনপুট দিন",
+  "assignDurationPlace":"২০ মিনিট",
+  "assignSubmissionType":"সাবমিশন টাইপ",
+  "assignCheckboxOne":"রিটেন সাবমিশন",
+  "assignCheckboxTwo":"আপলোড ফাইল"
 }

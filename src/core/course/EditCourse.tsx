@@ -69,7 +69,7 @@ const EditCourse: React.FC = () => {
       <Grid item xs={12}>
         <Breadcrumbs aria-label="breadcrumb" separator="››" sx={{ color: 'rgba(28, 27, 31, 1)', fontSize: '20px', fontWeight: 600 }}>
           <Link href="/" sx={{ color: 'rgba(255, 74, 95, 1)', fontSize: '16px', fontWeight: 500 }}>
-            <HomeOutlinedIcon sx={{marginTop:"8px"}} />
+            <HomeOutlinedIcon sx={{ marginTop: "8px" }} />
           </Link>
           <Typography color="primary" sx={{ fontSize: '16px', fontWeight: 500 }}>
             {t('updateCourse')}
@@ -89,13 +89,13 @@ const EditCourse: React.FC = () => {
               spacing={3}
               sx={{
                 border: '1px dashed grey',
-                pr: 2,
+                pr: 3,
                 pb: 2,
                 mt: 2,
                 borderRadius: 2,
               }}
             >
-
+              <Grid></Grid>
               <Grid item md={8}>
                 <MainCard
                   title={t('createCourse')}
@@ -114,7 +114,7 @@ const EditCourse: React.FC = () => {
                         onClick={() => setSelectedStep(1)}
                       >
                         বাংলা
-                        {selectedStep === 1 && <SouthOutlinedIcon sx={{width:'14px',height:"20px", marginLeft:'8px'}}/>} {/* Conditionally render the icon */}
+                        {selectedStep === 1 && <SouthOutlinedIcon sx={{ width: '14px', height: "20px", marginLeft: '8px' }} />} {/* Conditionally render the icon */}
                       </Button>
                       <Button
                         sx={{
@@ -130,7 +130,7 @@ const EditCourse: React.FC = () => {
                         onClick={() => setSelectedStep(2)}
                       >
                         English
-                        {selectedStep === 2 && <SouthOutlinedIcon sx={{width:'14px', height:"20px", marginLeft:'8px'}} />} {/* Conditionally render the icon */}
+                        {selectedStep === 2 && <SouthOutlinedIcon sx={{ width: '14px', height: "20px", marginLeft: '8px' }} />} {/* Conditionally render the icon */}
                       </Button>
                     </ButtonGroup>
                   }
@@ -160,10 +160,19 @@ const EditCourse: React.FC = () => {
                   {t('update')}
                 </Button>
               </Grid>
-              <Grid item md={7}>
+
+            </Grid>
+            <Grid container sx={{
+              pr: 4,
+              pb: 2,
+              mt: 2,
+              borderRadius: 2,
+            }}>
+              <Grid item md={8}>
                 <DyanamicForm modules={data?.data?.course_modules} />
               </Grid>
             </Grid>
+
           </Form>
         )}
       </Formik>
