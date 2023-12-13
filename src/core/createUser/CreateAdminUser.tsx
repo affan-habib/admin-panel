@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, Container, Grid, Typography, InputLabel } from '@mui/material';
+import { CircularProgress, Container, Grid, Typography, InputLabel, Breadcrumbs,Link } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,8 +11,8 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'context/SnackbarContext';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import * as Yup from 'yup';
-
 const validationSchema = Yup.object({
   name: Yup.string()
     .matches(/^[a-zA-Z\s]+$/, 'Name must contain only letters')
@@ -62,14 +62,22 @@ const CreateAdminUser: React.FC = () => {
 
   return (
     <div>
-      <Container maxWidth="xl" style={{ marginTop: '20px' }}>
+      <Container maxWidth="xl" style={{ marginTop: '10px' }}>
         <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h6" gutterBottom sx={{ color: 'rgba(0, 106, 78, 1)' }}>
+          <Breadcrumbs aria-label="breadcrumb" separator="››" sx={{ color: 'rgba(28, 27, 31, 1)', fontSize: '20px', fontWeight: 600 }}>
+          <Link href="/" sx={{ color: 'rgba(255, 74, 95, 1)', fontSize: '16px', fontWeight: 500 }}>
+            <HomeOutlinedIcon sx={{marginTop:"8px"}} />
+          </Link>
+          <Typography color="primary" sx={{ fontSize: '16px', fontWeight: 500 }}>
+            {t('createUser')}
+          </Typography>
+        </Breadcrumbs>
+            <Typography variant="h6" gutterBottom sx={{ color: 'rgba(0, 106, 78, 1)',marginTop:'20px'  }}>
               {t('createUser')}
             </Typography>
           </Grid>
-          <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2 }}>
+          <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2, }}>
             <Formik
               initialValues={{
                 name: '',
