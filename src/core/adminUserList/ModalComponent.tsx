@@ -92,7 +92,7 @@ const ModalComponent: React.FC<ModalComponentProps> = ({ open, handleClose, user
                     <CallOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>{t('mobileNumber')}</strong> {mobile_no}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <ToggleOnOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>{t('status')}</strong> {status}
+                    <ToggleOnOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>{t('status')}</strong> {status == 1 ? t('active') : t('disabled')}
                 </Typography>
                 <Typography variant="subtitle1" sx={{ my: 3, display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <AdminPanelSettingsOutlinedIcon sx={{ mr: 1, color: 'primary.main', marginLeft: '10px' }} /> <strong style={{ minWidth: '300px', display: 'inline-block' }}>{t('roleName')}</strong> {username}
