@@ -133,7 +133,7 @@ const CreateCourse: React.FC = () => {
               spacing={3}
               sx={{
                 border: '1px dashed grey',
-                pr: 2,
+                pr: 3,
                 pb: 2,
                 mt: 2,
                 borderRadius: 2,
