@@ -17,9 +17,7 @@ interface FileInputProps {
   name: string;
 }
 
-// ... (imports and other code)
-
-const CroppedImgInput: React.FC<FileInputProps> = ({ label, name }) => {
+const FileInput: React.FC<FileInputProps> = ({ label, name }) => {
   const [, , helpers] = useField(name);
   const [image, setImage] = useState<File | null>(null);
   const [scale, setScale] = useState<number>(1);
@@ -32,6 +30,7 @@ const CroppedImgInput: React.FC<FileInputProps> = ({ label, name }) => {
 
       if (file) {
         setImage(file);
+        setOpenModal(true);
       }
     },
     [],
@@ -45,20 +44,10 @@ const CroppedImgInput: React.FC<FileInputProps> = ({ label, name }) => {
   );
 
   const handleCropSubmit = () => {
-    if (image) {
-      setOpenModal(true);
-    }
-  };
-
-  const handleModalClose = () => {
-    setOpenModal(false);
-  };
-
-  const handleActualCropSubmit = () => {
     if (editorRef.current) {
       const canvasScaled = editorRef.current.getImageScaledToCanvas();
 
-      canvasScaled.toBlob((blob: any) => {
+      canvasScaled.toBlob((blob) => {
         if (blob) {
           helpers.setValue(blob);
         }
@@ -89,14 +78,14 @@ const CroppedImgInput: React.FC<FileInputProps> = ({ label, name }) => {
       />
       {image && (
         <>
-          <Button color="primary" onClick={handleCropSubmit}>
-            Crop Image
-          </Button>
-          <Dialog open={openModal} onClose={handleModalClose}>
+          <IconButton color="primary" onClick={() => setOpenModal(true)}>
+            <PhotoCameraIcon />
+          </IconButton>
+          <Dialog open={openModal} onClose={() => setOpenModal(false)}>
             <DialogTitle>Resize Image</DialogTitle>
             <DialogContent>
               <AvatarEditor
-                ref={(ref: any) => {
+                ref={(ref) => {
                   if (ref) {
                     editorRef.current = ref;
                   }
@@ -120,8 +109,8 @@ const CroppedImgInput: React.FC<FileInputProps> = ({ label, name }) => {
               </div>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleModalClose}>Cancel</Button>
-              <Button onClick={handleActualCropSubmit} color="primary">
+              <Button onClick={() => setOpenModal(false)}>Cancel</Button>
+              <Button onClick={handleCropSubmit} color="primary">
                 Crop Image
               </Button>
             </DialogActions>
@@ -132,5 +121,4 @@ const CroppedImgInput: React.FC<FileInputProps> = ({ label, name }) => {
   );
 };
 
-export default CroppedImgInput;
-
+export default FileInput;
