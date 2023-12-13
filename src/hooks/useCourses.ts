@@ -11,6 +11,7 @@ const fetchCourses = async ({ itemsPerPage, page, search }: any) => {
         itemsPerPage,
         page,
         search,
+        pagination: true,
       },
     });
     return response.data;

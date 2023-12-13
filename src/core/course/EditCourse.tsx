@@ -8,6 +8,7 @@ import {
   Typography,
   Link,
   ButtonGroup,
+  Box,
 } from '@mui/material';
 import StepOne from 'views/course/StepOne';
 import StepTwo from 'views/course/StepTwo';
@@ -67,11 +68,29 @@ const EditCourse: React.FC = () => {
   return (
     <Container maxWidth="xl" sx={{ pb: 30 }}>
       <Grid item xs={12}>
-        <Breadcrumbs aria-label="breadcrumb" separator="››" sx={{ color: 'rgba(28, 27, 31, 1)', fontSize: '20px', fontWeight: 600 }}>
-          <Link href="/" sx={{ color: 'rgba(255, 74, 95, 1)', fontSize: '16px', fontWeight: 500 }}>
-            <HomeOutlinedIcon sx={{ marginTop: "8px" }} />
+        <Breadcrumbs
+          aria-label="breadcrumb"
+          separator="››"
+          sx={{
+            color: 'rgba(28, 27, 31, 1)',
+            fontSize: '20px',
+            fontWeight: 600,
+          }}
+        >
+          <Link
+            href="/"
+            sx={{
+              color: 'rgba(255, 74, 95, 1)',
+              fontSize: '16px',
+              fontWeight: 500,
+            }}
+          >
+            <HomeOutlinedIcon sx={{ marginTop: '8px' }} />
           </Link>
-          <Typography color="primary" sx={{ fontSize: '16px', fontWeight: 500 }}>
+          <Typography
+            color="primary"
+            sx={{ fontSize: '16px', fontWeight: 500 }}
+          >
             {t('updateCourse')}
           </Typography>
         </Breadcrumbs>
@@ -84,95 +103,114 @@ const EditCourse: React.FC = () => {
       >
         {({ isSubmitting, isValid }) => (
           <Form>
+            <Box
+              sx={{ p: 3, mt: 2, border: '1px dashed grey', borderRadius: 2 }}
+            >
+              <Grid container spacing={3}>
+                <Grid></Grid>
+                <Grid item md={8}>
+                  <MainCard
+                    title={t('createCourse')}
+                    rightButton={
+                      <ButtonGroup sx={{ borderRadius: 0 }}>
+                        <Button
+                          sx={{
+                            width: 90,
+                            borderRadius: 0,
+                            borderColor: 'transparent',
+                            backgroundColor:
+                              selectedStep === 1 ? 'primary.main' : 'white',
+                            '&:hover': { borderColor: 'transparent' },
+                          }}
+                          variant={
+                            selectedStep === 1 ? 'contained' : 'outlined'
+                          }
+                          color="primary"
+                          onClick={() => setSelectedStep(1)}
+                        >
+                          বাংলা
+                          {selectedStep === 1 && (
+                            <SouthOutlinedIcon
+                              sx={{
+                                width: '14px',
+                                height: '20px',
+                                marginLeft: '8px',
+                              }}
+                            />
+                          )}{' '}
+                          {/* Conditionally render the icon */}
+                        </Button>
+                        <Button
+                          sx={{
+                            width: 90,
+                            borderRadius: 0,
+                            borderTopRightRadius: '8px',
+                            borderColor: 'transparent',
+                            backgroundColor:
+                              selectedStep === 2 ? 'primary.main' : 'white',
+                            '&:hover': { borderColor: 'transparent' },
+                          }}
+                          variant={
+                            selectedStep === 2 ? 'contained' : 'outlined'
+                          }
+                          color="primary"
+                          onClick={() => setSelectedStep(2)}
+                        >
+                          English
+                          {selectedStep === 2 && (
+                            <SouthOutlinedIcon
+                              sx={{
+                                width: '14px',
+                                height: '20px',
+                                marginLeft: '8px',
+                              }}
+                            />
+                          )}{' '}
+                          {/* Conditionally render the icon */}
+                        </Button>
+                      </ButtonGroup>
+                    }
+                  >
+                    {selectedStep === 1 && <StepOne />}
+                    {selectedStep === 2 && <StepTwo />}
+                  </MainCard>
+                </Grid>
+                <Grid item md={4}>
+                  <StepThree />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  style={{ textAlign: 'right' }}
+                  alignItems="center"
+                  justifyContent="right"
+                  display="flex"
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    size="large"
+                    sx={{ width: 250 }}
+                  >
+                    {t('update')}
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
             <Grid
               container
-              spacing={3}
               sx={{
-                border: '1px dashed grey',
-                pr: 3,
+                pr: 4,
                 pb: 2,
                 mt: 2,
                 borderRadius: 2,
               }}
             >
-              <Grid></Grid>
-              <Grid item md={8}>
-                <MainCard
-                  title={t('createCourse')}
-                  rightButton={
-                    <ButtonGroup sx={{ borderRadius: 0 }}>
-                      <Button
-                        sx={{
-                          width: 90,
-                          borderRadius: 0,
-                          borderColor: 'transparent',
-                          backgroundColor: selectedStep === 1 ? 'primary.main' : 'white',
-                          '&:hover': { borderColor: 'transparent' },
-                        }}
-                        variant={selectedStep === 1 ? 'contained' : 'outlined'}
-                        color="primary"
-                        onClick={() => setSelectedStep(1)}
-                      >
-                        বাংলা
-                        {selectedStep === 1 && <SouthOutlinedIcon sx={{ width: '14px', height: "20px", marginLeft: '8px' }} />} {/* Conditionally render the icon */}
-                      </Button>
-                      <Button
-                        sx={{
-                          width: 90,
-                          borderRadius: 0,
-                          borderTopRightRadius: '8px',
-                          borderColor: 'transparent',
-                          backgroundColor: selectedStep === 2 ? 'primary.main' : 'white',
-                          '&:hover': { borderColor: 'transparent' },
-                        }}
-                        variant={selectedStep === 2 ? 'contained' : 'outlined'}
-                        color="primary"
-                        onClick={() => setSelectedStep(2)}
-                      >
-                        English
-                        {selectedStep === 2 && <SouthOutlinedIcon sx={{ width: '14px', height: "20px", marginLeft: '8px' }} />} {/* Conditionally render the icon */}
-                      </Button>
-                    </ButtonGroup>
-                  }
-                >
-                  {selectedStep === 1 && <StepOne />}
-                  {selectedStep === 2 && <StepTwo />}
-                </MainCard>
-              </Grid>
-              <Grid item md={4}>
-                <StepThree />
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                style={{ textAlign: 'right' }}
-                alignItems="center"
-                justifyContent="right"
-                display="flex"
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  size="large"
-                  sx={{ width: 250 }}
-                >
-                  {t('update')}
-                </Button>
-              </Grid>
-
-            </Grid>
-            <Grid container sx={{
-              pr: 4,
-              pb: 2,
-              mt: 2,
-              borderRadius: 2,
-            }}>
               <Grid item md={8}>
                 <DyanamicForm modules={data?.data?.course_modules} />
               </Grid>
             </Grid>
-
           </Form>
         )}
       </Formik>

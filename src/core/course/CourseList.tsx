@@ -180,7 +180,7 @@ const CourseList: React.FC = () => {
         <ReactTable
           columns={columns}
           data={courses?.data}
-          totalCount={courses?.data?.total}
+          totalCount={courses?.meta?.total}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={handlePageChange}
