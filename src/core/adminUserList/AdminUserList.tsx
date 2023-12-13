@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Container, IconButton, Stack } from '@mui/material';
+import { Box, Breadcrumbs, Button, Container, Grid, IconButton, Stack,Link, Typography } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -13,6 +13,7 @@ import { apiBaseUrl } from 'config';
 import WarningModal from 'components/common/DeleteWarning';
 import { useSnackbar } from 'context/SnackbarContext';
 import Loader from '../../components/common/circularLoader';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 interface Row {
   id: number;
@@ -219,7 +220,18 @@ const AdminUserList: React.FC = () => {
   };
 
   return (
+   
     <Container maxWidth="xl">
+      <Grid item xs={12}>
+          <Breadcrumbs aria-label="breadcrumb" separator="››" sx={{ color: 'rgba(28, 27, 31, 1)', fontSize: '20px', fontWeight: 600 }}>
+          <Link href="/" sx={{ color: 'rgba(255, 74, 95, 1)', fontSize: '16px', fontWeight: 500 }}>
+            <HomeOutlinedIcon sx={{marginTop:'5px'}} />
+          </Link>
+          <Typography color="primary" sx={{ fontSize: '16px', fontWeight: 500 }}>
+            {t('userList')}
+          </Typography>
+        </Breadcrumbs>
+          </Grid>
       {loading && (
         // Show the loader while loading
         <Loader />
@@ -230,7 +242,6 @@ const AdminUserList: React.FC = () => {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          mb={2}
         >
           <Button
             variant="contained"
