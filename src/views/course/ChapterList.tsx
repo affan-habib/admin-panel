@@ -32,6 +32,7 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
 import CreateAssignmentDialog from './CreateAssignmentDialog';
 import CreateAssesmentDialog from './CreateAssesmentDialog';
+import axios from 'axios';
 
 const Chapters: React.FC<any> = ({ modules }) => {
   console.log(modules);
@@ -54,8 +55,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssesmentDialogOpen(true);
   };
   const handleAssesmentDialogClose = () => {
-    setAssesmentDialogOpen(false)
-  }
+    setAssesmentDialogOpen(false);
+  };
 
   const handleDialogOpen = (module_id: any) => {
     setModuleId(module_id);
@@ -68,9 +69,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setSelectedVideo(video);
     setEditDialogOpen(true);
   };
+
   const handleDeleteClick = (id: any, type: string) => {
     let apiEndpoint;
-  
+
     if (type === 'video') {
       apiEndpoint = `${apiBaseUrl}/course/video/delete/${id}?type=video`;
     } else if (type === 'assignment') {
@@ -80,18 +82,13 @@ const Chapters: React.FC<any> = ({ modules }) => {
       console.error('Invalid deletion type:', type);
       return;
     }
-  
-    fetch(apiEndpoint, {
-      method: 'DELETE',
-    })
+
+    axios
+      .delete(apiEndpoint)
       .then((response: any) => {
         if (response.status === 200) {
-          // Handle successful deletion (e.g., update state, UI, etc.)
-          console.log(response.data.message, 'ssssssssss');
           showSnackbar(response.data.message, 'success');
           queryClient.invalidateQueries('courseDetails');
-          console.log(`${type} deleted successfully`);
-          window.location.reload();
         } else {
           showSnackbar(`Failed to delete ${type}`, 'error');
           console.error(`Failed to delete ${type}`);
@@ -101,7 +98,6 @@ const Chapters: React.FC<any> = ({ modules }) => {
         console.error(`Error occurred while deleting ${type}:`, error);
       });
   };
-  
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
@@ -111,8 +107,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssignmentDialogOpen(true);
   };
   const handleAssignmentDialogClose = () => {
-    setAssignmentDialogOpen(false)
-  }
+    setAssignmentDialogOpen(false);
+  };
   return (
     <>
       {modules?.map((chapter: any) => (
@@ -150,7 +146,6 @@ const Chapters: React.FC<any> = ({ modules }) => {
                   <div
                     key={el.video_id}
                     style={{ display: 'flex', alignItems: 'center' }}
-
                   >
                     <VideoIcon sx={{ marginRight: 1 }} />
                     <Typography sx={{ flexGrow: 1 }}>{el.title}</Typography>
@@ -169,16 +164,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       aria-label="Delete"
                       size="small"
                       color="error"
-                      onClick={() => openModal(() => handleDeleteClick(el.id,'video'))}
+                      onClick={() =>
+                        openModal(() => handleDeleteClick(el.id, 'video'))
+                      }
                     >
                       <DeleteIcon />
                     </IconButton>
-
                   </div>
-
                 ))}
 
-                {/* Assignment Data Start */}
+              {/* Assignment Data Start */}
               {chapter.course_assignments.length > 0 &&
                 chapter.course_assignments.map((assignment: any) => (
                   <div
@@ -186,7 +181,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     style={{ display: 'flex', alignItems: 'center' }}
                   >
                     {/* Assignment details */}
-                    <Typography sx={{ flexGrow: 1 }}>{assignment.title_en}</Typography>
+                    <Typography sx={{ flexGrow: 1 }}>
+                      {assignment.title_en}
+                    </Typography>
                     <IconButton
                       aria-label="Edit Assignment"
                       size="small"
@@ -202,13 +199,17 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       aria-label="Delete Assignment"
                       size="small"
                       color="error"
-                      onClick={() => openModal(() => handleDeleteClick(assignment.id, 'assignment'))}
+                      onClick={() =>
+                        openModal(() =>
+                          handleDeleteClick(assignment.id, 'assignment'),
+                        )
+                      }
                     >
                       <DeleteIcon />
                     </IconButton>
                   </div>
                 ))}
-                {/* Assignment Data End */}
+              {/* Assignment Data End */}
 
               {chapter.id === visibleAddTopicId && (
                 <Stack width="100%" alignItems="center">
@@ -220,13 +221,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<PlayCircleFilledIcon />}
                     />
                     <CustomButton
-                      onClick={() => { handleAssignmentDialogOpen(chapter.id) }}
+                      onClick={() => {
+                        handleAssignmentDialogOpen(chapter.id);
+                      }}
                       title={t('assigmnment')}
                       disabled={false}
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => { }}
+                      onClick={() => {}}
                       title={t('vdoWithQuiz')}
                       disabled={true}
                       icon={<AssignmentIcon />}
@@ -264,7 +267,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-        // onEdit={handleVideoEdit}
+          // onEdit={handleVideoEdit}
         />
       )}
 
@@ -274,9 +277,6 @@ const Chapters: React.FC<any> = ({ modules }) => {
         onClose={handleAssignmentDialogClose}
         moduleId={moduleId}
       />
-
-
-
     </>
   );
 };
