@@ -48,6 +48,8 @@
   "timeLine": "সময়কাল",
   "batchCode": "ব্যাচের কোড",
   "status": "স্ট্যাটাস",
+  "active": "সক্রিয়",
+  "disabled": "নিষ্ক্রিয়",
   "actionButton": "অ্যাকশন বাটন",
   "formativeAssessmentSystem": "ফর্মাটিভ এসেসমেন্ট সিটেম",
   "userProfile": "ব্যবহারকারী প্রোফাইল",
