@@ -228,6 +228,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
                 ))}
               {/* Assignment Data End */}
 
+             {/* Assesment section start */}
+
               {chapter.id === visibleAddTopicId && (
                 <Stack width="100%" alignItems="center">
                   <Typography mt={2}>{t('selectTopic')}</Typography>
