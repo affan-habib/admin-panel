@@ -120,82 +120,83 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
 
                     {({ isSubmitting, values, setFieldValue }) => (
                         <Form>
-                            <Grid>
+                        <Grid>
+                            <InputField
+                                name="title_en"
+                                label={t('addAssignment')}
+                                placeholder={t('assignmentname')}
+                            />
+                        </Grid>
+
+                        <Grid sx={{ marginTop: '20px' }}>
+                            <InputFile
+                                name="supporting_doc"
+                                label={t('assignmentInstruct')}
+                                acceptedFileTypes=".doc, .docx, .ppt"
+                                limit={t('supDocLimit')}
+                                
+                            />
+                        </Grid>
+
+                        <Grid container spacing={2} sx={{ display: 'flex', marginTop: '3px' }}>
+                            <Grid item xs={6}>
                                 <InputField
-                                    name="title_en"
-                                    label={t('addAssignment')}
-                                    placeholder={t('assignmentname')}
-
+                                    name="mark"
+                                    label={t('assignmentMark')}
+                                    placeholder={t('assignMarkPlace')}
+                                    type="number"
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <InputField
+                                    name="total_time"
+                                    label={t('assignDuration')}
+                                    placeholder={t('assignDurationPlace')}
+                                    type="number"
+                                />
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={2} alignItems="center" sx={{ borderBottom: '1px solid grey', marginTop: 1 }}>
+                            <Grid item sx={{marginBottom:'20px'}}>
+                                <InputLabel
+                                    sx={{
+                                        minWidth: 200,
+                                        color: 'black',
+                                        my: 1,
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    {t('assignSubmissionType')}
+                                </InputLabel>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={values.submission_type === 'written'}
+                                            onChange={() => setFieldValue('submission_type', "written")}
+                                            name="writtenSubmission"
+                                        />
+                                    }
+                                    label={t('assignCheckboxOne')}
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={values.submission_type === 'upload'}
+                                            onChange={() => setFieldValue('submission_type', "upload")}
+                                            name="uploadFile"
+                                        />
+                                    }
+                                    label={t('assignCheckboxTwo')}
                                 />
                             </Grid>
 
-                            <Grid sx={{ marginTop: '20px' }}>
-                                <InputFile
-                                    name="supporting_doc"
-                                    label="অ্যাসাইনমেন্টের নির্দেশাবলী"
-                                    acceptedFileTypes=".doc, .docx, .ppt"
-                                    limit={t('supDocLimit')}
-                                    InputProps={{ endAdornment: <InputFileIcon /> }}
-                                />
-                            </Grid>
-
-                            <Grid container spacing={2} sx={{ display: 'flex', marginTop: '3px' }}>
-                                <Grid item xs={6}>
-                                    <InputField
-                                        name="mark"
-                                        label="অ্যাসাইনমেন্টের মার্ক দিন"
-                                        placeholder="অ্যাসাইনমেন্টের মার্ক লিখুন..."
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <InputField
-                                        name="total_time"
-                                        label="সময় ইনপুট দিন"
-                                        placeholder="২০ মিনিট"
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid container spacing={2} alignItems="center" sx={{ borderBottom: '1px solid grey', marginTop: 1 }}>
-                                <Grid item>
-                                    <InputLabel
-                                        sx={{
-                                            minWidth: 200,
-                                            color: 'black',
-                                            my: 1,
-                                            fontWeight: 500,
-                                        }}
-                                    >
-                                        সাবমিশন টাইপ
-                                    </InputLabel>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={values.submission_type === 'written'}
-                                                onChange={() => setFieldValue('submission_type', "written")}
-                                                name="writtenSubmission"
-                                            />
-                                        }
-                                        label="রিটেন সাবমিশন"
-                                    />
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                checked={values.submission_type === 'upload'}
-                                                onChange={() => setFieldValue('submission_type', "upload")}
-                                                name="uploadFile"
-                                            />
-                                        }
-                                        label="আপলোড ফাইল"
-                                    />
-                                </Grid>
-
-                            </Grid>
-                            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                                <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                                    {t('submit')}
-                                </Button>
-                            </Box>
-                        </Form>)}
+                        </Grid>
+                        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+                            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                                {t('submit')}
+                            </Button>
+                        </Box>
+                    </Form>)}
                 </Formik>
             </DialogContent>
         </Dialog>

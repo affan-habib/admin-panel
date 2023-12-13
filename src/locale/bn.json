@@ -115,5 +115,13 @@
   "userList":"ইউজার লিস্ট",
   "addAssignment":"এসাইনমেন্ট যোগ করুন",
   "assignmentname":"অ্যাসাইনমেন্টের নাম লিখুন",
-  "addTopic": "টপিক যোগ করুন"
+  "addTopic": "টপিক যোগ করুন",
+  "assignmentInstruct":"অ্যাসাইনমেন্টের নির্দেশাবলী",
+  "assignmentMark":"অ্যাসাইনমেন্টের মার্ক দিন",
+  "assignMarkPlace":"অ্যাসাইনমেন্টের মার্ক লিখুন...",
+  "assignDuration":"সময় ইনপুট দিন",
+  "assignDurationPlace":"২০ মিনিট",
+  "assignSubmissionType":"সাবমিশন টাইপ",
+  "assignCheckboxOne":"রিটেন সাবমিশন",
+  "assignCheckboxTwo":"আপলোড ফাইল"
 }
