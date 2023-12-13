@@ -68,8 +68,20 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setSelectedVideo(video);
     setEditDialogOpen(true);
   };
-  const handleDeleteClick = (id: any) => {
-    fetch(`${apiBaseUrl}/course/video/delete/${id}?type=video`, {
+  const handleDeleteClick = (id: any, type: string) => {
+    let apiEndpoint;
+  
+    if (type === 'video') {
+      apiEndpoint = `${apiBaseUrl}/course/video/delete/${id}?type=video`;
+    } else if (type === 'assignment') {
+      apiEndpoint = `${apiBaseUrl}/course/assignment/delete/${id}?type=assignment`;
+    } else {
+      // Handle other types or show an error
+      console.error('Invalid deletion type:', type);
+      return;
+    }
+  
+    fetch(apiEndpoint, {
       method: 'DELETE',
     })
       .then((response: any) => {
@@ -78,17 +90,18 @@ const Chapters: React.FC<any> = ({ modules }) => {
           console.log(response.data.message, 'ssssssssss');
           showSnackbar(response.data.message, 'success');
           queryClient.invalidateQueries('courseDetails');
-          console.log('Module deleted successfully');
+          console.log(`${type} deleted successfully`);
+          window.location.reload();
         } else {
-          showSnackbar('Successfully Deleted', 'success');
-          // Handle deletion failure (e.g., show an error message)
-          console.error('Failed to delete module');
+          showSnackbar(`Failed to delete ${type}`, 'error');
+          console.error(`Failed to delete ${type}`);
         }
       })
       .catch((error) => {
-        console.error('Error occurred while deleting module:', error);
+        console.error(`Error occurred while deleting ${type}:`, error);
       });
   };
+  
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
@@ -97,7 +110,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setModuleId(module_id);
     setAssignmentDialogOpen(true);
   };
-  const handleAssignmentDialogClose = () =>{
+  const handleAssignmentDialogClose = () => {
     setAssignmentDialogOpen(false)
   }
   return (
@@ -137,6 +150,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                   <div
                     key={el.video_id}
                     style={{ display: 'flex', alignItems: 'center' }}
+
                   >
                     <VideoIcon sx={{ marginRight: 1 }} />
                     <Typography sx={{ flexGrow: 1 }}>{el.title}</Typography>
@@ -155,12 +169,47 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       aria-label="Delete"
                       size="small"
                       color="error"
-                      onClick={() => openModal(() => handleDeleteClick(el.id))}
+                      onClick={() => openModal(() => handleDeleteClick(el.id,'video'))}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+
+                  </div>
+
+                ))}
+
+                {/* Assignment Data Start */}
+              {chapter.course_assignments.length > 0 &&
+                chapter.course_assignments.map((assignment: any) => (
+                  <div
+                    key={assignment.assignment_id}
+                    style={{ display: 'flex', alignItems: 'center' }}
+                  >
+                    {/* Assignment details */}
+                    <Typography sx={{ flexGrow: 1 }}>{assignment.title_en}</Typography>
+                    <IconButton
+                      aria-label="Edit Assignment"
+                      size="small"
+                      color="primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAssignmentDialogOpen(assignment);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="Delete Assignment"
+                      size="small"
+                      color="error"
+                      onClick={() => openModal(() => handleDeleteClick(assignment.id, 'assignment'))}
                     >
                       <DeleteIcon />
                     </IconButton>
                   </div>
                 ))}
+                {/* Assignment Data End */}
+
               {chapter.id === visibleAddTopicId && (
                 <Stack width="100%" alignItems="center">
                   <Typography mt={2}>{t('selectTopic')}</Typography>
@@ -171,7 +220,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<PlayCircleFilledIcon />}
                     />
                     <CustomButton
-                      onClick={() => {handleAssignmentDialogOpen(chapter.id)}}
+                      onClick={() => { handleAssignmentDialogOpen(chapter.id) }}
                       title={t('assigmnment')}
                       disabled={false}
                       icon={<AssignmentIcon />}
@@ -219,14 +268,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
         />
       )}
 
-        {/* Assignment Dialog */}
-        <CreateAssignmentDialog
+      {/* Assignment Dialog */}
+      <CreateAssignmentDialog
         open={isAssignmentDialogOpen}
         onClose={handleAssignmentDialogClose}
         moduleId={moduleId}
-        />
+      />
 
-        
+
 
     </>
   );
