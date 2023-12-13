@@ -20,7 +20,7 @@ export const useGetMenuItems = (): MenuItem[] => {
   const menuItems: MenuItem[] = [
     {
       title: t('dashboardTitle'),
-      path: '/dashboard',
+      path: '/',
       icon: <SpaceDashboardIcon />,
     },
     {

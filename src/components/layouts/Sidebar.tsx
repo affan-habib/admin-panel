@@ -163,16 +163,13 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                     selected={selectedSubMenu === subItem.path}
                     sx={{
                       pl: 4,
-                      backgroundColor:
-                        selectedSubMenu === subItem.path
-                          ? '#4caf50'
-                          : '#023F12',
                       color:
                         selectedSubMenu === subItem.path ? 'yellow' : 'white',
                       '&:hover': {
                         backgroundColor: '#DEEEC6',
                         color: 'black',
                       },
+                      cursor: 'pointer'
                     }}
                   >
                     {subItem.icon && (

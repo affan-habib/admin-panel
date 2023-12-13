@@ -49,7 +49,7 @@ const LoginForm: React.FC = () => {
 
       const data = response.data.data;
       saveAuthData(data);
-      navigate('/dashboard');
+      navigate('/');
     } catch (error) {
     } finally {
       setLoading(false);

@@ -20,7 +20,7 @@
     "learningField" : "Learning Area 1: Education Policy",
     "progress" : "Active",
     "courseDuration" : "Online : 10 Days",
-    "numberOfTrainee" : "5০",
+    "numberOfTrainee" : "50",
     "number1":"25",
     "number2":"400",
     "green":"Green",
@@ -55,7 +55,15 @@
     "name":"Name",
     "numberOfModule":"Number of Modules",
     "action":"Action",
-    "userCreation":"Create User"
+    "userCreation":"Create User",
+    "addAssesment":"Add Assesment",
+    "assesmentName":"Assesment Name",
+    "assesmentNo":"Assesment 1",
+    "markInput":"Enter Mark",
+    "passmarkInput":"Enter Pass Mark",
+    "negativeMarkInput":"Enter Negative Mark",
+    "enterTime":"Enter Time",
+    "placeHolderNumber":"1"
 
     
 }
