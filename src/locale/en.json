@@ -114,5 +114,14 @@
   "userList":"User list",
   "addAssignment":"Add Assignment",
   "assignmentname":"Enter the name of the assignment",
-  "addTopic": "Add Topic"
+  "addTopic": "Add Topic",
+  "assignmentInstruct":"Assignment Instructions",
+  "assignmentMark":"Mark the assignment",
+  "assignMarkPlace":"Enter assignment marks...",
+  "assignDuration":"Input the time",
+  "assignDurationPlace":"20 Minute",
+  "assignSubmissionType":"Submission type",
+  "assignCheckboxOne":"Written Submission",
+  "assignCheckboxTwo":"Upload File"
+
 }

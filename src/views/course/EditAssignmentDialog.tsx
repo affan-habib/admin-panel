@@ -107,14 +107,13 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                                     name="title_en"
                                     label={t('addAssignment')}
                                     placeholder={t('assignmentname')}
-
                                 />
                             </Grid>
 
                             <Grid sx={{ marginTop: '20px' }}>
                                 <InputFile
                                     name="supporting_doc"
-                                    label="অ্যাসাইনমেন্টের নির্দেশাবলী"
+                                    label={t('assignmentInstruct')}
                                     acceptedFileTypes=".doc, .docx, .ppt"
                                     limit={t('supDocLimit')}
                                     
@@ -125,20 +124,22 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                                 <Grid item xs={6}>
                                     <InputField
                                         name="mark"
-                                        label="অ্যাসাইনমেন্টের মার্ক দিন"
-                                        placeholder="অ্যাসাইনমেন্টের মার্ক লিখুন..."
+                                        label={t('assignmentMark')}
+                                        placeholder={t('assignMarkPlace')}
+                                        type="number"
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <InputField
                                         name="total_time"
-                                        label="সময় ইনপুট দিন"
-                                        placeholder="২০ মিনিট"
+                                        label={t('assignDuration')}
+                                        placeholder={t('assignDutrationPlace')}
+                                        type="number"
                                     />
                                 </Grid>
                             </Grid>
                             <Grid container spacing={2} alignItems="center" sx={{ borderBottom: '1px solid grey', marginTop: 1 }}>
-                                <Grid item>
+                                <Grid item sx={{marginBottom:'20px'}}>
                                     <InputLabel
                                         sx={{
                                             minWidth: 200,
@@ -147,7 +148,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                                             fontWeight: 500,
                                         }}
                                     >
-                                        সাবমিশন টাইপ
+                                        {t('assignSubmissionType')}
                                     </InputLabel>
                                     <FormControlLabel
                                         control={
@@ -157,7 +158,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                                                 name="writtenSubmission"
                                             />
                                         }
-                                        label="রিটেন সাবমিশন"
+                                        label={t('assignCheckboxOne')}
                                     />
                                     <FormControlLabel
                                         control={
@@ -167,7 +168,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                                                 name="uploadFile"
                                             />
                                         }
-                                        label="আপলোড ফাইল"
+                                        label={t('assignCheckboxTwo')}
                                     />
                                 </Grid>
 
