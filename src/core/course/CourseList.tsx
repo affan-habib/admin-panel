@@ -28,7 +28,7 @@ import { useTranslation } from 'react-i18next';
 
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const search = useDebounce(searchTerm, 500);
   const queryClient = useQueryClient();
@@ -37,7 +37,7 @@ const CourseList: React.FC = () => {
   const language = localStorage.getItem('language');
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
-    page: currentPage + 1, // Adjusted to use 1-based index for the API
+    page: currentPage, // Adjusted to use 1-based index for the API
     search: search,
   });
   const navigate = useNavigate();
@@ -133,13 +133,16 @@ const CourseList: React.FC = () => {
       >
         <div>
           <PageSizeSelect
+            total={courses?.meta?.total}
             pageSize={pageSize}
             onPageSizeChange={handlePageSizeChange}
           />
+        </div>
+        <div>
           <TextField
             variant="outlined"
             size="small"
-            sx={{ width: 450 }}
+            sx={{ width: 350, mr: 2 }}
             placeholder={t('searchList')}
             InputProps={{
               startAdornment: (
@@ -151,11 +154,6 @@ const CourseList: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
-        <div>
-          <Button variant="outlined" startIcon={<FilterList />} sx={{ mr: 2 }}>
-            {t('filterList')}
-          </Button>
           <Button
             variant="contained"
             startIcon={<Add />}
