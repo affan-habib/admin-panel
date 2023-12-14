@@ -49,6 +49,8 @@
   "timeLine": "Timeline",
   "batchCode": "Batch Code",
   "status": "Status",
+  "active": "Active",
+  "disabled": "Disabled",
   "actionButton": "Action Button",
   "formativeAssessmentSystem": "Formative Assessment System",
   "userProfile": "User Profile",
@@ -111,5 +113,17 @@
   "assesment": "Assessment",
   "selectTopic": "Select Topic to add",
   "addChapter": "Add Chapter",
-  "addTopic": "Add Topic"
+  "userList":"User list",
+  "addAssignment":"Add Assignment",
+  "assignmentname":"Enter the name of the assignment",
+  "addTopic": "Add Topic",
+  "assignmentInstruct":"Assignment Instructions",
+  "assignmentMark":"Mark the assignment",
+  "assignMarkPlace":"Enter assignment marks...",
+  "assignDuration":"Input the time",
+  "assignDurationPlace":"20 Minute",
+  "assignSubmissionType":"Submission type",
+  "assignCheckboxOne":"Written Submission",
+  "assignCheckboxTwo":"Upload File"
+
 }

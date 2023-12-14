@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import CreateVideoDialog from './CreateVideoDialog';
 import EditVideoDialog from './EditVideoDialog';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import VideoIcon from '@mui/icons-material/VideoLibrary';
 import ModuleActions from './ModuleActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import SmartDisplayOutlinedIcon from '@mui/icons-material/SmartDisplayOutlined';
 import {
   Add,
   DragHandle,
@@ -30,7 +30,11 @@ import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
+import CreateAssignmentDialog from './CreateAssignmentDialog';
 import CreateAssesmentDialog from './CreateAssesmentDialog';
+import EditAssignmentDialog from './EditAssignmentDialog';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import axios from 'axios';
 
 const Chapters: React.FC<any> = ({ modules }) => {
   console.log(modules);
@@ -41,6 +45,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  const [selectedAssignment, setselectedAssignment] = useState<any>(null);
   const [visibleAddTopicId, setVisibleAddTopicId] = useState<any>('');
   const [moduleId, setModuleId] = useState();
 
@@ -53,8 +58,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssesmentDialogOpen(true);
   };
   const handleAssesmentDialogClose = () => {
-    setAssesmentDialogOpen(false)
-  }
+    setAssesmentDialogOpen(false);
+  };
 
   const handleDialogOpen = (module_id: any) => {
     setModuleId(module_id);
@@ -67,37 +72,66 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setSelectedVideo(video);
     setEditDialogOpen(true);
   };
-  const handleDeleteClick = (id: any) => {
-    fetch(`${apiBaseUrl}/course/video/delete/${id}?type=video`, {
-      method: 'DELETE',
-    })
+
+  const handleDeleteClick = (id: any, type: string) => {
+    let apiEndpoint;
+
+    if (type === 'video') {
+      apiEndpoint = `${apiBaseUrl}/course/video/delete/${id}?type=video`;
+    } else if (type === 'assignment') {
+      apiEndpoint = `${apiBaseUrl}/course/assignment/delete/${id}?type=assignment`;
+    } else {
+      // Handle other types or show an error
+      console.error('Invalid deletion type:', type);
+      return;
+    }
+
+    axios
+      .delete(apiEndpoint)
       .then((response: any) => {
         if (response.status === 200) {
-          // Handle successful deletion (e.g., update state, UI, etc.)
-          console.log(response.data.message, 'ssssssssss');
           showSnackbar(response.data.message, 'success');
           queryClient.invalidateQueries('courseDetails');
-          console.log('Module deleted successfully');
         } else {
-          showSnackbar('Successfully Deleted', 'success');
-          // Handle deletion failure (e.g., show an error message)
-          console.error('Failed to delete module');
+          showSnackbar(`Failed to delete ${type}`, 'error');
+          console.error(`Failed to delete ${type}`);
         }
       })
       .catch((error) => {
-        console.error('Error occurred while deleting module:', error);
+        console.error(`Error occurred while deleting ${type}:`, error);
       });
   };
 
   const handleEditDialogClose = () => setEditDialogOpen(false);
 
+    // Assignment dialog start
+  const [isAssignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
+  const handleAssignmentDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setAssignmentDialogOpen(true);
+  };
+  const handleAssignmentDialogClose = () => {
+    setAssignmentDialogOpen(false)
+  }
+  const [isEditAssignmentDialogOpen, setEditAssignmentDialogOpen] = useState(false);
+  const handleEditAssignmentDialogOpen = (assignment: any) => {
+    setselectedAssignment(assignment);
+    setEditAssignmentDialogOpen(true);
+  };
+  const handleEditAssignmentDialogClose = () => {
+    setEditAssignmentDialogOpen(false)
+  }
+   // Assignment dialog End
   return (
     <>
       {modules?.map((chapter: any) => (
         <Accordion
           disableGutters
           key={chapter.module_id}
-          sx={{ my: 1 }}
+          sx={{  
+            border: '1px solid #D0D0D0',
+            borderRadius: '8px',
+             }}
           expanded
         >
           <AccordionSummary
@@ -107,6 +141,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
               // justifyContent: 'space-around',
               alignItems: 'center',
               backgroundColor: '#DEEEC6',
+              borderBottom: '1px solid #D0D0D0'
             }}
           >
             <Box mt={1} mr={2}>
@@ -122,15 +157,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
             />
           </AccordionSummary>
           <>
-            <AccordionDetails>
+            <AccordionDetails sx={{}} >
               {chapter.course_videos.length > 0 &&
                 chapter.course_videos.map((el: any) => (
                   <div
                     key={el.video_id}
-                    style={{ display: 'flex', alignItems: 'center' }}
+                    style={{ display: 'flex', alignItems: 'center', borderBottom:'1px solid #D0D0D0', paddingTop:'8px', paddingBottom:"8px" }}
+
                   >
-                    <VideoIcon sx={{ marginRight: 1 }} />
-                    <Typography sx={{ flexGrow: 1 }}>{el.title}</Typography>
+                    <SmartDisplayOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
+                    <Typography sx={{ flexGrow: 1,marginLeft: 2 }}>{el.title}</Typography>
                     <IconButton
                       aria-label="Edit"
                       size="small"
@@ -140,18 +176,58 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         handleEditDialogOpen(el);
                       }}
                     >
-                      <EditIcon />
+                      <BorderColorOutlinedIcon />
                     </IconButton>
                     <IconButton
                       aria-label="Delete"
                       size="small"
                       color="error"
-                      onClick={() => openModal(() => handleDeleteClick(el.id))}
+                      onClick={() =>
+                        openModal(() => handleDeleteClick(el.id, 'video'))
+                      }
                     >
                       <DeleteIcon />
                     </IconButton>
                   </div>
                 ))}
+
+              {/* Assignment Data Start */}
+              {chapter.course_assignments.length > 0 &&
+                chapter.course_assignments.map((assignment: any) => (
+                  <div
+                    key={assignment.assignment_id}
+                    style={{ display: 'flex', alignItems: 'center', borderBottom:'1px solid #D0D0D0', paddingTop:'8px', paddingBottom:"8px"  }}
+                  >
+                    {/* Assignment details */}
+                    <AssignmentOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
+                    <Typography sx={{ flexGrow: 1, marginLeft: 2  }}>{assignment.title_en}</Typography>
+                    <IconButton
+                      aria-label="Edit Assignment"
+                      size="small"
+                      color="primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditAssignmentDialogOpen(assignment);
+                      }}
+                    >
+                      <BorderColorOutlinedIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="Delete Assignment"
+                      size="small"
+                      color="error"
+                      onClick={() =>
+                        openModal(() =>
+                          handleDeleteClick(assignment.id, 'assignment'),
+                        )
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                ))}
+              {/* Assignment Data End */}
+
               {chapter.id === visibleAddTopicId && (
                 <Stack width="100%" alignItems="center">
                   <Typography mt={2}>{t('selectTopic')}</Typography>
@@ -162,13 +238,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<PlayCircleFilledIcon />}
                     />
                     <CustomButton
-                      onClick={() => { }}
+                      onClick={() => {
+                        handleAssignmentDialogOpen(chapter.id);
+                      }}
                       title={t('assigmnment')}
-                      disabled={true}
+                      disabled={false}
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => { }}
+                      onClick={() => {}}
                       title={t('vdoWithQuiz')}
                       disabled={true}
                       icon={<AssignmentIcon />}
@@ -206,7 +284,25 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-        // onEdit={handleVideoEdit}
+          // onEdit={handleVideoEdit}
+        />
+      )}
+
+      {/* Assignment Dialog */}
+      <CreateAssignmentDialog
+        open={isAssignmentDialogOpen}
+        onClose={handleAssignmentDialogClose}
+        moduleId={moduleId}
+      />
+      
+
+       {/* Edit Assignment Dialog */}
+      {selectedAssignment && (
+        <EditAssignmentDialog
+          open={isEditAssignmentDialogOpen}
+          onClose={handleEditAssignmentDialogClose}
+          initialData={selectedAssignment}
+       
         />
       )}
     </>
