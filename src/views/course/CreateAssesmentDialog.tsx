@@ -38,12 +38,6 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   const { showSnackbar } = useSnackbar();
   const res = 'Congrats, you are console logging form data';
 
-  // const handleSubmit = (values: any) => {
-  //   console.log('Form values:', values);
-  //   onClose();
-  //   showSnackbar(res, 'success');
-  // }
-
   const handleSubmit = async (values: any) => {
     if (typeof values.url === 'string') {
       delete values.url;
@@ -97,18 +91,18 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             course_id: id,
             // mark: '',
             // passMark: '',
-            negativeMark: '',
+            // negativeMark: '',
             time: '',
             course_module_id: moduleId,
             url: null,
             status: 1,
             module_id: moduleId,
-            assessment_title: "1",
-            total_mark: 1,
-            pass_mark: 12,
-            "positive_mark": "12",
-            "negative_mark": "-2",
-            "total_time": "12"
+            assessment_title: "",
+            total_mark: '',
+            pass_mark: '',
+            positive_mark: 15,
+            negative_mark: '',
+            total_time: ""
           }}
           onSubmit={handleSubmit}
         >
@@ -121,14 +115,14 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             <Grid container spacing={2} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
                 <InputField
-                  name="mark"
+                  name="total_mark"
                   label={t("markInput")}
                   placeholder={t('placeHolderNumber')}
                 />
               </Grid>
               <Grid item xs={6}>
                 <InputField
-                  name="passMark"
+                  name="pass_mark"
                   label={t("passmarkInput")}
                   placeholder={t('placeHolderNumber')}
                 />
@@ -138,14 +132,14 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             <Grid container spacing={2} marginBottom={1} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
                 <InputField
-                  name="negativeMark"
+                  name="negative_mark"
                   label={t('negativeMarkInput')}
                   placeholder={t('placeHolderNumber')}
                 />
               </Grid>
               <Grid item xs={6}>
                 <InputField
-                  name="time"
+                  name="total_time"
                   label={t('enterTime')}
                   placeholder={t('placeHolderNumber')}
                 />
