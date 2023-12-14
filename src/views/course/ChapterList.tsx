@@ -143,9 +143,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
   }
 
   //Assesssment Category
-  const [selectedId,setSelectedId] = useState(-1);
-  const toggleAssessmentSection = (id : any) => {
-    if(selectedId != id){
+  const [selectedId, setSelectedId] = useState(-1);
+  const toggleAssessmentSection = (id: any) => {
+    if (selectedId != id) {
       setSelectedId(id);
     } else {
       setSelectedId(-1);
@@ -197,6 +197,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     <SmartDisplayOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>{el.title}</Typography>
                     <IconButton
+                    style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,margin:'4px'}}
                       aria-label="Edit"
                       size="small"
                       color="primary"
@@ -208,6 +209,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       <BorderColorOutlinedIcon />
                     </IconButton>
                     <IconButton
+                    style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,margin:'4px'}}
                       aria-label="Delete"
                       size="small"
                       color="error"
@@ -231,6 +233,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     <AssignmentOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>{assignment.title_en}</Typography>
                     <IconButton
+                    style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,margin:'4px'}}
                       aria-label="Edit Assignment"
                       size="small"
                       color="primary"
@@ -242,6 +245,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       <BorderColorOutlinedIcon />
                     </IconButton>
                     <IconButton
+                    style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,margin:'4px'}}
                       aria-label="Delete Assignment"
                       size="small"
                       color="error"
@@ -268,15 +272,17 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       <QuizOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
                       <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>Assessment {assessment.id} : {assessment.assessment_title}</Typography>
                       <IconButton
+                        style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,margin:'4px'}}
                         aria-label="Add Assessment"
                         size="small"
-                        onClick= {()=> toggleAssessmentSection(assessment.id)}
+                        onClick={() => toggleAssessmentSection(assessment.id)}
                         color="primary">
                         {
-                          selectedId == assessment.id ?  <RemoveOutlinedIcon /> : <AddOutlinedIcon />
+                          selectedId == assessment.id ? <RemoveOutlinedIcon /> : <AddOutlinedIcon />
                         }
                       </IconButton>
                       <IconButton
+                        style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,margin:'4px'}}
                         aria-label="Add Assessment"
                         size="small"
                         color="primary"
@@ -288,6 +294,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         <BorderColorOutlinedIcon />
                       </IconButton>
                       <IconButton
+                        style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,margin:'4px'}}
                         aria-label="Delete Assignment"
                         size="small"
                         color="error"
