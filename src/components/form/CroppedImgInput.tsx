@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  InputLabel,
+  InputLabel,TextField
 } from '@mui/material';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
@@ -69,18 +69,21 @@ const FileInput: React.FC<FileInputProps> = ({ label, name }) => {
       >
         {label}
       </InputLabel>
-      <input
+      <TextField
+        size="small"
         id={name}
         name={name}
         type="file"
         onChange={handleFileChange}
-        accept="image/*"
+        inputProps={{
+          accept: "image/*", // Set accepted file types
+        }}
       />
       {image && (
         <>
-          <IconButton color="primary" onClick={() => setOpenModal(true)}>
+          {/* <IconButton color="primary" onClick={() => setOpenModal(true)}>
             <PhotoCameraIcon />
-          </IconButton>
+          </IconButton> */}
           <Dialog open={openModal} onClose={() => setOpenModal(false)}>
             <DialogTitle>Resize Image</DialogTitle>
             <DialogContent>
