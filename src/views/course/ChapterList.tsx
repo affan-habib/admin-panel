@@ -143,11 +143,13 @@ const Chapters: React.FC<any> = ({ modules }) => {
   }
 
   //Assesssment Category
-  const [sectionOpen, setSectionOpen] = useState(false);
-  const [selectedId,setSelectedId] = useState();
+  const [selectedId,setSelectedId] = useState(-1);
   const toggleAssessmentSection = (id : any) => {
-    setSectionOpen(!sectionOpen);
-    setSelectedId(id)
+    if(selectedId != id){
+      setSelectedId(id);
+    } else {
+      setSelectedId(-1);
+    }
   }
   return (
     <>
@@ -271,7 +273,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         onClick= {()=> toggleAssessmentSection(assessment.id)}
                         color="primary">
                         {
-                          sectionOpen && selectedId == assessment.id ?  <RemoveOutlinedIcon /> : <AddOutlinedIcon />
+                          selectedId == assessment.id ?  <RemoveOutlinedIcon /> : <AddOutlinedIcon />
                         }
                       </IconButton>
                       <IconButton
@@ -298,7 +300,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         <DeleteIcon />
                       </IconButton>
                     </div>
-                    {sectionOpen && selectedId == assessment.id && <div key={assessment.id}
+                    {selectedId == assessment.id && <div key={assessment.id}
                       // style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
                       style={{ display: 'flex', alignItems: 'center', paddingTop: '8px', paddingBottom: "8px" }}>
                       <Box
