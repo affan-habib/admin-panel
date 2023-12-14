@@ -18,6 +18,8 @@ import { useQueryClient } from 'react-query';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useTranslation } from 'react-i18next';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { apiBaseUrl } from 'config';
+import axios from 'axios';
 
 interface CreateAssesmentDialogProps {
   open: boolean;
@@ -36,11 +38,36 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   const { showSnackbar } = useSnackbar();
   const res = 'Congrats, you are console logging form data';
 
-  const handleSubmit = (values: any) => {
-    console.log('Form values:', values);
-    onClose();
-    showSnackbar(res, 'success');
-  }
+  const handleSubmit = async (values: any) => {
+    if (typeof values.url === 'string') {
+      delete values.url;
+    }
+    try {
+      const formData = new FormData();
+
+      Object.keys(values).forEach((key) => {
+        formData.append(key, values[key]);
+      });
+
+      const response = await axios.post(
+        `${apiBaseUrl}/course-assessments`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+      showSnackbar(response.data.message, 'success');
+
+      queryClient.invalidateQueries('courseDetails');
+      onClose();
+      console.log('API Response:', response.data);
+    } catch (error: any) {
+      showSnackbar(error.response.data.message, 'error');
+      console.error('Error submitting form:', error);
+    }
+  };
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -61,52 +88,58 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
       <DialogContent sx={{ width: 600 }}>
         <Formik
           initialValues={{
-            assesmentTitle: '',
             course_id: id,
-            mark: '',
-            passMark: '',
-            negativeMark: '',
+            // mark: '',
+            // passMark: '',
+            // negativeMark: '',
             time: '',
             course_module_id: moduleId,
             url: null,
             status: 1,
+            module_id: moduleId,
+            assessment_title: "",
+            total_mark: '',
+            pass_mark: '',
+            positive_mark: 15,
+            negative_mark: '',
+            total_time: ""
           }}
           onSubmit={handleSubmit}
         >
           <Form>
             <InputField
-              name="assesmentTitle"
+              name="assessment_title"
               label={t("assesmentName")}
               placeholder={t("assesmentNo")}
             />
-            <Grid container spacing={2} sx={{marginTop:'2px'}}>
+            <Grid container spacing={2} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
                 <InputField
-                  name="mark"
+                  name="total_mark"
                   label={t("markInput")}
                   placeholder={t('placeHolderNumber')}
                 />
               </Grid>
               <Grid item xs={6}>
                 <InputField
-                  name="passMark"
+                  name="pass_mark"
                   label={t("passmarkInput")}
                   placeholder={t('placeHolderNumber')}
                 />
               </Grid>
             </Grid>
 
-            <Grid container spacing={2} marginBottom={1}  sx={{marginTop:'2px'}}>
+            <Grid container spacing={2} marginBottom={1} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
                 <InputField
-                  name="negativeMark"
+                  name="negative_mark"
                   label={t('negativeMarkInput')}
                   placeholder={t('placeHolderNumber')}
                 />
               </Grid>
               <Grid item xs={6}>
                 <InputField
-                  name="time"
+                  name="total_time"
                   label={t('enterTime')}
                   placeholder={t('placeHolderNumber')}
                 />
