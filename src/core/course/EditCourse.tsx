@@ -34,9 +34,9 @@ const EditCourse: React.FC = () => {
   const validationSchema = Yup.object({
     code: Yup.string().required('Course code is required'),
     name_bn: Yup.string().required('Bangla course name is required'),
-    short_desc_bn: Yup.string().required(
-      'Bangla short description is required',
-    ),
+    // short_desc_bn: Yup.string().required(
+    //   'Bangla short description is required',
+    // ),
   });
   const handleSubmit = async (values: any) => {
     console.log(values);
