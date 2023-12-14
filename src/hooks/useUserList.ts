@@ -4,10 +4,10 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 
 // Define the fetch function that makes the API request
-const fetchCourses = async ({ itemsPerPage, page, search }: any) => {
+const fetchUsersList = async ({ itemsPerPage, page, search }: any) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.get(`${apiBaseUrl}/course`, {
+    const response = await axios.get(`${apiBaseUrl}/admins`, {
       params: {
         itemsPerPage,
         page,
@@ -20,19 +20,19 @@ const fetchCourses = async ({ itemsPerPage, page, search }: any) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching courses');
+    throw new Error('Error fetching userList');
   }
 };
 
 // Define the custom hook using useQuery
-const useCourses = ({ itemsPerPage, page, search }: any) => {
+const useUserList = ({ itemsPerPage, page, search }: any) => {
   return useQuery(
-    ['courses', { itemsPerPage, page, search }],
-    () => fetchCourses({ itemsPerPage, page, search }),
+    ['userList', { itemsPerPage, page, search }],
+    () => fetchUsersList({ itemsPerPage, page, search }),
     {
       refetchOnWindowFocus: false, // Disable automatic refetching on window focus
     },
   );
 };
 
-export default useCourses;
+export default useUserList;

@@ -36,7 +36,7 @@ const ReactTable: React.FC<ReactTableProps> = ({
       {
         columns,
         data,
-        initialState: { pageIndex: currentPage, pageSize } as any,
+        initialState: { pageIndex: 0, pageSize } as any,
       },
       usePagination,
     ) as any;
@@ -55,7 +55,10 @@ const ReactTable: React.FC<ReactTableProps> = ({
                       backgroundColor: 'primary.light',
                       fontWeight: '800',
                       textTransform: 'uppercase',
-                      borderRight: columnIndex < headerGroup.headers.length - 1 ? '1px solid #ddd' : 'none',
+                      borderRight:
+                        columnIndex < headerGroup.headers.length - 1
+                          ? '1px solid #ddd'
+                          : 'none',
                     }}
                   >
                     {column.render('Header')}
@@ -75,7 +78,12 @@ const ReactTable: React.FC<ReactTableProps> = ({
                   {row.cells.map((cell, cellIndex) => (
                     <TableCell
                       {...cell.getCellProps()}
-                      sx={{ borderRight: cellIndex < row.cells.length - 1 ? '1px solid #ddd' : 'none' }}
+                      sx={{
+                        borderRight:
+                          cellIndex < row.cells.length - 1
+                            ? '1px solid #ddd'
+                            : 'none',
+                      }}
                     >
                       {cell.render('Cell')}
                     </TableCell>
@@ -89,8 +97,8 @@ const ReactTable: React.FC<ReactTableProps> = ({
       <Pagination
         sx={{ alignSelf: 'flex-end', mt: 2 }}
         count={Math.ceil(totalCount / pageSize)}
-        page={currentPage + 1}
-        onChange={(_, page) => onPageChange(page - 1)}
+        page={currentPage}
+        onChange={(_, page) => onPageChange(page)}
         shape="rounded"
       />
     </Stack>
