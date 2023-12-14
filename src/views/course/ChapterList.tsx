@@ -18,6 +18,8 @@ import { useQueryClient } from 'react-query';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import SmartDisplayOutlinedIcon from '@mui/icons-material/SmartDisplayOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import {
   Add,
   DragHandle,
@@ -120,24 +122,32 @@ const Chapters: React.FC<any> = ({ modules }) => {
   // Assignment dialog End
 
   //Assessment Dialog
-    const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
+  const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
 
-    const handleAssesmentDialogOpen = (module_id: any) => {
-      setModuleId(module_id);
-      setAssesmentDialogOpen(true);
-    };
-    const handleAssesmentDialogClose = () => {
-      setAssesmentDialogOpen(false);
-    };
+  const handleAssesmentDialogOpen = (module_id: any) => {
+    setModuleId(module_id);
+    setAssesmentDialogOpen(true);
+  };
+  const handleAssesmentDialogClose = () => {
+    setAssesmentDialogOpen(false);
+  };
 
-    //Edit assessment
-  const [isEditAssessmentDialogOpen,setEditAssessmentDialogOpen] = useState(false);
+  //Edit assessment
+  const [isEditAssessmentDialogOpen, setEditAssessmentDialogOpen] = useState(false);
   const handleEditAssessmentDialogOpen = (assessment: any) => {
     setSelectedAssessment(assessment);
     setEditAssessmentDialogOpen(true);
   };
   const handleEditAssessmentDialogClose = () => {
     setEditAssessmentDialogOpen(false)
+  }
+
+  //Assesssment Category
+  const [sectionOpen, setSectionOpen] = useState(false);
+  const [selectedId,setSelectedId] = useState();
+  const toggleAssessmentSection = (id : any) => {
+    setSectionOpen(!sectionOpen);
+    setSelectedId(id)
   }
   return (
     <>
@@ -250,34 +260,79 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
               {chapter.course_assessments.length > 0 &&
                 chapter.course_assessments.map((assessment: any) => (
-                  <div key={assessment.id}
-                    style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
-                    <QuizOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
-                    <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>Assessment {assessment.id} : {assessment.assessment_title}</Typography>
-                    <IconButton
-                      aria-label="Edit Assessment"
-                      size="small"
-                      color="primary"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleEditAssessmentDialogOpen(assessment);
-                      }}
-                    >
-                      <BorderColorOutlinedIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="Delete Assignment"
-                      size="small"
-                      color="error"
-                      onClick={() =>
-                        openModal(() =>
-                          handleDeleteClick(assessment.id, 'assessment'),
-                        )
-                      }
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </div>
+                  <>
+                    <div key={assessment.id}
+                      style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
+                      <QuizOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
+                      <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>Assessment {assessment.id} : {assessment.assessment_title}</Typography>
+                      <IconButton
+                        aria-label="Add Assessment"
+                        size="small"
+                        onClick= {()=> toggleAssessmentSection(assessment.id)}
+                        color="primary">
+                        {
+                          sectionOpen && selectedId == assessment.id ?  <RemoveOutlinedIcon /> : <AddOutlinedIcon />
+                        }
+                      </IconButton>
+                      <IconButton
+                        aria-label="Add Assessment"
+                        size="small"
+                        color="primary"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEditAssessmentDialogOpen(assessment);
+                        }}
+                      >
+                        <BorderColorOutlinedIcon />
+                      </IconButton>
+                      <IconButton
+                        aria-label="Delete Assignment"
+                        size="small"
+                        color="error"
+                        onClick={() =>
+                          openModal(() =>
+                            handleDeleteClick(assessment.id, 'assessment'),
+                          )
+                        }
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                    {sectionOpen && selectedId == assessment.id && <div key={assessment.id}
+                      // style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
+                      style={{ display: 'flex', alignItems: 'center', paddingTop: '8px', paddingBottom: "8px" }}>
+                      <Box
+                        sx={{
+                          width: '100%',
+                          border: '1px dashed #000',
+                          padding: '10px',
+                          boxSizing: 'border-box',
+                        }}
+                      >
+                        <Button
+                          sx={{ marginLeft: '7px' }}
+                          variant="outlined"
+                          startIcon={<AddOutlinedIcon />}
+                        >
+                          কুইজ
+                        </Button>
+                        <Button
+                          sx={{ marginLeft: '7px' }}
+                          variant="outlined"
+                          startIcon={<AddOutlinedIcon />}
+                        >
+                          মাল্টিপল চয়েস
+                        </Button>
+                        <Button
+                          sx={{ marginLeft: '7px' }}
+                          variant="outlined"
+                          startIcon={<AddOutlinedIcon />}
+                        >
+                          ম্যাচিং
+                        </Button>
+                      </Box>
+                    </div>}
+                  </>
                 ))}
 
               {chapter.id === visibleAddTopicId && (
@@ -362,9 +417,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
       {
         selectedAssessment && (
           <EditAssessmentDialog
-          open={isEditAssessmentDialogOpen}
-          onClose={handleEditAssessmentDialogClose}
-          initialData={selectedAssessment}
+            open={isEditAssessmentDialogOpen}
+            onClose={handleEditAssessmentDialogClose}
+            initialData={selectedAssessment}
           />
         )
       }
