@@ -13,7 +13,7 @@ import {
 import StepOne from 'views/course/StepOne';
 import StepTwo from 'views/course/StepTwo';
 import StepThree from 'views/course/StepThree';
-import DyanamicForm from 'views/course/CreateChapter';
+import DyanamicForm from 'views/course/chapter/CreateChapter';
 import { useParams } from 'react-router-dom';
 import useCourseDetails from 'hooks/useCourseDetails';
 import { apiBaseUrl } from 'config';

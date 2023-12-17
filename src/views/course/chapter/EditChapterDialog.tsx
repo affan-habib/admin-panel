@@ -11,7 +11,6 @@ import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 
@@ -26,7 +25,6 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
   onClose,
   module,
 }) => {
-  const { id } = useParams();
   const queryClient = useQueryClient();
 
   const handleSubmit = async (values: any) => {
@@ -38,7 +36,6 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
       );
 
       // Handle the response or perform actions as needed
-      console.log('API Response:', response.data);
       queryClient.invalidateQueries('courseDetails');
       onClose();
     } catch (error) {

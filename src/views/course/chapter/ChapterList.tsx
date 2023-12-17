@@ -9,10 +9,10 @@ import {
   Box,
   Stack,
 } from '@mui/material';
-import CreateVideoDialog from './CreateVideoDialog';
-import EditVideoDialog from './EditVideoDialog';
+import CreateVideoDialog from './video/CreateVideoDialog';
+import EditVideoDialog from './video/EditVideoDialog';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ModuleActions from './ModuleActions';
+import ChapterActions from './ChapterActions';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
@@ -20,12 +20,7 @@ import SmartDisplayOutlinedIcon from '@mui/icons-material/SmartDisplayOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
-import {
-  Add,
-  DragHandle,
-  OpenWith,
-  PlayArrowOutlined,
-} from '@mui/icons-material';
+import { OpenWith } from '@mui/icons-material';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import { useSnackbar } from 'context/SnackbarContext';
 import CustomButton from './CustomButton';
@@ -33,15 +28,14 @@ import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import QuizIcon from '@mui/icons-material/Quiz';
 import { useTranslation } from 'react-i18next';
-import CreateAssignmentDialog from './CreateAssignmentDialog';
-import CreateAssesmentDialog from './CreateAssesmentDialog';
-import EditAssignmentDialog from './EditAssignmentDialog';
+import CreateAssignmentDialog from './assignment/CreateAssignmentDialog';
+import CreateAssesmentDialog from './assesment/CreateAssesmentDialog';
+import EditAssignmentDialog from './assignment/EditAssignmentDialog';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import axios from 'axios';
-import EditAssessmentDialog from './EditAssessmentDialog';
+import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 
 const Chapters: React.FC<any> = ({ modules }) => {
-  console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -76,9 +70,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
     }
     //handling assessment delete
     else if (type === 'assessment') {
-      apiEndpoint = `${apiBaseUrl}/course-assessments/${id}`
-    }
-    else {
+      apiEndpoint = `${apiBaseUrl}/course-assessments/${id}`;
+    } else {
       // Handle other types or show an error
       console.error('Invalid deletion type:', type);
       return;
@@ -109,16 +102,17 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssignmentDialogOpen(true);
   };
   const handleAssignmentDialogClose = () => {
-    setAssignmentDialogOpen(false)
-  }
-  const [isEditAssignmentDialogOpen, setEditAssignmentDialogOpen] = useState(false);
+    setAssignmentDialogOpen(false);
+  };
+  const [isEditAssignmentDialogOpen, setEditAssignmentDialogOpen] =
+    useState(false);
   const handleEditAssignmentDialogOpen = (assignment: any) => {
     setselectedAssignment(assignment);
     setEditAssignmentDialogOpen(true);
   };
   const handleEditAssignmentDialogClose = () => {
-    setEditAssignmentDialogOpen(false)
-  }
+    setEditAssignmentDialogOpen(false);
+  };
   // Assignment dialog End
 
   //Assessment Dialog
@@ -133,14 +127,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
   };
 
   //Edit assessment
-  const [isEditAssessmentDialogOpen, setEditAssessmentDialogOpen] = useState(false);
+  const [isEditAssessmentDialogOpen, setEditAssessmentDialogOpen] =
+    useState(false);
   const handleEditAssessmentDialogOpen = (assessment: any) => {
     setSelectedAssessment(assessment);
     setEditAssessmentDialogOpen(true);
   };
   const handleEditAssessmentDialogClose = () => {
-    setEditAssessmentDialogOpen(false)
-  }
+    setEditAssessmentDialogOpen(false);
+  };
 
   //Assesssment Category
   const [selectedId, setSelectedId] = useState(-1);
@@ -150,7 +145,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     } else {
       setSelectedId(-1);
     }
-  }
+  };
   return (
     <>
       {modules?.map((chapter: any) => (
@@ -162,7 +157,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
             borderRadius: '4px',
             borderTopLeftRadius: '4px',
             borderTopRightRadius: '4px',
-            marginBottom: '15px'
+            marginBottom: '15px',
           }}
           expanded
         >
@@ -175,7 +170,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
               backgroundColor: '#DEEEC6',
               borderBottom: '1px solid #D0D0D0',
               borderTopLeftRadius: '4px',
-              borderTopRightRadius: '4px'
+              borderTopRightRadius: '4px',
             }}
           >
             <Box mt={1} mr={2}>
@@ -184,25 +179,39 @@ const Chapters: React.FC<any> = ({ modules }) => {
             <Typography mt={1}>
               {chapter.module_code} : {chapter.module_name_bn}
             </Typography>
-            <ModuleActions
+            <ChapterActions
               module={chapter}
               setVisibleAddTopicId={setVisibleAddTopicId}
               visibleAddTopicId={visibleAddTopicId}
             />
           </AccordionSummary>
           <>
-            <AccordionDetails sx={{}} >
+            <AccordionDetails sx={{}}>
               {chapter.course_videos.length > 0 &&
                 chapter.course_videos.map((el: any) => (
                   <div
                     key={el.video_id}
-                    style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}
-
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      borderBottom: '1px solid #D0D0D0',
+                      paddingTop: '8px',
+                      paddingBottom: '8px',
+                    }}
                   >
-                    <SmartDisplayOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
-                    <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>{el.title}</Typography>
+                    <SmartDisplayOutlinedIcon
+                      color="primary"
+                      sx={{ marginLeft: 2 }}
+                    />
+                    <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
+                      {el.title}
+                    </Typography>
                     <IconButton
-                      style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', margin: '4px' }}
+                      style={{
+                        border: '1px solid rgba(208, 208, 208, 1)',
+                        borderRadius: '5px',
+                        margin: '4px',
+                      }}
                       aria-label="Edit"
                       size="small"
                       color="primary"
@@ -214,7 +223,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       <BorderColorOutlinedIcon />
                     </IconButton>
                     <IconButton
-                      style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', margin: '4px' }}
+                      style={{
+                        border: '1px solid rgba(208, 208, 208, 1)',
+                        borderRadius: '5px',
+                        margin: '4px',
+                      }}
                       aria-label="Delete"
                       size="small"
                       color="error"
@@ -232,13 +245,28 @@ const Chapters: React.FC<any> = ({ modules }) => {
                 chapter.course_assignments.map((assignment: any) => (
                   <div
                     key={assignment.assignment_id}
-                    style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      borderBottom: '1px solid #D0D0D0',
+                      paddingTop: '8px',
+                      paddingBottom: '8px',
+                    }}
                   >
                     {/* Assignment details */}
-                    <AssignmentOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
-                    <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>{assignment.title_en}</Typography>
+                    <AssignmentOutlinedIcon
+                      color="primary"
+                      sx={{ marginLeft: 2 }}
+                    />
+                    <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
+                      {assignment.title_en}
+                    </Typography>
                     <IconButton
-                      style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', margin: '4px' }}
+                      style={{
+                        border: '1px solid rgba(208, 208, 208, 1)',
+                        borderRadius: '5px',
+                        margin: '4px',
+                      }}
                       aria-label="Edit Assignment"
                       size="small"
                       color="primary"
@@ -250,7 +278,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       <BorderColorOutlinedIcon />
                     </IconButton>
                     <IconButton
-                      style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', margin: '4px' }}
+                      style={{
+                        border: '1px solid rgba(208, 208, 208, 1)',
+                        borderRadius: '5px',
+                        margin: '4px',
+                      }}
                       aria-label="Delete Assignment"
                       size="small"
                       color="error"
@@ -272,22 +304,47 @@ const Chapters: React.FC<any> = ({ modules }) => {
               {chapter.course_assessments.length > 0 &&
                 chapter.course_assessments.map((assessment: any) => (
                   <>
-                    <div key={assessment.id}
-                      style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
-                      <QuizOutlinedIcon color="primary" sx={{ marginLeft: 2 }} />
-                      <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>Assessment {assessment.id} : {assessment.assessment_title}</Typography>
+                    <div
+                      key={assessment.id}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        borderBottom: '1px solid #D0D0D0',
+                        paddingTop: '8px',
+                        paddingBottom: '8px',
+                      }}
+                    >
+                      <QuizOutlinedIcon
+                        color="primary"
+                        sx={{ marginLeft: 2 }}
+                      />
+                      <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
+                        Assessment {assessment.id} :{' '}
+                        {assessment.assessment_title}
+                      </Typography>
                       <IconButton
-                        style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', margin: '4px' }}
+                        style={{
+                          border: '1px solid rgba(208, 208, 208, 1)',
+                          borderRadius: '5px',
+                          margin: '4px',
+                        }}
                         aria-label="Add Assessment"
                         size="small"
                         onClick={() => toggleAssessmentSection(assessment.id)}
-                        color="primary">
-                        {
-                          selectedId == assessment.id ? <RemoveOutlinedIcon /> : <AddOutlinedIcon />
-                        }
+                        color="primary"
+                      >
+                        {selectedId == assessment.id ? (
+                          <RemoveOutlinedIcon />
+                        ) : (
+                          <AddOutlinedIcon />
+                        )}
                       </IconButton>
                       <IconButton
-                        style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', margin: '4px' }}
+                        style={{
+                          border: '1px solid rgba(208, 208, 208, 1)',
+                          borderRadius: '5px',
+                          margin: '4px',
+                        }}
                         aria-label="Add Assessment"
                         size="small"
                         color="primary"
@@ -299,7 +356,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         <BorderColorOutlinedIcon />
                       </IconButton>
                       <IconButton
-                        style={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', margin: '4px' }}
+                        style={{
+                          border: '1px solid rgba(208, 208, 208, 1)',
+                          borderRadius: '5px',
+                          margin: '4px',
+                        }}
                         aria-label="Delete Assignment"
                         size="small"
                         color="error"
@@ -312,40 +373,49 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         <DeleteIcon />
                       </IconButton>
                     </div>
-                    {selectedId == assessment.id && <div key={assessment.id}
-                      // style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
-                      style={{ display: 'flex', alignItems: 'center', paddingTop: '8px', paddingBottom: "8px" }}>
-                      <Box
-                        sx={{
-                          width: '100%',
-                          border: '1px dashed #000',
-                          padding: '10px',
-                          boxSizing: 'border-box',
+                    {selectedId == assessment.id && (
+                      <div
+                        key={assessment.id}
+                        // style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          paddingTop: '8px',
+                          paddingBottom: '8px',
                         }}
                       >
-                        <Button
-                          sx={{ marginLeft: '7px' }}
-                          variant="outlined"
-                          startIcon={<AddOutlinedIcon />}
+                        <Box
+                          sx={{
+                            width: '100%',
+                            border: '1px dashed #000',
+                            padding: '10px',
+                            boxSizing: 'border-box',
+                          }}
                         >
-                          কুইজ
-                        </Button>
-                        <Button
-                          sx={{ marginLeft: '7px' }}
-                          variant="outlined"
-                          startIcon={<AddOutlinedIcon />}
-                        >
-                          মাল্টিপল চয়েস
-                        </Button>
-                        <Button
-                          sx={{ marginLeft: '7px' }}
-                          variant="outlined"
-                          startIcon={<AddOutlinedIcon />}
-                        >
-                          ম্যাচিং
-                        </Button>
-                      </Box>
-                    </div>}
+                          <Button
+                            sx={{ marginLeft: '7px' }}
+                            variant="outlined"
+                            startIcon={<AddOutlinedIcon />}
+                          >
+                            কুইজ
+                          </Button>
+                          <Button
+                            sx={{ marginLeft: '7px' }}
+                            variant="outlined"
+                            startIcon={<AddOutlinedIcon />}
+                          >
+                            মাল্টিপল চয়েস
+                          </Button>
+                          <Button
+                            sx={{ marginLeft: '7px' }}
+                            variant="outlined"
+                            startIcon={<AddOutlinedIcon />}
+                          >
+                            ম্যাচিং
+                          </Button>
+                        </Box>
+                      </div>
+                    )}
                   </>
                 ))}
 
@@ -369,7 +439,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => { }}
+                      onClick={() => {}}
                       title={t('vdoWithQuiz')}
                       disabled={true}
                       icon={<AssignmentIcon />}
@@ -407,7 +477,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-        // onEdit={handleVideoEdit}
+          // onEdit={handleVideoEdit}
         />
       )}
 
@@ -418,27 +488,23 @@ const Chapters: React.FC<any> = ({ modules }) => {
         moduleId={moduleId}
       />
 
-
       {/* Edit Assignment Dialog */}
       {selectedAssignment && (
         <EditAssignmentDialog
           open={isEditAssignmentDialogOpen}
           onClose={handleEditAssignmentDialogClose}
           initialData={selectedAssignment}
-
         />
       )}
 
       {/* Edit Assessment Dialog */}
-      {
-        selectedAssessment && (
-          <EditAssessmentDialog
-            open={isEditAssessmentDialogOpen}
-            onClose={handleEditAssessmentDialogClose}
-            initialData={selectedAssessment}
-          />
-        )
-      }
+      {selectedAssessment && (
+        <EditAssessmentDialog
+          open={isEditAssessmentDialogOpen}
+          onClose={handleEditAssessmentDialogClose}
+          initialData={selectedAssessment}
+        />
+      )}
     </>
   );
 };

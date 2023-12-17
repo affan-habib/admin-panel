@@ -10,7 +10,6 @@ import {
   Box,
   Stack,
 } from '@mui/material';
-import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
 import { useParams } from 'react-router-dom';
@@ -36,8 +35,6 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
-  const res = 'Congrats, you are console logging form data';
-
   const handleSubmit = async (values: any) => {
     if (typeof values.url === 'string') {
       delete values.url;
@@ -62,7 +59,6 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
 
       queryClient.invalidateQueries('courseDetails');
       onClose();
-      console.log('API Response:', response.data);
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
@@ -115,7 +111,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             <Grid container spacing={2} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
                 <InputField
-                  type='number'
+                  type="number"
                   name="total_mark"
                   label={t('markInput')}
                   placeholder={t('placeHolderNumber')}
@@ -123,7 +119,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
               <Grid item xs={6}>
                 <InputField
-                  type='number'
+                  type="number"
                   name="pass_mark"
                   label={t('passmarkInput')}
                   placeholder={t('placeHolderNumber')}

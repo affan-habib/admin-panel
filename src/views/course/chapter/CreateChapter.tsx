@@ -1,12 +1,7 @@
 // components/form/DyanamicForm.tsx
 import React, { useState } from 'react';
-import { Button, Grid, IconButton, Stack, Typography } from '@mui/material';
-import {
-  Add,
-  AddCircle,
-  AddCircleOutline,
-  AddOutlined,
-} from '@mui/icons-material';
+import { Button, Grid, Typography } from '@mui/material';
+import { AddCircleOutline } from '@mui/icons-material';
 import CreateChapterDialog from './CreateChapterDialog';
 import Chapters from './ChapterList';
 import { useTranslation } from 'react-i18next';
@@ -19,41 +14,42 @@ const DyanamicForm: React.FC<any> = ({ modules }) => {
 
   return (
     <>
-      <Grid sx={{p: 2,
-            border: '1px solid #D0D0D0',
-            borderRadius: '8px',
-            mt: 2,}}>
-        <Grid container
-          justifyContent="space-between"  // Adjust the alignment as needed
-          alignItems="center"             // Adjust the alignment as needed
+      <Grid
+        sx={{ p: 2, border: '1px solid #D0D0D0', borderRadius: '8px', mt: 2 }}
+      >
+        <Grid
+          container
+          justifyContent="space-between" // Adjust the alignment as needed
+          alignItems="center" // Adjust the alignment as needed
           sx={{
-            display: 'flex',              // Set display to flex
-            flexDirection: 'row',         // Horizontal flex direction
+            display: 'flex', // Set display to flex
+            flexDirection: 'row', // Horizontal flex direction
             borderBottom: '1px solid #D0D0D0',
-            mb:2
-          }}>
-          <Typography variant="h6" color="primary.main" sx={{marginBottom:'6px'}}>
-            {t("addChapter")}
+            mb: 2,
+          }}
+        >
+          <Typography
+            variant="h6"
+            color="primary.main"
+            sx={{ marginBottom: '6px' }}
+          >
+            {t('addChapter')}
           </Typography>
           <Button
-          
             variant="contained"
             color="primary"
             onClick={handleDialogOpen}
-            sx={{ width: 30, marginBottom:'6px' }}
-            
+            sx={{ width: 30, marginBottom: '6px' }}
           >
             <AddCircleOutline />
           </Button>
         </Grid>
-        <Grid >
-        <Chapters modules={modules} />
+        <Grid>
+          <Chapters modules={modules} />
         </Grid>
       </Grid>
 
       <CreateChapterDialog open={isDialogOpen} onClose={handleDialogClose} />
-
-      
     </>
   );
 };
