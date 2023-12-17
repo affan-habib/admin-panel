@@ -10,7 +10,7 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import RemoveIcon from '@mui/icons-material/Remove';
-const ModuleActions: React.FC<any> = ({
+const ChapterActions: React.FC<any> = ({
   module,
   setVisibleAddTopicId,
   visibleAddTopicId,
@@ -36,7 +36,6 @@ const ModuleActions: React.FC<any> = ({
       if (response.status === 200) {
         showSnackbar(response.data.data.message, 'error');
         queryClient.invalidateQueries('courseDetails');
-        console.log('Module deleted successfully');
       } else {
         console.error('Failed to delete module');
       }
@@ -102,4 +101,4 @@ const ModuleActions: React.FC<any> = ({
   );
 };
 
-export default ModuleActions;
+export default ChapterActions;

@@ -35,7 +35,6 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
       const response = await axios.post(`${apiBaseUrl}/course-module`, values);
 
       // Handle the response or perform actions as needed
-      console.log('API Response:', response.data);
       showSnackbar(response.data.message, 'success');
 
       queryClient.invalidateQueries('courseDetails');

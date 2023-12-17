@@ -11,7 +11,6 @@ import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
 import axios from 'axios';
-import InputFile from 'components/form/InputFile';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
@@ -60,7 +59,6 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
 
       queryClient.invalidateQueries('courseDetails');
       onClose();
-      console.log('API Response:', response.data);
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
