@@ -35,8 +35,8 @@ const Step3: React.FC = () => {
           />
         </Grid>
       </Grid>
-      <CroppedImgInput name="featured_image" label={t('featureImage')} />
-      <CroppedImgInput name="icon" label={t('icon')} />
+      <CroppedImgInput name="featured_image" label={t('featureImage')} limit={t('featureImgLimit')}/>
+      <CroppedImgInput name="icon" label={t('icon')}  limit={t('iconLimit')}/>
       {/* <InputFile acceptedFileTypes="image/*" limit={t('featureImgLimit')} /> */}
       {/* <InputFile
         name="icon"

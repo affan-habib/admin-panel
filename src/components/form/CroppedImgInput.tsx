@@ -15,9 +15,10 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 interface FileInputProps {
   label: string;
   name: string;
+  limit?: string;
 }
 
-const FileInput: React.FC<FileInputProps> = ({ label, name }) => {
+const FileInput: React.FC<FileInputProps> = ({ label, name , limit}) => {
   const [, , helpers] = useField(name);
   const [image, setImage] = useState<File | null>(null);
   const [scale, setScale] = useState<number>(1);
@@ -80,6 +81,7 @@ const FileInput: React.FC<FileInputProps> = ({ label, name }) => {
           accept: "image/*", // Set accepted file types
         }}
       />
+       {limit && <span style={{ fontSize: '13px', color: 'grey' }}>{limit}</span>}
       {image && (
         <>
           {/* <IconButton color="primary" onClick={() => setOpenModal(true)}>
