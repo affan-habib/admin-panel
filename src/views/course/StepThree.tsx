@@ -13,7 +13,7 @@ const Step3: React.FC = () => {
   return (
     <MainCard title={t('addCourseSettings')}>
       <Grid container spacing={2}>
-        <Grid item md={6}>
+        <Grid item md={6} sm={12} xs={12}>
           <InputField
             required={true}
             name="code"
@@ -22,7 +22,7 @@ const Step3: React.FC = () => {
             placeholder="Write the code here..."
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={6} sm={12} xs={12}>
           <InputSelect
             name="status"
             label={t('status')}
@@ -35,8 +35,8 @@ const Step3: React.FC = () => {
           />
         </Grid>
       </Grid>
-      <CroppedImgInput name="featured_image" label={t('featureImage')} />
-      <CroppedImgInput name="icon" label={t('icon')} />
+      <CroppedImgInput name="featured_image" label={t('featureImage')} limit={t('featureImgLimit')} height={300} width={500}/>
+      <CroppedImgInput name="icon" label={t('icon')}  limit={t('iconLimit')} height={300} width={300}/>
       {/* <InputFile acceptedFileTypes="image/*" limit={t('featureImgLimit')} /> */}
       {/* <InputFile
         name="icon"

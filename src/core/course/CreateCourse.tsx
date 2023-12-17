@@ -151,7 +151,7 @@ const CreateCourse: React.FC = () => {
               sx={{ p: 3, mt: 2, border: '1px dashed grey', borderRadius: 2 }}
             >
               <Grid container spacing={3}>
-                <Grid item md={8}>
+                <Grid item md={8} sm={12}>
                   <MainCard
                     title={t('createCourse')}
                     rightButton={
@@ -218,7 +218,7 @@ const CreateCourse: React.FC = () => {
                     {selectedStep === 2 && <StepTwo />}
                   </MainCard>
                 </Grid>
-                <Grid item md={4}>
+                <Grid item md={4} sm={12}>
                   <StepThree />
                 </Grid>
                 <Grid
