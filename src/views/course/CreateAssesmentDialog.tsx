@@ -33,7 +33,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   onClose,
 }) => {
   const { id } = useParams();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
   const res = 'Congrats, you are console logging form data';
@@ -97,41 +97,47 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             url: null,
             status: 1,
             module_id: moduleId,
-            assessment_title: "",
+            assessment_title: '',
             total_mark: '',
             pass_mark: '',
             positive_mark: 15,
             negative_mark: '',
-            total_time: ""
+            total_time: '',
           }}
           onSubmit={handleSubmit}
         >
           <Form>
             <InputField
               name="assessment_title"
-              label={t("assesmentName")}
-              placeholder={t("assesmentNo")}
+              label={t('assesmentName')}
+              placeholder={t('assesmentNo')}
             />
             <Grid container spacing={2} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
                 <InputField
                   name="total_mark"
-                  label={t("markInput")}
+                  label={t('markInput')}
                   placeholder={t('placeHolderNumber')}
                 />
               </Grid>
               <Grid item xs={6}>
                 <InputField
                   name="pass_mark"
-                  label={t("passmarkInput")}
+                  label={t('passmarkInput')}
                   placeholder={t('placeHolderNumber')}
                 />
               </Grid>
             </Grid>
 
-            <Grid container spacing={2} marginBottom={1} sx={{ marginTop: '2px' }}>
+            <Grid
+              container
+              spacing={2}
+              marginBottom={1}
+              sx={{ marginTop: '2px' }}
+            >
               <Grid item xs={6}>
                 <InputField
+                  type="number"
                   name="negative_mark"
                   label={t('negativeMarkInput')}
                   placeholder={t('placeHolderNumber')}
@@ -146,8 +152,16 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
             </Grid>
 
-            <Stack direction="column" alignItems="center" justifyContent="center">
-              <Box borderBottom="1px solid rgba(208, 208, 208, 1)" width="100%" sx={{ my: 2 }} />
+            <Stack
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Box
+                borderBottom="1px solid rgba(208, 208, 208, 1)"
+                width="100%"
+                sx={{ my: 2 }}
+              />
             </Stack>
 
             <Box sx={{ display: 'flex', justifyContent: 'end' }}>
