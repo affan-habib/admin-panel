@@ -115,6 +115,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             <Grid container spacing={2} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
                 <InputField
+                  type='number'
                   name="total_mark"
                   label={t('markInput')}
                   placeholder={t('placeHolderNumber')}
@@ -122,6 +123,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
               <Grid item xs={6}>
                 <InputField
+                  type='number'
                   name="pass_mark"
                   label={t('passmarkInput')}
                   placeholder={t('placeHolderNumber')}

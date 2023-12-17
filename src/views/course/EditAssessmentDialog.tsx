@@ -113,6 +113,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
                             <Grid container spacing={2} sx={{ marginTop: '2px' }}>
                                 <Grid item xs={6}>
                                     <InputField
+                                        type='number'
                                         name="total_mark"
                                         label={t("markInput")}
                                         placeholder={t('placeHolderNumber')}
@@ -120,6 +121,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
                                 </Grid>
                                 <Grid item xs={6}>
                                     <InputField
+                                        type='number'
                                         name="pass_mark"
                                         label={t("passmarkInput")}
                                         placeholder={t('placeHolderNumber')}
@@ -130,6 +132,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
                             <Grid container spacing={2} marginBottom={1} sx={{ marginTop: '2px' }}>
                                 <Grid item xs={6}>
                                     <InputField
+                                        type='number'
                                         name="negative_mark"
                                         label={t('negativeMarkInput')}
                                         placeholder={t('placeHolderNumber')}
@@ -137,6 +140,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
                                 </Grid>
                                 <Grid item xs={6}>
                                     <InputField
+                                        type='number'
                                         name="time"
                                         label={t('enterTime')}
                                         placeholder={t('placeHolderNumber')}
