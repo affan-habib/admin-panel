@@ -162,7 +162,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
             borderRadius: '4px',
             borderTopLeftRadius: '4px',
             borderTopRightRadius: '4px',
-            marginBottom: '10px'
+            marginBottom: '15px'
           }}
           expanded
         >
