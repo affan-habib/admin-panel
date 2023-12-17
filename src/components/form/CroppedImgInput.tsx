@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  InputLabel,TextField
+  InputLabel, TextField
 } from '@mui/material';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
@@ -70,6 +70,7 @@ const FileInput: React.FC<FileInputProps> = ({ label, name }) => {
         {label}
       </InputLabel>
       <TextField
+        fullWidth
         size="small"
         id={name}
         name={name}

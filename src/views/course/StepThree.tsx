@@ -13,7 +13,7 @@ const Step3: React.FC = () => {
   return (
     <MainCard title={t('addCourseSettings')}>
       <Grid container spacing={2}>
-        <Grid item md={6}>
+        <Grid item md={6} sm={12} xs={12}>
           <InputField
             required={true}
             name="code"
@@ -22,7 +22,7 @@ const Step3: React.FC = () => {
             placeholder="Write the code here..."
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={6} sm={12} xs={12}>
           <InputSelect
             name="status"
             label={t('status')}
