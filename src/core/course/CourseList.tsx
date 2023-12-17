@@ -32,7 +32,7 @@ import { Add, SaveAlt, Search } from '@mui/icons-material';
 
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const search = useDebounce(searchTerm, 500);
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ const CourseList: React.FC = () => {
   const language = localStorage.getItem('language');
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
-    page: currentPage + 1,
+    page: currentPage,
     search: search,
   });
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const CourseList: React.FC = () => {
     event: React.ChangeEvent<unknown>,
     value: number,
   ) => {
-    setCurrentPage(value - 1);
+    setCurrentPage(value);
   };
 
   const handleDeleteClick = async (videoId: any) => {
@@ -161,7 +161,7 @@ const CourseList: React.FC = () => {
               <TableBody>
                 {courses.data.map((course: any, index: number) => (
                   <TableRow key={index + 1}>
-                    <TableCell>{index + 1}</TableCell>
+                    <TableCell width={60}>{index + 1}</TableCell>
                     <TableCell>{course.code}</TableCell>
                     <TableCell>{course[`name_${language}`]}</TableCell>
                     <TableCell>{course.course_modules_count}</TableCell>
@@ -220,7 +220,7 @@ const CourseList: React.FC = () => {
           <Stack direction="row" justifyContent="flex-end" marginTop={2}>
             <Pagination
               count={Math.ceil(courses?.meta?.total / pageSize) || 1}
-              page={currentPage + 1}
+              page={currentPage}
               onChange={handlePaginationChange}
               variant="outlined"
               shape="rounded"
