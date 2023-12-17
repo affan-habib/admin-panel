@@ -65,6 +65,7 @@ const EditCourse: React.FC = () => {
       console.error('Error submitting form:', error);
     }
   };
+
   return (
     <Container maxWidth="xl" sx={{ pb: 30 }}>
       <Grid item xs={12}>
@@ -97,7 +98,24 @@ const EditCourse: React.FC = () => {
       </Grid>
       <Formik
         enableReinitialize
-        initialValues={{ ...data?.data, status: parseInt(data?.data?.status) }}
+        initialValues={{
+          code: data?.data?.code,
+          name_en: data?.data?.name_en || '',
+          name_bn: data?.data?.name_bn || '',
+          short_desc_en: data?.data?.short_desc_en || '',
+          short_desc_bn: data?.data?.short_desc_bn || '',
+          long_desc_en: data?.data?.long_desc_en || '',
+          long_desc_bn: data?.data?.long_desc_bn || '',
+          icon: data?.data?.icon,
+          featured_image: data?.data?.featured_image,
+          supporting_docs: data?.data?.supporting_docs,
+          course_type: data?.data?.course_type || '',
+          course_modules: data?.data?.course_modules,
+          quiz_types: data?.data?.quiz_types,
+          remarks: data?.data?.remarks || '',
+          created_by: data?.data?.created_by,
+          status: parseInt(data?.data?.status),
+        }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
