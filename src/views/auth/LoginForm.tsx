@@ -20,8 +20,11 @@ import { useTranslation } from 'react-i18next';
 import { apiBaseUrl } from 'config';
 import { useNavigate } from 'react-router-dom';
 import { saveAuthData } from 'utils/authUtils';
+import { useDispatch } from 'react-redux';
+import { login } from 'store/reducers/authSlice';
 
 const LoginForm: React.FC = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const initialValues = {
@@ -49,6 +52,7 @@ const LoginForm: React.FC = () => {
 
       const data = response.data.data;
       saveAuthData(data);
+      dispatch(login(data.user));
       navigate('/');
     } catch (error) {
     } finally {

@@ -34,7 +34,6 @@ const CreateCourse: React.FC = () => {
     long_desc_bn: '',
     course_type_id: '1',
     remarks: '',
-    created_by: '5',
     status: '1',
     icon: undefined,
     supporting_doc: undefined,
@@ -84,7 +83,8 @@ const CreateCourse: React.FC = () => {
   });
 
   const handleSubmit = async (values: any) => {
-    console.log(values);
+    let user : any = localStorage.getItem('user');
+    user = JSON.parse(user);
 
     try {
       const formData = new FormData();
@@ -95,6 +95,7 @@ const CreateCourse: React.FC = () => {
           formData.append(key, values[key]);
         }
       });
+      formData.append('created_by', user?.id);
 
       const response = await axios.post(`${apiBaseUrl}/course`, formData, {
         headers: {

@@ -7,6 +7,7 @@ export const saveAuthData = (authData: any) => {
 
   // Save permissions as a JSON string to local storage
   localStorage.setItem('permissions', JSON.stringify(authData.permissions));
+  localStorage.setItem('user', JSON.stringify(authData.user));
 };
 
 export const clearAuthData = () => {
@@ -16,4 +17,5 @@ export const clearAuthData = () => {
   localStorage.removeItem('expires_at');
   localStorage.removeItem('role');
   localStorage.removeItem('permissions');
+  localStorage.removeItem('user');
 };
