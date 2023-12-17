@@ -159,7 +159,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
           key={chapter.module_id}
           sx={{
             border: '1px solid #D0D0D0',
-            borderRadius: '8px',
+            borderRadius: '4px',
+            borderTopLeftRadius: '4px',
+            borderTopRightRadius: '4px',
+            marginBottom: '10px'
           }}
           expanded
         >
@@ -170,7 +173,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
               // justifyContent: 'space-around',
               alignItems: 'center',
               backgroundColor: '#DEEEC6',
-              borderBottom: '1px solid #D0D0D0'
+              borderBottom: '1px solid #D0D0D0',
+              borderTopLeftRadius: '4px',
+              borderTopRightRadius: '4px'
             }}
           >
             <Box mt={1} mr={2}>
@@ -343,6 +348,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </div>}
                   </>
                 ))}
+
+              {/* Assesment section end  */}
 
               {chapter.id === visibleAddTopicId && (
                 <Stack width="100%" alignItems="center">
