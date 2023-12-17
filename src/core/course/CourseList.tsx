@@ -152,8 +152,7 @@ const CourseList: React.FC = () => {
               <TableHead>
                 <TableRow sx={{ background: '#B3E0DD !important' }}>
                   <TableCell>#</TableCell>
-                  <TableCell>{t('code')}</TableCell>
-                  <TableCell>{t('name')}</TableCell>
+                  <TableCell>{t('nameAndCode')}</TableCell>
                   <TableCell>{t('numberOfModule')}</TableCell>
                   <TableCell>{t('action')}</TableCell>
                 </TableRow>
@@ -162,8 +161,9 @@ const CourseList: React.FC = () => {
                 {courses.data.map((course: any, index: number) => (
                   <TableRow key={index + 1}>
                     <TableCell width={60}>{index + 1}</TableCell>
-                    <TableCell>{course.code}</TableCell>
-                    <TableCell>{course[`name_${language}`]}</TableCell>
+                    <TableCell>
+                      {course[`name_${language}`]} : {course.code}
+                    </TableCell>
                     <TableCell>{course.course_modules_count}</TableCell>
                     <TableCell sx={{ width: 200 }}>
                       <Stack
