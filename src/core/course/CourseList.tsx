@@ -1,21 +1,38 @@
-// CourseList.tsx
 import React, { useState } from 'react';
-import { Container, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Container,
+  Stack,
+  Typography,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  IconButton,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  Button,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import Pagination from '@mui/material/Pagination';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from 'react-router-dom';
-import useCourses from 'hooks/useCourses';
-import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import useDebounce from 'hooks/useDebounce';
+import useCourses from 'hooks/useCourses';
 import { useTranslation } from 'react-i18next';
-import InteractiveTable from 'components/tables/InteractiveTable';
+import { Add, SaveAlt, Search } from '@mui/icons-material';
 
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const search = useDebounce(searchTerm, 500);
   const queryClient = useQueryClient();
@@ -24,18 +41,16 @@ const CourseList: React.FC = () => {
   const language = localStorage.getItem('language');
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
-    page: currentPage, // Adjusted to use 1-based index for the API
+    page: currentPage + 1,
     search: search,
   });
   const navigate = useNavigate();
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const handlePageSizeChange = (size: number) => {
-    setPageSize(size);
-    setCurrentPage(0);
+  const handlePaginationChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
+    setCurrentPage(value - 1);
   };
 
   const handleDeleteClick = async (videoId: any) => {
@@ -46,89 +61,172 @@ const CourseList: React.FC = () => {
       if (response.ok) {
         queryClient.invalidateQueries('courses');
       } else {
+        // Handle error
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
-  console.log(courses?.data);
-  const columns = [
-    { Header: '#', accessor: (row: any, index: any) => index + 1 },
-    { Header: t('code'), accessor: 'code' },
-    { Header: t('name'), accessor: `name_${language}` },
-    // { Header: 'Short Description', accessor: 'short_desc_bn' },
-    { Header: t('numberOfModule'), accessor: 'course_modules_count' },
-    {
-      Header: t('action'),
-      width: 200,
-      Cell: (cell: any) => (
-        <Stack direction="row" spacing={1}>
-          <IconButton
-            disabled
-            aria-label="view"
-            size="small"
-            style={{
-              backgroundColor: '#FAFAFA',
-              borderRadius: '4px',
-              border: '1px solid #D0D0D0',
-            }}
-          >
-            <VisibilityIcon />
-          </IconButton>
-          <IconButton
-            aria-label="edit"
-            size="small"
-            style={{
-              backgroundColor: '#FAFAFA',
-              borderRadius: '4px',
-              border: '1px solid #D0D0D0',
-            }}
-            onClick={() => navigate(`/course/edit/${cell.row.original.id}`)}
-          >
-            <EditIcon sx={{ color: 'primary.main' }} />
-          </IconButton>
-          <IconButton
-            style={{
-              backgroundColor: '#FAFAFA',
-              borderRadius: '4px',
-              border: '1px solid #D0D0D0',
-            }}
-            aria-label="Delete"
-            size="small"
-            color="error"
-            onClick={() =>
-              openModal(() => handleDeleteClick(cell.row.original.id))
-            }
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Stack>
-      ),
-    },
-  ];
 
   return (
     <Container maxWidth="xl">
       <Typography variant="h6" color="primary.main" mb={2}>
         {t('curriculumList')}
       </Typography>
+      <Stack
+        direction="row"
+        spacing={2}
+        my={2}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Stack direction="row" spacing={2}>
+          <Stack direction="row" alignItems="center">
+            {
+              <span>
+                Showing{' '}
+                {pageSize > courses?.meta?.total
+                  ? courses?.meta?.total
+                  : pageSize}{' '}
+                out of {courses?.meta?.total}
+              </span>
+            }
+            <FormControl sx={{ width: 80, ml: 2 }}>
+              <Select
+                size="small"
+                value={pageSize}
+                onChange={(e: any) => {
+                  setPageSize(e.target.value);
+                  setCurrentPage(0);
+                }}
+              >
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={20}>20</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
+        </Stack>
+
+        <div>
+          <TextField
+            variant="outlined"
+            size="small"
+            sx={{ width: 350, mr: 2 }}
+            placeholder={t('searchList')}
+            InputProps={{
+              startAdornment: (
+                <IconButton>
+                  <Search />
+                </IconButton>
+              ),
+            }}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            sx={{ mr: 2 }}
+            onClick={() => navigate('/create-course')}
+          >
+            {t('addCurriculum')}
+          </Button>
+          <IconButton
+            size="small"
+            style={{
+              backgroundColor: '#FAFAFA',
+              borderRadius: '4px',
+              border: '1px solid #D0D0D0',
+            }}
+          >
+            <SaveAlt />
+          </IconButton>
+        </div>
+      </Stack>
 
       {courses?.data && (
-        <InteractiveTable
-          columns={columns}
-          rightButton={{
-            title: t('addCurriculum'),
-            onClick: () => navigate('/create-course'),
-          }}
-          data={courses?.data}
-          totalCount={courses?.meta?.total}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
-          onSearchChange={setSearchTerm}
-          searchTerm={searchTerm}
-        />
+        <>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow sx={{ background: '#B3E0DD !important' }}>
+                  <TableCell>#</TableCell>
+                  <TableCell>{t('code')}</TableCell>
+                  <TableCell>{t('name')}</TableCell>
+                  <TableCell>{t('numberOfModule')}</TableCell>
+                  <TableCell>{t('action')}</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {courses.data.map((course: any, index: number) => (
+                  <TableRow key={index + 1}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{course.code}</TableCell>
+                    <TableCell>{course[`name_${language}`]}</TableCell>
+                    <TableCell>{course.course_modules_count}</TableCell>
+                    <TableCell sx={{ width: 200 }}>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        justifyContent="center"
+                      >
+                        <IconButton
+                          disabled
+                          aria-label="view"
+                          size="small"
+                          style={{
+                            backgroundColor: '#FAFAFA',
+                            borderRadius: '4px',
+                            border: '1px solid #D0D0D0',
+                          }}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="edit"
+                          size="small"
+                          style={{
+                            backgroundColor: '#FAFAFA',
+                            borderRadius: '4px',
+                            border: '1px solid #D0D0D0',
+                          }}
+                          onClick={() => navigate(`/course/edit/${course.id}`)}
+                        >
+                          <EditIcon sx={{ color: 'primary.main' }} />
+                        </IconButton>
+                        <IconButton
+                          style={{
+                            backgroundColor: '#FAFAFA',
+                            borderRadius: '4px',
+                            border: '1px solid #D0D0D0',
+                          }}
+                          aria-label="Delete"
+                          size="small"
+                          color="error"
+                          onClick={() =>
+                            openModal(() => handleDeleteClick(course.id))
+                          }
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Stack direction="row" justifyContent="flex-end" marginTop={2}>
+            <Pagination
+              count={Math.ceil(courses?.meta?.total / pageSize) || 1}
+              page={currentPage + 1}
+              onChange={handlePaginationChange}
+              variant="outlined"
+              shape="rounded"
+            />
+          </Stack>
+        </>
       )}
     </Container>
   );
