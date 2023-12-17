@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Breadcrumbs,
   Button,
   Container,
@@ -31,14 +30,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
-import Loader from '../../components/common/circularLoader';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import useUserList from 'hooks/useUserList';
 import { useQueryClient } from 'react-query';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import Pagination from '@mui/material/Pagination';
 import { Search } from '@mui/icons-material';
-import { Paper as MuiPaper } from '@mui/material';
 import useDebounce from 'hooks/useDebounce';
 
 const AdminUserList: React.FC = () => {
