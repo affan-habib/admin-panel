@@ -4,17 +4,27 @@ import {
   Breadcrumbs,
   Button,
   Container,
+  FormControl,
   Grid,
   IconButton,
-  Stack,
   Link,
+  MenuItem,
+  Paper,
+  Select,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
   Typography,
 } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useTranslation } from 'react-i18next';
-import ReactTable from 'components/tables/ReactTable';
 import { Add } from '@mui/icons-material';
 import ModalComponent from './ModalComponent';
 import axios from 'axios';
@@ -26,7 +36,9 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import useUserList from 'hooks/useUserList';
 import { useQueryClient } from 'react-query';
 import { useDeleteModal } from 'context/DeleteModalContext';
-import InteractiveTable from 'components/tables/InteractiveTable';
+import Pagination from '@mui/material/Pagination';
+import { Search } from '@mui/icons-material';
+import { Paper as MuiPaper } from '@mui/material';
 import useDebounce from 'hooks/useDebounce';
 
 const AdminUserList: React.FC = () => {
@@ -73,80 +85,6 @@ const AdminUserList: React.FC = () => {
     navigate(`/edit-admin-user/${row.id}`);
   };
 
-  const columns = [
-    { Header: '#', accessor: (row: any, index: any) => index + 1 },
-    { Header: t('fullUserName'), accessor: 'name' },
-    { Header: t('userName'), accessor: 'username' },
-    { Header: t('userRoleName'), accessor: 'type' },
-    {
-      Header: t('status'),
-      accessor: 'status',
-      Cell: ({ row }: any) => (
-        <Button
-          aria-label="toggle-status"
-          size="small"
-          variant="contained"
-          onClick={() => handleToggleStatus(row.original)}
-          style={{
-            backgroundColor: row.original.status === 1 ? 'primary.main' : 'red',
-            color: 'white',
-            width: '100px',
-            display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {row.original.status === 1 ? 'Active' : 'Deactive'}
-        </Button>
-      ),
-    },
-
-    {
-      Header: t('actionButton'),
-      accessor: 'actionButton',
-      Cell: ({ row }: any) => (
-        <Box sx={{ display: 'flex', gap: '10px' }}>
-          <IconButton
-            aria-label="view"
-            size="small"
-            style={{
-              color: 'rgba(0, 106, 78, 1)',
-              borderRadius: 8,
-              border: '1px solid rgba(208, 208, 208, 1)',
-            }}
-            onClick={() => editUser(row.original)}
-          >
-            <BorderColorOutlinedIcon />
-          </IconButton>
-          <IconButton
-            aria-label="edit"
-            size="small"
-            onClick={() => handleVisibilityClick(row.original)}
-            style={{
-              color: 'rgba(20, 146, 230, 1)',
-              borderRadius: 8,
-              border: '1px solid rgba(208, 208, 208, 1)',
-            }}
-          >
-            <InfoOutlinedIcon />
-          </IconButton>
-          <IconButton
-            aria-label="delete"
-            onClick={() => openModal(() => handleDelete(row.original.id))}
-            size="small"
-            style={{
-              color: 'rgba(255, 74, 95, 1)',
-              borderRadius: 8,
-              border: '1px solid rgba(208, 208, 208, 1)',
-            }}
-          >
-            <DeleteOutlineOutlinedIcon />
-          </IconButton>
-        </Box>
-      ),
-    },
-  ];
-
   const handleToggleStatus = async (values: any) => {
     try {
       await axios.put(
@@ -164,15 +102,6 @@ const AdminUserList: React.FC = () => {
     } catch (error) {
       console.error('Error updating user data:', error);
     }
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const handlePageSizeChange = (size: number) => {
-    setPageSize(size);
-    setCurrentPage(0);
   };
 
   return (
@@ -205,32 +134,174 @@ const AdminUserList: React.FC = () => {
           </Typography>
         </Breadcrumbs>
       </Grid>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <InteractiveTable
-            rightButton={{
-              title: t('createUser'),
-              onClick: () => navigate('/create-admin-user'),
-            }}
-            onSearchChange={setSearchTerm}
-            searchTerm={searchTerm}
-            columns={columns}
-            data={users?.data?.data || []}
-            totalCount={users?.data?.total}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            onPageSizeChange={handlePageSizeChange}
-          />
-          <ModalComponent
-            open={showModal}
-            handleClose={() => setShowModal(false)}
-            userData={selectedUserData}
-          />
-        </>
-      )}
+
+      <>
+        <Stack
+          direction="row"
+          spacing={2}
+          my={2}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Stack direction="row" spacing={2}>
+            <Stack direction="row" alignItems="center">
+              <span>
+                Showing{' '}
+                {pageSize > users?.data?.total ? users?.data?.total : pageSize}{' '}
+                out of {users?.data?.total}
+              </span>
+              <FormControl sx={{ width: 80, ml: 2 }}>
+                <Select
+                  size="small"
+                  value={pageSize}
+                  onChange={(e: any) => {
+                    setPageSize(e.target.value);
+                    setCurrentPage(0);
+                  }}
+                >
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={20}>20</MenuItem>
+                  <MenuItem value={50}>50</MenuItem>
+                </Select>
+              </FormControl>
+            </Stack>
+          </Stack>
+
+          <div>
+            <TextField
+              variant="outlined"
+              size="small"
+              sx={{ width: 350, mr: 2 }}
+              placeholder={t('searchList')}
+              InputProps={{
+                startAdornment: (
+                  <IconButton>
+                    <Search />
+                  </IconButton>
+                ),
+              }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button
+              variant="contained"
+              startIcon={<Add />}
+              sx={{ mr: 2 }}
+              onClick={() => navigate('/create-admin-user')}
+            >
+              {t('createUser')}
+            </Button>
+          </div>
+        </Stack>
+
+        {users?.data && (
+          <>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow sx={{ background: '#B3E0DD !important' }}>
+                    <TableCell>#</TableCell>
+                    <TableCell>{t('fullUserName')}</TableCell>
+                    <TableCell>{t('userName')}</TableCell>
+                    <TableCell>{t('userRoleName')}</TableCell>
+                    <TableCell>{t('status')}</TableCell>
+                    <TableCell>{t('actionButton')}</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users?.data?.data.map((user: any, index: number) => (
+                    <TableRow key={index + 1}>
+                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>{user.name}</TableCell>
+                      <TableCell>{user.username}</TableCell>
+                      <TableCell>{user.type}</TableCell>
+                      <TableCell>
+                        <Button
+                          aria-label="toggle-status"
+                          size="small"
+                          variant="contained"
+                          onClick={() => handleToggleStatus(user)}
+                          style={{
+                            backgroundColor:
+                              user.status === 1 ? 'primary.main' : 'red',
+                            color: 'white',
+                            width: '100px',
+                            display: 'inline-flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          {user.status === 1 ? 'Active' : 'Deactive'}
+                        </Button>
+                      </TableCell>
+                      <TableCell sx={{ width: 120 }}>
+                        <Stack
+                          direction="row"
+                          spacing={2}
+                          justifyContent="center"
+                        >
+                          <IconButton
+                            aria-label="view"
+                            size="small"
+                            style={{
+                              color: 'rgba(0, 106, 78, 1)',
+                              borderRadius: 8,
+                              border: '1px solid rgba(208, 208, 208, 1)',
+                            }}
+                            onClick={() => editUser(user)}
+                          >
+                            <BorderColorOutlinedIcon />
+                          </IconButton>
+                          <IconButton
+                            aria-label="edit"
+                            size="small"
+                            onClick={() => handleVisibilityClick(user)}
+                            style={{
+                              color: 'rgba(20, 146, 230, 1)',
+                              borderRadius: 8,
+                              border: '1px solid rgba(208, 208, 208, 1)',
+                            }}
+                          >
+                            <InfoOutlinedIcon />
+                          </IconButton>
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() =>
+                              openModal(() => handleDelete(user.id))
+                            }
+                            size="small"
+                            style={{
+                              color: 'rgba(255, 74, 95, 1)',
+                              borderRadius: 8,
+                              border: '1px solid rgba(208, 208, 208, 1)',
+                            }}
+                          >
+                            <DeleteOutlineOutlinedIcon />
+                          </IconButton>
+                        </Stack>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Stack direction="row" justifyContent="flex-end" marginTop={2}>
+              <Pagination
+                count={Math.ceil(users?.data?.total / pageSize) || 1}
+                page={currentPage}
+                onChange={(page: any) => setCurrentPage(page)}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Stack>
+          </>
+        )}
+      </>
+      <ModalComponent
+        open={showModal}
+        handleClose={() => setShowModal(false)}
+        userData={selectedUserData}
+      />
     </Container>
   );
 };
