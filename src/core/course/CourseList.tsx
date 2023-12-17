@@ -1,21 +1,9 @@
 // CourseList.tsx
 import React, { useState } from 'react';
-import {
-  Button,
-  Container,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Container, IconButton, Stack, Typography } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-// Import the ReactTable component
-import ReactTable from 'components/tables/ReactTable';
-import { Add, FilterList, SaveAlt, Search } from '@mui/icons-material';
-import PageSizeSelect from 'components/tables/PageSizeSelect';
 import { useNavigate } from 'react-router-dom';
 import useCourses from 'hooks/useCourses';
 import { useQueryClient } from 'react-query';
@@ -23,12 +11,11 @@ import { apiBaseUrl } from 'config';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import useDebounce from 'hooks/useDebounce';
 import { useTranslation } from 'react-i18next';
-
-// Import the ConfirmModal component
+import InteractiveTable from 'components/tables/InteractiveTable';
 
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const search = useDebounce(searchTerm, 500);
   const queryClient = useQueryClient();
@@ -37,7 +24,7 @@ const CourseList: React.FC = () => {
   const language = localStorage.getItem('language');
   const { data: courses } = useCourses({
     itemsPerPage: pageSize,
-    page: currentPage + 1, // Adjusted to use 1-based index for the API
+    page: currentPage, // Adjusted to use 1-based index for the API
     search: search,
   });
   const navigate = useNavigate();
@@ -125,66 +112,22 @@ const CourseList: React.FC = () => {
       <Typography variant="h6" color="primary.main" mb={2}>
         {t('curriculumList')}
       </Typography>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={2}
-      >
-        <div>
-          <PageSizeSelect
-            pageSize={pageSize}
-            onPageSizeChange={handlePageSizeChange}
-          />
-          <TextField
-            variant="outlined"
-            size="small"
-            sx={{ width: 450 }}
-            placeholder={t('searchList')}
-            InputProps={{
-              startAdornment: (
-                <IconButton>
-                  <Search />
-                </IconButton>
-              ),
-            }}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div>
-          <Button variant="outlined" startIcon={<FilterList />} sx={{ mr: 2 }}>
-            {t('filterList')}
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<Add />}
-            sx={{ mr: 2 }}
-            onClick={() => navigate('/create-course')}
-          >
-            {t('addCurriculum')}
-          </Button>
-          <IconButton
-            size="small"
-            style={{
-              backgroundColor: '#FAFAFA',
-              borderRadius: '4px',
-              border: '1px solid #D0D0D0',
-            }}
-          >
-            <SaveAlt />
-          </IconButton>
-        </div>
-      </Stack>
+
       {courses?.data && (
-        <ReactTable
+        <InteractiveTable
           columns={columns}
+          rightButton={{
+            title: t('addCurriculum'),
+            onClick: () => navigate('/create-course'),
+          }}
           data={courses?.data}
           totalCount={courses?.meta?.total}
           pageSize={pageSize}
           currentPage={currentPage}
           onPageChange={handlePageChange}
           onPageSizeChange={handlePageSizeChange}
+          onSearchChange={setSearchTerm}
+          searchTerm={searchTerm}
         />
       )}
     </Container>
