@@ -186,7 +186,6 @@ const AdminUserList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<Add />}
-              sx={{ mr: 2 }}
               onClick={() => navigate('/create-admin-user')}
             >
               {t('createUser')}
@@ -221,15 +220,7 @@ const AdminUserList: React.FC = () => {
                           size="small"
                           variant="contained"
                           onClick={() => handleToggleStatus(user)}
-                          style={{
-                            backgroundColor:
-                              user.status === 1 ? 'primary.main' : 'red',
-                            color: 'white',
-                            width: '100px',
-                            display: 'inline-flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
+                          color={user.status == 1 ? 'primary' : 'error'}
                         >
                           {user.status === 1 ? 'Active' : 'Deactive'}
                         </Button>
