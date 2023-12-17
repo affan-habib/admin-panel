@@ -97,7 +97,7 @@ const EditCourse: React.FC = () => {
       </Grid>
       <Formik
         enableReinitialize
-        initialValues={data?.data}
+        initialValues={{ ...data?.data, status: parseInt(data?.data?.status) }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
