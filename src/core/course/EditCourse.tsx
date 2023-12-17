@@ -107,8 +107,7 @@ const EditCourse: React.FC = () => {
               sx={{ p: 3, mt: 2, border: '1px dashed grey', borderRadius: 2 }}
             >
               <Grid container spacing={3}>
-                <Grid></Grid>
-                <Grid item md={8}>
+                <Grid item md={8} sm={12} xs={12}>
                   <MainCard
                     title={t('createCourse')}
                     rightButton={
@@ -175,7 +174,7 @@ const EditCourse: React.FC = () => {
                     {selectedStep === 2 && <StepTwo />}
                   </MainCard>
                 </Grid>
-                <Grid item md={4}>
+                <Grid item md={4} sm={12}>
                   <StepThree />
                 </Grid>
                 <Grid
@@ -201,13 +200,12 @@ const EditCourse: React.FC = () => {
             <Grid
               container
               sx={{
-                pr: 4,
                 pb: 2,
                 mt: 2,
                 borderRadius: 2,
               }}
             >
-              <Grid item md={8}>
+              <Grid item md={8} sm={12} xs={12}>
                 <DyanamicForm modules={data?.data?.course_modules} />
               </Grid>
             </Grid>
