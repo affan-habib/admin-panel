@@ -34,6 +34,7 @@ import EditAssignmentDialog from './assignment/EditAssignmentDialog';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import axios from 'axios';
 import EditAssessmentDialog from './assesment/EditAssessmentDialog';
+import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 
 const Chapters: React.FC<any> = ({ modules }) => {
   const queryClient = useQueryClient();
@@ -333,7 +334,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         onClick={() => toggleAssessmentSection(assessment.id)}
                         color="primary"
                       >
-                        {selectedId == assessment.id ? (
+                        {selectedId === assessment.id ? (
                           <RemoveOutlinedIcon />
                         ) : (
                           <AddOutlinedIcon />
@@ -373,7 +374,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         <DeleteIcon />
                       </IconButton>
                     </div>
-                    {selectedId == assessment.id && (
+                    {selectedId === assessment.id && (
                       <div
                         key={assessment.id}
                         // style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
@@ -384,36 +385,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           paddingBottom: '8px',
                         }}
                       >
-                        <Box
-                          sx={{
-                            width: '100%',
-                            border: '1px dashed #000',
-                            padding: '10px',
-                            boxSizing: 'border-box',
-                          }}
-                        >
-                          <Button
-                            sx={{ marginLeft: '7px' }}
-                            variant="outlined"
-                            startIcon={<AddOutlinedIcon />}
-                          >
-                            কুইজ
-                          </Button>
-                          <Button
-                            sx={{ marginLeft: '7px' }}
-                            variant="outlined"
-                            startIcon={<AddOutlinedIcon />}
-                          >
-                            মাল্টিপল চয়েস
-                          </Button>
-                          <Button
-                            sx={{ marginLeft: '7px' }}
-                            variant="outlined"
-                            startIcon={<AddOutlinedIcon />}
-                          >
-                            ম্যাচিং
-                          </Button>
-                        </Box>
+                        <AssesmentCreateButtons
+                          assessmentId={assessment.id}
+                          moduleId={chapter.id}
+                        />
                       </div>
                     )}
                   </>

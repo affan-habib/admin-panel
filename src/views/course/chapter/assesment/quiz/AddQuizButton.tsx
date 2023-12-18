@@ -1,11 +1,24 @@
 import { Person } from '@mui/icons-material';
-import { Box, Button, FormControlLabel, Grid, Modal, Typography, InputAdornment, OutlinedInput, Checkbox, FormControl, RadioGroup, Radio } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Grid,
+  Modal,
+  Typography,
+  InputAdornment,
+  OutlinedInput,
+  Checkbox,
+  FormControl,
+  RadioGroup,
+  Radio,
+} from '@mui/material';
 import { Formik, Form } from 'formik';
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const AddQuizModal: React.FC = () => {
+const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
   const [open, setOpen] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
 
@@ -34,7 +47,7 @@ const AddQuizModal: React.FC = () => {
     {
       id: 2,
       placeholder: 'Email 2',
-    }
+    },
   ];
 
   const [value, setValue] = React.useState('');
@@ -75,8 +88,16 @@ const AddQuizModal: React.FC = () => {
           <Formik initialValues={{ option: 'option1' }} onSubmit={handleSubmit}>
             <Form>
               <Box display="flex" justifyContent="" gap={8}>
-                <FormControlLabel value="option1" control={<Checkbox />} label="Option 1" />
-                <FormControlLabel value="option2" control={<Checkbox />} label="Option 2" />
+                <FormControlLabel
+                  value="option1"
+                  control={<Checkbox />}
+                  label="Option 1"
+                />
+                <FormControlLabel
+                  value="option2"
+                  control={<Checkbox />}
+                  label="Option 2"
+                />
               </Box>
 
               <Box mt={4} border="1px dashed #000" p={2}>
@@ -87,8 +108,16 @@ const AddQuizModal: React.FC = () => {
                   <Box mb={2}>
                     <FormControl component="fieldset">
                       <RadioGroup row value={value} onChange={handleChange}>
-                        <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
-                        <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
+                        <FormControlLabel
+                          value="option1"
+                          control={<Radio />}
+                          label="Option 1"
+                        />
+                        <FormControlLabel
+                          value="option2"
+                          control={<Radio />}
+                          label="Option 2"
+                        />
                       </RadioGroup>
                     </FormControl>
 
@@ -104,7 +133,12 @@ const AddQuizModal: React.FC = () => {
                     {items.map((item) => (
                       <React.Fragment key={item.id}>
                         <Grid item xs={4}>
-                          <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '12px' }}>
+                          <FormControl
+                            fullWidth
+                            variant="outlined"
+                            size="small"
+                            sx={{ marginTop: '12px' }}
+                          >
                             <OutlinedInput
                               startAdornment={
                                 <InputAdornment position="start">
@@ -117,11 +151,24 @@ const AddQuizModal: React.FC = () => {
                             />
                           </FormControl>
                         </Grid>
-                        <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Grid
+                          item
+                          xs={2}
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
                           <Typography>অথবা</Typography>
                         </Grid>
                         <Grid item xs={4}>
-                          <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '12px' }}>
+                          <FormControl
+                            fullWidth
+                            variant="outlined"
+                            size="small"
+                            sx={{ marginTop: '12px' }}
+                          >
                             <OutlinedInput
                               endAdornment={
                                 <InputAdornment position="end">
@@ -136,16 +183,27 @@ const AddQuizModal: React.FC = () => {
                         </Grid>
                       </React.Fragment>
                     ))}
-
                   </Grid>
 
-                  <Button variant='contained' sx={{ marginTop: '12px', height: '40px', width: '160px' }}>
+                  <Button
+                    variant="contained"
+                    sx={{ marginTop: '12px', height: '40px', width: '160px' }}
+                  >
                     Add More
                   </Button>
 
-
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Button variant="contained" onClick={handleToggleEditor} sx={{position:'absolute',}}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      onClick={handleToggleEditor}
+                      sx={{ position: 'absolute' }}
+                    >
                       Toggle Editor
                     </Button>
                     <Box
@@ -153,18 +211,25 @@ const AddQuizModal: React.FC = () => {
                         width: '100%',
                         height: showEditor ? 'auto' : '50px',
                         border: '1px solid #ccc',
-                        borderRadius:'5px',
+                        borderRadius: '5px',
                         marginTop: '20px',
                         transition: 'height 0.3s ease-in-out',
                       }}
                     >
-                      {showEditor && <>
-                      <Typography p={2}>Add More Topic</Typography>
-                      <ReactQuill style={{ minHeight: '100px',padding:'10px',marginTop:'20px' }}/>
-                      </>}
+                      {showEditor && (
+                        <>
+                          <Typography p={2}>Add More Topic</Typography>
+                          <ReactQuill
+                            style={{
+                              minHeight: '100px',
+                              padding: '10px',
+                              marginTop: '20px',
+                            }}
+                          />
+                        </>
+                      )}
                     </Box>
                   </div>
-
                 </form>
               </Box>
             </Form>
@@ -178,6 +243,4 @@ const AddQuizModal: React.FC = () => {
   );
 };
 
-export default AddQuizModal;
-
-
+export default AddQuizButton;
