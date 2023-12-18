@@ -15,8 +15,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import CustomButton from './CustomButton';
 import QuizIcon from '@mui/icons-material/Quiz';
 const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
-  const [open, setOpen] = useState(false);
-
+  const [open, setOpen] = useState(true);
+  const [selectedButton, setSelectedButton] = useState(1);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -37,7 +37,6 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
       </Button>
 
       <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-        {/* Set maxWidth and fullWidth props for larger width without scrolling */}
         <DialogTitle
           sx={{
             display: 'flex',
@@ -70,7 +69,9 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
               borderRadius: 2,
             }}
           >
-            <Typography variant="body1">Your content here...</Typography>
+            <Typography variant="body1">
+              selected Form {selectedButton}
+            </Typography>
           </Box>
           <Stack
             pt={2}
@@ -80,11 +81,36 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
             bgcolor="#465360"
             borderRadius={2}
           >
-            <CustomButton icon={<QuizIcon />} title="কুইজ " />
-            <CustomButton icon={<CloseIcon />} title="ম্যাচিং" />
-            <CustomButton icon={<CloseIcon />} title="ফিল ইন দি ব্ল্যান্ক" />
-            <CustomButton icon={<CloseIcon />} title="সত্য / মিথ্যা" />
-            <CustomButton icon={<CloseIcon />} title="এক কথায় উত্তর" />
+            <CustomButton
+              icon={<QuizIcon />}
+              title="কুইজ "
+              selected={selectedButton === 1}
+              onClick={() => setSelectedButton(1)}
+            />
+            <CustomButton
+              icon={<CloseIcon />}
+              title="ম্যাচিং"
+              selected={selectedButton === 2}
+              onClick={() => setSelectedButton(2)}
+            />
+            <CustomButton
+              icon={<CloseIcon />}
+              title="ফিল ইন দি ব্ল্যান্ক"
+              selected={selectedButton === 3}
+              onClick={() => setSelectedButton(3)}
+            />
+            <CustomButton
+              icon={<CloseIcon />}
+              title="সত্য / মিথ্যা"
+              selected={selectedButton === 4}
+              onClick={() => setSelectedButton(4)}
+            />
+            <CustomButton
+              icon={<CloseIcon />}
+              title="এক কথায় উত্তর"
+              selected={selectedButton === 5}
+              onClick={() => setSelectedButton(5)}
+            />
           </Stack>
         </DialogContent>
         <DialogActions>{/* Actions, if needed */}</DialogActions>

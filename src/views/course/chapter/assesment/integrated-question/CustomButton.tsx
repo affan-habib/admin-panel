@@ -7,6 +7,7 @@ interface CustomBoxProps {
   title: string;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   disabled?: boolean;
+  selected?: boolean;
 }
 
 const CustomButton: React.FC<CustomBoxProps> = ({
@@ -14,6 +15,7 @@ const CustomButton: React.FC<CustomBoxProps> = ({
   title,
   onClick,
   disabled,
+  selected,
 }) => {
   return (
     <Box
@@ -28,17 +30,19 @@ const CustomButton: React.FC<CustomBoxProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         transition: 'background-color 0.3s',
+        backgroundColor: selected ? '#D0D0D0' : 'white',
+        color: selected ? 'black' : 'inherit',
         '&:hover': {
-          backgroundColor: disabled ? 'inherit' : 'primary.main',
-          color: disabled ? 'inherit' : 'white',
+          backgroundColor: disabled ? 'inherit' : '#D0D0D0',
+          color: disabled ? 'inherit' : 'black',
           '& svg': {
-            color: disabled ? 'inherit' : 'white',
+            color: disabled ? 'inherit' : 'black',
           },
           '& div:nth-of-type(2)': {
             backgroundColor: disabled
               ? 'rgba(217, 217, 217, 1)'
-              : 'primary.main',
-            color: disabled ? 'inherit' : 'white',
+              : '#D0D0D0',
+            color: disabled ? 'inherit' : 'black',
           },
         },
       }}
@@ -58,15 +62,9 @@ const CustomButton: React.FC<CustomBoxProps> = ({
         sx={{
           height: '50%',
           width: '100%',
-          // backgroundColor: 'rgba(217, 217, 217, 1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: 'background-color 0.3s',
-          '&:hover': {
-            backgroundColor: disabled ? 'inherit' : 'primary.main',
-            color: disabled ? 'inherit' : 'white',
-          },
         }}
       >
         <Typography align="center" sx={{ fontSize: 15 }}>
