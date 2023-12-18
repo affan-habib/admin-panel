@@ -221,7 +221,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                       onClick={handleToggleEditor}
                       sx={{ position: 'absolute' }}
                     >
-                      Toggle Editor
+                      তথ্য যোগ করুন
                     </Button>
                     <Box
                       sx={{
@@ -251,9 +251,14 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
               </Box>
             </Form>
           </Formik>
-          <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
-            Close Modal
-          </Button>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end',gap:"5px" }}>
+            <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
+              সাবমিট
+            </Button>
+            <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
+              সেভ এবং অ্যাড
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </>
