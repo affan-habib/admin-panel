@@ -88,7 +88,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             // mark: '',
             // passMark: '',
             // negativeMark: '',
-            time: '',
+            // time: '',
             course_module_id: moduleId,
             url: null,
             status: 1,
