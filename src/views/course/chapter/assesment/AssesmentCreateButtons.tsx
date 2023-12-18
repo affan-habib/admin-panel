@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Box } from '@mui/material';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
-import AddQuizModal from './quiz/AddQuizModal';
+import AddQuizButton from './quiz/AddQuizButton';
 
 const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
 //   console.log(assessmentId);
@@ -14,7 +14,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
         boxSizing: 'border-box',
       }}
     >
-      <AddQuizModal assessmentId={assessmentId} />
+      <AddQuizButton assessmentId={assessmentId} />
       <Button
         sx={{ marginLeft: '7px' }}
         variant="outlined"
