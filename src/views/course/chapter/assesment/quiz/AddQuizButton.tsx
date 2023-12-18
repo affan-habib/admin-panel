@@ -1,4 +1,4 @@
-import { Person } from '@mui/icons-material';
+import { CloudUploadOutlined, Person, SaveAlt } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -20,6 +20,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
   const [open, setOpen] = useState(false);
@@ -152,10 +153,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                           }
                         />
                       </FormControl>
-
                     </Box>
-
-
                   </Box>
 
                   <ReactQuill
@@ -168,54 +166,81 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                   <Grid container spacing={2} mt={5}>
                     {items.map((item) => (
                       <React.Fragment key={item.id}>
-                        <Grid item xs={4}>
-                          <FormControl
-                            fullWidth
-                            variant="outlined"
-                            size="small"
-                            sx={{ marginTop: '12px' }}
-                          >
-                            <OutlinedInput
-                              startAdornment={
-                                <InputAdornment position="start">
-                                  <Person />
-                                </InputAdornment>
-                              }
-                              placeholder={item.placeholder}
-                              aria-label={item.placeholder}
-                              aria-describedby={`outlined-${item.placeholder}`}
-                            />
-                          </FormControl>
+                        <Grid item xs={6}>
+
+                          <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)', padding: '10px',display:'flex' }}>
+                            <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
+                              <OutlinedInput
+                                startAdornment={
+                                  <InputAdornment position="start">
+                                    <Person />
+                                  </InputAdornment>
+                                }
+                                placeholder={item.placeholder}
+                                aria-label={item.placeholder}
+                                aria-describedby={`outlined-${item.placeholder}`}
+                              />
+                            </FormControl>
+                            <Grid
+                              item
+                              xs={3}
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <Typography>অথবা</Typography>
+                            </Grid>
+                            <IconButton
+                              size="small"
+                              style={{
+                                backgroundColor: '#FAFAFA',
+                                borderRadius: '4px',
+                                border: '1px solid #D0D0D0',
+                              }}
+                            >
+                              <FileUploadOutlinedIcon/>
+                            </IconButton>
+                          </Box>
+
                         </Grid>
-                        <Grid
-                          item
-                          xs={2}
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Typography>অথবা</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <FormControl
-                            fullWidth
-                            variant="outlined"
-                            size="small"
-                            sx={{ marginTop: '12px' }}
-                          >
-                            <OutlinedInput
-                              endAdornment={
-                                <InputAdornment position="end">
-                                  <Person />
-                                </InputAdornment>
-                              }
-                              placeholder={item.placeholder}
-                              aria-label={item.placeholder}
-                              aria-describedby={`outlined-${item.placeholder}`}
-                            />
-                          </FormControl>
+                        <Grid item xs={6}>
+                        <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)', padding: '10px',display:'flex' }}>
+                            <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
+                              <OutlinedInput
+                                startAdornment={
+                                  <InputAdornment position="start">
+                                    <Person />
+                                  </InputAdornment>
+                                }
+                                placeholder={item.placeholder}
+                                aria-label={item.placeholder}
+                                aria-describedby={`outlined-${item.placeholder}`}
+                              />
+                            </FormControl>
+                            <Grid
+                              item
+                              xs={3}
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <Typography>অথবা</Typography>
+                            </Grid>
+                            <IconButton
+                              size="small"
+                              style={{
+                                backgroundColor: '#FAFAFA',
+                                borderRadius: '4px',
+                                border: '1px solid #D0D0D0',
+                              }}
+                            >
+                               <FileUploadOutlinedIcon/>
+                            </IconButton>
+                          </Box>
                         </Grid>
                       </React.Fragment>
                     ))}
