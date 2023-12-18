@@ -15,6 +15,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CustomButton from './CustomButton';
 import QuizIcon from '@mui/icons-material/Quiz';
 import TrueFalseForm from '../true-false/TrueFalseForm';
+import OneWordAnswerForm from '../one-word-answer/OneWordAnswerForm';
 const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
   const [open, setOpen] = useState(true);
   const [selectedButton, setSelectedButton] = useState(1);
@@ -70,6 +71,7 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
             }}
           >
             {selectedButton === 4 && <TrueFalseForm />}
+            {selectedButton === 5 && <OneWordAnswerForm />}
           </Box>
           <Stack
             pt={2}
