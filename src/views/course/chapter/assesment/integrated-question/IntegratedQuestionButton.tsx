@@ -14,6 +14,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import CustomButton from './CustomButton';
 import QuizIcon from '@mui/icons-material/Quiz';
+import TrueFalseForm from '../true-false/TrueFalseForm';
 const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
   const [open, setOpen] = useState(true);
   const [selectedButton, setSelectedButton] = useState(1);
@@ -61,17 +62,14 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
         >
           <Box
             sx={{
+              border: '1px dashed #D0D0D0',
               width: '100%', // Adjusted width
               mr: 2,
-              padding: 2,
-              paddingRight: 4,
-              backgroundColor: '#f0f0f0',
+              p: 2,
               borderRadius: 2,
             }}
           >
-            <Typography variant="body1">
-              selected Form {selectedButton}
-            </Typography>
+            {selectedButton === 4 && <TrueFalseForm />}
           </Box>
           <Stack
             pt={2}
