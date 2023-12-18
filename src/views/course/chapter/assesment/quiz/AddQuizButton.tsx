@@ -21,6 +21,7 @@ import 'react-quill/dist/quill.snow.css';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
   const [open, setOpen] = useState(false);
@@ -43,16 +44,15 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
   //   setEditorHtml(html);
   // };
 
-  const items = [
-    {
-      id: 1,
-      placeholder: 'Email 1',
-    },
-    {
-      id: 2,
-      placeholder: 'Email 2',
-    },
-  ];
+  const [inputFields, setInputFields] = useState([
+    { id: 1, placeholder: 'Email 1' },
+    { id: 2, placeholder: 'Email 2' },
+  ]);
+
+  const handleAddMore = () => {
+    const newId = inputFields[inputFields.length - 1].id + 1;
+    setInputFields([...inputFields, { id: newId, placeholder: `Email ${newId}` }]);
+  };
 
   const [value, setValue] = React.useState('');
 
@@ -163,94 +163,50 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                     style={{ height: '100px' }}
                   />
 
-                  <Grid container spacing={2} mt={5}>
-                    {items.map((item) => (
-                      <React.Fragment key={item.id}>
-                        <Grid item xs={6}>
 
-                          <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)', padding: '10px',display:'flex' }}>
-                            <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
-                              <OutlinedInput
-                                startAdornment={
-                                  <InputAdornment position="start">
-                                    <Person />
-                                  </InputAdornment>
-                                }
-                                placeholder={item.placeholder}
-                                aria-label={item.placeholder}
-                                aria-describedby={`outlined-${item.placeholder}`}
-                              />
-                            </FormControl>
-                            <Grid
-                              item
-                              xs={3}
-                              sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <Typography>অথবা</Typography>
-                            </Grid>
-                            <IconButton
-                              size="small"
-                              style={{
-                                backgroundColor: '#FAFAFA',
-                                borderRadius: '4px',
-                                border: '1px solid #D0D0D0',
-                              }}
-                            >
-                              <FileUploadOutlinedIcon/>
-                            </IconButton>
-                          </Box>
-
-                        </Grid>
-                        <Grid item xs={6}>
-                        <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)', padding: '10px',display:'flex' }}>
-                            <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
-                              <OutlinedInput
-                                startAdornment={
-                                  <InputAdornment position="start">
-                                    <Person />
-                                  </InputAdornment>
-                                }
-                                placeholder={item.placeholder}
-                                aria-label={item.placeholder}
-                                aria-describedby={`outlined-${item.placeholder}`}
-                              />
-                            </FormControl>
-                            <Grid
-                              item
-                              xs={3}
-                              sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <Typography>অথবা</Typography>
-                            </Grid>
-                            <IconButton
-                              size="small"
-                              style={{
-                                backgroundColor: '#FAFAFA',
-                                borderRadius: '4px',
-                                border: '1px solid #D0D0D0',
-                              }}
-                            >
-                               <FileUploadOutlinedIcon/>
-                            </IconButton>
-                          </Box>
-                        </Grid>
-                      </React.Fragment>
+                  <Grid container columns={10} spacing={2} mt={5}>
+                    {inputFields.map((field) => (
+                      <Grid item xs={4} key={field.id}>
+                        <Box
+                          sx={{
+                            border: '1px dashed rgba(208, 208, 208, 1)',
+                            padding: '10px',
+                            display: 'flex',
+                          }}
+                        >
+                          <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
+                            <OutlinedInput
+                              startAdornment={<InputAdornment position="start"><Person /></InputAdornment>}
+                              placeholder={field.placeholder}
+                            />
+                          </FormControl>
+                          <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Typography>অথবা</Typography>
+                          </Grid>
+                          <IconButton
+                            size="small"
+                            style={{
+                              backgroundColor: '#FAFAFA',
+                              borderRadius: '4px',
+                              border: '1px solid #D0D0D0',
+                            }}
+                          >
+                            <FileUploadOutlinedIcon />
+                          </IconButton>
+                        </Box>
+                      </Grid>
                     ))}
                   </Grid>
 
+
+
                   <Button
                     variant="contained"
-                    sx={{ marginTop: '12px', height: '40px', width: '160px' }}
+                    onClick={handleAddMore}
+                    sx={{ marginTop: '12px', height: '40px', width: '160px', display: 'flex', alignItems: 'center' }}
+                    startIcon={<AddCircleOutlineOutlinedIcon />}
                   >
-                    Add More
+                    আরো যোগ করুন
                   </Button>
 
                   <div
