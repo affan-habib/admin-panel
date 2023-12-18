@@ -30,7 +30,7 @@ const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
             <InputLabel>প্রশ্নের ধরন:</InputLabel>
             <InputRadio label="লিখিত" name="isTrue" value={true} />
             <InputRadio label="ছবি সম্পর্কিত" name="isTrue" value={false} />
-            {values.isTrue ? (
+            {!values.isTrue ? (
               <VideoUploadBox name="url" label="ভিডিও আপলোড করুন" />
             ) : (
               <>
