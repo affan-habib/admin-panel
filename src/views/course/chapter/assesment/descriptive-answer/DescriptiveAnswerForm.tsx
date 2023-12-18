@@ -6,7 +6,7 @@ import InputRadio from 'components/form/InputRadio';
 import { InputLabel, Box } from '@mui/material';
 import VideoUploadBox from 'components/form/VideoUploadBox';
 
-const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
+const DescriptiveAnswerForm: React.FC<any> = ({ assessmentId }) => {
   const onSubmit = (values: any) => {
     // Handle form submission logic here
     console.log(values);
@@ -61,4 +61,4 @@ const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
   );
 };
 
-export default OneWordAnswerForm;
+export default DescriptiveAnswerForm;

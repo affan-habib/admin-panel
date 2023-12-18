@@ -16,6 +16,7 @@ import CustomButton from './CustomButton';
 import QuizIcon from '@mui/icons-material/Quiz';
 import TrueFalseForm from '../true-false/TrueFalseForm';
 import OneWordAnswerForm from '../one-word-answer/OneWordAnswerForm';
+import DescriptiveAnswerForm from '../descriptive-answer/DescriptiveAnswerForm';
 const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
   const [open, setOpen] = useState(true);
   const [selectedButton, setSelectedButton] = useState(1);
@@ -72,6 +73,7 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
           >
             {selectedButton === 4 && <TrueFalseForm />}
             {selectedButton === 5 && <OneWordAnswerForm />}
+            {selectedButton === 6 && <DescriptiveAnswerForm />}
           </Box>
           <Stack
             pt={2}
@@ -110,6 +112,12 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
               title="এক কথায় উত্তর"
               selected={selectedButton === 5}
               onClick={() => setSelectedButton(5)}
+            />
+            <CustomButton
+              icon={<CloseIcon />}
+              title="বর্ণনামূলক প্রশ্নপত্র"
+              selected={selectedButton === 6}
+              onClick={() => setSelectedButton(6)}
             />
           </Stack>
         </DialogContent>
