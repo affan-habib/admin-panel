@@ -17,6 +17,11 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import TrueFalseForm from '../true-false/TrueFalseForm';
 import OneWordAnswerForm from '../one-word-answer/OneWordAnswerForm';
 import DescriptiveAnswerForm from '../descriptive-answer/DescriptiveAnswerForm';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import DescriptionIcon from '@mui/icons-material/Description';
+import ContrastIcon from '@mui/icons-material/Contrast';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
   const [open, setOpen] = useState(true);
   const [selectedButton, setSelectedButton] = useState(1);
@@ -90,31 +95,31 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
               onClick={() => setSelectedButton(1)}
             />
             <CustomButton
-              icon={<CloseIcon />}
+              icon={<SwapHorizIcon />}
               title="ম্যাচিং"
               selected={selectedButton === 2}
               onClick={() => setSelectedButton(2)}
             />
             <CustomButton
-              icon={<CloseIcon />}
+              icon={<HourglassEmptyIcon />}
               title="ফিল ইন দি ব্ল্যান্ক"
               selected={selectedButton === 3}
               onClick={() => setSelectedButton(3)}
             />
             <CustomButton
-              icon={<CloseIcon />}
+              icon={<ContrastIcon />}
               title="সত্য / মিথ্যা"
               selected={selectedButton === 4}
               onClick={() => setSelectedButton(4)}
             />
             <CustomButton
-              icon={<CloseIcon />}
+              icon={<FullscreenExitIcon />}
               title="এক কথায় উত্তর"
               selected={selectedButton === 5}
               onClick={() => setSelectedButton(5)}
             />
             <CustomButton
-              icon={<CloseIcon />}
+              icon={<DescriptionIcon />}
               title="বর্ণনামূলক প্রশ্নপত্র"
               selected={selectedButton === 6}
               onClick={() => setSelectedButton(6)}
