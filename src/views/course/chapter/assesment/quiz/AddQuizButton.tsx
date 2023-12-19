@@ -80,11 +80,14 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
         <Box
           sx={{
             position: 'absolute',
-            maxWidth: 'xl',
+            // maxWidth: 'xl',
+            width: '60vw',
+            maxHeight:'85vh',
+            overflowY:'auto',
             bgcolor: 'background.paper',
             borderRadius: '8px',
             boxShadow: 24,
-            p: 2,
+            // p: 2,
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
@@ -105,7 +108,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
           </Grid>
           <Formik initialValues={{ option: 'option1' }} onSubmit={handleSubmit}>
             <Form>
-              <Box my={2} display="flex" justifyContent="" gap={8}>
+              <Box my={2} display="flex" justifyContent="" gap={8} px={2}>
                 <FormControlLabel
                   value="option1"
                   control={<Checkbox />}
@@ -118,7 +121,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                 />
               </Box>
 
-              <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" p={2}>
+              <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
                 <Typography variant="h6" gutterBottom>
                   Form with Text Editor
                 </Typography>
@@ -156,15 +159,18 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                     </Box>
                   </Box>
 
-                  <ReactQuill
-                    id="editor"
-                    value={editorHtml}
-                    onChange={handleChange}
-                    style={{ height: '100px' }}
-                  />
+                  <Box>
+                    <ReactQuill
+                      id="editor"
+                      value={editorHtml}
+                      onChange={handleChange}
+                      style={{ height: '100px' }}
+                    />
+                  </Box>
 
-
-                  <Grid container columns={10} spacing={2} mt={5}>
+                  <Grid container columns={10} spacing={2} mt={5} 
+                  // style={{maxHeight:'60vh',overflowY:'auto'}}
+                  >
                     {inputFields.map((field) => (
                       <Grid item xs={4} key={field.id}>
                         <Box
@@ -240,7 +246,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                             style={{
                               minHeight: '100px',
                               padding: '10px',
-                              marginTop: '20px',
+                              // marginTop: '20px',
                             }}
                           />
                         </>
@@ -251,7 +257,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
               </Box>
             </Form>
           </Formik>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end',gap:"5px" }}>
+          <Box p={2} sx={{ display: 'flex', justifyContent: 'flex-end', gap: "5px"}}>
             <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
               সাবমিট
             </Button>
