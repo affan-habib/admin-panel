@@ -23,13 +23,14 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import MarkInput from 'components/form/MarkInput';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-
+import { useTranslation } from 'react-i18next';
 interface Item {
     id: number;
     placeholder: string;
     showInput?: boolean;
 }
 const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const [editorHtml, setEditorHtml] = useState('');
     const [items, setItems] = useState<Item[]>([
@@ -136,8 +137,8 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                         <Form>
                             <Box display="flex" justifyContent="" gap={8} px={2}>
                                 <RadioGroup row aria-label="submissionType" name="submission_type">
-                                    <FormControlLabel value="written" control={<Radio />} label="Option 1" />
-                                    <FormControlLabel value="upload" control={<Radio />} label="Option 2" />
+                                    <FormControlLabel value="written" control={<Radio />} label={t('manualInput')} />
+                                    <FormControlLabel value="upload" control={<Radio />} label={t('bulkUpload')} />
                                 </RadioGroup>
                             </Box>
                             <Grid px={2}>
@@ -156,7 +157,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                         }}
                                     >
                                         <Typography variant="h6" gutterBottom sx={{ fontSize: '16px' }}>
-                                            নির্দেশনাবলী লিখুন:
+                                            {t('instruction')}
                                         </Typography>
                                             <MarkInput name='mark' />
                                       
@@ -203,7 +204,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                                     </Typography>
                                                                     <input
                                                                         style={{ padding: '10px' }}
-                                                                        placeholder={`বিকল্প : ${item.id}`}
+                                                                        placeholder={`${t('alternativematch')} : ${item.id}`}
                                                                     />
                                                                 </Stack>
                                                             </FormControl>
@@ -225,7 +226,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                                     </Typography>
                                                                     <input
                                                                         style={{ padding: '10px' }}
-                                                                        placeholder={`উত্তর : ${item.id}`}
+                                                                        placeholder={`${t('answer')} : ${item.id}`}
                                                                     />
                                                                 </Stack>
                                                             </FormControl>
@@ -248,7 +249,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                                     </Typography>
                                                                     <input
                                                                         style={{ padding: '10px', width:'120px' }}
-                                                                        placeholder='ভুল উত্তর'
+                                                                        placeholder={t('wronganswertwo')}
                                                                     />
                                                                 </Stack>
                                                             </FormControl>
@@ -275,7 +276,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                                     onClick={() => handleAddInput(item.id)}
                                                                 >
                                                                     <AddCircleOutlinedIcon sx={{ fontWeight: '400' }} />
-                                                                    <span style={{ marginLeft: '3px' }}>ভুল উত্তর যোগ করুন</span>
+                                                                    <span style={{ marginLeft: '3px', fontSize:'12px' }}>{t('wronganswer')}</span>
                                                                 </Button>
                                                             </Grid>
                                                         )}
@@ -297,13 +298,13 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                         <Grid item>
                                             <Button variant="contained" onClick={handleAddMore}>
                                                 <AddCircleOutlineOutlinedIcon />
-                                                <span style={{ marginLeft: '3px' }}>আরো যোগ করুন</span>
+                                                <span style={{ marginLeft: '3px' }}>{t('addMore')}</span>
                                             </Button>
                                         </Grid>
                                         <Grid item sx={{ display: 'flex', gap: 2 }}>
-                                            <Button variant="contained">সাবমিট</Button>
+                                            <Button variant="contained">{t('submit')}</Button>
 
-                                            <Button variant="outlined">সেভ এবং অ্যাড</Button>
+                                            <Button variant="outlined">{t('saveAdd')}</Button>
                                         </Grid>
                                     </Grid>
                                 </Grid>
