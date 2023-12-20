@@ -320,10 +320,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         color="primary"
                         sx={{ marginLeft: 2 }}
                       />
-                      <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
+                      <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
+                      <Typography >
                         Assessment {assessment.id} :{' '}
                         {assessment.assessment_title}
                       </Typography>
+                      <Typography >
+                        {assessment.assessment_title}
+                      </Typography>
+                      </Box>
+                     
                       <Button
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
