@@ -6,17 +6,15 @@ const fetchUserDetails = async (id: any) => {
   const token = localStorage.getItem('token');
   const response = await axios.get(`${apiBaseUrl}/admins/${id}`, {
     headers: {
-        'Authorization': `Bearer ${token}`,
-        // Add any additional headers if needed
+      Authorization: `Bearer ${token}`,
+      // Add any additional headers if needed
     },
-});
+  });
   return response.data;
 };
 
-const useCourseDetails = (courseId: any) => {
-  return useQuery(['courseDetails', courseId], () =>
-    fetchUserDetails(courseId),
-  );
+const useAdminUserDetails = (courseId: any) => {
+  return useQuery(['user-details', courseId], () => fetchUserDetails(courseId));
 };
 
-export default useCourseDetails;
+export default useAdminUserDetails;

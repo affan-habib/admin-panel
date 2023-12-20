@@ -23,7 +23,7 @@ import ContrastIcon from '@mui/icons-material/Contrast';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [selectedButton, setSelectedButton] = useState(1);
   const handleClickOpen = () => {
     setOpen(true);
