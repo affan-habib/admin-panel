@@ -20,6 +20,7 @@ import SmartDisplayOutlinedIcon from '@mui/icons-material/SmartDisplayOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
+import ClearIcon from '@mui/icons-material/Clear';
 import { OpenWith } from '@mui/icons-material';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import { useSnackbar } from 'context/SnackbarContext';
@@ -377,20 +378,24 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </div>
                     {selectedId === assessment.id && (
                       <div
-                        key={assessment.id}
-                        // style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          paddingTop: '8px',
-                          paddingBottom: '8px',
-                        }}
-                      >
-                        <AssesmentCreateButtons
-                          assessmentId={assessment.id}
-                          moduleId={chapter.id}
-                        />
-                      </div>
+                      key={assessment.id}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        paddingTop: '8px',
+                        paddingBottom: '8px',
+                        border: '1px dashed #000',
+                      }}
+                    >
+                      <AssesmentCreateButtons
+                        assessmentId={assessment.id}
+                        moduleId={chapter.id}
+                      />
+                      <Box alignItems='start' px={1} sx={{marginBottom:'20px'}}>
+                        <ClearIcon color='error' style={{cursor:'pointer'}} onClick={toggleAssessmentSection} />
+                      </Box>
+                    </div>
                     )}
                   </>
                 ))}

@@ -143,6 +143,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
               <Grid item xs={6}>
                 <InputField
+                  type='number'
                   name="total_time"
                   label={t('enterTime')}
                   placeholder={t('placeHolderNumber')}

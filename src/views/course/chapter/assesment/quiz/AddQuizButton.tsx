@@ -19,7 +19,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from 'react-i18next';
@@ -73,9 +73,9 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
     <>
       <Button
         onClick={handleOpen}
-        sx={{ marginLeft: '7px' }}
+        sx={{ marginLeft: '7px',color:'black' }}
         variant="outlined"
-        startIcon={<AssignmentOutlinedIcon />}
+        startIcon={<AddIcon />}
       >
         {t('quiz')}
       </Button>
@@ -172,12 +172,6 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                             display: 'flex',
                           }}
                         >
-                          {/* <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
-                            <OutlinedInput
-                              startAdornment={<InputAdornment position="start"><Person /></InputAdornment>}
-                              placeholder={field.placeholder}
-                            />
-                          </FormControl> */}
                           <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
                             <Stack
                               direction="row"

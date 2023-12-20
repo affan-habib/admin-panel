@@ -126,5 +126,6 @@
   "assignCheckboxOne": "Written Submission",
   "assignCheckboxTwo": "Upload File",
   "nameAndCode": "Course Name : Code",
-  "instruction":"Enter the instructions:"
+  "instruction":"Enter the instructions:",
+  "giveMark":"Mark"
 }
