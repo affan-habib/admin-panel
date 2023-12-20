@@ -78,7 +78,11 @@
     "instructions":"নির্দেশনাবলী লিখুন",
     "mcqWithPhoto":"এমসিকিউ উইথ পিকচার যোগ করুন (কারবালা প্রান্তর)",
     "quizDescription":"কুইজের বিবরণ",
-    "addContent":"কনটেন্ট যোগ করুন"
+    "addContent":"কনটেন্ট যোগ করুন",
+    "alternativematch":"বিকল্প",
+    "answer":"উত্তর",
+    "wronganswer":"ভুল উত্তর যোগ করুন",
+    "wronganswertwo":"ভুল উত্তর"
 
 }
 

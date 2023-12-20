@@ -78,7 +78,11 @@
     "instructions":"Enter the Instructions",
     "mcqWithPhoto":"Add Mcq With Photos",
     "quizDescription":"Quiz Description",
-    "addContent":"Add Content"
+    "addContent":"Add Content",
+    "alternativematch":"Alternative",
+    "answer":"Answer",
+    "wronganswer":"Add wrong answer",
+    "wronganswertwo":"Wrong answer"
     
     
 }
