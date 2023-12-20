@@ -63,7 +63,22 @@
     "passmarkInput":"পাস মার্ক ইনপুট দিন",
     "negativeMarkInput":"নেগেটিভ মার্ক ইনপুট দিন",
     "enterTime":"সময় ইনপুট দিন",
-    "placeHolderNumber":"১"
+    "placeHolderNumber":"১",
+    "quiz":"কুইজ",
+    "manualInput":"ম্যানুয়াল ইনপুট",
+    "bulkUpload":"বাল্ক আপলোড",
+    "written":"লিখিত",
+    "photo":"ছবি সম্পর্কিত",
+    "quizType":"কুইজের প্রশ্নের ধরন:",
+    "alternative":"বিকল্প লিখুন",
+    "addMore":"আরো যোগ করুন",
+    "addInfo":"তথ্য যোগ করুন",
+    "saveAdd":"সেভ এবং অ্যাড",
+    "or":"অথবা",
+    "instructions":"নির্দেশনাবলী লিখুন",
+    "mcqWithPhoto":"এমসিকিউ উইথ পিকচার যোগ করুন (কারবালা প্রান্তর)",
+    "quizDescription":"কুইজের বিবরণ",
+    "addContent":"কনটেন্ট যোগ করুন"
 
 }
 
