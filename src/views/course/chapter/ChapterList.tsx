@@ -323,7 +323,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         Assessment {assessment.id} :{' '}
                         {assessment.assessment_title}
                       </Typography>
-                      <IconButton
+                      <Button
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
                           borderRadius: '5px',
@@ -332,14 +332,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         aria-label="Add Assessment"
                         size="small"
                         onClick={() => toggleAssessmentSection(assessment.id)}
-                        color="primary"
+                        variant="contained"
                       >
+                        {t('addContent')}
                         {selectedId === assessment.id ? (
                           <RemoveOutlinedIcon />
                         ) : (
                           <AddOutlinedIcon />
                         )}
-                      </IconButton>
+                      </Button>
                       <IconButton
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
