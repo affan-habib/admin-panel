@@ -39,5 +39,14 @@ export function createComponents() {
         size: 'small',
       },
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: 'black',
+          my: 1,
+          fontWeight: 500,
+        },
+      },
+    }
   };
 }
