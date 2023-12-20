@@ -6,23 +6,33 @@ import {
     Button,
     Grid,
     IconButton,
-    InputAdornment,
     Modal,
     TextField,
     Typography,
     Radio,
     RadioGroup,
     FormControlLabel,
+    Stack,
+    FormControl,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Formik, Form } from 'formik';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import MarkInput from 'components/form/MarkInput';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+
+interface Item {
+    id: number;
+    placeholder: string;
+    showInput?: boolean;
+}
 const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
     const [open, setOpen] = useState(false);
     const [editorHtml, setEditorHtml] = useState('');
-    const [items, setItems] = useState([
+    const [items, setItems] = useState<Item[]>([
         {
             id: 1,
             placeholder: 'Email 1',
@@ -65,7 +75,23 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
         };
         setItems((prevItems) => [...prevItems, newItem]);
     };
-
+    const handleAddInput = (itemId: number) => {
+        setItems((prevItems) =>
+            prevItems.map((item) =>
+                item.id === itemId ? { ...item, showInput: true } : item
+            )
+        );
+    };
+    const handleDelete = (itemId: number) => {
+        setItems((prevItems) =>
+            prevItems.map((item) =>
+                item.id === itemId ? { ...item, showInput: false } : item
+            )
+        );
+    };
+    const handleQuillChange = (html: string) => {
+        setEditorHtml(html);
+      };
     return (
         <>
             <Button
@@ -132,32 +158,14 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                         <Typography variant="h6" gutterBottom sx={{ fontSize: '16px' }}>
                                             নির্দেশনাবলী লিখুন:
                                         </Typography>
-                                        <Grid item xs={3}>
-                                            <TextField
-                                                fullWidth
-                                                InputProps={{
-                                                    startAdornment: (
-                                                        <InputAdornment position="start">
-                                                            <Box
-                                                                sx={{
-                                                                    backgroundColor: '#e0e0e0',
-                                                                    color: '#333',
-                                                                    paddingX: 0,
-                                                                }}
-                                                            >
-                                                                মার্ক দিন
-                                                            </Box>
-                                                        </InputAdornment>
-                                                    ),
-                                                }}
-                                            />
-                                        </Grid>
+                                            <MarkInput name='mark' />
+                                      
                                     </Grid>
                                     <Box mb={2} mt={2}>
                                         <ReactQuill
                                             id="editor"
                                             value={editorHtml}
-                                            onChange={handleChange}
+                                            onChange={handleQuillChange}
                                             style={{ height: '100px' }}
                                         />
                                     </Box>
@@ -165,7 +173,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                     <div style={{ marginTop: '80px', marginBottom: '20px' }}>
                                         <Grid container spacing={2} xs={12} justifyContent="start">
                                             {items.map((item) => (
-                                                <Grid item xs={12} md={10} lg={10} key={item.id}>
+                                                <Grid item xs={12} md={9} lg={9} key={item.id}>
                                                     <Grid
                                                         container
 
@@ -174,30 +182,104 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                             padding: 2,
                                                             marginBottom: '10px', // Add margin between each form
                                                             width: '100%', // Make it full width
+                                                            color: 'rgba(100, 100, 100, 1)'
                                                         }}
 
                                                         justifyContent="space-between"
                                                     >
                                                         <Grid item xs={12} md={4} lg={4} >
-                                                            <TextField
-                                                                label={`${item.placeholder} - Input 1`}
-                                                                variant="outlined"
-                                                                fullWidth // Make TextField full width
-                                                            />
+                                                            <FormControl
+                                                                fullWidth
+                                                                size='small'>
+                                                                <Stack
+                                                                    direction="row"
+                                                                    alignItems="center"
+                                                                    bgcolor="gray"
+                                                                    justifyContent="space-between"
+
+                                                                >
+                                                                    <Typography align="center" sx={{ color: 'white', px: 2, }}>
+                                                                        {item.id}
+                                                                    </Typography>
+                                                                    <input
+                                                                        style={{ padding: '10px' }}
+                                                                        placeholder={`বিকল্প : ${item.id}`}
+                                                                    />
+                                                                </Stack>
+                                                            </FormControl>
                                                         </Grid>
-                                                        <Grid item xs={12} md={4} lg={4} >
-                                                            <TextField
-                                                                label={`${item.placeholder} - Input 2`}
-                                                                variant="outlined"
-                                                                fullWidth // Make TextField full width
-                                                            />
+                                                        <Grid item xs={12} md={4} lg={4} display='flex' alignItems='center' >
+                                                            <CheckBoxIcon />
+                                                            <FormControl
+                                                                fullWidth
+                                                                size='small'>
+                                                                <Stack
+                                                                    direction="row"
+                                                                    alignItems="center"
+                                                                    bgcolor="gray"
+                                                                    justifyContent="space-between"
+
+                                                                >
+                                                                    <Typography align="center" sx={{ color: 'white', px: 2, }}>
+                                                                        {item.id}
+                                                                    </Typography>
+                                                                    <input
+                                                                        style={{ padding: '10px' }}
+                                                                        placeholder={`উত্তর : ${item.id}`}
+                                                                    />
+                                                                </Stack>
+                                                            </FormControl>
                                                         </Grid>
-                                                        <Grid item xs={12} md={3} lg={3}>
-                                                            <Button variant="outlined" sx={{ fontWeight:'400', color:'rgba(100, 100, 100, 1)'}} fullWidth>
-                                                            <AddCircleOutlinedIcon sx={{fontWeight:'400', }} /> 
-                                                            <span style={{ marginLeft: '3px' }}>ভুল উত্তর যোগ করুন</span>
-                                                            </Button>
-                                                        </Grid>
+                                                        {item.showInput ? (
+                                                            <Grid item xs={12} md={3} lg={3} display='flex'>
+                                                                <FormControl
+
+                                                                >
+                                                                <Stack
+                                                                    direction="row"
+                                                                    alignItems="center"
+                                                                    bgcolor="gray"
+                                                                    justifyContent="space-between"
+                                                                    
+
+                                                                >
+                                                                    <Typography align="center" sx={{ color: 'white', px: 2, }}>
+                                                                        {item.id}
+                                                                    </Typography>
+                                                                    <input
+                                                                        style={{ padding: '10px', width:'120px' }}
+                                                                        placeholder='ভুল উত্তর'
+                                                                    />
+                                                                </Stack>
+                                                            </FormControl>
+                                                                <IconButton
+                                                                    onClick={() => handleDelete(item.id)}
+                                                                    
+                                                                    aria-label="delete"
+                                                                >
+                                                                    <DeleteOutlineIcon />
+                                                                </IconButton>
+                                                            </Grid>
+                                                        ) : (
+                                                            <Grid item xs={12} md={3} lg={3}>
+                                                                <Button
+                                                                    variant="outlined"
+                                                                    sx={{
+                                                                        fontWeight: '400', color: 'rgba(100, 100, 100, 1)',
+                                                                        borderColor: 'rgba(100, 100, 100, 1)', // Specify your custom color here
+                                                                        '&:hover': {
+                                                                            borderColor: 'rgba(100, 100, 100, 1)', // Specify your custom hover color here
+                                                                        },
+                                                                    }}
+                                                                    fullWidth
+                                                                    onClick={() => handleAddInput(item.id)}
+                                                                >
+                                                                    <AddCircleOutlinedIcon sx={{ fontWeight: '400' }} />
+                                                                    <span style={{ marginLeft: '3px' }}>ভুল উত্তর যোগ করুন</span>
+                                                                </Button>
+                                                            </Grid>
+                                                        )}
+
                                                     </Grid>
                                                 </Grid>
                                             ))}

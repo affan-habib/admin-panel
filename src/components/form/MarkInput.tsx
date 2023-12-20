@@ -8,13 +8,13 @@ const MarkInput: React.FC<any> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
-    <Box margin="20px">
+    <>
       <Stack
         direction="row"
         alignItems="center"
         bgcolor="gray"
         justifyContent="space-between"
-        maxWidth={210}
+        maxWidth={200}
       >
         <Typography align="center" sx={{ color: 'white', px: 2, width: 100 }}>
           মার্ক দিন
@@ -32,7 +32,7 @@ const MarkInput: React.FC<any> = ({ label, ...props }) => {
           {meta.error}
         </Typography>
       )}
-    </Box>
+    </>
   );
 };
 
