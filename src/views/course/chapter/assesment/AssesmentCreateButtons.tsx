@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Box } from '@mui/material';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import AddQuizButton from './quiz/AddQuizButton';
+import AddMatchingButton from './matching/AddMatchingButton';
 
 const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
 //   console.log(assessmentId);
@@ -22,13 +23,8 @@ const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
       >
         মাল্টিপল চয়েস
       </Button>
-      <Button
-        sx={{ marginLeft: '7px' }}
-        variant="outlined"
-        startIcon={<AssignmentOutlinedIcon />}
-      >
-        ম্যাচিং
-      </Button>
+      
+      <AddMatchingButton assessmentId={assessmentId} />
     </Box>
   );
 };
