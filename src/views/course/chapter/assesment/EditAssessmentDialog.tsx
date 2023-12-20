@@ -132,7 +132,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               <Grid item xs={6}>
                 <InputField
                   type="number"
-                  name="time"
+                  name="total_time"
                   label={t('enterTime')}
                   placeholder={t('placeHolderNumber')}
                 />
