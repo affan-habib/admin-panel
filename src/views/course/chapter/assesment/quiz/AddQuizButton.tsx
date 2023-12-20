@@ -22,8 +22,10 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { useTranslation } from 'react-i18next';
 
 const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
+  const {t} = useTranslation();
   const [open, setOpen] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
 
@@ -74,7 +76,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
         variant="outlined"
         startIcon={<AssignmentOutlinedIcon />}
       >
-        কুইজ
+        {t('quiz')}
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -100,7 +102,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
             borderBottom: '2px solid rgba(208, 208, 208, 1)'
           }}>
             <Typography color="primary" variant="h6" p={2}>
-              এমসিকিউ উইথ পিকচার যোগ করুন (কারবালা প্রান্তর)
+              {t('mcqWithPhoto')}
             </Typography>
             <IconButton onClick={handleClose} color="error" >
               <HighlightOffIcon />
@@ -112,34 +114,31 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                 <FormControlLabel
                   value="option1"
                   control={<Checkbox />}
-                  label="Option 1"
+                  label={t('manualInput')}
                 />
                 <FormControlLabel
                   value="option2"
                   control={<Checkbox />}
-                  label="Option 2"
+                  label={t('bulkUpload')}
                 />
               </Box>
 
               <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
-                <Typography variant="h6" gutterBottom>
-                  Form with Text Editor
-                </Typography>
                 <form>
                   <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                      <Typography>কুইজের প্রশ্নের ধরন:</Typography>
+                      <Typography>{t('quizType')}:</Typography>
                       <FormControl component="fieldset">
                         <RadioGroup row value={value} onChange={handleChange}>
                           <FormControlLabel
                             value="option1"
                             control={<Radio />}
-                            label="Option 1"
+                            label={t('written')}
                           />
                           <FormControlLabel
                             value="option2"
                             control={<Radio />}
-                            label="Option 2"
+                            label={t('photo')}
                           />
                         </RadioGroup>
                       </FormControl>
@@ -151,7 +150,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                         <OutlinedInput
                           startAdornment={
                             <InputAdornment position="start">
-                              <Typography>মার্ক দিন</Typography>
+                              <Typography>{t('markInput')}</Typography>
                             </InputAdornment>
                           }
                         />
@@ -187,7 +186,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                             />
                           </FormControl>
                           <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <Typography>অথবা</Typography>
+                            <Typography>{t('or')}</Typography>
                           </Grid>
                           <IconButton
                             size="small"
@@ -212,7 +211,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                     sx={{ marginTop: '12px', height: '40px', width: '160px', display: 'flex', alignItems: 'center' }}
                     startIcon={<AddCircleOutlineOutlinedIcon />}
                   >
-                    আরো যোগ করুন
+                    {t('addMore')}
                   </Button>
 
                   <div
@@ -227,7 +226,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                       onClick={handleToggleEditor}
                       sx={{ position: 'absolute' }}
                     >
-                      তথ্য যোগ করুন
+                      {t('addInfo')}
                     </Button>
                     <Box
                       sx={{
@@ -241,7 +240,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                     >
                       {showEditor && (
                         <>
-                          <Typography p={2}>Add More Topic</Typography>
+                          <Typography p={2}>{t('quizDescription')}</Typography>
                           <ReactQuill
                             style={{
                               minHeight: '100px',
@@ -259,10 +258,10 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
           </Formik>
           <Box p={2} sx={{ display: 'flex', justifyContent: 'flex-end', gap: "5px"}}>
             <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
-              সাবমিট
+              {t('submit')}
             </Button>
             <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
-              সেভ এবং অ্যাড
+              {t('saveAdd')}
             </Button>
           </Box>
         </Box>

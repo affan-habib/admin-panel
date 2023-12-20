@@ -63,7 +63,21 @@
     "passmarkInput":"Enter Pass Mark",
     "negativeMarkInput":"Enter Negative Mark",
     "enterTime":"Enter Time",
-    "placeHolderNumber":"1"
-
+    "placeHolderNumber":"1",
+    "quiz":"Quiz",
+    "manualInput":"Manual Input",
+    "bulkUpload":"Bulk Upload",
+    "written":"Written",
+    "photo":"Photo",
+    "quizType":"Quiz Type",
+    "alternative":"Write Alternative",
+    "addMore":"Add More",
+    "addInfo":"Add Infomation",
+    "saveAdd":"Save and Add",
+    "or":"Or",
+    "instructions":"Enter the Instructions",
+    "mcqWithPhoto":"Add Mcq With Photos",
+    "quizDescription":"Quiz Description"
+    
     
 }
