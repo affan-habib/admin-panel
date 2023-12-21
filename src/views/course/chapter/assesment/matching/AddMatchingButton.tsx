@@ -198,7 +198,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                                     alignItems="center"
                                                                     bgcolor="gray"
                                                                     justifyContent="space-between"
-
+                                                                    sx={{width:'42px'}}
                                                                 >
                                                                     <Typography align="center" sx={{ color: 'white', px: 2, }}>
                                                                         {item.id}
@@ -220,7 +220,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                                     alignItems="center"
                                                                     bgcolor="gray"
                                                                     justifyContent="space-between"
-
+                                                                    sx={{width:'42px'}}
                                                                 >
                                                                     <Typography align="center" sx={{ color: 'white', px: 2, }}>
                                                                         {item.id}
@@ -242,7 +242,7 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                                     alignItems="center"
                                                                     bgcolor="gray"
                                                                     justifyContent="space-between"
-                                                                    
+                                                                    sx={{width:'42px'}}
 
                                                                 >
                                                                     <Typography align="center" sx={{ color: 'white', px: 2, }}>
