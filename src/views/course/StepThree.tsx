@@ -19,7 +19,7 @@ const Step3: React.FC = () => {
             name="code"
             type="number"
             label={t('courseCode')}
-            placeholder="Write the code here..."
+            placeholder={t('codePlace')}
           />
         </Grid>
         <Grid item md={6} sm={12} xs={12}>
