@@ -10,12 +10,14 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { Add } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useDeleteModal } from 'context/DeleteModalContext';
 const ChapterActions: React.FC<any> = ({
   module,
   setVisibleAddTopicId,
   visibleAddTopicId,
 }) => {
   const [isEditDialogOpen, setEditDialogOpen] = useState(false);
+  const { openModal } = useDeleteModal();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
@@ -25,16 +27,14 @@ const ChapterActions: React.FC<any> = ({
     setEditDialogOpen(true);
   };
 
-  const handleDeleteClick = async (e: React.MouseEvent) => {
-    e.stopPropagation();
-
+  const handleDeleteClick = async () => {
     try {
       const response = await axios.delete(
         `${apiBaseUrl}/course-module/${module.id}`,
       );
 
       if (response.status === 200) {
-        showSnackbar(response.data.data.message, 'error');
+        showSnackbar(response.data.message, 'error');
         queryClient.invalidateQueries('courseDetails');
       } else {
         console.error('Failed to delete module');
@@ -85,7 +85,8 @@ const ChapterActions: React.FC<any> = ({
           aria-label="Delete"
           size="small"
           color="error"
-          onClick={handleDeleteClick}
+          // onClick={()=> handleDeleteClick}
+          onClick={() => openModal(handleDeleteClick)}
         >
           <DeleteIcon />
         </IconButton>
