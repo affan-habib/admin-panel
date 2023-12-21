@@ -82,7 +82,7 @@ const InputField: React.FC<InputFieldProps> = ({
           ) : null
         }}
       />
-      { openKeyboard && <KeyboardInput setValue={(val) => {helpers.setValue(val)}} /> }
+      { openKeyboard && <KeyboardInput setValue={(val: any) => {helpers.setValue(val)}} /> }
     </>
   );
 };
