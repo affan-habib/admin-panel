@@ -151,10 +151,12 @@ const CourseList: React.FC = () => {
             <Table>
               <TableHead>
                 <TableRow sx={{ background: '#B3E0DD !important' }}>
-                  <TableCell>#</TableCell>
-                  <TableCell>{t('nameAndCode')}</TableCell>
-                  <TableCell>{t('numberOfModule')}</TableCell>
-                  <TableCell>{t('action')}</TableCell>
+                  <TableCell variant='head' align='center' size='medium' sx={{fontWeight: 800}}>#</TableCell>
+                  <TableCell variant='head' align='center' size='medium' sx={{fontWeight: 800}}>
+                    {t('nameAndCode')}
+                    </TableCell>
+                  <TableCell variant='head' align='center' sx={{fontWeight: 800}}>{t('numberOfModule')}</TableCell>
+                  <TableCell variant='head' align='center' sx={{fontWeight: 800}}>{t('action')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
