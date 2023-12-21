@@ -120,9 +120,9 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
             sx={{
               backgroundColor:
                 selectedMenu === item.path ? 'primary.main' : 'primary.main',
-              color: selectedMenu === item.path ? 'yellow' : 'white',
+              color: selectedMenu === item.path ? '#FFD700' : 'white',
               '&:hover': {
-                backgroundColor: '#DEEEC6',
+                backgroundColor: '#B6D7A8',
                 color: 'primary.main',
               },
             }}
@@ -134,7 +134,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                     isMenuHovered === item.path
                       ? 'primary.main'
                       : selectedMenu === item.path
-                      ? 'yellow'
+                      ? '#FFD700'
                       : 'white',
                 }}
               >
@@ -164,9 +164,9 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                     sx={{
                       pl: 4,
                       color:
-                        selectedSubMenu === subItem.path ? 'yellow' : 'white',
+                        selectedSubMenu === subItem.path ? '#FFD700' : 'white',
                       '&:hover': {
-                        backgroundColor: '#DEEEC6',
+                        backgroundColor: '#B6D7A8',
                         color: 'black',
                       },
                       cursor: 'pointer'
@@ -179,7 +179,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                             isMenuHovered === subItem.path
                               ? 'black'
                               : selectedSubMenu === subItem.path
-                              ? 'yellow'
+                              ? '#FFD700'
                               : 'white',
                         }}
                       >
