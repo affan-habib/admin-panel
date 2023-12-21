@@ -98,8 +98,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   // Assignment dialog start
   const [isAssignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
-  const handleAssignmentDialogOpen = (module_id: any) => {
+  const [assignmentName, setAssinmentName] =useState('');
+  const handleAssignmentDialogOpen = (module_id: any, module_name:any) => {
     setModuleId(module_id);
+    setAssinmentName(module_name);
     setAssignmentDialogOpen(true);
   };
   const handleAssignmentDialogClose = () => {
@@ -408,7 +410,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     />
                     <CustomButton
                       onClick={() => {
-                        handleAssignmentDialogOpen(chapter.id);
+                        handleAssignmentDialogOpen(chapter.id,chapter.module_name_bn);
                       }}
                       title={t('assigmnment')}
                       disabled={false}
@@ -462,6 +464,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
         open={isAssignmentDialogOpen}
         onClose={handleAssignmentDialogClose}
         moduleId={moduleId}
+        name={assignmentName}
       />
 
       {/* Edit Assignment Dialog */}
@@ -470,6 +473,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditAssignmentDialogOpen}
           onClose={handleEditAssignmentDialogClose}
           initialData={selectedAssignment}
+          
         />
       )}
 

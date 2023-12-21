@@ -26,12 +26,14 @@ interface CreateAssignmentDialogProps {
   open: boolean;
   moduleId: any;
   onClose: () => void;
+  name:any;
 }
 
 const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
   open,
   onClose,
   moduleId,
+  name
   
 }) => {
   const { id } = useParams();
@@ -81,7 +83,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssignment')} (কারবালা প্রান্তর)
+          {t('addAssignment')} {name}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
