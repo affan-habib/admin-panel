@@ -24,11 +24,17 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from 'react-i18next';
 import MarkInput from 'components/form/MarkInput';
+import VideoUploadBox from 'components/form/VideoUploadBox';
 
 const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
+  const [selectedOption, setSelectedOption] = useState('option1');
+
+  const handleOptionChange = (event: any) => {
+    setSelectedOption(event.target.value);
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -57,11 +63,11 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
     setInputFields([...inputFields, { id: newId, placeholder: `Email ${newId}` }]);
   };
 
-  const [value, setValue] = React.useState('');
+  // const [value, setValue] = React.useState('');
 
-  const handleChange = (event: any) => {
-    setValue(event.target.value);
-  };
+  // const handleChange = (event: any) => {
+  //   setValue(event.target.value);
+  // };
 
   const [showEditor, setShowEditor] = useState(false);
 
@@ -73,7 +79,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
     <>
       <Button
         onClick={handleOpen}
-        sx={{ marginLeft: '7px',color:'black' }}
+        sx={{ marginLeft: '7px', color: 'black' }}
         variant="outlined"
         startIcon={<AddIcon />}
       >
@@ -109,7 +115,8 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
               <HighlightOffIcon />
             </IconButton>
           </Grid>
-          <Formik initialValues={{ option: 'option1' }} onSubmit={handleSubmit}>
+          <Formik 
+          initialValues={{ option: 'option1' }} onSubmit={handleSubmit}>
             <Form>
               <Box my={2} display="flex" justifyContent="" gap={8} px={2}>
                 <FormControlLabel
@@ -130,15 +137,21 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                       <Typography>{t('quizType')}:</Typography>
                       <FormControl component="fieldset">
-                        <RadioGroup row value={value} onChange={handleChange}>
+                        <RadioGroup row
+                        //  value={value} onChange={handleChange}
+                        >
                           <FormControlLabel
                             value="option1"
                             control={<Radio />}
+                            checked={selectedOption === 'option1'}
+                            onChange={handleOptionChange}
                             label={t('written')}
                           />
                           <FormControlLabel
                             value="option2"
                             control={<Radio />}
+                            checked={selectedOption === 'option2'}
+                            onChange={handleOptionChange}
                             label={t('photo')}
                           />
                         </RadioGroup>
@@ -151,14 +164,23 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                     </Box>
                   </Box>
 
-                  <Box>
-                    <ReactQuill
-                      id="editor"
-                      value={editorHtml}
-                      onChange={handleQuillChange}
-                      style={{ height: '100px' }}
-                    />
-                  </Box>
+                  {
+                    selectedOption == 'option1' ?
+                      <Box>
+                        <ReactQuill
+                          id="editor"
+                          value={editorHtml}
+                          onChange={handleQuillChange}
+                          style={{ height: '100px' }}
+                        />
+                      </Box>
+                      :
+                      <Box>
+                         <VideoUploadBox name="url" label="ভিডিও আপলোড করুন" />
+                      </Box>
+                  }
+
+
 
                   <Grid container columns={10} spacing={2} mt={5}
                   // style={{maxHeight:'60vh',overflowY:'auto'}}
@@ -179,13 +201,13 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                               bgcolor="gray"
                               justifyContent="space-between"
                               // maxWidth={210}
-                              sx={{ width: '100%' }}
+                              sx={{ width: '100%', }}
                             >
                               <Typography align="center" sx={{ color: 'white', px: 2, width: 100 }}>
                                 {field.id}
                               </Typography>
                               <input
-                                style={{ padding: '10px'}}
+                                style={{ padding: '10px' }}
                                 placeholder={t('alternative')}
                               />
                             </Stack>
@@ -213,7 +235,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                   <Button
                     variant="contained"
                     onClick={handleAddMore}
-                    sx={{ marginTop: '12px',display: 'flex', alignItems: 'center' }}
+                    sx={{ marginTop: '12px', display: 'flex', alignItems: 'center' }}
                     startIcon={<AddCircleOutlineOutlinedIcon />}
                   >
                     {t('addMore')}
