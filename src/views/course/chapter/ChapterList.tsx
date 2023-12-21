@@ -20,6 +20,7 @@ import SmartDisplayOutlinedIcon from '@mui/icons-material/SmartDisplayOutlined';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
+import ClearIcon from '@mui/icons-material/Clear';
 import { OpenWith } from '@mui/icons-material';
 import { useDeleteModal } from 'context/DeleteModalContext';
 import { useSnackbar } from 'context/SnackbarContext';
@@ -37,6 +38,7 @@ import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 
 const Chapters: React.FC<any> = ({ modules }) => {
+  console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -120,9 +122,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   //Assessment Dialog
   const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
+  const [assessmentName,setAssessmentName] = useState('');
 
-  const handleAssesmentDialogOpen = (module_id: any) => {
+  const handleAssesmentDialogOpen = (module_id: any,module_name:any) => {
     setModuleId(module_id);
+    setAssessmentName(module_name);
     setAssesmentDialogOpen(true);
   };
   const handleAssesmentDialogClose = () => {
@@ -207,7 +211,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       sx={{ marginLeft: 2 }}
                     />
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
-                      {el.title}
+                      {el.title_en}
                     </Typography>
                     <IconButton
                       style={{
@@ -321,10 +325,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         color="primary"
                         sx={{ marginLeft: 2 }}
                       />
-                      <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
+                      <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
+                      <Typography >
                         Assessment {assessment.id} :{' '}
                         {assessment.assessment_title}
                       </Typography>
+                      <Typography >
+                        {assessment.assessment_title}
+                      </Typography>
+                      </Box>
+                     
                       <Button
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
@@ -379,20 +389,24 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </div>
                     {selectedId === assessment.id && (
                       <div
-                        key={assessment.id}
-                        // style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #D0D0D0', paddingTop: '8px', paddingBottom: "8px" }}>
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          paddingTop: '8px',
-                          paddingBottom: '8px',
-                        }}
-                      >
-                        <AssesmentCreateButtons
-                          assessmentId={assessment.id}
-                          moduleId={chapter.id}
-                        />
-                      </div>
+                      key={assessment.id}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        paddingTop: '8px',
+                        paddingBottom: '8px',
+                        border: '1px dashed #000',
+                      }}
+                    >
+                      <AssesmentCreateButtons
+                        assessmentId={assessment.id}
+                        moduleId={chapter.id}
+                      />
+                      <Box alignItems='start' px={1} sx={{marginBottom:'20px'}}>
+                        <ClearIcon color='error' style={{cursor:'pointer'}} onClick={toggleAssessmentSection} />
+                      </Box>
+                    </div>
                     )}
                   </>
                 ))}
@@ -423,7 +437,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => handleAssesmentDialogOpen(chapter.id)}
+                      onClick={() => handleAssesmentDialogOpen(chapter.id,chapter.module_name_bn)}
                       title={t('assesment')}
                       icon={<QuizIcon />}
                     />
@@ -447,6 +461,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
         open={isAssesmentDialogOpen}
         onClose={handleAssesmentDialogClose}
         moduleId={moduleId}
+        name={assessmentName}
       />
 
       {/* Edit Video Dialog */}

@@ -31,7 +31,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
   const inputType = type === 'number' ? 'number' : 'text';
   let parsedValue =
-    type === 'number' ? parseFloat(field.value as string) || null : field.value;
+    type === 'number' ? parseFloat(field.value as string) || '' : field.value;
 
   return (
     <>

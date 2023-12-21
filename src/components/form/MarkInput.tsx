@@ -3,9 +3,11 @@ import { useField } from 'formik';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const MarkInput: React.FC<any> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
+  const {t} = useTranslation()
 
   return (
     <>
@@ -17,7 +19,7 @@ const MarkInput: React.FC<any> = ({ label, ...props }) => {
         maxWidth={200}
       >
         <Typography align="center" sx={{ color: 'white', px: 2, width: 100 }}>
-          মার্ক দিন
+          {t('giveMark')}
         </Typography>
         <input
           type="number"

@@ -126,5 +126,6 @@
   "assignCheckboxOne": "রিটেন সাবমিশন",
   "assignCheckboxTwo": "আপলোড ফাইল",
   "nameAndCode": "পাঠ্যক্রমের নাম : কোড",
-  "instruction":"নির্দেশনাবলী লিখুন:"
+  "instruction":"নির্দেশনাবলী লিখুন:",
+  "giveMark":"মার্ক দিন"
 }

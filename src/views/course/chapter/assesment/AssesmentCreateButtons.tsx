@@ -4,6 +4,7 @@ import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import AddQuizButton from './quiz/AddQuizButton';
 import AddMatchingButton from './matching/AddMatchingButton';
 import IntegratedQuestionButton from './integrated-question/IntegratedQuestionButton';
+import AddIcon from '@mui/icons-material/Add';
 
 const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
   //   console.log(assessmentId);
@@ -11,7 +12,6 @@ const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
     <Box
       sx={{
         width: '100%',
-        border: '1px dashed #000',
         padding: '10px',
         boxSizing: 'border-box',
       }}
@@ -19,9 +19,9 @@ const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
       <IntegratedQuestionButton />
       <AddQuizButton assessmentId={assessmentId} />
       <Button
-        sx={{ marginLeft: '7px' }}
+        sx={{ marginLeft: '7px',color:'black' }}
         variant="outlined"
-        startIcon={<AssignmentOutlinedIcon />}
+        startIcon={<AddIcon />}
       >
         মাল্টিপল চয়েস
       </Button>

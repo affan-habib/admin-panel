@@ -1,9 +1,9 @@
 import { Box, Button, IconButton } from '@mui/material';
 import React, { useState } from 'react';
-import EditIcon from '@mui/icons-material/Edit';
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditChapterDialog from './EditChapterDialog';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
@@ -79,7 +79,7 @@ const ChapterActions: React.FC<any> = ({
           color="primary"
           onClick={handleEditClick}
         >
-          <EditIcon />
+          <BorderColorOutlinedIcon />
         </IconButton>
         <IconButton
           aria-label="Delete"
