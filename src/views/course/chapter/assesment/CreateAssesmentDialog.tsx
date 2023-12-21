@@ -24,11 +24,13 @@ interface CreateAssesmentDialogProps {
   open: boolean;
   moduleId: any;
   onClose: () => void;
+  name:any
 }
 
 const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   open,
   moduleId,
+  name,
   onClose,
 }) => {
   const { id } = useParams();
@@ -75,7 +77,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssesment')}
+          {t('addAssesment')},{name}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -139,6 +141,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
               <Grid item xs={6}>
                 <InputField
+                  type='number'
                   name="total_time"
                   label={t('enterTime')}
                   placeholder={t('placeHolderNumber')}
