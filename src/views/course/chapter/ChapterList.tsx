@@ -205,7 +205,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       sx={{ marginLeft: 2 }}
                     />
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
-                      {el.title}
+                      {el.title_en}
                     </Typography>
                     <IconButton
                       style={{
