@@ -38,7 +38,7 @@ import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 
 const Chapters: React.FC<any> = ({ modules }) => {
-  console.log(modules);
+  // console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
