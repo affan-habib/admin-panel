@@ -85,10 +85,6 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         <Formik
           initialValues={{
             course_id: id,
-            // mark: '',
-            // passMark: '',
-            // negativeMark: '',
-            // time: '',
             course_module_id: moduleId,
             url: null,
             status: 1,

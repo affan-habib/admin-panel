@@ -183,12 +183,13 @@ const AddMatchingButton: React.FC<any> = ({ assessmentId }) => {
                                                             padding: 2,
                                                             marginBottom: '10px', // Add margin between each form
                                                             width: '100%', // Make it full width
-                                                            color: 'rgba(100, 100, 100, 1)'
+                                                            color: 'rgba(100, 100, 100, 1)',
+                                                            borderRadius:'4px'
                                                         }}
 
                                                         justifyContent="space-between"
                                                     >
-                                                        <Grid item xs={12} md={4} lg={4} >
+                                                        <Grid item xs={12} md={3} lg={3} >
                                                             <FormControl
                                                                 fullWidth
                                                                 size='small'>

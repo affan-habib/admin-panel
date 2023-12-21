@@ -25,6 +25,7 @@ interface CreateVideoDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
+  
 }
 
 const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
@@ -69,6 +70,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
     }
   };
   const { t } = useTranslation();
+  console.log(initialData);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle
@@ -79,7 +81,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssignment')} (কারবালা প্রান্তর)
+          {t('addAssignment')} {initialData.title_en}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -101,10 +103,17 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                 />
               </Grid>
 
-              <Grid sx={{ marginTop: '20px' }}>
+              <Grid sx={{ marginTop: '15px' }}>
+                <InputField
+                  name="instructions_en"
+                  label={t('assignmentInstruct')}
+                  placeholder={t('instruction')}
+                />
+              </Grid>
+              <Grid sx={{ marginTop: '15px' }}>
                 <InputFile
                   name="supporting_doc"
-                  label={t('assignmentInstruct')}
+                  label="Add Document"
                   acceptedFileTypes=".doc, .docx, .ppt"
                   limit={t('supDocLimit')}
                 />
