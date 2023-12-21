@@ -64,6 +64,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
       console.error('Error submitting form:', error);
     }
   };
+  console.log(initialData);
   const { t } = useTranslation();
   return (
     <Dialog open={open} onClose={onClose}>
@@ -75,7 +76,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssesment')}
+          {t('addAssesment')} {initialData.assessment_title}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />

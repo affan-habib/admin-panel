@@ -38,6 +38,7 @@ import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 
 const Chapters: React.FC<any> = ({ modules }) => {
+  console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -119,9 +120,11 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   //Assessment Dialog
   const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
+  const [assessmentName,setAssessmentName] = useState('');
 
-  const handleAssesmentDialogOpen = (module_id: any) => {
+  const handleAssesmentDialogOpen = (module_id: any,module_name:any) => {
     setModuleId(module_id);
+    setAssessmentName(module_name);
     setAssesmentDialogOpen(true);
   };
   const handleAssesmentDialogClose = () => {
@@ -432,7 +435,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => handleAssesmentDialogOpen(chapter.id)}
+                      onClick={() => handleAssesmentDialogOpen(chapter.id,chapter.module_name_bn)}
                       title={t('assesment')}
                       icon={<QuizIcon />}
                     />
@@ -456,6 +459,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
         open={isAssesmentDialogOpen}
         onClose={handleAssesmentDialogClose}
         moduleId={moduleId}
+        name={assessmentName}
       />
 
       {/* Edit Video Dialog */}
