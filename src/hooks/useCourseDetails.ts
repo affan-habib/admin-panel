@@ -8,8 +8,12 @@ const fetchCourseDetails = async (courseId: any) => {
 };
 
 const useCourseDetails = (courseId: any) => {
-  return useQuery(['courseDetails', courseId], () =>
-    fetchCourseDetails(courseId),
+  return useQuery(
+    ['courseDetails', courseId],
+    () => fetchCourseDetails(courseId),
+    {
+      refetchOnWindowFocus: false, // Disable automatic refetching on window focus
+    },
   );
 };
 

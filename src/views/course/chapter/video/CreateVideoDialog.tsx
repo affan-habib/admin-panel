@@ -91,7 +91,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             type: 'video',
             course_id: id,
             course_module_id: moduleId,
-            title: '',
+            title_en: '',
             url: null,
             status: 1,
             transcript: '',
@@ -100,7 +100,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
         >
           <Form>
             <InputField
-              name="title"
+              name="title_en"
               label="ভিডিওর নাম"
               placeholder="ভিডিওর নাম লিখুন"
             />
