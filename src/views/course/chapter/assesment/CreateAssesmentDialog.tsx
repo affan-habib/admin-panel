@@ -24,11 +24,13 @@ interface CreateAssesmentDialogProps {
   open: boolean;
   moduleId: any;
   onClose: () => void;
+  name:any
 }
 
 const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
   open,
   moduleId,
+  name,
   onClose,
 }) => {
   const { id } = useParams();
@@ -75,7 +77,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssesment')}
+          {t('addAssesment')},{name}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -85,15 +87,11 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         <Formik
           initialValues={{
             course_id: id,
-            // mark: '',
-            // passMark: '',
-            // negativeMark: '',
-            // time: '',
             course_module_id: moduleId,
             url: null,
             status: 1,
             module_id: moduleId,
-            assessment_title: '',
+            assessment_title_en: '',
             total_mark: '',
             pass_mark: '',
             positive_mark: 15,
@@ -104,7 +102,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         >
           <Form>
             <InputField
-              name="assessment_title"
+              name="assessment_title_en"
               label={t('assesmentName')}
               placeholder={t('assesmentNo')}
             />
@@ -143,6 +141,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Grid>
               <Grid item xs={6}>
                 <InputField
+                  type='number'
                   name="total_time"
                   label={t('enterTime')}
                   placeholder={t('placeHolderNumber')}

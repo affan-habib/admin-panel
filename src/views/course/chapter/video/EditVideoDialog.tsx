@@ -89,7 +89,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
         >
           <Form>
             <InputField
-              name="title"
+              name="title_en"
               label="ভিডিওর নাম"
               placeholder="ভিডিওর নাম লিখুন"
             />

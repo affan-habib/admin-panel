@@ -26,12 +26,15 @@ interface CreateAssignmentDialogProps {
   open: boolean;
   moduleId: any;
   onClose: () => void;
+  name:any;
 }
 
 const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
   open,
   onClose,
   moduleId,
+  name
+  
 }) => {
   const { id } = useParams();
   const queryClient = useQueryClient();
@@ -80,7 +83,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssignment')} (কারবালা প্রান্তর)
+          {t('addAssignment')} {name}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -92,9 +95,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
             course_id: id,
             course_module_id: moduleId,
             title_en: '',
-            title_bn: 'প্রান্তর',
-            instructions_en: 'work',
-            instructions_bn: 'প্রান্তর',
+            instructions_en: '',
             supporting_doc: '',
             mark: '',
             total_time: '',
@@ -112,11 +113,17 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                   placeholder={t('assignmentname')}
                 />
               </Grid>
-
-              <Grid sx={{ marginTop: '20px' }}>
+              <Grid sx={{ marginTop: '15px' }}>
+                <InputField
+                  name="instructions_en"
+                  label={t('assignmentInstruct')}
+                  placeholder={t('instruction')}
+                />
+              </Grid>
+              <Grid sx={{ marginTop: '15px' }}>
                 <InputFile
                   name="supporting_doc"
-                  label={t('assignmentInstruct')}
+                  label="Add Document"
                   acceptedFileTypes=".doc, .docx, .ppt"
                   limit={t('supDocLimit')}
                 />
