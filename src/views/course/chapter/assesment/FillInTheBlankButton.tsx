@@ -7,7 +7,6 @@ import {
   FormControl,
   RadioGroup,
   Radio,
-  InputLabel,
   Stack,
   TextField
 } from '@mui/material';
@@ -24,25 +23,27 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import MarkInput from 'components/form/MarkInput';
+import { useParams } from 'react-router-dom';
 
 const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
+  const { id } = useParams<{ id: string }>();
   const [editorHtml, setEditorHtml] = useState<string>('');
-
+  const svgImage = `
+  <img 
+    src="data:image/svg+xml,
+      <svg xmlns='http://www.w3.org/2000/svg' width='100' height='20'>
+        <rect width='100%' height='100%' fill='%23FFBE40'/>
+        <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='black' font-size='14'>
+          Blank
+        </text>
+      </svg>
+    " 
+    alt="SVG Image" 
+  />
+`;
   const handleAddSvgImage = () => {
     // Update the background color to #FFBE40
-    const svgImage = `
-    <img 
-      src="data:image/svg+xml,
-        <svg xmlns='http://www.w3.org/2000/svg' width='100' height='20'>
-          <rect width='100%' height='100%' fill='%23FFBE40'/>
-          <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='black' font-size='14'>
-            Blank
-          </text>
-        </svg>
-      " 
-      alt="SVG Image" 
-    />
-  `;
+
     insertSvgImage(svgImage);
   };
 
@@ -56,7 +57,8 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
         .clipboard.dangerouslyPasteHTML(range ? range.index : 0, svg, 'user');
       // Move the cursor to the end of the inserted content
       quillRef.getEditor().setSelection(range ? range.index + 1 : 1, 0);
-    }
+    } // Access the editor value
+    console.log('Editor Value:', editorHtml.replace(/<[^>]*>/g, ''));
   };
 
   const quillRefProp = useRef<ReactQuill>(null);
@@ -79,7 +81,6 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
 
   // Usage
   const svgCount = countSvgImages(editorHtml);
-  console.log('Number of SVG images:', svgCount);
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
@@ -91,9 +92,27 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
     setOpen(false);
   };
 
-  const handleSubmit = (values: any) => {
-    console.log('Form Values:', values);
-    handleClose();
+  const handleSubmit = (value: any) => {
+    console.log(value)
+    const optionsArr = [];
+    for (let i = 0; i < svgCount; i++) {
+      optionsArr.push({
+        option_key: i+1,
+        option_value: value.options[i]
+      })
+    }
+    const editorFullText = value.richText.replace(/<(?!img).*?>/g, '');
+    const editorTextExceptSvg = editorFullText.replace(/<img[^>]*>.*?<\/img>/g, '');
+    const editorTextWithBlankAsHash = editorTextExceptSvg.replace(/<img[^>]*>/g, '#');
+    const payload = {
+      course_assessment_id: id,
+      question: editorTextWithBlankAsHash,
+      type_id: 4,
+      mark: value.mark,
+      status: 1,
+      options: optionsArr
+    }
+    console.log("payload", payload)
   };
 
   const [value, setValue] = React.useState('');
@@ -133,12 +152,9 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
           </Box>
           <Divider sx={{ my: 2 }} />
           <Formik initialValues={{ option: 'option1', richText: '' }}
-            onSubmit={(values, actions) => {
-              // Handle form submission here
-              console.log(values);
-              actions.setSubmitting(false);
-            }}>
-            {({ values, handleSubmit, setFieldValue }) => (
+
+            onSubmit={handleSubmit}>
+            {({ values, setFieldValue }) => (
               <Form>
                 <FormControl component="fieldset">
                   <RadioGroup row value={value} onChange={handleChange}>
@@ -169,50 +185,41 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                         ব্ল্যাঙ্ক যোগ করুন
                       </Button>
                       <MarkInput label="markinput" name="mark" />
-                      {/* <Button variant="contained" color="primary" sx={{ background: '#646464', color: '#FAFAFA' }}>
-                      মার্ক দিন
-                    </Button> */}
                     </Box>
-
-
-                    {/* Rest of your form content */}
                   </Box>
-                  <form>
-                    <Box mb={7} mt={2} >
-                      <ReactQuill
-                        theme="snow"
-                        value={editorHtml}
-                        onChange={(value) => {
-                          setEditorHtml(value);
-                          setFieldValue('richText', value);
-                        }}
-                        modules={modules}
-                        ref={quillRefProp}
-                      />
-                    </Box>
+                  <Box mb={7} mt={2} >
+                    <ReactQuill
+                      theme="snow"
+                      value={editorHtml}
+                      onChange={(value) => {
+                        setEditorHtml(value);
+                        setFieldValue('richText', value);
+                      }}
+                      modules={modules}
+                      ref={quillRefProp}
+                    />
+                  </Box>
 
-                  </form>
                   <Stack>
-                  {Array.from(
-                    { length: countSvgImages(values.richText) },
-                    (_, index) => (
-                      <Stack direction="row" spacing={2} mb={2}>
-                        <Button style={{ background: '#FFBE40', color: '#1D1D1F', width: '120px', height: '40px' }}>{`Blank ${index + 1
-                          }`}</Button>
-                        <TextField
-                          sx={{ width: 100 }}
-                          key={index}
-                          type="text"
-                        // name={svgCountInput[${index}]}
-                        // // label={Blank ${index + 1}}
-                        />
-                      </Stack>
-                    ),
-                  )}
-                </Stack>
+                    {Array.from(
+                      { length: countSvgImages(values.richText) },
+                      (_, index) => (
+                        <Stack direction="row" spacing={2} mb={2}>
+                          <Button style={{ background: '#FFBE40', color: '#1D1D1F', width: '120px', height: '40px' }}>{`Blank ${index + 1
+                            }`}</Button>
+                          <Field
+                            type="text"
+                            name={`options.${index}`} // Dynamic name based on index
+                            as={TextField}
+                            // label={`Blank ${index + 1}`}
+                          />
+                        </Stack>
+                      ),
+                    )}
+                  </Stack>
                   <Box display="flex" justifyContent="right" alignItems="center">
                     <Box display="flex" gap={2}>
-                      <Button onClick={handleClose} sx={{ background: '#006A4E', color: '#FAFAFA', width: '100px' }}>
+                      <Button variant='contained' sx={{ background: '#006A4E', color: '#FAFAFA', width: '100px' }} type='submit'>
                         সাবমিট
                       </Button>
                       <Button variant="outlined" >
@@ -221,7 +228,6 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                     </Box>
                   </Box>
                 </Box>
-             
               </Form>
             )}
           </Formik>
