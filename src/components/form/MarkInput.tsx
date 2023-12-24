@@ -10,7 +10,7 @@ const MarkInput: React.FC<any> = ({ label, ...props }) => {
   const {t} = useTranslation()
 
   return (
-    <>
+    <div>
       <Stack
         direction="row"
         alignItems="center"
@@ -34,7 +34,7 @@ const MarkInput: React.FC<any> = ({ label, ...props }) => {
           {meta.error}
         </Typography>
       )}
-    </>
+    </div>
   );
 };
 
