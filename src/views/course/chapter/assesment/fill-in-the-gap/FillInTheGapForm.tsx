@@ -22,7 +22,7 @@ import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import MarkInput from 'components/form/MarkInput';
 import axios from 'axios';
-import { apiBaseUrl } from '../../../../config';
+import { apiBaseUrl } from '../../../../../config';
 import { useSnackbar } from 'context/SnackbarContext';
 
 const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {

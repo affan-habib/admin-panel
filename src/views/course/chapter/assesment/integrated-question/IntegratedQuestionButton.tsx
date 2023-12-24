@@ -10,7 +10,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import ContrastIcon from '@mui/icons-material/Contrast';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-import FillInTheGapForm from '../FillInTheBlankButton';
+import FillInTheGapForm from '../fill-in-the-gap/FillInTheGapForm';
 import AddQuizForm from '../quiz/AddQuizForm';
 import AddMatchingForm from '../matching/AddMatchingForm';
 const IntegratedQuestionButton: React.FC<any> = ({

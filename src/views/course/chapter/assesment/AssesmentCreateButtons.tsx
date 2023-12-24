@@ -8,8 +8,7 @@ import TrueFalseForm from './true-false/TrueFalseForm';
 import OneWordAnswerForm from './one-word-answer/OneWordAnswerForm';
 import DescriptiveAnswerForm from './descriptive-answer/DescriptiveAnswerForm';
 import IntegratedQuestionButton from './integrated-question/IntegratedQuestionButton';
-import { Typography } from '@mui/material';
-import FillInTheGapForm from './FillInTheBlankButton';
+import FillInTheGapForm from './fill-in-the-gap/FillInTheGapForm';
 import AddMatchingForm from './matching/AddMatchingForm';
 import AddQuizForm from './quiz/AddQuizForm';
 
