@@ -11,11 +11,6 @@ import IntegratedQuestionButton from './integrated-question/IntegratedQuestionBu
 import { Typography } from '@mui/material';
 import FillInTheGapForm from './FillInTheBlankButton';
 
-interface AssesmentCreateButtonsProps {
-  moduleId: number;
-  assessmentId: number;
-}
-
 const options = [
   {
     id: 1,
@@ -53,13 +48,12 @@ const options = [
     name_bn: 'বর্ণনামূলক প্রশ্নপত্র',
   },
 ];
-const AssesmentCreateButtons: React.FC<AssesmentCreateButtonsProps> = ({
-  moduleId,
-  assessmentId,
-}) => {
+const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
-
+  const language = localStorage.getItem('language');
+  const moduleName =
+    language === 'en' ? module.module_name_en : module.module_name_bn;
   const handleOpenDialog = (id: number) => {
     setSelectedId(id);
     setDialogOpen(true);
@@ -90,12 +84,19 @@ const AssesmentCreateButtons: React.FC<AssesmentCreateButtonsProps> = ({
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>{`Form for ID ${selectedId}`}</DialogTitle>
+        <DialogTitle>
+          {selectedId === 1 && `সম্মিলিত প্রশ্নপত্র যোগ করুন (${moduleName})`}
+          {selectedId === 2 && `এমসিকিউ উইথ পিকচার যোগ করুন (${moduleName})`}
+          {selectedId === 3 && `ম্যাচিং কোয়েশ্চেন যোগ করুন (${moduleName})`}
+          {selectedId === 4 && `শূন্যস্থান পূরণ যোগ করুন (${moduleName})`}
+          {selectedId === 5 && `সত্য/মিথ্যা যোগ করুন (${moduleName})`}
+          {selectedId === 6 && `এক কোথায় উত্তর যোগ করুন (${moduleName})`}
+          {selectedId === 7 && `বর্ণনামূলক প্রশ্নপত্র যোগ করুন (${moduleName})`}
+        </DialogTitle>
         <DialogContent>
           {selectedId === 1 && (
             <IntegratedQuestionButton
               assessmentId={assessmentId}
-              mouduleId={moduleId}
               handleCloseDialog={handleCloseDialog}
             />
           )}
@@ -104,28 +105,24 @@ const AssesmentCreateButtons: React.FC<AssesmentCreateButtonsProps> = ({
           {selectedId === 5 && (
             <TrueFalseForm
               assessmentId={assessmentId}
-              mouduleId={moduleId}
               handleCloseDialog={handleCloseDialog}
             />
           )}
           {selectedId === 4 && (
             <FillInTheGapForm
               assessmentId={assessmentId}
-              mouduleId={moduleId}
               handleCloseDialog={handleCloseDialog}
             />
           )}
           {selectedId === 6 && (
             <OneWordAnswerForm
               assessmentId={assessmentId}
-              mouduleId={moduleId}
               handleCloseDialog={handleCloseDialog}
             />
           )}
           {selectedId === 7 && (
             <DescriptiveAnswerForm
               assessmentId={assessmentId}
-              mouduleId={moduleId}
               handleCloseDialog={handleCloseDialog}
             />
           )}
