@@ -132,7 +132,6 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
               </Box>
 
               <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
-                <form>
                   <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                       <Typography>{t('quizType')}:</Typography>
@@ -279,7 +278,6 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                       )}
                     </Box>
                   </div>
-                </form>
               </Box>
             </Form>
           </Formik>

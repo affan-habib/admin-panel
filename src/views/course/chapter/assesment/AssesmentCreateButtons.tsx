@@ -33,7 +33,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ assessmentId }) => {
     fetchData(); 
   }, []);
 
-   console.log(data);
+  // console.log(data);
   return (
     <Box
       sx={{
