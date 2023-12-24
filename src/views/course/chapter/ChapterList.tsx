@@ -401,7 +401,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     >
                       <AssesmentCreateButtons
                         assessmentId={assessment.id}
-                        moduleId={chapter.id}
+                        module={chapter}
                       />
                       <Box alignItems='start' px={1} sx={{marginBottom:'20px'}}>
                         <ClearIcon color='error' style={{cursor:'pointer'}} onClick={toggleAssessmentSection} />

@@ -127,6 +127,7 @@
   "assignCheckboxOne": "Written Submission",
   "assignCheckboxTwo": "Upload File",
   "nameAndCode": "Course Name : Code",
+  "fillinthegap": "Fill in the gap",
   "instruction":"Enter the instructions:",
   "giveMark":"Mark"
 }

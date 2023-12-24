@@ -26,7 +26,7 @@ import { useTranslation } from 'react-i18next';
 import MarkInput from 'components/form/MarkInput';
 import VideoUploadBox from 'components/form/VideoUploadBox';
 
-const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
+const AddQuizForm: React.FC<any> = ({ assessmentId,handleCloseDialog }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
@@ -76,45 +76,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
   };
 
   return (
-    <>
-      <Button
-        onClick={handleOpen}
-        sx={{ marginLeft: '7px', color: 'black' }}
-        variant="outlined"
-        startIcon={<AddIcon />}
-      >
-        {t('quiz')}
-      </Button>
-      <Modal open={open} onClose={handleClose}>
-        <Box
-          sx={{
-            position: 'absolute',
-            // maxWidth: 'xl',
-            width: '60vw',
-            maxHeight: '85vh',
-            overflowY: 'auto',
-            bgcolor: 'background.paper',
-            borderRadius: '8px',
-            boxShadow: 24,
-            // p: 2,
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        >
-          <Grid sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderBottom: '2px solid rgba(208, 208, 208, 1)'
-          }}>
-            <Typography color="primary" variant="h6" p={2}>
-              {t('mcqWithPhoto')}
-            </Typography>
-            <IconButton onClick={handleClose} color="error" >
-              <HighlightOffIcon />
-            </IconButton>
-          </Grid>
+    
           <Formik 
           initialValues={{ option: 'option1' }} onSubmit={handleSubmit}>
             <Form>
@@ -185,7 +147,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                   // style={{maxHeight:'60vh',overflowY:'auto'}}
                   >
                     {inputFields.map((field) => (
-                      <Grid item xs={4} key={field.id}>
+                      <Grid item xs={5} key={field.id}>
                         <Box
                           sx={{
                             border: '1px dashed rgba(208, 208, 208, 1)',
@@ -281,18 +243,8 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
               </Box>
             </Form>
           </Formik>
-          <Box p={2} sx={{ display: 'flex', justifyContent: 'flex-end', gap: "5px" }}>
-            <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
-              {t('submit')}
-            </Button>
-            <Button variant="contained" onClick={handleClose} sx={{ mt: 2 }}>
-              {t('saveAdd')}
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
-    </>
+         
   );
 };
 
-export default AddQuizButton;
+export default AddQuizForm;
