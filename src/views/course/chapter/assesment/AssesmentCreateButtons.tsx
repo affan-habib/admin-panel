@@ -9,6 +9,7 @@ import OneWordAnswerForm from './one-word-answer/OneWordAnswerForm';
 import DescriptiveAnswerForm from './descriptive-answer/DescriptiveAnswerForm';
 import IntegratedQuestionButton from './integrated-question/IntegratedQuestionButton';
 import { Typography } from '@mui/material';
+import FillInTheGapForm from './FillInTheBlankButton';
 
 interface AssesmentCreateButtonsProps {
   moduleId: number;
@@ -108,7 +109,7 @@ const AssesmentCreateButtons: React.FC<AssesmentCreateButtonsProps> = ({
             />
           )}
           {selectedId === 4 && (
-            <TrueFalseForm
+            <FillInTheGapForm
               assessmentId={assessmentId}
               mouduleId={moduleId}
               handleCloseDialog={handleCloseDialog}
