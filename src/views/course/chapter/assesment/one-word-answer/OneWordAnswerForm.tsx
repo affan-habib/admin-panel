@@ -9,7 +9,10 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import MarkInput from 'components/form/MarkInput';
 
-const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
+const OneWordAnswerForm: React.FC<any> = ({
+  assessmentId,
+  handleCloseDialog,
+}) => {
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const onSubmit = async (values: any) => {
@@ -27,7 +30,7 @@ const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
-      // onClose();
+      handleCloseDialog();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);

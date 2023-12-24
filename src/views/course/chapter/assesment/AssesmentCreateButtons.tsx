@@ -95,26 +95,37 @@ const AssesmentCreateButtons: React.FC<AssesmentCreateButtonsProps> = ({
             <IntegratedQuestionButton
               assessmentId={assessmentId}
               mouduleId={moduleId}
+              handleCloseDialog={handleCloseDialog}
             />
           )}
           {selectedId === 2 && <Typography>Coming soon</Typography>}
           {selectedId === 3 && <Typography>Coming soon</Typography>}
           {selectedId === 5 && (
-            <TrueFalseForm assessmentId={assessmentId} mouduleId={moduleId} />
+            <TrueFalseForm
+              assessmentId={assessmentId}
+              mouduleId={moduleId}
+              handleCloseDialog={handleCloseDialog}
+            />
           )}
           {selectedId === 4 && (
-            <TrueFalseForm assessmentId={assessmentId} mouduleId={moduleId} />
+            <TrueFalseForm
+              assessmentId={assessmentId}
+              mouduleId={moduleId}
+              handleCloseDialog={handleCloseDialog}
+            />
           )}
           {selectedId === 6 && (
             <OneWordAnswerForm
               assessmentId={assessmentId}
               mouduleId={moduleId}
+              handleCloseDialog={handleCloseDialog}
             />
           )}
           {selectedId === 7 && (
             <DescriptiveAnswerForm
               assessmentId={assessmentId}
               mouduleId={moduleId}
+              handleCloseDialog={handleCloseDialog}
             />
           )}
         </DialogContent>

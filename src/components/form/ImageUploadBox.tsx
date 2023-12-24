@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import PhotoIcon from '@mui/icons-material/Photo';
 import { IconButton, InputLabel, Stack } from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import { useSnackbar } from 'context/SnackbarContext';
 
 interface ImageUploadBoxProps {
   name: string;
@@ -15,22 +16,26 @@ interface ImageUploadBoxProps {
 
 const ImageUploadBox: React.FC<ImageUploadBoxProps> = ({ name, label }) => {
   const [field, meta, helpers] = useField(name);
-
+  const { showSnackbar } = useSnackbar();
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       try {
         const formData = new FormData();
         formData.append('image', acceptedFiles[0]);
 
-        const response = await fetch('http://103.209.40.89/api/clms/dev/upload-file', {
-          method: 'POST',
-          body: formData,
-        });
+        const response = await fetch(
+          'http://103.209.40.89/api/clms/dev/upload-file',
+          {
+            method: 'POST',
+            body: formData,
+          },
+        );
 
         if (response.ok) {
           const responseData = await response.json();
           helpers.setValue(responseData.data);
           helpers.setTouched(true);
+          showSnackbar(responseData.message, 'success');
         } else {
           // Handle error if needed
           console.error('Failed to upload image');
@@ -40,7 +45,7 @@ const ImageUploadBox: React.FC<ImageUploadBoxProps> = ({ name, label }) => {
         console.error('Error uploading image', error);
       }
     },
-    [helpers]
+    [helpers],
   );
 
   const removeFile = () => {
@@ -50,7 +55,8 @@ const ImageUploadBox: React.FC<ImageUploadBoxProps> = ({ name, label }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  const isImageObject = typeof field.value === 'string' && field.value.startsWith('quiz/image-');
+  const isImageObject =
+    typeof field.value === 'string' && field.value.startsWith('quiz/image-');
 
   return (
     <>
@@ -112,9 +118,7 @@ const ImageUploadBox: React.FC<ImageUploadBoxProps> = ({ name, label }) => {
                 <PhotoIcon sx={{ width: 30, height: 30 }} color="primary" />
               </IconButton>
               <Stack direction="row" alignItems="center" spacing={1}>
-                <Typography
-                  sx={{ color: '#1976D2', cursor: 'pointer' }}
-                >
+                <Typography sx={{ color: '#1976D2', cursor: 'pointer' }}>
                   Click to upload
                 </Typography>
                 <Typography variant="body1"> or drag and drop</Typography>

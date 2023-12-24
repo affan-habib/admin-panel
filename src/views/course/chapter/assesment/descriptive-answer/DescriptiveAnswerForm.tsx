@@ -11,7 +11,10 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import ImageUploadBox from 'components/form/ImageUploadBox';
 
-const DescriptiveAnswerForm: React.FC<any> = ({ assessmentId }) => {
+const DescriptiveAnswerForm: React.FC<any> = ({
+  assessmentId,
+  handleCloseDialog,
+}) => {
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const onSubmit = async (values: any) => {
@@ -28,7 +31,7 @@ const DescriptiveAnswerForm: React.FC<any> = ({ assessmentId }) => {
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
-      // onClose();
+      handleCloseDialog();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
