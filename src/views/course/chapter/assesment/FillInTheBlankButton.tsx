@@ -25,7 +25,8 @@ import axios from 'axios';
 import { apiBaseUrl } from '../../../../config';
 import { useSnackbar } from 'context/SnackbarContext';
 
-const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
+const FillInTheGapForm: React.FC<any> = ({ assessmentId, type_id, handleCloseDialog }) => {
+  // console.log("assessmentId", type_id)
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const [editorHtml, setEditorHtml] = useState<string>('');
@@ -105,7 +106,7 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
     const payload = {
       course_assessment_id: assessmentId,
       question: editorTextWithBlankAsHash,
-      type_id: 4,
+      type_id: type_id,
       mark: value.mark,
       status: 1,
       options: optionsArr,
@@ -123,6 +124,7 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
       });
 
       showSnackbar(response.data.message, 'success');
+      handleCloseDialog();
     } catch (error: any) {
       console.error('Error submitting form:', error);
       showSnackbar(
@@ -267,3 +269,6 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
 };
 
 export default FillInTheGapForm;
+
+
+
