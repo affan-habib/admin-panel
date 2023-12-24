@@ -89,7 +89,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
       <Dialog
         open={isDialogOpen}
         onClose={handleCloseDialog}
-        maxWidth="md"
+        maxWidth="xl"
         fullWidth
       >
         <DialogTitle>
