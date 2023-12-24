@@ -13,6 +13,7 @@ import AddMatchingForm from './matching/AddMatchingForm';
 import AddQuizForm from './quiz/AddQuizForm';
 import { IconButton, Stack } from '@mui/material';
 import { HighlightOff } from '@mui/icons-material';
+// import useAssesmentTypes from 'hooks/useAssesmentTypes';
 
 const options = [
   {
@@ -52,6 +53,10 @@ const options = [
   },
 ];
 const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
+
+  
+  // const { data: assesmentTypes } = useAssesmentTypes();
+
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const language = localStorage.getItem('language');
@@ -69,7 +74,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-      {options.map((option) => (
+      {options.map((option: any) => (
         <Button
           key={option.id}
           size="small"
@@ -78,7 +83,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
           startIcon={<AddIcon />}
           onClick={() => handleOpenDialog(option.id)}
         >
-          {option.name_en}
+          {language === 'en' ? option.name_en : option.name_bn}
         </Button>
       ))}
       <Dialog
