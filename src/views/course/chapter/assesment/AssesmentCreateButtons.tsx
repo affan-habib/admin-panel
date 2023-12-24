@@ -10,6 +10,7 @@ import DescriptiveAnswerForm from './descriptive-answer/DescriptiveAnswerForm';
 import IntegratedQuestionButton from './integrated-question/IntegratedQuestionButton';
 import { Typography } from '@mui/material';
 import FillInTheGapForm from './FillInTheBlankButton';
+import AddMatchingForm from './matching/AddMatchingForm';
 
 const options = [
   {
@@ -101,7 +102,8 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
             />
           )}
           {selectedId === 2 && <Typography>Coming soon</Typography>}
-          {selectedId === 3 && <Typography>Coming soon</Typography>}
+          {selectedId === 3 && <AddMatchingForm assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog} />}
           {selectedId === 5 && (
             <TrueFalseForm
               assessmentId={assessmentId}
