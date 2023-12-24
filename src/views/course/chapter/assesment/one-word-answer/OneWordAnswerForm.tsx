@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import MarkInput from 'components/form/MarkInput';
+import * as Yup from 'yup';
 
 const OneWordAnswerForm: React.FC<any> = ({
   assessmentId,
@@ -43,9 +44,19 @@ const OneWordAnswerForm: React.FC<any> = ({
     supporting_notes_en: '',
     type_id: 6,
   };
-
+  const validationSchema = Yup.object().shape({
+    question: Yup.string().required('Please Enter Question'),
+    mark: Yup.number()
+      .required('Mark is required')
+      .positive('Mark should be positive'),
+    supporting_notes_en: Yup.string(),
+  });
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    >
       {({ values }) => (
         <Form>
           <div>
