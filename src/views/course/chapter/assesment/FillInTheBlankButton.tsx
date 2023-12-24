@@ -24,14 +24,19 @@ import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import MarkInput from 'components/form/MarkInput';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { apiBaseUrl } from '../../../../config';
+import { useSnackbar } from 'context/SnackbarContext';
 
 const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const { showSnackbar } = useSnackbar();
   const { id } = useParams<{ id: string }>();
   const [editorHtml, setEditorHtml] = useState<string>('');
   const svgImage = `
   <img 
     src="data:image/svg+xml,
-      <svg xmlns='http://www.w3.org/2000/svg' width='100' height='20'>
+      <svg xmlns='http://www.w3.org/2000/svg' width='80' height='24'>
         <rect width='100%' height='100%' fill='%23FFBE40'/>
         <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='black' font-size='14'>
           Blank
@@ -90,14 +95,15 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setEditorHtml('')
   };
 
-  const handleSubmit = (value: any) => {
+  const handleSubmit = async (value: any) => {
     console.log(value)
     const optionsArr = [];
     for (let i = 0; i < svgCount; i++) {
       optionsArr.push({
-        option_key: i+1,
+        option_key: `${i + 1}`,
         option_value: value.options[i]
       })
     }
@@ -113,6 +119,26 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
       options: optionsArr
     }
     console.log("payload", payload)
+    setLoading(true);
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await axios.post(`${apiBaseUrl}/quizzes`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      showSnackbar(response.data.message === 'Quiz created successfully' ? 'Data saved successfully' : '', 'success');
+      // navigate('/admin-user-list');
+      handleClose();
+    } catch (error: any) {
+      console.error('Error submitting form:', error);
+      showSnackbar(error.response?.data?.message || 'An error occurred', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const [value, setValue] = React.useState('');
@@ -144,7 +170,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
         >
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <Typography variant="h6" component="h2" gutterBottom sx={{ color: 'primary.main' }}>
-              ফিল ইন দি গ্যাপ যোগ করুন
+              এক কথায় উত্তর যোগ করুন
             </Typography>
             <Button onClick={handleClose} sx={{ color: 'red' }} startIcon={<CloseIcon />}>
 
@@ -157,7 +183,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
             {({ values, setFieldValue }) => (
               <Form>
                 <FormControl component="fieldset">
-                  <RadioGroup row value={value} onChange={handleChange}>
+                  <Field as={RadioGroup} row name="option">
                     <FormControlLabel
                       value="option1"
                       control={<Radio />}
@@ -168,7 +194,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                       control={<Radio />}
                       label="বাল্ক আপলোড"
                     />
-                  </RadioGroup>
+                  </Field>
                 </FormControl>
                 <Box mt={4} border="1px dashed #000" p={2} sx={{
 
@@ -207,12 +233,24 @@ const AddQuizButton: React.FC<any> = ({ assessmentId }) => {
                         <Stack direction="row" spacing={2} mb={2}>
                           <Button style={{ background: '#FFBE40', color: '#1D1D1F', width: '120px', height: '40px' }}>{`Blank ${index + 1
                             }`}</Button>
-                          <Field
-                            type="text"
-                            name={`options.${index}`} // Dynamic name based on index
-                            as={TextField}
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="space-between"
+
+                          >
+                            <Typography align="center" sx={{ color: 'white', px: 2, py: 1, width: 56, height: 40, background: 'grey', textAlign: 'center' }}>
+                              {index + 1}
+                            </Typography>
+
+                            <Field
+                              type="text"
+                              name={`options.${index}`} // Dynamic name based on index
+                              as={TextField}
+                              sx={{ width: '400px' }}
                             // label={`Blank ${index + 1}`}
-                          />
+                            />
+                          </Stack>
                         </Stack>
                       ),
                     )}
