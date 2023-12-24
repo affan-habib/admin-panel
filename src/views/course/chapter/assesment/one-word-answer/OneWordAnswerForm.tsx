@@ -2,24 +2,46 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import Button from '@mui/material/Button';
 import RichTextInput from 'components/form/RichTextInput';
-import InputRadio from 'components/form/InputRadio';
-import { InputLabel, Box } from '@mui/material';
-import VideoUploadBox from 'components/form/VideoUploadBox';
+import { InputLabel, Box, Stack } from '@mui/material';
+import { apiBaseUrl } from 'config';
+import axios from 'axios';
+import { useSnackbar } from 'context/SnackbarContext';
+import { useQueryClient } from 'react-query';
+import MarkInput from 'components/form/MarkInput';
 
-const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
-  const onSubmit = (values: any) => {
+const OneWordAnswerForm: React.FC<any> = ({
+  assessmentId,
+  handleCloseDialog,
+}) => {
+  const { showSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
+  const onSubmit = async (values: any) => {
     // Handle form submission logic here
     console.log(values);
-  };
-
-  const onCancel = () => {
-    // Handle cancel logic here
+    try {
+      const response = await axios.post(`${apiBaseUrl}/quizzes`, {
+        course_assessment_id: assessmentId,
+        question: values.question,
+        supporting_notes_en: values.correctAnswer,
+        mark: values.mark,
+        question_type: 'text',
+        type_id: 6,
+        status: 1,
+      });
+      showSnackbar(response.data.message, 'success');
+      queryClient.invalidateQueries('courseDetails');
+      handleCloseDialog();
+    } catch (error: any) {
+      showSnackbar(error.response.data.message, 'error');
+      console.error('Error submitting form:', error);
+    }
   };
 
   const initialValues = {
     question: '',
-    isTrue: true,
-    correctAnswer: '',
+    mark: '',
+    supporting_notes_en: '',
+    type_id: 6,
   };
 
   return (
@@ -27,22 +49,19 @@ const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
       {({ values }) => (
         <Form>
           <div>
-            <InputLabel>প্রশ্নের ধরন:</InputLabel>
-            <InputRadio label="লিখিত" name="isTrue" value={true} />
-            <InputRadio label="ছবি সম্পর্কিত" name="isTrue" value={false} />
-            {!values.isTrue ? (
-              <VideoUploadBox name="url" label="ভিডিও আপলোড করুন" />
-            ) : (
-              <>
-                <InputLabel sx={{ mb: 1, mt: 2 }}>নতুন প্রশ্ন</InputLabel>
-                <RichTextInput name="correctAnswer" height="120px" />
-              </>
-            )}
-
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              mb={2}
+            >
+              <InputLabel sx={{ mb: 1 }}>নতুন প্রশ্ন</InputLabel>
+              <MarkInput name="mark" label="mark" />
+            </Stack>
+            <RichTextInput name="question" height="120px" />
             <InputLabel sx={{ mb: 1, mt: 2 }}>বিবরণ লিখুন (অপশনাল)</InputLabel>
-            <RichTextInput name="description" height="120px" />
+            <RichTextInput name="supporting_notes_en" height="120px" />
           </div>
-
           <Box
             display="flex"
             justifyContent="flex-end"
@@ -51,7 +70,7 @@ const OneWordAnswerForm: React.FC<any> = ({ assessmentId }) => {
             <Button type="submit" variant="contained" color="primary">
               সাবমিট
             </Button>
-            <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
+            <Button variant="outlined" sx={{ ml: 2 }}>
               সেভ এবং অ্যাড
             </Button>
           </Box>
