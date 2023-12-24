@@ -10,7 +10,7 @@ import DescriptiveAnswerForm from './descriptive-answer/DescriptiveAnswerForm';
 import IntegratedQuestionButton from './integrated-question/IntegratedQuestionButton';
 import { Typography } from '@mui/material';
 
-interface ButtonListProps {
+interface AssesmentCreateButtonsProps {
   moduleId: number;
   assessmentId: number;
 }
@@ -52,7 +52,10 @@ const options = [
     name_bn: 'বর্ণনামূলক প্রশ্নপত্র',
   },
 ];
-const ButtonList: React.FC<ButtonListProps> = ({ moduleId, assessmentId }) => {
+const AssesmentCreateButtons: React.FC<AssesmentCreateButtonsProps> = ({
+  moduleId,
+  assessmentId,
+}) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -88,17 +91,36 @@ const ButtonList: React.FC<ButtonListProps> = ({ moduleId, assessmentId }) => {
       >
         <DialogTitle>{`Form for ID ${selectedId}`}</DialogTitle>
         <DialogContent>
-          {selectedId === 1 && <IntegratedQuestionButton />}
+          {selectedId === 1 && (
+            <IntegratedQuestionButton
+              assessmentId={assessmentId}
+              mouduleId={moduleId}
+            />
+          )}
           {selectedId === 2 && <Typography>Coming soon</Typography>}
           {selectedId === 3 && <Typography>Coming soon</Typography>}
-          {selectedId === 5 && <TrueFalseForm />}
-          {selectedId === 4 && <TrueFalseForm />}
-          {selectedId === 6 && <OneWordAnswerForm />}
-          {selectedId === 7 && <DescriptiveAnswerForm />}
+          {selectedId === 5 && (
+            <TrueFalseForm assessmentId={assessmentId} mouduleId={moduleId} />
+          )}
+          {selectedId === 4 && (
+            <TrueFalseForm assessmentId={assessmentId} mouduleId={moduleId} />
+          )}
+          {selectedId === 6 && (
+            <OneWordAnswerForm
+              assessmentId={assessmentId}
+              mouduleId={moduleId}
+            />
+          )}
+          {selectedId === 7 && (
+            <DescriptiveAnswerForm
+              assessmentId={assessmentId}
+              mouduleId={moduleId}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>
   );
 };
 
-export default ButtonList;
+export default AssesmentCreateButtons;

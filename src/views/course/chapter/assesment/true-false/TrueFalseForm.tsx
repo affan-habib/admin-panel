@@ -21,7 +21,7 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
         question: values.question,
         supporting_notes_en: values.correctAnswer,
         mark: values.mark,
-        question_type: 'string',
+        question_type: 'text',
         type_id: 5,
         status: 1,
         options: [
