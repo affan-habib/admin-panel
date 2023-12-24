@@ -38,7 +38,7 @@ import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 
 const Chapters: React.FC<any> = ({ modules }) => {
-  console.log(modules);
+  // console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -401,7 +401,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     >
                       <AssesmentCreateButtons
                         assessmentId={assessment.id}
-                        moduleId={chapter.id}
+                        module={chapter}
                       />
                       <Box alignItems='start' px={1} sx={{marginBottom:'20px'}}>
                         <ClearIcon color='error' style={{cursor:'pointer'}} onClick={toggleAssessmentSection} />
