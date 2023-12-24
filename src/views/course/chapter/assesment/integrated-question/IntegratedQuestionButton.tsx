@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import CustomButton from './CustomButton';
 import QuizIcon from '@mui/icons-material/Quiz';
 import TrueFalseForm from '../true-false/TrueFalseForm';
@@ -11,11 +11,13 @@ import ContrastIcon from '@mui/icons-material/Contrast';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import FillInTheGapForm from '../FillInTheBlankButton';
+import AddQuizForm from '../quiz/AddQuizForm';
+import AddMatchingForm from '../matching/AddMatchingForm';
 const IntegratedQuestionButton: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
 }) => {
-  const [selectedButton, setSelectedButton] = useState(1);
+  const [selectedButton, setSelectedButton] = useState(2);
 
   return (
     <Box
@@ -35,14 +37,18 @@ const IntegratedQuestionButton: React.FC<any> = ({
           borderRadius: 2,
         }}
       >
-        {/* {selectedId === 1 && (
-          <IntegratedQuestionButton
+        {selectedButton === 2 && (
+          <AddQuizForm
             assessmentId={assessmentId}
             handleCloseDialog={handleCloseDialog}
           />
-        )} */}
-        {selectedButton === 2 && <Typography>Coming soon</Typography>}
-        {selectedButton === 3 && <Typography>Coming soon</Typography>}
+        )}
+        {selectedButton === 3 && (
+          <AddMatchingForm
+            assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
         {selectedButton === 5 && (
           <TrueFalseForm
             assessmentId={assessmentId}
@@ -79,14 +85,14 @@ const IntegratedQuestionButton: React.FC<any> = ({
         <CustomButton
           icon={<QuizIcon />}
           title="কুইজ "
-          selected={selectedButton === 1}
-          onClick={() => setSelectedButton(1)}
+          selected={selectedButton === 2}
+          onClick={() => setSelectedButton(2)}
         />
         <CustomButton
           icon={<SwapHorizIcon />}
           title="ম্যাচিং"
-          selected={selectedButton === 2}
-          onClick={() => setSelectedButton(2)}
+          selected={selectedButton === 3}
+          onClick={() => setSelectedButton(3)}
         />
         <CustomButton
           icon={<HourglassEmptyIcon />}

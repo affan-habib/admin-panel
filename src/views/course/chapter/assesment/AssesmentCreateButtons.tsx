@@ -102,10 +102,18 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
               handleCloseDialog={handleCloseDialog}
             />
           )}
-          {selectedId === 2 && <AddQuizForm assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog}/>}
-          {selectedId === 3 && <AddMatchingForm assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog} />}
+          {selectedId === 2 && (
+            <AddQuizForm
+              assessmentId={assessmentId}
+              handleCloseDialog={handleCloseDialog}
+            />
+          )}
+          {selectedId === 3 && (
+            <AddMatchingForm
+              assessmentId={assessmentId}
+              handleCloseDialog={handleCloseDialog}
+            />
+          )}
           {selectedId === 5 && (
             <TrueFalseForm
               assessmentId={assessmentId}
