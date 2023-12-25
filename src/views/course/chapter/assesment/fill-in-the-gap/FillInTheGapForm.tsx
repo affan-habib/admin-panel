@@ -22,7 +22,7 @@ import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import MarkInput from 'components/form/MarkInput';
 import axios from 'axios';
-import { apiBaseUrl } from '../../../../config';
+import { apiBaseUrl } from '../../../../../config';
 import { useSnackbar } from 'context/SnackbarContext';
 
 const FillInTheGapForm: React.FC<any> = ({ assessmentId, type_id, handleCloseDialog }) => {
@@ -85,8 +85,8 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId, type_id, handleCloseDia
   const svgCount = countSvgImages(editorHtml);
   const { t } = useTranslation();
 
-  const handleSubmit = async (value: any) => {
-    console.log(value);
+  const handleSubmit = async (value: any, saveAndAdd: boolean, resetForm: any) => {
+    console.log(saveAndAdd);
     const optionsArr = [];
     for (let i = 0; i < svgCount; i++) {
       optionsArr.push({
@@ -124,7 +124,15 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId, type_id, handleCloseDia
       });
 
       showSnackbar(response.data.message, 'success');
-      handleCloseDialog();
+      if(saveAndAdd){
+        setEditorHtml('')
+        resetForm();
+      }
+      else{
+        handleCloseDialog();
+        resetForm();
+      }
+      
     } catch (error: any) {
       console.error('Error submitting form:', error);
       showSnackbar(
@@ -140,9 +148,9 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId, type_id, handleCloseDia
     <>
       <Formik
         initialValues={{ option: 'option1', richText: '' }}
-        onSubmit={handleSubmit}
+        onSubmit={(values, actions) => handleSubmit(values, false, actions )}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, setFieldValue, resetForm  }) => (
           <Form>
             <FormControl component="fieldset">
               <Field as={RadioGroup} row name="option">
@@ -257,7 +265,7 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId, type_id, handleCloseDia
                   >
                     সাবমিট
                   </Button>
-                  <Button variant="outlined">সেভ এবং অ্যাড</Button>
+                  <Button variant="outlined"  onClick={() => handleSubmit(values, true, resetForm )}>সেভ এবং অ্যাড</Button>
                 </Box>
               </Box>
             </Box>

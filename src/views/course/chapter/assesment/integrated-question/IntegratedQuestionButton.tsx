@@ -10,8 +10,14 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import ContrastIcon from '@mui/icons-material/Contrast';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
-const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
-  const [selectedButton, setSelectedButton] = useState(1);
+import FillInTheGapForm from '../fill-in-the-gap/FillInTheGapForm';
+import AddQuizForm from '../quiz/AddQuizForm';
+import AddMatchingForm from '../matching/AddMatchingForm';
+const IntegratedQuestionButton: React.FC<any> = ({
+  assessmentId,
+  handleCloseDialog,
+}) => {
+  const [selectedButton, setSelectedButton] = useState(2);
 
   return (
     <Box
@@ -31,9 +37,42 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
           borderRadius: 2,
         }}
       >
-        {selectedButton === 4 && <TrueFalseForm />}
-        {selectedButton === 5 && <OneWordAnswerForm />}
-        {selectedButton === 6 && <DescriptiveAnswerForm />}
+        {selectedButton === 2 && (
+          <AddQuizForm
+            assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
+        {selectedButton === 3 && (
+          <AddMatchingForm
+            assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
+        {selectedButton === 5 && (
+          <TrueFalseForm
+            assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
+        {selectedButton === 4 && (
+          <FillInTheGapForm
+            assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
+        {selectedButton === 6 && (
+          <OneWordAnswerForm
+            assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
+        {selectedButton === 7 && (
+          <DescriptiveAnswerForm
+            assessmentId={assessmentId}
+            handleCloseDialog={handleCloseDialog}
+          />
+        )}
       </Box>
       <Stack
         pt={2}
@@ -46,38 +85,38 @@ const IntegratedQuestionButton: React.FC<any> = ({ assessmentId }) => {
         <CustomButton
           icon={<QuizIcon />}
           title="কুইজ "
-          selected={selectedButton === 1}
-          onClick={() => setSelectedButton(1)}
-        />
-        <CustomButton
-          icon={<SwapHorizIcon />}
-          title="ম্যাচিং"
           selected={selectedButton === 2}
           onClick={() => setSelectedButton(2)}
         />
         <CustomButton
-          icon={<HourglassEmptyIcon />}
-          title="ফিল ইন দি ব্ল্যান্ক"
+          icon={<SwapHorizIcon />}
+          title="ম্যাচিং"
           selected={selectedButton === 3}
           onClick={() => setSelectedButton(3)}
         />
         <CustomButton
-          icon={<ContrastIcon />}
-          title="সত্য / মিথ্যা"
+          icon={<HourglassEmptyIcon />}
+          title="ফিল ইন দি ব্ল্যান্ক"
           selected={selectedButton === 4}
           onClick={() => setSelectedButton(4)}
         />
         <CustomButton
-          icon={<FullscreenExitIcon />}
-          title="এক কথায় উত্তর"
+          icon={<ContrastIcon />}
+          title="সত্য / মিথ্যা"
           selected={selectedButton === 5}
           onClick={() => setSelectedButton(5)}
         />
         <CustomButton
-          icon={<DescriptionIcon />}
-          title="বর্ণনামূলক প্রশ্নপত্র"
+          icon={<FullscreenExitIcon />}
+          title="এক কথায় উত্তর"
           selected={selectedButton === 6}
           onClick={() => setSelectedButton(6)}
+        />
+        <CustomButton
+          icon={<DescriptionIcon />}
+          title="বর্ণনামূলক প্রশ্নপত্র"
+          selected={selectedButton === 7}
+          onClick={() => setSelectedButton(7)}
         />
       </Stack>
     </Box>
