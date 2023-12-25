@@ -11,6 +11,9 @@ import IntegratedQuestionButton from './integrated-question/IntegratedQuestionBu
 import FillInTheGapForm from './fill-in-the-gap/FillInTheGapForm';
 import AddMatchingForm from './matching/AddMatchingForm';
 import AddQuizForm from './quiz/AddQuizForm';
+import { IconButton, Stack } from '@mui/material';
+import { HighlightOff } from '@mui/icons-material';
+// import useAssesmentTypes from 'hooks/useAssesmentTypes';
 
 const options = [
   {
@@ -50,6 +53,10 @@ const options = [
   },
 ];
 const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
+
+  
+  // const { data: assesmentTypes } = useAssesmentTypes();
+
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const language = localStorage.getItem('language');
@@ -67,7 +74,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-      {options.map((option) => (
+      {options.map((option: any) => (
         <Button
           key={option.id}
           size="small"
@@ -76,23 +83,29 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
           startIcon={<AddIcon />}
           onClick={() => handleOpenDialog(option.id)}
         >
-          {option.name_en}
+          {language === 'en' ? option.name_en : option.name_bn}
         </Button>
       ))}
       <Dialog
         open={isDialogOpen}
         onClose={handleCloseDialog}
-        maxWidth="md"
+        maxWidth="xl"
         fullWidth
       >
         <DialogTitle>
-          {selectedId === 1 && `সম্মিলিত প্রশ্নপত্র যোগ করুন (${moduleName})`}
-          {selectedId === 2 && `এমসিকিউ উইথ পিকচার যোগ করুন (${moduleName})`}
-          {selectedId === 3 && `ম্যাচিং কোয়েশ্চেন যোগ করুন (${moduleName})`}
-          {selectedId === 4 && `শূন্যস্থান পূরণ যোগ করুন (${moduleName})`}
-          {selectedId === 5 && `সত্য/মিথ্যা যোগ করুন (${moduleName})`}
-          {selectedId === 6 && `এক কোথায় উত্তর যোগ করুন (${moduleName})`}
-          {selectedId === 7 && `বর্ণনামূলক প্রশ্নপত্র যোগ করুন (${moduleName})`}
+          <Stack direction="row" justifyContent="space-between">
+            {selectedId === 1 && `সম্মিলিত প্রশ্নপত্র যোগ করুন (${moduleName})`}
+            {selectedId === 2 && `এমসিকিউ উইথ পিকচার যোগ করুন (${moduleName})`}
+            {selectedId === 3 && `ম্যাচিং কোয়েশ্চেন যোগ করুন (${moduleName})`}
+            {selectedId === 4 && `শূন্যস্থান পূরণ যোগ করুন (${moduleName})`}
+            {selectedId === 5 && `সত্য/মিথ্যা যোগ করুন (${moduleName})`}
+            {selectedId === 6 && `এক কোথায় উত্তর যোগ করুন (${moduleName})`}
+            {selectedId === 7 &&
+              `বর্ণনামূলক প্রশ্নপত্র যোগ করুন (${moduleName})`}
+            <IconButton onClick={handleCloseDialog} color="warning">
+              <HighlightOff />
+            </IconButton>
+          </Stack>
         </DialogTitle>
         <DialogContent>
           {selectedId === 1 && (

@@ -38,8 +38,8 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
 
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
-    if (typeof values.url === 'string') {
-      delete values.url;
+    if (typeof values.supporting_doc === 'string') {
+      delete values.supporting_doc;
     }
 
     const formPayload = { ...values, _method: 'PUT', type: 'video' };
@@ -114,7 +114,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                 <InputFile
                   name="supporting_doc"
                   label="Add Document"
-                  acceptedFileTypes=".doc, .docx, .ppt"
+                  
                   limit={t('supDocLimit')}
                 />
               </Grid>
