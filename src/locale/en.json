@@ -136,5 +136,10 @@
   "addFillInTheGap": "Add fill in the gap",
   "addTrueFalse": "Add true false question",
   "addSingleWordAnswer": "Add question for single word answer",
-  "addDescriptiveQuestions": "Add descriptive questions"
+  "addDescriptiveQuestions": "Add descriptive questions",
+  "selectCorrectAnswer": "Select the correct answer",
+  "newQuestion": "New question",
+  "videoName": "Name of the video",
+  "uploadVideo": "Upload video",
+  "videoTransacript": "Transcript of the video"
 }

@@ -135,5 +135,11 @@
   "addFillInTheGap": "শূন্যস্থান পূরণ যোগ করুন",
   "addTrueFalse": "সত্য/মিথ্যা যোগ করুন",
   "addSingleWordAnswer": "এক কোথায় উত্তর যোগ করুন",
-  "addDescriptiveQuestions": "বর্ণনামূলক প্রশ্নপত্র যোগ করুন"
+  "addDescriptiveQuestions": "বর্ণনামূলক প্রশ্নপত্র যোগ করুন",
+  "selectCorrectAnswer": "সঠিক উত্তরটি নির্বাচন করুন",
+  "newQuestion": "নতুন প্রশ্ন",
+  "uploadVideo": "ভিডিও আপলোড করুন",
+  "videoName": "ভিডিওর নাম",
+  "addChapter": "অধ্যায় যোগ করুন",
+  "videoTransacript": "ভিডিওর প্রতিলিপি"
 }
