@@ -189,26 +189,34 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                         </Grid>
                                                         <Grid item xs={12} md={3} lg={3} display="flex">
                                                             {item.showAlternativeView ? (
-                                                                <FormControl>
-                                                                    <Stack
-                                                                        direction="row"
-                                                                        alignItems="center"
-                                                                        bgcolor="gray"
-                                                                        justifyContent="space-between"
+                                                                <Grid container item xs={12} md={12} lg={12} display='flex'>
+                                                                    <FormControl>
+                                                                        <Stack
+                                                                            direction="row"
+                                                                            alignItems="center"
+                                                                            bgcolor="gray"
+                                                                            justifyContent="space-between"
+                                                                        >
+                                                                            <Typography align="center" sx={{ color: 'white', px: 2 }}>
+                                                                                {item.id}
+                                                                            </Typography>
+                                                                            <input
+                                                                                name={`items.${index}.wrong_answer`}
+                                                                                style={{ padding: '10px' }}
+                                                                                placeholder={`${t('wrong_answer')} : ${item.id}`}
+                                                                                value={item.wrong_answer}
+                                                                                onChange={handleChange}
+                                                                            />
+                                                                        </Stack>
+                                                                    </FormControl>
+                                                                    <IconButton
+                                                                        aria-label="delete"
+                                                                        onClick={() => toggleGrid(index)}
+                                                                        sx={{ alignSelf: 'center' }} // Align the delete icon to the center vertically
                                                                     >
-                                                                        <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                            {item.id}
-                                                                        </Typography>
-                                                                        <input
-                                                                            name={`items.${index}.wrong_answer`}
-                                                                            style={{ padding: '10px' }}
-                                                                            placeholder={`${t('wrong_answer')} : ${item.id}`}
-                                                                            value={item.wrong_answer}
-                                                                            onChange={handleChange}
-                                                                        />
-                                                                    </Stack>
-                                                                </FormControl>
-
+                                                                        <DeleteOutlineIcon />
+                                                                    </IconButton>
+                                                                </Grid>
                                                             ) : (
                                                                 <Button
                                                                     variant="outlined"
@@ -229,15 +237,8 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                     </span>
                                                                 </Button>
                                                             )}
-                                                            {item.showAlternativeView && (
-                                                                <IconButton
-                                                                    aria-label="delete"
-                                                                    onClick={() => toggleGrid(index)}
-                                                                >
-                                                                    <DeleteOutlineIcon />
-                                                                </IconButton>
-                                                            )}
                                                         </Grid>
+
                                                     </Grid>
                                                 </Grid>
                                             ))}
