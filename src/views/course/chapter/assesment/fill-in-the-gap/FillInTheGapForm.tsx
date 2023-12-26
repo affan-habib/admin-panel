@@ -274,7 +274,7 @@ const FillInTheGapForm: React.FC<any> = ({
                 {Array.from(
                   { length: countSvgImages(values.richText) },
                   (_, index) => (
-                    <Stack direction="row" spacing={2} mb={2}>
+                    <Stack direction="row" spacing={4} mb={2}>
                       <Button
                         style={{
                           background: '#FFBE40',
