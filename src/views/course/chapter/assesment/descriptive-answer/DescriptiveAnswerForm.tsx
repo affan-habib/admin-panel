@@ -54,6 +54,7 @@ const DescriptiveAnswerForm: React.FC<any> = ({
   };
 
   const initialValues = {
+    option: 'option1',
     mark: '',
     question: '',
     question_type: 'text',
@@ -80,7 +81,14 @@ const DescriptiveAnswerForm: React.FC<any> = ({
               </Field>
             </FormControl>
           </Box>
-          <Box sx={{ border: '1px dashed #D0D0D0', p: 2, borderRadius: 2, bgcolor: '#FAFAFA' }}>
+          <Box
+            sx={{
+              border: '1px dashed #D0D0D0',
+              p: 2,
+              borderRadius: 2,
+              bgcolor: '#FAFAFA',
+            }}
+          >
             <div>
               <Stack
                 direction="row"

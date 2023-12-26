@@ -49,6 +49,7 @@ const OneWordAnswerForm: React.FC<any> = ({
   };
 
   const initialValues = {
+    option: 'option1',
     question: '',
     mark: '',
     supporting_notes_en: '',

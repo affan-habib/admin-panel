@@ -60,6 +60,7 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
   return (
     <Formik
       initialValues={{
+        option: 'option1',
         mark: '',
         question: '',
         isTrue: true,
