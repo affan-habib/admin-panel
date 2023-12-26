@@ -142,16 +142,18 @@
   "assignmentPassMark":"Enter the pass mark",
   "assignmentpassMarkPlace":"Enter assignment pass marks",
   "addVedio":"Add Video",
-  "videoName":"Video Name",
   "videoPlace":"Enter video name",
-  "uploadVideo":"Upload video",
   "videotranscript":"Transcript of video",
-
   "selectCorrectAnswer": "Select the correct answer",
   "newQuestion": "New question",
   "videoName": "Name of the video",
   "uploadVideo": "Upload video",
   "videoTransacript": "Transcript of the video",
+  "answer": "Answer",
+  "blank" : "Blank",
+  "saveAndAdd" : "Save and Add",
   "videoLink":"Upload video link",
-  "writeVideolink":"Enter video link"
+  "writeVideolink":"Enter video link",
+  "newQues": "New Question",
+  "addBlank" : "Add Blank"
 }

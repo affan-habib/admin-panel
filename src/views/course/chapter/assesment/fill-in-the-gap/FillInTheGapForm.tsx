@@ -52,7 +52,7 @@ const FillInTheGapForm: React.FC<any> = ({
 
     insertSvgImage(svgImage);
   };
-
+  
   const insertSvgImage = (svg: string) => {
     const quillRef = quillRefProp.current;
     const range = quillRef?.getEditor().getSelection();
@@ -85,9 +85,43 @@ const FillInTheGapForm: React.FC<any> = ({
     return svgImages.length;
   };
 
+
   // Usage
   const svgCount = countSvgImages(editorHtml);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const enToBn = (serialNumber: number) => {
+    const language = localStorage.getItem('language');
+    if (language == 'bn') {
+      switch (serialNumber) {
+        case 1:
+          return '১';
+        case 2:
+          return '২';
+        case 2:
+          return '২';
+        case 3:
+          return '৩';
+        case 4:
+          return '৪';
+        case 5:
+          return '৫';
+        case 6:
+          return '৬';
+        case 7:
+          return '৭';
+        case 8:
+          return '৮';
+        case 9:
+          return '৯';
+    
+        default:
+          return serialNumber; // Return the original number for other cases
+      }
+    }
+    else { return serialNumber; }
+
+  };
 
   const handleSubmit = async (
     values: any,
@@ -200,7 +234,7 @@ const FillInTheGapForm: React.FC<any> = ({
                 alignItems="center"
               >
                 <Typography variant="h6" gutterBottom>
-                  নতুন প্রশ্ন
+                  {t('newQues')}
                 </Typography>
                 <Box display="flex" gap={2}>
                   <Button
@@ -208,7 +242,7 @@ const FillInTheGapForm: React.FC<any> = ({
                     sx={{ background: '#FFBE40', color: '#1D1D1F' }}
                     startIcon={<AddIcon />}
                   >
-                    ব্ল্যাঙ্ক যোগ করুন
+                    {t('addBlank')}
                   </Button>
                   <MarkInput label="markinput" name="mark" />
                 </Box>
@@ -228,6 +262,15 @@ const FillInTheGapForm: React.FC<any> = ({
               </Box>
 
               <Stack>
+
+                {svgCount > 0 && (
+                  <Box mt={4}>
+                    <Typography variant="h6" gutterBottom>
+                      {t('answer')}
+                    </Typography>
+                    {/* Include your answer input fields or components here */}
+                  </Box>
+                )}
                 {Array.from(
                   { length: countSvgImages(values.richText) },
                   (_, index) => (
@@ -239,7 +282,7 @@ const FillInTheGapForm: React.FC<any> = ({
                           width: '120px',
                           height: '40px',
                         }}
-                      >{`Blank ${index + 1}`}</Button>
+                      >{`${t('blank')} ${index + 1}`}</Button>
                       <Stack
                         direction="row"
                         alignItems="center"
@@ -257,7 +300,7 @@ const FillInTheGapForm: React.FC<any> = ({
                             textAlign: 'center',
                           }}
                         >
-                          {index + 1}
+                          {enToBn(index + 1)}
                         </Typography>
 
                         <Field
@@ -265,7 +308,7 @@ const FillInTheGapForm: React.FC<any> = ({
                           name={`options.${index}`} // Dynamic name based on index
                           as={TextField}
                           sx={{ width: '400px' }}
-                          // label={`Blank ${index + 1}`}
+                          label={`${t('answer')} ${enToBn(index + 1)}`}
                         />
                       </Stack>
                     </Stack>
@@ -289,7 +332,7 @@ const FillInTheGapForm: React.FC<any> = ({
                     variant="outlined"
                     onClick={() => handleSubmit(values, true, { resetForm })}
                   >
-                    {t('saveAdd')}
+                    {t('saveAndAdd')}
                   </Button>
                 </Box>
               </Box>
