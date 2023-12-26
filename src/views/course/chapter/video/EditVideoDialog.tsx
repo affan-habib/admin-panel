@@ -18,6 +18,8 @@ import RichTextInput from 'components/form/RichTextInput';
 import { useSnackbar } from 'context/SnackbarContext';
 import VideoUploadBox from 'components/form/VideoUploadBox';
 import { useTranslation } from 'react-i18next';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
 interface CreateVideoDialogProps {
   open: boolean;
   initialData: any;
@@ -79,7 +81,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
           {t('addChapter')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
-          <Close />
+        <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ width: 600 }}>
@@ -122,8 +124,9 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
                   </div>
                 </Grid>
               </Grid>
-            <RichTextInput label={t('videotranscript')} name="transcript" />
-            <Button type="submit" variant="contained" sx={{ float: 'right' }}>
+              <InputField name='url_link' label={t('videoLink')} placeholder={t('writeVideolink')}/> 
+            <RichTextInput label={t('videotranscript')} name="transcript_en" />
+            <Button type="submit" variant="contained" sx={{ float: 'right'}}>
             {t('submit')}
             </Button>
           </Form>

@@ -150,5 +150,7 @@
   "uploadVideo": "ভিডিও আপলোড করুন",
   "videoName": "ভিডিওর নাম",
   "addChapter": "অধ্যায় যোগ করুন",
-  "videoTransacript": "ভিডিওর প্রতিলিপি"
+  "videoTransacript": "ভিডিওর প্রতিলিপি",
+  "videoLink":"ভিডিওর লিংক আপলোড করুন",
+  "writeVideolink":"ভিডিওর লিংক লিখুন"
 }

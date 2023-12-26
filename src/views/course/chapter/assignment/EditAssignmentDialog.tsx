@@ -132,15 +132,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                     </Typography>
                   </div>
                 </Grid>
-              </Grid>
-              <Grid sx={{ marginTop: '15px' }}>
-                <InputField
-                  name="instructions_en"
-                  label={t('assignmentInstruct')}
-                  placeholder={t('instruction')}
-                />
-              </Grid>
-              
+              </Grid>              
               <Grid sx={{}}>
                 <InputFile
                   name="supporting_doc"
@@ -149,7 +141,6 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                   limit={t('supDocLimit')}
                 />
               </Grid>
-
               <Grid
                 container
                 spacing={2}

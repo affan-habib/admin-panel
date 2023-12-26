@@ -25,6 +25,7 @@ import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
+import RichTextInput from 'components/form/RichTextInput';
 
 interface Item {
     id: number;
@@ -113,7 +114,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                             <MarkInput name="mark" />
                         </Grid>
                         <Box mb={2} mt={2}>
-                            <ReactQuill id="editor" value={editorHtml} onChange={handleQuillChange} style={{ height: '100px' }} />
+                        <RichTextInput  name="question_type" />
                         </Box>
                         <div style={{ marginTop: '80px', marginBottom: '20px' }}>
                             <FieldArray
