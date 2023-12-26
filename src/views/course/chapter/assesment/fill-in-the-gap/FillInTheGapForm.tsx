@@ -147,12 +147,12 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
                 <FormControlLabel
                   value="option1"
                   control={<Radio />}
-                  label="ম্যানুয়াল ইনপুট"
+                  label={t('manualInput')}
                 />
                 <FormControlLabel
                   value="option2"
                   control={<Radio />}
-                  label="বাল্ক আপলোড"
+                  label={t('bulkUpload')}
                 />
               </Field>
             </FormControl>

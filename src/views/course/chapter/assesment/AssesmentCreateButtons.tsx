@@ -13,6 +13,7 @@ import AddMatchingForm from './matching/AddMatchingForm';
 import AddQuizForm from './quiz/AddQuizForm';
 import { IconButton, Stack } from '@mui/material';
 import { HighlightOff } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 // import useAssesmentTypes from 'hooks/useAssesmentTypes';
 
 const options = [
@@ -56,7 +57,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
 
   
   // const { data: assesmentTypes } = useAssesmentTypes();
-
+  const { t } = useTranslation();
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const language = localStorage.getItem('language');
@@ -94,14 +95,14 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
       >
         <DialogTitle>
           <Stack direction="row" justifyContent="space-between">
-            {selectedId === 1 && `সম্মিলিত প্রশ্নপত্র যোগ করুন (${moduleName})`}
-            {selectedId === 2 && `এমসিকিউ উইথ পিকচার যোগ করুন (${moduleName})`}
-            {selectedId === 3 && `ম্যাচিং কোয়েশ্চেন যোগ করুন (${moduleName})`}
-            {selectedId === 4 && `শূন্যস্থান পূরণ যোগ করুন (${moduleName})`}
-            {selectedId === 5 && `সত্য/মিথ্যা যোগ করুন (${moduleName})`}
-            {selectedId === 6 && `এক কোথায় উত্তর যোগ করুন (${moduleName})`}
+            {selectedId === 1 && `${t('addBlendedQuestion')} (${moduleName})`}
+            {selectedId === 2 && `${t('addMcqWithPicture')} (${moduleName})`}
+            {selectedId === 3 && `${t('addMatchingQuestion')} (${moduleName})`}
+            {selectedId === 4 && `${t('addFillInTheGap')} (${moduleName})`}
+            {selectedId === 5 && `${t('addTrueFalse')} (${moduleName})`}
+            {selectedId === 6 && `${t('addSingleWordAnswer')} (${moduleName})`}
             {selectedId === 7 &&
-              `বর্ণনামূলক প্রশ্নপত্র যোগ করুন (${moduleName})`}
+              `${t('addDescriptiveQuestions')} (${moduleName})`}
             <IconButton onClick={handleCloseDialog} color="warning">
               <HighlightOff />
             </IconButton>

@@ -129,5 +129,12 @@
   "nameAndCode": "Course Name : Code",
   "fillinthegap": "Fill in the gap",
   "instruction":"Enter the instructions:",
-  "giveMark":"Mark"
+  "giveMark":"Mark",
+  "addBlendedQuestion": "Add blended question",
+  "addMcqWithPicture": "Add MCQ question with picture",
+  "addMatchingQuestion": "Add matching question",
+  "addFillInTheGap": "Add fill in the gap",
+  "addTrueFalse": "Add true false question",
+  "addSingleWordAnswer": "Add question for single word answer",
+  "addDescriptiveQuestions": "Add descriptive questions"
 }
