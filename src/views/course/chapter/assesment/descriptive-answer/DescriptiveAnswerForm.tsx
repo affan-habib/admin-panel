@@ -1,21 +1,31 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import Button from '@mui/material/Button';
 import RichTextInput from 'components/form/RichTextInput';
 import InputRadio from 'components/form/InputRadio';
-import { InputLabel, Box, Stack } from '@mui/material';
+import {
+  InputLabel,
+  Box,
+  Stack,
+  FormControl,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+} from '@mui/material';
 import MarkInput from 'components/form/MarkInput';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import ImageUploadBox from 'components/form/ImageUploadBox';
+import { useTranslation } from 'react-i18next';
 
 const DescriptiveAnswerForm: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
 }) => {
   const { showSnackbar } = useSnackbar();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const onSubmit = async (values: any) => {
     console.log(values);
@@ -44,6 +54,7 @@ const DescriptiveAnswerForm: React.FC<any> = ({
   };
 
   const initialValues = {
+    option: 'option1',
     mark: '',
     question: '',
     question_type: 'text',
@@ -54,50 +65,77 @@ const DescriptiveAnswerForm: React.FC<any> = ({
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ values }) => (
         <Form>
-          <div>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-end"
-            >
-              <div>
-                <InputLabel>কুইজের প্রশ্নের ধরন:</InputLabel>
-                <InputRadio label="লিখিত" name="question_type" value="text" />
-                <InputRadio
-                  label="ছবি সম্পর্কিত"
-                  name="question_type"
-                  value="text_image"
+          <Box mb={2} display="flex" justifyContent="" gap={8}>
+            <FormControl component="fieldset">
+              <Field as={RadioGroup} row name="option">
+                <FormControlLabel
+                  value="option1"
+                  control={<Radio />}
+                  label={t('manualInput')}
                 />
-              </div>
-              <MarkInput name="mark" label="mark" />
-            </Stack>
-            {values.question_type === 'text' ? (
-              <>
-                <InputLabel sx={{ mb: 1, mt: 2 }}>নতুন প্রশ্ন</InputLabel>
-                <RichTextInput name="question" height="120px" />
-              </>
-            ) : (
-              <ImageUploadBox
-                name="question_img"
-                label="প্রশ্ন সম্পর্কিত ছবিটি আপলোড করুন"
-              />
-            )}
-
-            <InputLabel sx={{ mb: 1, mt: 2 }}>বিবরণ লিখুন (অপশনাল)</InputLabel>
-            <RichTextInput name="supporting_notes_en" height="120px" />
-          </div>
-
+                <FormControlLabel
+                  value="option2"
+                  control={<Radio />}
+                  label={t('bulkUpload')}
+                />
+              </Field>
+            </FormControl>
+          </Box>
           <Box
-            display="flex"
-            justifyContent="flex-end"
-            mt={2} // Adjust the margin top as needed
+            sx={{
+              border: '1px dashed #D0D0D0',
+              p: 2,
+              borderRadius: 2,
+              bgcolor: '#FAFAFA',
+            }}
           >
-            <Button type="submit" variant="contained" color="primary">
-              সাবমিট
-            </Button>
-            <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
-              সেভ এবং অ্যাড
-            </Button>
+            <div>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-end"
+              >
+                <div>
+                  <InputLabel>কুইজের প্রশ্নের ধরন:</InputLabel>
+                  <InputRadio label="লিখিত" name="question_type" value="text" />
+                  <InputRadio
+                    label="ছবি সম্পর্কিত"
+                    name="question_type"
+                    value="text_image"
+                  />
+                </div>
+                <MarkInput name="mark" label="mark" />
+              </Stack>
+              {values.question_type === 'text' ? (
+                <>
+                  <InputLabel sx={{ mb: 1, mt: 2 }}>নতুন প্রশ্ন</InputLabel>
+                  <RichTextInput name="question" height="120px" />
+                </>
+              ) : (
+                <ImageUploadBox
+                  name="question_img"
+                  label="প্রশ্ন সম্পর্কিত ছবিটি আপলোড করুন"
+                />
+              )}
+
+              <InputLabel sx={{ mb: 1, mt: 2 }}>
+                বিবরণ লিখুন (অপশনাল)
+              </InputLabel>
+              <RichTextInput name="supporting_notes_en" height="120px" />
+            </div>
+
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              mt={2} // Adjust the margin top as needed
+            >
+              <Button type="submit" variant="contained" color="primary">
+                সাবমিট
+              </Button>
+              <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
+                সেভ এবং অ্যাড
+              </Button>
+            </Box>
           </Box>
         </Form>
       )}

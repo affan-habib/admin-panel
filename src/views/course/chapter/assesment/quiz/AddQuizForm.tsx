@@ -27,7 +27,7 @@ import MarkInput from 'components/form/MarkInput';
 import ImageUploadBox from 'components/form/ImageUploadBox';
 import RichTextInput from 'components/form/RichTextInput';
 
-const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
+const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
@@ -79,7 +79,10 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
 
   const handleAddMore = () => {
     const newId = inputFields[inputFields.length - 1].id + 1;
-    setInputFields([...inputFields, { id: newId, placeholder: `Email ${newId}` }]);
+    setInputFields([
+      ...inputFields,
+      { id: newId, placeholder: `Email ${newId}` },
+    ]);
   };
 
   const [showEditor, setShowEditor] = useState(false);
@@ -187,7 +190,6 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             <Grid spacing={2} mt={5}
             // style={{maxHeight:'60vh',overflowY:'auto'}}
             >
-              {/* <Grid item columns={5}> */}
               <Grid>
                 <FieldArray name="options">
                   {({ push }) => (
@@ -254,11 +256,6 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               </Grid>
             </Grid>
 
-
-            {/* </Grid> */}
-
-
-
             <div
               style={{
                 display: 'flex',
@@ -309,8 +306,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
         </Form>
       )}
     </Formik >
-
   );
 };
 
-export default AddQuizButton;
+export default AddQuizForm;
