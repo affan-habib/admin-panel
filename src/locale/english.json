@@ -82,7 +82,8 @@
     "alternativematch":"Alternative",
     "answer":"Answer",
     "wronganswer":"Add wrong answer",
-    "wronganswertwo":"Wrong answer"
+    "wronganswertwo":"Wrong answer",
+    "quizAlternative":"Quiz Option"
     
     
 }

@@ -82,7 +82,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-        {t('addVedio')} (কারবালা প্রান্তর)
+          {t('addChapter')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
         <HighlightOffIcon />
@@ -105,37 +105,10 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             <InputField
               name="title_en"
               label={t('videoName')}
-              placeholder={t('videoPlace')}
+              placeholder={t('videoName')}
             />
             <VideoUploadBox name="url" label={t('uploadVideo')} />
-            <Grid container alignItems="center" justifyContent="center">
-                <Grid item xs={12}>
-                  <div
-                    style={{
-                      borderBottom: '1px dashed rgba(208, 208, 208, 1)',
-                      width: '100%',
-                      textAlign: 'center',
-                      margin: '10px 0 20px',
-                      position: 'relative',
-                    }}
-                  >
-                    <Typography
-                      variant="h6"
-                      style={{
-                        backgroundColor: '#fff',
-                        padding: '0 10px',
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                      }}
-                    >
-                      {t('or')}
-                    </Typography>
-                  </div>
-                </Grid>
-              </Grid>
-            <RichTextInput label={t('videotranscript')} name="transcript" />
+            <RichTextInput label={t('videoTransacript')} name="transcript" />
             <Button type="submit" variant="contained" sx={{ float: 'right' }}>
             {t('submit')}
             </Button>

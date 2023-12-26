@@ -76,7 +76,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-        {t('addVedio')} (কারবালা প্রান্তর)
+          {t('addChapter')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <Close />

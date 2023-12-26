@@ -144,5 +144,11 @@
   "videoName":"ভিডিওর নাম",
   "videoPlace":"ভিডিওর নাম লিখুন",
   "uploadVideo":"ভিডিও আপলোড করুন",
-  "videotranscript":"ভিডিওর প্রতিলিপি"
+  "videotranscript":"ভিডিওর প্রতিলিপি",
+  "selectCorrectAnswer": "সঠিক উত্তরটি নির্বাচন করুন",
+  "newQuestion": "নতুন প্রশ্ন",
+  "uploadVideo": "ভিডিও আপলোড করুন",
+  "videoName": "ভিডিওর নাম",
+  "addChapter": "অধ্যায় যোগ করুন",
+  "videoTransacript": "ভিডিওর প্রতিলিপি"
 }
