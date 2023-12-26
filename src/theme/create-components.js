@@ -47,6 +47,18 @@ export function createComponents() {
           fontWeight: 500,
         },
       },
-    }
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          borderBottom: '1px solid #D0D0D0',
+          // display: 'flex',
+          // flexDirection: 'row',
+          // justifyContent: 'space-between',
+          // alignItems: 'center'
+        },
+      },
+    },
+    
   };
 }
