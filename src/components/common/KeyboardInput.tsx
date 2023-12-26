@@ -99,7 +99,7 @@ const KeyboardInput: React.FC<keyboardParams> = ({setValue}) => {
             display={display}
             theme="hg-theme-default hg-layout-default"
             onChange={onChange}
-            onKeyPress={(button) => {
+            onKeyPress={(button: any) => {
               if (button === "{enbn}" || button === "{default}" || button === "{shift}" || button === "{numeric}" ) {
                 // Toggle between layouts when the switch key is pressed
                 switchLayout(button);
