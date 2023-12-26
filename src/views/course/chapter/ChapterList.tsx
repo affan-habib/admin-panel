@@ -551,10 +551,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditAssignmentDialogOpen}
           onClose={handleEditAssignmentDialogClose}
           initialData={selectedAssignment}
-<<<<<<< HEAD
           name={assignmentName}
-=======
->>>>>>> b4bd65582199a2c9adcc76e5ec46d092c9d290f1
         />
       )}
 
