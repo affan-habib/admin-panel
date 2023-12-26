@@ -100,7 +100,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                         <FormControlLabel value="written" control={<Radio />} label={t('manualInput')} />
                         <FormControlLabel value="upload" control={<Radio />} label={t('bulkUpload')} />
                     </RadioGroup>
-                    <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px' }} p={2}>
+                    <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px' , backgroundColor:'rgba(250, 250, 250, 1)' }} p={2}>
                         <Grid
                             sx={{
                                 display: 'flex',
