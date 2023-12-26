@@ -73,6 +73,8 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const [inputFields, setInputFields] = useState([
     { id: 1, placeholder: 'Email 1' },
     { id: 2, placeholder: 'Email 2' },
+    { id: 3, placeholder: 'Email 3' },
+    { id: 4, placeholder: 'Email 4' },
   ]);
 
   const handleAddMore = () => {
@@ -92,6 +94,14 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       initialValues={
         {
           options: [
+            {
+              option_value
+                : ''
+            },
+            {
+              option_value
+                : ''
+            },
             {
               option_value
                 : ''
@@ -182,37 +192,45 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 <FieldArray name="options">
                   {({ push }) => (
                     <>
+                    <Typography fontWeight="bold" mb={1}>
+                    {t('quizAlternative')}
+                    </Typography>
                       <Grid container columns={10} spacing={2}>
                         {values.options.map((_: any, index: any) => (
-                          <Grid item md={5} key={index}>
+                          <Grid item md={4} key={index}>
                             <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)' }}>
-                              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <Grid columns={5} style={{ display: 'felx', justifyContent: 'center', alignItems: "center" }}>
-                                  <FormControl fullWidth variant="outlined" size="small" sx={{ padding: '10px' }}>
+                              <Box sx={{ display: 'flex',alignItems: 'center' }}>
+                              <Grid container columns={10} spacing={2}>
+                                <Grid item md={6}>
+                                  <Box sx={{display:'flex'}}>
+                                  <Checkbox/>
+                                  <FormControl fullWidth variant="outlined" size="small" sx={{ padding: '10px',display:'flex' }}>
                                     <Stack
                                       direction="row"
                                       alignItems="center"
                                       bgcolor="gray"
                                       justifyContent="space-between"
                                       // maxWidth={210}
-                                      sx={{ width: '100%', }}
+                                      sx={{ width: '90%'}}
                                     >
-                                      <Typography align="center" sx={{ color: 'white', px: 2, width: 100 }}>
+                                      <Typography align="center" sx={{ color: 'white', px: 2, width: 55 }}>
                                         {index + 1}
                                       </Typography>
                                       <Field name={`options[${index}].option_value`} placeholder={t('alternative')} style={{ padding: '10px' }} />
                                     </Stack>
                                   </FormControl>
+                                  </Box>
                                 </Grid>
-                                <Grid columns={2}>
-                                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <Grid item md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                  <Box>
                                     <Typography>{t('or')}</Typography>
                                   </Box>
                                 </Grid>
-                                <Grid columns={3}>
-                                  <Box sx={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', padding: '5px' }}>
+                                <Grid item md={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                  <Box sx={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', padding: '5px',marginRight:'15px'}}>
                                     <FileUploadOutlinedIcon />
                                   </Box>
+                                </Grid>
                                 </Grid>
                               </Box>
                             </Box>
@@ -268,14 +286,14 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 {showEditor && (
                   <>
                     <Typography p={2}>{t('quizDescription')}</Typography>
-                    <ReactQuill
-                      style={{
-                        minHeight: '100px',
-                        padding: '10px',
-                        // marginTop: '20px',
-                      }}
-                    />
+                    <Box sx={{
+                        marginLeft: '15px',
+                        marginRight:'15px'
+                      }}>
+                  <RichTextInput name='question' />
+                      </Box>
                   </>
+
                 )}
               </Box>
             </div>
