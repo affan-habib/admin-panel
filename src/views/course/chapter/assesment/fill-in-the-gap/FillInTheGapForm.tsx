@@ -234,7 +234,7 @@ const FillInTheGapForm: React.FC<any> = ({
                 alignItems="center"
               >
                 <Typography variant="h6" gutterBottom>
-                  নতুন প্রশ্ন
+                  {t('newQues')}
                 </Typography>
                 <Box display="flex" gap={2}>
                   <Button
@@ -242,7 +242,7 @@ const FillInTheGapForm: React.FC<any> = ({
                     sx={{ background: '#FFBE40', color: '#1D1D1F' }}
                     startIcon={<AddIcon />}
                   >
-                    ব্ল্যাঙ্ক যোগ করুন
+                    {t('addBlank')}
                   </Button>
                   <MarkInput label="markinput" name="mark" />
                 </Box>
@@ -308,7 +308,7 @@ const FillInTheGapForm: React.FC<any> = ({
                           name={`options.${index}`} // Dynamic name based on index
                           as={TextField}
                           sx={{ width: '400px' }}
-                          label={`${t('answer')} ${index + 1}`}
+                          label={`${t('answer')} ${enToBn(index + 1)}`}
                         />
                       </Stack>
                     </Stack>
