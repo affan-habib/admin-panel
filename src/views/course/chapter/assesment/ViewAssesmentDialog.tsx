@@ -9,6 +9,8 @@ import {
   Stack,
   FormControlLabel,
   Checkbox,
+  Divider,
+  Box,
 } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 interface ViewAssesmentDialogProps {
@@ -31,15 +33,57 @@ const ViewAssesmentDialog: React.FC<ViewAssesmentDialogProps> = ({
           alignItems: 'center',
         }}
       >
-        <Typography color="primary" variant="h6">
-          এসেসমেন্ট : কারবালা প্রান্তরের উপর সম্মিলিত প্রশ্নপত্র
-        </Typography>
+        <div>
+          <Typography color="primary" variant="h6">
+            এসেসমেন্ট : কারবালা প্রান্তরের উপর সম্মিলিত প্রশ্নপত্র
+          </Typography>
+          <Stack direction="row" spacing={2}>
+            <Typography variant="body1" color="#646464">
+              বর্ণনামূলক প্রশ্নপত্র : বর্ণনামূলক প্রশ্নপত্র
+            </Typography>
+            <svg
+              width="9"
+              height="20"
+              viewBox="0 0 9 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="3" width="1" height="14" fill="#646464" />
+              <rect x="4" width="1" height="20" fill="#646464" />
+              <rect x="8" y="3" width="1" height="14" fill="#646464" />
+            </svg>
+
+            <Typography variant="body1" color="#646464">
+              সময় : ২০ মিনিট
+            </Typography>
+          </Stack>
+          <Stack direction="row" spacing={2}>
+            <Typography variant="body1" color="#646464">
+              সর্বমোট মার্ক : ২০
+            </Typography>
+            <svg
+              width="9"
+              height="20"
+              viewBox="0 0 9 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="3" width="1" height="14" fill="#646464" />
+              <rect x="4" width="1" height="20" fill="#646464" />
+              <rect x="8" y="3" width="1" height="14" fill="#646464" />
+            </svg>
+
+            <Typography variant="body1" color="#646464">
+              পাস মার্ক : ২০
+            </Typography>
+          </Stack>
+        </div>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        <div>
+        <Box mt={4}>
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -480,7 +524,7 @@ const ViewAssesmentDialog: React.FC<ViewAssesmentDialogProps> = ({
               1 point
             </Button>
           </Stack>
-        </div>
+        </Box>
       </DialogContent>
     </Dialog>
   );

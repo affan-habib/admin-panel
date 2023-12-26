@@ -283,13 +283,13 @@ const FillInTheGapForm: React.FC<any> = ({
                     }}
                     type="submit"
                   >
-                    সাবমিট
+                    {t('submit')}
                   </Button>
                   <Button
                     variant="outlined"
                     onClick={() => handleSubmit(values, true, { resetForm })}
                   >
-                    সেভ এবং অ্যাড
+                    {t('saveAdd')}
                   </Button>
                 </Box>
               </Box>
