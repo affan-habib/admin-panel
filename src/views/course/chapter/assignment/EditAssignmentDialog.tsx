@@ -156,7 +156,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                 </Grid>
                 <Grid item xs={6}>
                   <InputField
-                    name="mark"
+                    name="Pass_mark"
                     label={t('assignmentPassMark')}
                     placeholder={t('assignmentpassMarkPlace')}
                     type="number"

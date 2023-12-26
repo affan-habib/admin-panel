@@ -96,7 +96,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
               variant="contained"
               sx={{ float: 'right', mt: 2 }}
             >
-              Submit
+              {t('submit')}
             </Button>
           </Form>
         </Formik>

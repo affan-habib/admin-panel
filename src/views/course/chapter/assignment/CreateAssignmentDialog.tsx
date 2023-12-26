@@ -168,7 +168,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                 </Grid>
                 <Grid item xs={6}>
                   <InputField
-                    name="mark"
+                    name="Pass_mark"
                     label={t('assignmentPassMark')}
                     placeholder={t('assignmentpassMarkPlace')}
                     type="number"
