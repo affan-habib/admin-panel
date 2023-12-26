@@ -140,6 +140,8 @@
   "newQuestion": "নতুন প্রশ্ন",
   "uploadVideo": "ভিডিও আপলোড করুন",
   "videoName": "ভিডিওর নাম",
-  "addChapter": "অধ্যায় যোগ করুন",
-  "videoTransacript": "ভিডিওর প্রতিলিপি"
+  "videoTransacript": "ভিডিওর প্রতিলিপি",
+  "answer": "Answer",
+  "blank" : "ব্ল্যাঙ্ক",
+  "saveAndAdd" : "সেভ এবং অ্যাড"
 }

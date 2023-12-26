@@ -141,5 +141,8 @@
   "newQuestion": "New question",
   "videoName": "Name of the video",
   "uploadVideo": "Upload video",
-  "videoTransacript": "Transcript of the video"
+  "videoTransacript": "Transcript of the video",
+  "answer": "উত্তর",
+  "blank" : "Blank",
+  "saveAndAdd" : "Save and Add"
 }
