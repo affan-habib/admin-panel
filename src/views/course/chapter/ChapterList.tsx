@@ -360,11 +360,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         sx={{ marginLeft: 2 }}
                       />
                       <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
-                        <Typography>
-                          Assessment {assessment.id} :{' '}
-                          {assessment.assessment_title}
-                        </Typography>
-                        <Typography>{assessment.assessment_title}</Typography>
+                      <Typography >
+                        Assessment {assessment.id} :{' '}
+                        {assessment.assessment_title_en}
+                      </Typography>
                       </Box>
 
                       <Button

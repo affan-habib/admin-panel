@@ -25,7 +25,8 @@ import axios from 'axios';
 import { apiBaseUrl } from '../../../../../config';
 import { useSnackbar } from 'context/SnackbarContext';
 
-const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
+const FillInTheGapForm: React.FC<any> = ({ assessmentId, type_id, handleCloseDialog }) => {
+  // console.log("assessmentId", type_id)
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const [editorHtml, setEditorHtml] = useState<string>('');
@@ -84,33 +85,32 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
   const svgCount = countSvgImages(editorHtml);
   const { t } = useTranslation();
 
-  const handleSubmit = async (value: any) => {
-    console.log(value);
+  const handleSubmit = async (values: any, saveAndAdd: boolean, { resetForm }: any) => {
+    if(values.mark ==0){
+      showSnackbar( 'Mark can not be zero', 'error');
+    }
+    else{
     const optionsArr = [];
     for (let i = 0; i < svgCount; i++) {
       optionsArr.push({
         option_key: `${i + 1}`,
-        option_value: value.options[i],
+        option_value: values.options[i],
       });
     }
-    const editorFullText = value.richText.replace(/<(?!img).*?>/g, '');
-    const editorTextExceptSvg = editorFullText.replace(
-      /<img[^>]*>.*?<\/img>/g,
-      '',
-    );
-    const editorTextWithBlankAsHash = editorTextExceptSvg.replace(
-      /<img[^>]*>/g,
-      '#',
-    );
+
+    const editorFullText = values.richText.replace(/<(?!img).*?>/g, '');
+    const editorTextExceptSvg = editorFullText.replace(/<img[^>]*>.*?<\/img>/g, '');
+    const editorTextWithBlankAsHash = editorTextExceptSvg.replace(/<img[^>]*>/g, '#');
+
     const payload = {
       course_assessment_id: assessmentId,
       question: editorTextWithBlankAsHash,
-      type_id: 4,
-      mark: value.mark,
+      type_id: type_id,
+      mark: values.mark,
       status: 1,
       options: optionsArr,
     };
-    console.log('payload', payload);
+
     setLoading(true);
 
     const token = localStorage.getItem('token');
@@ -123,36 +123,44 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
       });
 
       showSnackbar(response.data.message, 'success');
+      
+      if (saveAndAdd) {
+        setEditorHtml('')
+        resetForm();
+      } else {
+        setEditorHtml('')
+        handleCloseDialog();
+        resetForm();
+      }
     } catch (error: any) {
       console.error('Error submitting form:', error);
-      showSnackbar(
-        error.response?.data?.message || 'An error occurred',
-        'error',
-      );
+      showSnackbar(error.response?.data?.message || 'An error occurred', 'error');
     } finally {
       setLoading(false);
     }
+  }
   };
+
 
   return (
     <>
       <Formik
-        initialValues={{ option: 'option1', richText: '' }}
-        onSubmit={handleSubmit}
+        initialValues={{ option: 'option1', richText: '', mark: 0, options: [] }}
+        onSubmit={(values, actions) => handleSubmit(values, false, actions)}
       >
-        {({ values, setFieldValue }) => (
+         {({ values, setFieldValue, resetForm }) => (
           <Form>
             <FormControl component="fieldset">
               <Field as={RadioGroup} row name="option">
                 <FormControlLabel
                   value="option1"
                   control={<Radio />}
-                  label="ম্যানুয়াল ইনপুট"
+                  label={t('manualInput')}
                 />
                 <FormControlLabel
                   value="option2"
                   control={<Radio />}
-                  label="বাল্ক আপলোড"
+                  label={t('bulkUpload')}
                 />
               </Field>
             </FormControl>
@@ -255,7 +263,7 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
                   >
                     সাবমিট
                   </Button>
-                  <Button variant="outlined">সেভ এবং অ্যাড</Button>
+                  <Button variant="outlined"  onClick={() => handleSubmit(values, true, { resetForm })}>সেভ এবং অ্যাড</Button>
                 </Box>
               </Box>
             </Box>
@@ -267,3 +275,6 @@ const FillInTheGapForm: React.FC<any> = ({ assessmentId }) => {
 };
 
 export default FillInTheGapForm;
+
+
+

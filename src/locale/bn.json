@@ -128,5 +128,12 @@
   "nameAndCode": "পাঠ্যক্রমের নাম : কোড",
   "fillinthegap": "ফিল ইন দি গ্যাপ",
   "instruction":"নির্দেশনাবলী লিখুন:",
-  "giveMark":"মার্ক দিন"
+  "giveMark":"মার্ক দিন",
+  "addBlendedQuestion": "সম্মিলিত প্রশ্নপত্র যোগ করুন",
+  "addMcqWithPicture": "এমসিকিউ উইথ পিকচার যোগ করুন",
+  "addMatchingQuestion": "ম্যাচিং কোয়েশ্চেন যোগ করুন",
+  "addFillInTheGap": "শূন্যস্থান পূরণ যোগ করুন",
+  "addTrueFalse": "সত্য/মিথ্যা যোগ করুন",
+  "addSingleWordAnswer": "এক কোথায় উত্তর যোগ করুন",
+  "addDescriptiveQuestions": "বর্ণনামূলক প্রশ্নপত্র যোগ করুন"
 }
