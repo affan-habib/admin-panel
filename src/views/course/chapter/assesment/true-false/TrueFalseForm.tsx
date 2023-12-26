@@ -1,19 +1,28 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import Button from '@mui/material/Button';
 import RichTextInput from 'components/form/RichTextInput';
 import InputRadio from 'components/form/InputRadio';
-import { InputLabel, Box, Stack } from '@mui/material';
+import {
+  InputLabel,
+  Box,
+  Stack,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
 import MarkInput from 'components/form/MarkInput';
 import { apiBaseUrl } from 'config';
 import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
+import { useTranslation } from 'react-i18next';
 
 const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
-
+  const { t } = useTranslation();
   const onSubmit = async (values: any) => {
     try {
       const response = await axios.post(`${apiBaseUrl}/quizzes`, {
@@ -60,6 +69,22 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
     >
       {({ values }) => (
         <Form>
+          <Box mb={2} display="flex" justifyContent="" gap={8}>
+            <FormControl component="fieldset">
+              <Field as={RadioGroup} row name="option">
+                <FormControlLabel
+                  value="option1"
+                  control={<Radio />}
+                  label={t('manualInput')}
+                />
+                <FormControlLabel
+                  value="option2"
+                  control={<Radio />}
+                  label={t('bulkUpload')}
+                />
+              </Field>
+            </FormControl>
+          </Box>
           <div>
             <Stack
               direction="row"

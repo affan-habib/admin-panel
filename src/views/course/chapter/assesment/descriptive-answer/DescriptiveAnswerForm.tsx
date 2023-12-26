@@ -1,21 +1,23 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import Button from '@mui/material/Button';
 import RichTextInput from 'components/form/RichTextInput';
 import InputRadio from 'components/form/InputRadio';
-import { InputLabel, Box, Stack } from '@mui/material';
+import { InputLabel, Box, Stack, FormControl, FormControlLabel, RadioGroup, Radio } from '@mui/material';
 import MarkInput from 'components/form/MarkInput';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import ImageUploadBox from 'components/form/ImageUploadBox';
+import { useTranslation } from 'react-i18next';
 
 const DescriptiveAnswerForm: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
 }) => {
   const { showSnackbar } = useSnackbar();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const onSubmit = async (values: any) => {
     console.log(values);
@@ -54,6 +56,22 @@ const DescriptiveAnswerForm: React.FC<any> = ({
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ values }) => (
         <Form>
+          <Box mb={2} display="flex" justifyContent="" gap={8}>
+            <FormControl component="fieldset">
+              <Field as={RadioGroup} row name="option">
+                <FormControlLabel
+                  value="option1"
+                  control={<Radio />}
+                  label={t('manualInput')}
+                />
+                <FormControlLabel
+                  value="option2"
+                  control={<Radio />}
+                  label={t('bulkUpload')}
+                />
+              </Field>
+            </FormControl>
+          </Box>
           <div>
             <Stack
               direction="row"

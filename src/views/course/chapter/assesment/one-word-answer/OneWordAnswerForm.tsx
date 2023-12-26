@@ -1,20 +1,22 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import Button from '@mui/material/Button';
 import RichTextInput from 'components/form/RichTextInput';
-import { InputLabel, Box, Stack } from '@mui/material';
+import { InputLabel, Box, Stack, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { apiBaseUrl } from 'config';
 import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import MarkInput from 'components/form/MarkInput';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const OneWordAnswerForm: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
 }) => {
   const { showSnackbar } = useSnackbar();
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const onSubmit = async (values: any) => {
     // Handle form submission logic here
@@ -59,6 +61,22 @@ const OneWordAnswerForm: React.FC<any> = ({
     >
       {({ values }) => (
         <Form>
+          <Box mb={2} display="flex" justifyContent="" gap={8}>
+            <FormControl component="fieldset">
+              <Field as={RadioGroup} row name="option">
+                <FormControlLabel
+                  value="option1"
+                  control={<Radio />}
+                  label={t('manualInput')}
+                />
+                <FormControlLabel
+                  value="option2"
+                  control={<Radio />}
+                  label={t('bulkUpload')}
+                />
+              </Field>
+            </FormControl>
+          </Box>
           <div>
             <Stack
               direction="row"
