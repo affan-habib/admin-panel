@@ -25,6 +25,7 @@ import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
+import RichTextInput from 'components/form/RichTextInput';
 
 interface Item {
     id: number;
@@ -64,13 +65,6 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
             return { ...prevValues, items: newItems };
         });
     };
-
-
-
-
-
-
-
     const handleSubmit = async (values: any) => {
         try {
             const response = await axios.post(`${apiBaseUrl}/quizzes`, {
@@ -120,7 +114,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                             <MarkInput name="mark" />
                         </Grid>
                         <Box mb={2} mt={2}>
-                            <ReactQuill id="editor" value={editorHtml} onChange={handleQuillChange} style={{ height: '100px' }} />
+                        <RichTextInput  name="question_type" />
                         </Box>
                         <div style={{ marginTop: '80px', marginBottom: '20px' }}>
                             <FieldArray
@@ -157,7 +151,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                     <input
                                                                         name={`items.${index}.option_key`}
                                                                         style={{ padding: '10px' }}
-                                                                        placeholder={`${t('option_key')} : ${item.id}`}
+                                                                        placeholder={`${t('alternativematch')} : ${item.id}`}
                                                                         value={item.option_key}
                                                                         onChange={handleChange}
                                                                     />
@@ -180,7 +174,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                     <input
                                                                         name={`items.${index}.option_value`}
                                                                         style={{ padding: '10px' }}
-                                                                        placeholder={`${t('option_value')} : ${item.id}`}
+                                                                        placeholder={`${t('answer')} : ${item.id}`}
                                                                         value={item.option_value}
                                                                         onChange={handleChange}
                                                                     />
@@ -202,8 +196,8 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                             </Typography>
                                                                             <input
                                                                                 name={`items.${index}.wrong_answer`}
-                                                                                style={{ padding: '10px' }}
-                                                                                placeholder={`${t('wrong_answer')} : ${item.id}`}
+                                                                                style={{ padding: '10px', width:'140px' }}
+                                                                                placeholder={`${t('wronganswertwo')} : ${item.id}`}
                                                                                 value={item.wrong_answer}
                                                                                 onChange={handleChange}
                                                                             />
@@ -212,7 +206,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                     <IconButton
                                                                         aria-label="delete"
                                                                         onClick={() => toggleGrid(index)}
-                                                                        sx={{ alignSelf: 'center' }} // Align the delete icon to the center vertically
+                                                                        sx={{ alignSelf: 'center' }}
                                                                     >
                                                                         <DeleteOutlineIcon />
                                                                     </IconButton>
@@ -238,7 +232,6 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                 </Button>
                                                             )}
                                                         </Grid>
-
                                                     </Grid>
                                                 </Grid>
                                             ))}

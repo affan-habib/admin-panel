@@ -6,6 +6,7 @@ import {
   IconButton,
   Typography,
   Button,
+  Grid,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
@@ -17,6 +18,7 @@ import RichTextInput from 'components/form/RichTextInput';
 import { useSnackbar } from 'context/SnackbarContext';
 import VideoUploadBox from 'components/form/VideoUploadBox';
 import { useTranslation } from 'react-i18next';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -32,7 +34,6 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
-
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
     if (typeof values.url === 'string') {
@@ -80,7 +81,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
           {t('addChapter')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
-          <Close />
+        <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ width: 600 }}>
@@ -93,12 +94,40 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             <InputField
               name="title_en"
               label={t('videoName')}
-              placeholder={t('videoName')}
+              placeholder={t('videoPlace')}
             />
             <VideoUploadBox name="url" label={t('uploadVideo')} />
-            <RichTextInput label={t('videoTransacript')} name="transcript" />
-            <Button type="submit" variant="contained" sx={{ float: 'right' }}>
-              Submit
+            <Grid container alignItems="center" justifyContent="center">
+                <Grid item xs={12}>
+                  <div
+                    style={{
+                      borderBottom: '1px dashed rgba(208, 208, 208, 1)',
+                      width: '100%',
+                      textAlign: 'center',
+                      margin: '10px 0 20px',
+                      position: 'relative',
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      style={{
+                        backgroundColor: '#fff',
+                        padding: '0 10px',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                      }}
+                    >
+                      {t('or')}
+                    </Typography>
+                  </div>
+                </Grid>
+              </Grid>
+              <InputField name='url_link' label={t('videoLink')} placeholder={t('writeVideolink')}/> 
+            <RichTextInput label={t('videotranscript')} name="transcript_en" />
+            <Button type="submit" variant="contained" sx={{ float: 'right'}}>
+            {t('submit')}
             </Button>
           </Form>
         </Formik>

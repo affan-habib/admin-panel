@@ -124,10 +124,10 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
 
             <Box display="flex" justifyContent="flex-end" mt={2}>
               <Button type="submit" variant="contained" color="primary">
-                সাবমিট
+                {t('submit')}
               </Button>
               <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
-                সেভ এবং অ্যাড
+                {t('saveAdd')}
               </Button>
             </Box>
           </Box>
