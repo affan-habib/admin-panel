@@ -20,12 +20,18 @@ import { useTranslation } from 'react-i18next';
 import MarkInput from 'components/form/MarkInput';
 import ImageUploadBox from 'components/form/ImageUploadBox';
 import RichTextInput from 'components/form/RichTextInput';
+import axios from 'axios';
+import { apiBaseUrl } from 'config';
+import { useSnackbar } from 'context/SnackbarContext';
+import { useQueryClient } from 'react-query';
 
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
   const [selectedOption, setSelectedOption] = useState('option1');
+  const { showSnackbar } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -47,10 +53,27 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   // };
 
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
     console.log('Form Values:', values);
     console.log('Editor Input:', editorHtml);
     console.log('Uploaded Image:', values.question_img);
+      try {
+          const response = await axios.post(`${apiBaseUrl}/quizzes`, {
+              course_assessment_id: assessmentId,
+              question: values.question,
+              options: values.options,
+              mark: values.mark,
+              question_type: 'text',
+              type_id: 2,
+              status: 1,
+          });
+
+          showSnackbar(response.data.message, 'success');
+          queryClient.invalidateQueries('courseDetails');
+      } catch (error: any) {
+          showSnackbar(error.response.data.message, 'error');
+          console.error('Error submitting form:', error);
+      }
   };
 
   const handleQuillChange = (html: string) => {
