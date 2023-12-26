@@ -136,7 +136,8 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
           {selectedId === 4 && (
             <FillInTheGapForm
               assessmentId={assessmentId}
-              handleCloseDialog={handleCloseDialog}
+              type_id={selectedId}
+              handleCloseDialog={handleCloseDialog}             
             />
           )}
           {selectedId === 6 && (
