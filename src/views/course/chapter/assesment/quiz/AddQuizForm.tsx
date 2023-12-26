@@ -175,45 +175,61 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
 
 
 
-            <Grid container columns={10} spacing={2} mt={5}
+            <Grid spacing={2} mt={5}
             // style={{maxHeight:'60vh',overflowY:'auto'}}
             >
               {/* <Grid item columns={5}> */}
-                <FieldArray name="options">
-                  {({ push }) => (
-                    <Grid container spacing={2}>
-                      {values.options.map((_: any, index: any) => (
-                        <Grid item md={5} key={index}>
-                          <FormControl fullWidth variant="outlined" size="small" sx={{ marginTop: '4px' }}>
-                            <Stack
-                              direction="row"
-                              alignItems="center"
-                              bgcolor="gray"
-                              justifyContent="space-between"
-                              // maxWidth={210}
-                              sx={{ width: '100%', }}
-                            >
-                              <Typography align="center" sx={{ color: 'white', px: 2, width: 100 }}>
-                                {index + 1} 
-                              </Typography>
-                              <Field name={`options[${index}].option_value`} placeholder={t('alternative')} style={{ padding: '10px' }} />
-                            </Stack>
-                          </FormControl>
-                        </Grid>
-                      ))}
+              <FieldArray name="options">
+                {({ push }) => (
+                  <Grid container columns={10} spacing={2}>
+                    {values.options.map((_: any, index: any) => (
+                      <Grid item md={5} key={index}>
+                        <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)' }}>
+                          <Box sx={{ display: 'flex', justifyContent:'center',alignItems:'center' }}>
+                            <Grid columns={5} style={{display:'felx',justifyContent:'center',alignItems:"center"}}>
+                            <FormControl fullWidth variant="outlined" size="small" sx={{padding: '10px' }}>
+                              <Stack
+                                direction="row"
+                                alignItems="center"
+                                bgcolor="gray"
+                                justifyContent="space-between"
+                                // maxWidth={210}
+                                sx={{ width: '100%', }}
+                              >
+                                <Typography align="center" sx={{ color: 'white', px: 2, width: 100 }}>
+                                  {index + 1}
+                                </Typography>
+                                <Field name={`options[${index}].option_value`} placeholder={t('alternative')} style={{ padding: '10px' }} />
+                              </Stack>
+                            </FormControl>
+                            </Grid>
+                            <Grid columns={2}>
+                            <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                             <Typography>{t('or')}</Typography>
+                            </Box>
+                            </Grid>
+                            <Grid columns={3}>
+                            <Box sx={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px' ,padding:'5px' }}>
+                              <FileUploadOutlinedIcon />
+                            </Box>
+                            </Grid>
+                          </Box>
+                        </Box>
+                      </Grid>
+                    ))}
 
-                      <Button
-                        variant="contained"
-                        onClick={() => push({ option_value: '', })}
-                        sx={{ marginTop: '12px', display: 'flex', alignItems: 'center' }}
-                        startIcon={<AddCircleOutlineOutlinedIcon />}
-                      >
-                        {t('addMore')}
-                      </Button>
-                    </Grid>
-                  )}
-                </FieldArray>
-              </Grid>
+                    <Button
+                      variant="contained"
+                      onClick={() => push({ option_value: '', })}
+                      sx={{ marginTop: '12px', display: 'flex', alignItems: 'center' }}
+                      startIcon={<AddCircleOutlineOutlinedIcon />}
+                    >
+                      {t('addMore')}
+                    </Button>
+                  </Grid>
+                )}
+              </FieldArray>
+            </Grid>
 
 
             {/* </Grid> */}
