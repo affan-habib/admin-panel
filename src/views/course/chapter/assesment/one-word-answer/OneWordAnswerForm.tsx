@@ -116,10 +116,10 @@ const OneWordAnswerForm: React.FC<any> = ({
               mt={2} // Adjust the margin top as needed
             >
               <Button type="submit" variant="contained" color="primary">
-                সাবমিট
+                {t('submit')}
               </Button>
               <Button variant="outlined" sx={{ ml: 2 }}>
-                সেভ এবং অ্যাড
+                {t('saveAdd')}
               </Button>
             </Box>
           </Box>

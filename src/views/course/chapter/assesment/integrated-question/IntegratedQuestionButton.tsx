@@ -13,61 +13,80 @@ import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import FillInTheGapForm from '../fill-in-the-gap/FillInTheGapForm';
 import AddQuizForm from '../quiz/AddQuizForm';
 import AddMatchingForm from '../matching/AddMatchingForm';
+
+const options = [
+  {
+    id: 2,
+    icon: <QuizIcon />,
+    title_en: 'Quiz',
+    title_bn: 'কুইজ',
+    formComponent: AddQuizForm,
+  },
+  {
+    id: 3,
+    icon: <SwapHorizIcon />,
+    title_en: 'Matching',
+    title_bn: 'ম্যাচিং',
+    formComponent: AddMatchingForm,
+  },
+  {
+    id: 4,
+    icon: <HourglassEmptyIcon />,
+    title_en: 'Fill in the Gap',
+    title_bn: 'ফিল ইন দি গ্যাপ',
+    formComponent: FillInTheGapForm,
+  },
+  {
+    id: 5,
+    icon: <ContrastIcon />,
+    title_en: 'True/False',
+    title_bn: 'সত্য / মিথ্যা',
+    formComponent: TrueFalseForm,
+  },
+  {
+    id: 6,
+    icon: <FullscreenExitIcon />,
+    title_en: 'One-word Answer',
+    title_bn: 'এক কথায় উত্তর',
+    formComponent: OneWordAnswerForm,
+  },
+  {
+    id: 7,
+    icon: <DescriptionIcon />,
+    title_en: 'Descriptive Question',
+    title_bn: 'বর্ণনামূলক প্রশ্নপত্র',
+    formComponent: DescriptiveAnswerForm,
+  },
+];
+
 const IntegratedQuestionButton: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
 }) => {
   const [selectedButton, setSelectedButton] = useState(2);
-
+  const language = localStorage.getItem('language');
   return (
     <Box
       sx={{
         display: 'flex',
-        // height: 800,
         width: '100%',
         justifyContent: 'space-between',
       }}
     >
       <Box
         sx={{
-          width: '100%', // Adjusted width
+          width: '100%',
         }}
       >
-        {selectedButton === 2 && (
-          <AddQuizForm
-            assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog}
-          />
-        )}
-        {selectedButton === 3 && (
-          <AddMatchingForm
-            assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog}
-          />
-        )}
-        {selectedButton === 5 && (
-          <TrueFalseForm
-            assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog}
-          />
-        )}
-        {selectedButton === 4 && (
-          <FillInTheGapForm
-            assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog}
-          />
-        )}
-        {selectedButton === 6 && (
-          <OneWordAnswerForm
-            assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog}
-          />
-        )}
-        {selectedButton === 7 && (
-          <DescriptiveAnswerForm
-            assessmentId={assessmentId}
-            handleCloseDialog={handleCloseDialog}
-          />
+        {options.map(
+          (option) =>
+            selectedButton === option.id && (
+              <option.formComponent
+                key={option.id}
+                assessmentId={assessmentId}
+                handleCloseDialog={handleCloseDialog}
+              />
+            ),
         )}
       </Box>
       <Stack
@@ -79,42 +98,15 @@ const IntegratedQuestionButton: React.FC<any> = ({
         bgcolor="#465360"
         borderRadius={2}
       >
-        <CustomButton
-          icon={<QuizIcon />}
-          title="কুইজ "
-          selected={selectedButton === 2}
-          onClick={() => setSelectedButton(2)}
-        />
-        <CustomButton
-          icon={<SwapHorizIcon />}
-          title="ম্যাচিং"
-          selected={selectedButton === 3}
-          onClick={() => setSelectedButton(3)}
-        />
-        <CustomButton
-          icon={<HourglassEmptyIcon />}
-          title="ফিল ইন দি ব্ল্যান্ক"
-          selected={selectedButton === 4}
-          onClick={() => setSelectedButton(4)}
-        />
-        <CustomButton
-          icon={<ContrastIcon />}
-          title="সত্য / মিথ্যা"
-          selected={selectedButton === 5}
-          onClick={() => setSelectedButton(5)}
-        />
-        <CustomButton
-          icon={<FullscreenExitIcon />}
-          title="এক কথায় উত্তর"
-          selected={selectedButton === 6}
-          onClick={() => setSelectedButton(6)}
-        />
-        <CustomButton
-          icon={<DescriptionIcon />}
-          title="বর্ণনামূলক প্রশ্নপত্র"
-          selected={selectedButton === 7}
-          onClick={() => setSelectedButton(7)}
-        />
+        {options.map((option) => (
+          <CustomButton
+            key={option.id}
+            icon={option.icon}
+            title={language === 'bn' ? option.title_bn : option.title_en}
+            selected={selectedButton === option.id}
+            onClick={() => setSelectedButton(option.id)}
+          />
+        ))}
       </Stack>
     </Box>
   );
