@@ -37,6 +37,7 @@ import axios from 'axios';
 import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import ViewAssesmentDialog from './assesment/ViewAssesmentDialog';
 const Chapters: React.FC<any> = ({ modules }) => {
   // console.log(modules);
   const queryClient = useQueryClient();
@@ -100,8 +101,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   // Assignment dialog start
   const [isAssignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
-  const [assignmentName, setAssinmentName] =useState('');
-  const handleAssignmentDialogOpen = (module_id: any, module_name:any) => {
+  const [assignmentName, setAssinmentName] = useState('');
+  const handleAssignmentDialogOpen = (module_id: any, module_name: any) => {
     setModuleId(module_id);
     setAssinmentName(module_name);
     setAssignmentDialogOpen(true);
@@ -122,9 +123,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   //Assessment Dialog
   const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
-  const [assessmentName,setAssessmentName] = useState('');
+  const [assessmentName, setAssessmentName] = useState('');
 
-  const handleAssesmentDialogOpen = (module_id: any,module_name:any) => {
+  const handleAssesmentDialogOpen = (module_id: any, module_name: any) => {
     setModuleId(module_id);
     setAssessmentName(module_name);
     setAssesmentDialogOpen(true);
@@ -134,8 +135,18 @@ const Chapters: React.FC<any> = ({ modules }) => {
   };
 
   //Edit assessment
+  const [isViewAssessmentDialogOpen, setViewAssessmentDialogOpen] =
+    useState(false);
   const [isEditAssessmentDialogOpen, setEditAssessmentDialogOpen] =
     useState(false);
+  const handleViewAssessmentDialogOpen = (assessment: any) => {
+    setSelectedAssessment(assessment);
+    setViewAssessmentDialogOpen(true);
+  };
+  const handleViewAssessmentDialogClose = () => {
+    setViewAssessmentDialogOpen(false);
+  };
+
   const handleEditAssessmentDialogOpen = (assessment: any) => {
     setSelectedAssessment(assessment);
     setEditAssessmentDialogOpen(true);
@@ -213,15 +224,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
                       {el.title_en}
                     </Typography>
-                    <IconButton 
-                    style={{
-                      border: '1px solid rgba(208, 208, 208, 1)',
-                      borderRadius: '5px',
-                      margin: '4px',
-                    }}
-                    color="primary"
-                    size="small">
-                    <RemoveRedEyeOutlinedIcon />
+                    <IconButton
+                      style={{
+                        border: '1px solid rgba(208, 208, 208, 1)',
+                        borderRadius: '5px',
+                        margin: '4px',
+                      }}
+                      color="primary"
+                      size="small"
+                    >
+                      <RemoveRedEyeOutlinedIcon />
                     </IconButton>
                     <IconButton
                       style={{
@@ -277,18 +289,19 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     />
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
                       {assignment.title_en}
-                    </Typography >
-                    <IconButton 
-                    style={{
-                      border: '1px solid rgba(208, 208, 208, 1)',
-                      borderRadius: '5px',
-                      margin: '4px',
-                    }}
-                    color="primary"
-                    size="small">
-                    <RemoveRedEyeOutlinedIcon />
+                    </Typography>
+                    <IconButton
+                      style={{
+                        border: '1px solid rgba(208, 208, 208, 1)',
+                        borderRadius: '5px',
+                        margin: '4px',
+                      }}
+                      color="primary"
+                      size="small"
+                    >
+                      <RemoveRedEyeOutlinedIcon />
                     </IconButton>
-                    
+
                     <IconButton
                       style={{
                         border: '1px solid rgba(208, 208, 208, 1)',
@@ -347,15 +360,13 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         sx={{ marginLeft: 2 }}
                       />
                       <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
-                      <Typography >
-                        Assessment {assessment.id} :{' '}
-                        {assessment.assessment_title}
-                      </Typography>
-                      <Typography >
-                        {assessment.assessment_title}
-                      </Typography>
+                        <Typography>
+                          Assessment {assessment.id} :{' '}
+                          {assessment.assessment_title}
+                        </Typography>
+                        <Typography>{assessment.assessment_title}</Typography>
                       </Box>
-                     
+
                       <Button
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
@@ -374,16 +385,21 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           <AddOutlinedIcon />
                         )}
                       </Button>
-                      <IconButton 
-                    style={{
-                      border: '1px solid rgba(208, 208, 208, 1)',
-                      borderRadius: '5px',
-                      margin: '4px',
-                    }}
-                    color="primary"
-                    size="small">
-                    <RemoveRedEyeOutlinedIcon />
-                    </IconButton>
+                      <IconButton
+                        style={{
+                          border: '1px solid rgba(208, 208, 208, 1)',
+                          borderRadius: '5px',
+                          margin: '4px',
+                        }}
+                        color="primary"
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleViewAssessmentDialogOpen(assessment);
+                        }}
+                      >
+                        <RemoveRedEyeOutlinedIcon />
+                      </IconButton>
                       <IconButton
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
@@ -400,7 +416,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       >
                         <BorderColorOutlinedIcon />
                       </IconButton>
-                      
+
                       <IconButton
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
@@ -421,24 +437,32 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     </div>
                     {selectedId === assessment.id && (
                       <div
-                      key={assessment.id}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        paddingTop: '8px',
-                        paddingBottom: '8px',
-                        border: '1px dashed #000',
-                      }}
-                    >
-                      <AssesmentCreateButtons
-                        assessmentId={assessment.id}
-                        module={chapter}
-                      />
-                      <Box alignItems='start' px={1} sx={{marginBottom:'20px'}}>
-                        <ClearIcon color='error' style={{cursor:'pointer'}} onClick={toggleAssessmentSection} />
-                      </Box>
-                    </div>
+                        key={assessment.id}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          paddingTop: '8px',
+                          paddingBottom: '8px',
+                          border: '1px dashed #000',
+                        }}
+                      >
+                        <AssesmentCreateButtons
+                          assessmentId={assessment.id}
+                          module={chapter}
+                        />
+                        <Box
+                          alignItems="start"
+                          px={1}
+                          sx={{ marginBottom: '20px' }}
+                        >
+                          <ClearIcon
+                            color="error"
+                            style={{ cursor: 'pointer' }}
+                            onClick={toggleAssessmentSection}
+                          />
+                        </Box>
+                      </div>
                     )}
                   </>
                 ))}
@@ -456,7 +480,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     />
                     <CustomButton
                       onClick={() => {
-                        handleAssignmentDialogOpen(chapter.id,chapter.module_name_bn);
+                        handleAssignmentDialogOpen(
+                          chapter.id,
+                          chapter.module_name_bn,
+                        );
                       }}
                       title={t('assigmnment')}
                       disabled={false}
@@ -469,7 +496,12 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => handleAssesmentDialogOpen(chapter.id,chapter.module_name_bn)}
+                      onClick={() =>
+                        handleAssesmentDialogOpen(
+                          chapter.id,
+                          chapter.module_name_bn,
+                        )
+                      }
                       title={t('assesment')}
                       icon={<QuizIcon />}
                     />
@@ -520,7 +552,6 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditAssignmentDialogOpen}
           onClose={handleEditAssignmentDialogClose}
           initialData={selectedAssignment}
-          
         />
       )}
 
@@ -529,6 +560,13 @@ const Chapters: React.FC<any> = ({ modules }) => {
         <EditAssessmentDialog
           open={isEditAssessmentDialogOpen}
           onClose={handleEditAssessmentDialogClose}
+          initialData={selectedAssessment}
+        />
+      )}
+      {selectedAssessment && (
+        <ViewAssesmentDialog
+          open={isViewAssessmentDialogOpen}
+          onClose={handleViewAssessmentDialogClose}
           initialData={selectedAssessment}
         />
       )}
