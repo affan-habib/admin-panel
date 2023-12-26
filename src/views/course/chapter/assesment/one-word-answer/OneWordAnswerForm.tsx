@@ -2,7 +2,15 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import Button from '@mui/material/Button';
 import RichTextInput from 'components/form/RichTextInput';
-import { InputLabel, Box, Stack, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import {
+  InputLabel,
+  Box,
+  Stack,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
 import { apiBaseUrl } from 'config';
 import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
@@ -77,31 +85,42 @@ const OneWordAnswerForm: React.FC<any> = ({
               </Field>
             </FormControl>
           </Box>
-          <div>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              mb={2}
-            >
-              <InputLabel sx={{ mb: 1 }}>নতুন প্রশ্ন</InputLabel>
-              <MarkInput name="mark" label="mark" />
-            </Stack>
-            <RichTextInput name="question" height="120px" />
-            <InputLabel sx={{ mb: 1, mt: 2 }}>বিবরণ লিখুন (অপশনাল)</InputLabel>
-            <RichTextInput name="supporting_notes_en" height="120px" />
-          </div>
           <Box
-            display="flex"
-            justifyContent="flex-end"
-            mt={2} // Adjust the margin top as needed
+            sx={{
+              border: '1px dashed #D0D0D0',
+              p: 2,
+              borderRadius: 2,
+              bgcolor: '#FAFAFA',
+            }}
           >
-            <Button type="submit" variant="contained" color="primary">
-              সাবমিট
-            </Button>
-            <Button variant="outlined" sx={{ ml: 2 }}>
-              সেভ এবং অ্যাড
-            </Button>
+            <div>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={2}
+              >
+                <InputLabel sx={{ mb: 1 }}>নতুন প্রশ্ন</InputLabel>
+                <MarkInput name="mark" label="mark" />
+              </Stack>
+              <RichTextInput name="question" height="120px" />
+              <InputLabel sx={{ mb: 1, mt: 2 }}>
+                বিবরণ লিখুন (অপশনাল)
+              </InputLabel>
+              <RichTextInput name="supporting_notes_en" height="120px" />
+            </div>
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              mt={2} // Adjust the margin top as needed
+            >
+              <Button type="submit" variant="contained" color="primary">
+                সাবমিট
+              </Button>
+              <Button variant="outlined" sx={{ ml: 2 }}>
+                সেভ এবং অ্যাড
+              </Button>
+            </Box>
           </Box>
         </Form>
       )}

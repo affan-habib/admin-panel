@@ -85,39 +85,50 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
               </Field>
             </FormControl>
           </Box>
-          <div>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              mb={2}
-            >
-              <InputLabel sx={{ mb: 1 }}>সঠিক উত্তরটি নির্বাচন করুন</InputLabel>
-              <MarkInput name="mark" label="mark" />
-            </Stack>
-            <RichTextInput name="question" height="120px" />
-            <InputLabel>সঠিক উত্তরটি নির্বাচন করুন</InputLabel>
-            <InputRadio label="সঠিক" name="isTrue" value={true} />
-            <InputRadio label="ভুল" name="isTrue" value={false} />
-
-            {/* Use the ConditionalRichTextInput component */}
-            {values.isTrue === false && (
-              <>
-                <InputLabel sx={{ mb: 1, mt: 2 }}>
-                  সঠিক উত্তরটি লিখুন
+          <Box
+            sx={{
+              border: '1px dashed #D0D0D0',
+              p: 2,
+              borderRadius: 2,
+              bgcolor: '#FAFAFA',
+            }}
+          >
+            <div>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                mb={2}
+              >
+                <InputLabel sx={{ mb: 1 }}>
+                  সঠিক উত্তরটি নির্বাচন করুন
                 </InputLabel>
-                <RichTextInput name="correctAnswer" height="120px" />
-              </>
-            )}
-          </div>
+                <MarkInput name="mark" label="mark" />
+              </Stack>
+              <RichTextInput name="question" height="120px" />
+              <InputLabel>সঠিক উত্তরটি নির্বাচন করুন</InputLabel>
+              <InputRadio label="সঠিক" name="isTrue" value={true} />
+              <InputRadio label="ভুল" name="isTrue" value={false} />
 
-          <Box display="flex" justifyContent="flex-end" mt={2}>
-            <Button type="submit" variant="contained" color="primary">
-              সাবমিট
-            </Button>
-            <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
-              সেভ এবং অ্যাড
-            </Button>
+              {/* Use the ConditionalRichTextInput component */}
+              {values.isTrue === false && (
+                <>
+                  <InputLabel sx={{ mb: 1, mt: 2 }}>
+                    সঠিক উত্তরটি লিখুন
+                  </InputLabel>
+                  <RichTextInput name="correctAnswer" height="120px" />
+                </>
+              )}
+            </div>
+
+            <Box display="flex" justifyContent="flex-end" mt={2}>
+              <Button type="submit" variant="contained" color="primary">
+                সাবমিট
+              </Button>
+              <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
+                সেভ এবং অ্যাড
+              </Button>
+            </Box>
           </Box>
         </Form>
       )}
