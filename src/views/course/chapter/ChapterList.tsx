@@ -36,7 +36,7 @@ import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import axios from 'axios';
 import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
-
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 const Chapters: React.FC<any> = ({ modules }) => {
   // console.log(modules);
   const queryClient = useQueryClient();
@@ -213,6 +213,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
                       {el.title_en}
                     </Typography>
+                    <IconButton 
+                    style={{
+                      border: '1px solid rgba(208, 208, 208, 1)',
+                      borderRadius: '5px',
+                      margin: '4px',
+                    }}
+                    color="primary"
+                    size="small">
+                    <RemoveRedEyeOutlinedIcon />
+                    </IconButton>
                     <IconButton
                       style={{
                         border: '1px solid rgba(208, 208, 208, 1)',
@@ -267,7 +277,18 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     />
                     <Typography sx={{ flexGrow: 1, marginLeft: 2 }}>
                       {assignment.title_en}
-                    </Typography>
+                    </Typography >
+                    <IconButton 
+                    style={{
+                      border: '1px solid rgba(208, 208, 208, 1)',
+                      borderRadius: '5px',
+                      margin: '4px',
+                    }}
+                    color="primary"
+                    size="small">
+                    <RemoveRedEyeOutlinedIcon />
+                    </IconButton>
+                    
                     <IconButton
                       style={{
                         border: '1px solid rgba(208, 208, 208, 1)',
@@ -328,10 +349,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
                       <Typography >
                         Assessment {assessment.id} :{' '}
-                        {assessment.assessment_title}
-                      </Typography>
-                      <Typography >
-                        {assessment.assessment_title}
+                        {assessment.assessment_title_en}
                       </Typography>
                       </Box>
                      
@@ -353,6 +371,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           <AddOutlinedIcon />
                         )}
                       </Button>
+                      <IconButton 
+                    style={{
+                      border: '1px solid rgba(208, 208, 208, 1)',
+                      borderRadius: '5px',
+                      margin: '4px',
+                    }}
+                    color="primary"
+                    size="small">
+                    <RemoveRedEyeOutlinedIcon />
+                    </IconButton>
                       <IconButton
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
@@ -369,6 +397,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       >
                         <BorderColorOutlinedIcon />
                       </IconButton>
+                      
                       <IconButton
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',

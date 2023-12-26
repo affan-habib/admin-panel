@@ -24,7 +24,6 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from 'react-i18next';
 import MarkInput from 'components/form/MarkInput';
-import VideoUploadBox from 'components/form/VideoUploadBox';
 import ImageUploadBox from 'components/form/ImageUploadBox';
 import RichTextInput from 'components/form/RichTextInput';
 
