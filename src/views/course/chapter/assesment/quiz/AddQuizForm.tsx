@@ -3,10 +3,7 @@ import {
   Button,
   FormControlLabel,
   Grid,
-  Modal,
   Typography,
-  InputAdornment,
-  OutlinedInput,
   Checkbox,
   FormControl,
   RadioGroup,
@@ -16,10 +13,7 @@ import {
 } from '@mui/material';
 import { Formik, Form, FieldArray, Field } from 'formik';
 import React, { useState } from 'react';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import AddIcon from '@mui/icons-material/Add';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from 'react-i18next';
@@ -57,7 +51,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     console.log('Form Values:', values);
     console.log('Editor Input:', editorHtml);
     console.log('Uploaded Image:', values.question_img);
-    // Perform other actions with the form values, editor input, and image here
   };
 
   const handleQuillChange = (html: string) => {
@@ -118,7 +111,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       } onSubmit={handleSubmit} >
       {({ values }) => (
         <Form>
-          <FormControl component="fieldset">
+          <FormControl component="fieldset" style={{marginLeft:'20px',marginTop:'10px' }}>
             <RadioGroup row
             //  value={value} onChange={handleChange}
             >
@@ -139,7 +132,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             </RadioGroup>
           </FormControl>
 
-          <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
+          <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2} mx={2}>
             <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                 <Typography>{t('quizType')}:</Typography>
@@ -180,7 +173,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 <Box>
                   <ImageUploadBox
                     name="question_img"
-                    label="প্রশ্ন সম্পর্কিত ছবিটি আপলোড করুন"
+                    label={t('questionRelatedImage')}
                   />
                 </Box>
             }
