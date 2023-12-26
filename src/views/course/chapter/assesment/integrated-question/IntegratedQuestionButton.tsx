@@ -23,18 +23,14 @@ const IntegratedQuestionButton: React.FC<any> = ({
     <Box
       sx={{
         display: 'flex',
-        height: 800,
+        // height: 800,
         width: '100%',
         justifyContent: 'space-between',
       }}
     >
       <Box
         sx={{
-          border: '1px dashed #D0D0D0',
           width: '100%', // Adjusted width
-          mr: 2,
-          p: 2,
-          borderRadius: 2,
         }}
       >
         {selectedButton === 2 && (
@@ -75,7 +71,8 @@ const IntegratedQuestionButton: React.FC<any> = ({
         )}
       </Box>
       <Stack
-        pt={2}
+        py={2}
+        mt={7}
         direction="column"
         alignItems="center"
         width={150}
