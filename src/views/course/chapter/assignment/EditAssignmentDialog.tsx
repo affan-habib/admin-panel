@@ -21,17 +21,20 @@ import { useQueryClient } from 'react-query';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useTranslation } from 'react-i18next';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import RichTextInput from 'components/form/RichTextInput';
+
 interface CreateVideoDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
-  
+  name: any;
 }
 
 const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
   open,
   initialData,
   onClose,
+  name
 }) => {
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
@@ -81,7 +84,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssignment')} {initialData.title_en}
+          {t('addAssignment')} ({name})
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -102,7 +105,34 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                   placeholder={t('assignmentname')}
                 />
               </Grid>
-
+              <RichTextInput label={t('assignmentInstruct')} name="instructions_en" />
+              <Grid container alignItems="center" justifyContent="center">
+                <Grid item xs={12}>
+                  <div
+                    style={{
+                      borderBottom: '1px dashed rgba(208, 208, 208, 1)',
+                      width: '100%',
+                      textAlign: 'center',
+                      margin: '10px 0 20px',
+                      position: 'relative',
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      style={{
+                        backgroundColor: '#fff',
+                        padding: '0 10px',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                      }}
+                    >
+                      {t('or')}
+                    </Typography>
+                  </div>
+                </Grid>
+              </Grid>
               <Grid sx={{ marginTop: '15px' }}>
                 <InputField
                   name="instructions_en"
@@ -110,11 +140,12 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                   placeholder={t('instruction')}
                 />
               </Grid>
-              <Grid sx={{ marginTop: '15px' }}>
+              
+              <Grid sx={{}}>
                 <InputFile
                   name="supporting_doc"
-                  label="Add Document"
-                  
+                  label={t('assignmentUploadDoc')}
+                  acceptedFileTypes=".doc, .docx, .ppt"
                   limit={t('supDocLimit')}
                 />
               </Grid>
@@ -129,6 +160,14 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                     name="mark"
                     label={t('assignmentMark')}
                     placeholder={t('assignMarkPlace')}
+                    type="number"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <InputField
+                    name="mark"
+                    label={t('assignmentPassMark')}
+                    placeholder={t('assignmentpassMarkPlace')}
                     type="number"
                   />
                 </Grid>

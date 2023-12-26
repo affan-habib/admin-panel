@@ -64,13 +64,6 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
             return { ...prevValues, items: newItems };
         });
     };
-
-
-
-
-
-
-
     const handleSubmit = async (values: any) => {
         try {
             const response = await axios.post(`${apiBaseUrl}/quizzes`, {

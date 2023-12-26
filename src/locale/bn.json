@@ -118,7 +118,7 @@
   "addTopic": "টপিক যোগ করুন",
   "assignmentInstruct": "অ্যাসাইনমেন্টের নির্দেশাবলী",
   "assignmentMark": "অ্যাসাইনমেন্টের মার্ক দিন",
-  "assignMarkPlace": "অ্যাসাইনমেন্টের মার্ক লিখুন...",
+  "assignMarkPlace": "অ্যাসাইনমেন্টের মার্ক লিখুন",
   "codePlace": "এখানে কোড লিখুন...",
   "assignDuration": "সময় ইনপুট দিন",
   "assignDurationPlace": "২০ মিনিট",
@@ -135,5 +135,14 @@
   "addFillInTheGap": "শূন্যস্থান পূরণ যোগ করুন",
   "addTrueFalse": "সত্য/মিথ্যা যোগ করুন",
   "addSingleWordAnswer": "এক কোথায় উত্তর যোগ করুন",
-  "addDescriptiveQuestions": "বর্ণনামূলক প্রশ্নপত্র যোগ করুন"
+  "addDescriptiveQuestions": "বর্ণনামূলক প্রশ্নপত্র যোগ করুন",
+  "or":"অথবা",
+  "assignmentUploadDoc":"অ্যাসাইনমেন্টের নির্দেশাবলী আপলোড করুন",
+  "assignmentPassMark":"পাস মার্ক ইনপুট দিন",
+  "assignmentpassMarkPlace":"অ্যাসাইনমেন্টের পাস মার্ক ",
+  "addVedio":"ভিডিও যোগ করুন",
+  "videoName":"ভিডিওর নাম",
+  "videoPlace":"ভিডিওর নাম লিখুন",
+  "uploadVideo":"ভিডিও আপলোড করুন",
+  "videotranscript":"ভিডিওর প্রতিলিপি"
 }
