@@ -22,11 +22,13 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useTranslation } from 'react-i18next';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useParams } from 'react-router-dom';
+import RichTextInput from 'components/form/RichTextInput';
+
 interface CreateAssignmentDialogProps {
   open: boolean;
   moduleId: any;
   onClose: () => void;
-  name:any;
+  name: any;
 }
 
 const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
@@ -34,7 +36,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
   onClose,
   moduleId,
   name
-  
+
 }) => {
   const { id } = useParams();
   const queryClient = useQueryClient();
@@ -83,7 +85,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssignment')} {name}
+          {t('addAssignment')} ({name})
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -113,17 +115,39 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                   placeholder={t('assignmentname')}
                 />
               </Grid>
-              <Grid sx={{ marginTop: '15px' }}>
-                <InputField
-                  name="instructions_en"
-                  label={t('assignmentInstruct')}
-                  placeholder={t('instruction')}
-                />
+              <RichTextInput label={t('assignmentInstruct')} name="instructions_en" />
+              <Grid container alignItems="center" justifyContent="center">
+                <Grid item xs={12}>
+                  <div
+                    style={{
+                      borderBottom: '1px dashed rgba(208, 208, 208, 1)',
+                      width: '100%',
+                      textAlign: 'center',
+                      margin: '10px 0 20px',
+                      position: 'relative',
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      style={{
+                        backgroundColor: '#fff',
+                        padding: '0 10px',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                      }}
+                    >
+                      {t('or')}
+                    </Typography>
+                  </div>
+                </Grid>
               </Grid>
-              <Grid sx={{ marginTop: '15px' }}>
+
+              <Grid sx={{}}>
                 <InputFile
                   name="supporting_doc"
-                  label="Add Document"
+                  label={t('assignmentUploadDoc')}
                   acceptedFileTypes=".doc, .docx, .ppt"
                   limit={t('supDocLimit')}
                 />
@@ -132,13 +156,21 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
               <Grid
                 container
                 spacing={2}
-                sx={{ display: 'flex', marginTop: '3px' }}
+                sx={{ display: 'flex', marginTop: '1px' }}
               >
                 <Grid item xs={6}>
                   <InputField
                     name="mark"
                     label={t('assignmentMark')}
                     placeholder={t('assignMarkPlace')}
+                    type="number"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <InputField
+                    name="mark"
+                    label={t('assignmentPassMark')}
+                    placeholder={t('assignmentpassMarkPlace')}
                     type="number"
                   />
                 </Grid>
