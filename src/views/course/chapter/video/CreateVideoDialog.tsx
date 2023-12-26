@@ -135,9 +135,11 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
                   </div>
                 </Grid>
               </Grid>
-            <RichTextInput label={t('videoTransacript')} name="transcript" />
-            <Button type="submit" variant="contained" sx={{ float: 'right' }}>
-              Submit
+              <InputField name='url_link' label={t('videoLink')} placeholder={t('writeVideolink')}/> 
+            <RichTextInput label={t('videoTransacript')} name="transcript_en" />
+            
+            <Button type="submit" variant="contained" sx={{ float: 'right'}}>
+            {t('submit')}
             </Button>
           </Form>
         </Formik>
