@@ -94,7 +94,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
         fullWidth
       >
         <DialogTitle>
-          <Stack direction="row" justifyContent="space-between">
+          <Stack direction="row" justifyContent="space-between" style={{color:'#006A4E'}}>
             {selectedId === 1 && `${t('addBlendedQuestion')} (${moduleName})`}
             {selectedId === 2 && `${t('addMcqWithPicture')} (${moduleName})`}
             {selectedId === 3 && `${t('addMatchingQuestion')} (${moduleName})`}
@@ -103,7 +103,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
             {selectedId === 6 && `${t('addSingleWordAnswer')} (${moduleName})`}
             {selectedId === 7 &&
               `${t('addDescriptiveQuestions')} (${moduleName})`}
-            <IconButton onClick={handleCloseDialog} color="warning">
+            <IconButton onClick={handleCloseDialog} color="error">
               <HighlightOff />
             </IconButton>
           </Stack>
