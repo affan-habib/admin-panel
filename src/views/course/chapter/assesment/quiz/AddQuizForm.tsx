@@ -290,7 +290,7 @@ const AddQuizButton: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                         marginLeft: '15px',
                         marginRight:'15px'
                       }}>
-                  <RichTextInput name='question' />
+                  <RichTextInput name="description" height="100px" />
                       </Box>
                   </>
 
