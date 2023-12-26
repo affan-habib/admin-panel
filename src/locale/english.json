@@ -83,7 +83,8 @@
     "answer":"Answer",
     "wronganswer":"Add wrong answer",
     "wronganswertwo":"Wrong answer",
-    "quizAlternative":"Quiz Option"
+    "quizAlternative":"Quiz Option",
+    "questionRelatedImage":"Upload Question Related Image"
     
     
 }
