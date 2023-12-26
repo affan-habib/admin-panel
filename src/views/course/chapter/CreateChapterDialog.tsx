@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
+import { useTranslation } from 'react-i18next';
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -28,6 +29,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
   const { id } = useParams();
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   const handleSubmit = async (values: any) => {
     try {
@@ -56,7 +58,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          অধ্যায় যোগ করুন
+          {t('addChapter')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <Close />

@@ -266,7 +266,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               <Button
                 variant="contained"
                 onClick={handleToggleEditor}
-              // sx={{ position: 'absolute' }}
+                sx={{mt: 6}}
               >
                 {t('addInfo')}
               </Button>
@@ -276,7 +276,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                   height: showEditor ? 'auto' : '50px',
                   border: '1px solid #ccc',
                   borderRadius: '5px',
-                  marginTop: '20px',
+                  marginTop: '-20px',
                   transition: 'height 0.3s ease-in-out',
                 }}
               >
