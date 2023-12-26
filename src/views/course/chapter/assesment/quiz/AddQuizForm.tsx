@@ -14,7 +14,7 @@ import {
   IconButton,
   Stack,
 } from '@mui/material';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -81,16 +81,20 @@ const AddQuizForm: React.FC<any> = ({ assessmentId,handleCloseDialog }) => {
           initialValues={{ option: 'option1' }} onSubmit={handleSubmit}>
             <Form>
               <Box my={2} display="flex" justifyContent="" gap={8} px={2}>
-                <FormControlLabel
-                  value="option1"
-                  control={<Checkbox />}
-                  label={t('manualInput')}
-                />
-                <FormControlLabel
-                  value="option2"
-                  control={<Checkbox />}
-                  label={t('bulkUpload')}
-                />
+                 <FormControl component="fieldset">
+                    <Field as={RadioGroup} row name="option">
+                      <FormControlLabel
+                        value="option1"
+                        control={<Radio />}
+                        label={t('manualInput')}
+                      />
+                      <FormControlLabel
+                        value="option2"
+                        control={<Radio />}
+                        label={t('bulkUpload')}
+                      />
+                    </Field>
+                  </FormControl>
               </Box>
 
               <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>

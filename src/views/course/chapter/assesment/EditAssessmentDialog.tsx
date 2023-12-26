@@ -91,7 +91,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
           <Form>
             <Grid>
               <InputField
-                name="assessment_title"
+                name="assessment_title_en"
                 label={t('assesmentName')}
                 placeholder={t('assesmentNo')}
               />
