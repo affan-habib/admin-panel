@@ -22,15 +22,15 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useTranslation } from 'react-i18next';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import RichTextInput from 'components/form/RichTextInput';
-
-interface CreateVideoDialogProps {
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+interface EditAssignmentProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
   name: any;
 }
 
-const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
+const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
   open,
   initialData,
   onClose,
@@ -38,7 +38,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
 }) => {
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
-
+  console.log(initialData);
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
     if (typeof values.supporting_doc === 'string') {
@@ -72,23 +72,30 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
       console.error('Error submitting form:', error);
     }
   };
+
   const { t } = useTranslation();
-  console.log(initialData);
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle
-        sx={{
+
+      >
+        <Grid sx={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-        }}
-      >
-        <Typography color="primary" variant="h6">
-          {t('addAssignment')} ({name})
+        }}>
+          <Typography color="primary" variant="h6">
+            {t('editAssignment')} ({name})
+          </Typography>
+          <IconButton aria-label="close" onClick={onClose} color="error">
+            <HighlightOffIcon />
+          </IconButton>
+        </Grid>
+        <Typography sx={{ display: 'flex', alignItems: 'center' }}>
+          {t('time')} <FiberManualRecordIcon sx={{ fontSize: '10px', margin: '8px', color: 'rgba(100, 100, 100, 1)' }} /> {initialData.total_time} {t('minute')}
         </Typography>
-        <IconButton aria-label="close" onClick={onClose} color="error">
-          <HighlightOffIcon />
-        </IconButton>
+
       </DialogTitle>
       <DialogContent sx={{ width: 600 }}>
         <Formik
@@ -101,7 +108,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
               <Grid>
                 <InputField
                   name="title_en"
-                  label={t('addAssignment')}
+                  label={t('assignmentName')}
                   placeholder={t('assignmentname')}
                 />
               </Grid>
@@ -132,13 +139,14 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                     </Typography>
                   </div>
                 </Grid>
-              </Grid>              
+              </Grid>
               <Grid sx={{}}>
                 <InputFile
                   name="supporting_doc"
                   label={t('assignmentUploadDoc')}
                   acceptedFileTypes=".doc, .docx, .ppt"
                   limit={t('supDocLimit')}
+                  value={values.supporting_doc} // Pass the value directly
                 />
               </Grid>
               <Grid
@@ -156,7 +164,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
                 </Grid>
                 <Grid item xs={6}>
                   <InputField
-                    name="Pass_mark"
+                    name="pass_mark"
                     label={t('assignmentPassMark')}
                     placeholder={t('assignmentpassMarkPlace')}
                     type="number"
@@ -216,7 +224,7 @@ const EditAssignmentDialog: React.FC<CreateVideoDialogProps> = ({
               </Grid>
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
                 <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                  {t('submit')}
+                  {t('save')}
                 </Button>
               </Box>
             </Form>

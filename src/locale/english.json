@@ -86,9 +86,18 @@
     "quizAlternative":"Quiz Option",
     "questionRelatedImage":"Upload Question Related Image",
     "assessment":"Assessment",
-    "time":"Time",
     "minutes":"Minutes",
-    "marks":"Marks"
+    "marks":"Marks",
+    "editAssignment":"Edit Assignment",
+    "save":"Save",
+    "time":"Time",
+    "minute":"Minute",
+    "assignmentName":"Assignment name",
+    "totalMarks":"Total mark",
+    "passmark":"Pass Mark",
+    "totaltime":"Total time",
+    "assignmentView":"View the assignment",
+    "instruction":"Instruction"
     
     
 }

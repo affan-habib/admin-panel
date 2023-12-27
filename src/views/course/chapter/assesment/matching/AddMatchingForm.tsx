@@ -26,81 +26,122 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
-
 interface Item {
     id: number;
     placeholder: string;
     option_key: string;
     answer: string;
     showInput?: boolean;
-    showAlternativeView?: boolean;
 }
 
-const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog }) => {
+const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
-    const [editorHtml, setEditorHtml] = useState('');
-    const [deletedGrids, setDeletedGrids] = useState<number[]>([]);
-    const [values, setValues] = useState({
-        option: 'option1',
-        mark: '',
-        question: 'Testing',
-        option_value: '',
-        option_key: '',
-        wrong_answer: '',
-        items: [
-            { id: 1, placeholder: 'Email 1', option_key: '', option_value: '', wrong_answer: '', showAlternativeView: false },
-            { id: 2, placeholder: 'Email 2', option_key: '', option_value: '', wrong_answer: '', showAlternativeView: false },
-            { id: 3, placeholder: 'Email 3', option_key: '', option_value: '', wrong_answer: '', showAlternativeView: false },
-            { id: 4, placeholder: 'Email 4', option_key: '', option_value: '', wrong_answer: '', showAlternativeView: false },
-        ],
-    });
+    const [expandedGrids, setExpandedGrids] = useState<number[]>([]);
+    const [uploadOption, setUploadOption] = useState('manualUpload');
 
+    const handleUploadOption = (event: any) => {
+        setUploadOption(event.target.value);
+    }
     const toggleGrid = (index: number) => {
-        setValues((prevValues) => {
-            const newItems = [...prevValues.items];
-            const currentItem = newItems[index];
-            currentItem.showAlternativeView = !currentItem.showAlternativeView;
-            return { ...prevValues, items: newItems };
+        setExpandedGrids((prev) => {
+            const indexInExpandedGrids = prev.indexOf(index);
+
+            if (indexInExpandedGrids === -1) {
+                // If not already expanded, add it to the array
+                return [...prev, index];
+            } else {
+                // If already expanded, remove it from the array
+                const newExpandedGrids = [...prev];
+                newExpandedGrids.splice(indexInExpandedGrids, 1);
+                return newExpandedGrids;
+            }
         });
     };
-    const handleSubmit = async (values: any) => {
+    const handleDeleteClick = (index: number, handleChange: any) => {
+        // Clear the input value
+        handleChange({
+            target: {
+                name: `options.${index}.wrong_answer`,
+                value: '', // Clear the value
+            },
+        });
+
+        // Toggle the grid
+        toggleGrid(index);
+    };
+    const handleSubmit = async (values: any, formikHelpers: any, shouldCloseDialog: boolean) => {
+        // Filter out options with empty option_key and option_value
+        const filteredOptions = values.options.filter(
+            (option: any) => option.option_key.trim() !== '' || option.option_value.trim() !== ''
+        );
+        console.log(filteredOptions, 'kkkk');
         try {
             const response = await axios.post(`${apiBaseUrl}/quizzes`, {
                 course_assessment_id: assessmentId,
                 question: values.question,
-                supporting_notes_en: values.correctAnswer,
                 mark: values.mark,
                 question_type: 'text',
-                type_id: 5,
+                type_id: 3,
                 status: 1,
+                options: filteredOptions,
             });
-
+    
             showSnackbar(response.data.message, 'success');
             queryClient.invalidateQueries('courseDetails');
+    
+            // Reset the form
+            formikHelpers.resetForm();
+    
+            // Close the dialog only if shouldCloseDialog is true
+            if (shouldCloseDialog) {
+                handleCloseDialog();
+            }
         } catch (error: any) {
             showSnackbar(error.response.data.message, 'error');
             console.error('Error submitting form:', error);
         }
     };
-
-    const handleQuillChange = (html: string) => {
-        setEditorHtml(html);
-    };
-
+    
+    const [shouldCloseDialog, setShouldCloseDialog] = useState(true);
     return (
         <Formik
-            initialValues={values}
-            onSubmit={handleSubmit}
+            initialValues={{
+                mark: '',
+                question: '',
+                option_value: '',
+                option_key: '',
+                wrong_answer: '',
+                options: [
+                    { option_key: '', option_value: '', wrong_answer: '' },
+                    { option_key: '', option_value: '', wrong_answer: '' },
+                    { option_key: '', option_value: '', wrong_answer: '' },
+                    { option_key: '', option_value: '', wrong_answer: '' },
+                ],
+            }}
+            onSubmit={(values, formikHelpers) => handleSubmit(values, formikHelpers, shouldCloseDialog)}
         >
             {({ values, handleSubmit, handleChange }) => (
                 <Form>
-                    <RadioGroup row aria-label="submissionType" name="submission_type">
-                        <FormControlLabel value="written" control={<Radio />} label={t('manualInput')} />
-                        <FormControlLabel value="upload" control={<Radio />} label={t('bulkUpload')} />
+                    <RadioGroup row
+                    >
+                        <FormControlLabel
+                            value="manualUpload"
+                            control={<Radio />}
+                            onChange={handleUploadOption}
+                            checked={uploadOption === 'manualUpload'}
+                            label={t('manualInput')}
+                        />
+                        <FormControlLabel
+                            value="bulkUpload"
+                            control={<Radio />}
+                            onChange={handleUploadOption}
+                            checked={uploadOption === 'bulkUpload'}
+                            label={t('bulkUpload')}
+                        />
                     </RadioGroup>
-                    <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px' , backgroundColor:'rgba(250, 250, 250, 1)' }} p={2}>
+                    <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px', backgroundColor: 'rgba(250, 250, 250, 1)' }} p={2}>
                         <Grid
                             sx={{
                                 display: 'flex',
@@ -114,16 +155,16 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                             <MarkInput name="mark" />
                         </Grid>
                         <Box mb={2} mt={2}>
-                        <RichTextInput  name="question_type" />
+                            <RichTextInput name="question" height="100px" />
                         </Box>
                         <div style={{ marginTop: '80px', marginBottom: '20px' }}>
                             <FieldArray
-                                name="items"
-                                render={({ push, remove }) => (
+                                name="options"
+                                render={({ push }) => (
                                     <>
                                         <Grid container spacing={2} xs={12} justifyContent="start">
-                                            {values.items.map((item, index) => (
-                                                <Grid item xs={12} md={9} lg={9} key={item.id}>
+                                            {values.options.map((item, index) => (
+                                                <Grid item xs={12} md={9} lg={9} key={index}>
                                                     <Grid
                                                         container
                                                         sx={{
@@ -136,22 +177,22 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                         }}
                                                         justifyContent="space-between"
                                                     >
-                                                        <Grid item xs={12} md={3} lg={3}>
+                                                        <Grid item xs={12} md={4} lg={4}>
                                                             <FormControl fullWidth size="small">
                                                                 <Stack
                                                                     direction="row"
                                                                     alignItems="center"
                                                                     bgcolor="gray"
                                                                     justifyContent="space-between"
-                                                                    sx={{ width: '42px' }}
+                                                                    sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                                                 >
                                                                     <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                        {item.id}
+                                                                        {index + 1}
                                                                     </Typography>
                                                                     <input
-                                                                        name={`items.${index}.option_key`}
-                                                                        style={{ padding: '10px' }}
-                                                                        placeholder={`${t('alternativematch')} : ${item.id}`}
+                                                                        name={`options.${index}.option_key`}
+                                                                        style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
+                                                                        placeholder={`${t('alternativematch')} : ${index}`}
                                                                         value={item.option_key}
                                                                         onChange={handleChange}
                                                                     />
@@ -166,52 +207,53 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                     alignItems="center"
                                                                     bgcolor="gray"
                                                                     justifyContent="space-between"
-                                                                    sx={{ width: '42px' }}
+                                                                    sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                                                 >
                                                                     <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                        {item.id}
+                                                                        {index + 1}
                                                                     </Typography>
                                                                     <input
-                                                                        name={`items.${index}.option_value`}
-                                                                        style={{ padding: '10px' }}
-                                                                        placeholder={`${t('answer')} : ${item.id}`}
+                                                                        name={`options.${index}.option_value`}
+                                                                        style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
+                                                                        placeholder={`${t('answer')} : ${index}`}
                                                                         value={item.option_value}
                                                                         onChange={handleChange}
                                                                     />
                                                                 </Stack>
                                                             </FormControl>
                                                         </Grid>
-                                                        <Grid item xs={12} md={3} lg={3} display="flex">
-                                                            {item.showAlternativeView ? (
-                                                                <Grid container item xs={12} md={12} lg={12} display='flex'>
-                                                                    <FormControl>
-                                                                        <Stack
-                                                                            direction="row"
-                                                                            alignItems="center"
-                                                                            bgcolor="gray"
-                                                                            justifyContent="space-between"
-                                                                        >
-                                                                            <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                                {item.id}
-                                                                            </Typography>
-                                                                            <input
-                                                                                name={`items.${index}.wrong_answer`}
-                                                                                style={{ padding: '10px', width:'140px' }}
-                                                                                placeholder={`${t('wronganswertwo')} : ${item.id}`}
-                                                                                value={item.wrong_answer}
-                                                                                onChange={handleChange}
-                                                                            />
-                                                                        </Stack>
-                                                                    </FormControl>
-                                                                    <IconButton
-                                                                        aria-label="delete"
-                                                                        onClick={() => toggleGrid(index)}
-                                                                        sx={{ alignSelf: 'center' }}
+                                                        {expandedGrids.includes(index) ? (
+                                                            <Grid item xs={12} md={3} lg={3} display="flex">
+                                                                <FormControl>
+                                                                    <Stack
+                                                                        direction="row"
+                                                                        alignItems="center"
+                                                                        bgcolor="gray"
+                                                                        justifyContent="space-between"
+                                                                        sx={{ width: '174px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                                                     >
-                                                                        <DeleteOutlineIcon />
-                                                                    </IconButton>
-                                                                </Grid>
-                                                            ) : (
+                                                                        <Typography align="center" sx={{ color: 'white', px: 2 }}>
+                                                                            {index + 1}
+                                                                        </Typography>
+                                                                        <input
+                                                                            name={`options.${index}.wrong_answer`}
+                                                                            style={{ padding: '10px', width: '140px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
+                                                                            placeholder={`${t('wronganswertwo')} : ${index}`}
+                                                                            value={item.wrong_answer}
+                                                                            onChange={handleChange}
+
+                                                                        />
+                                                                    </Stack>
+                                                                </FormControl>
+                                                                <IconButton
+                                                                    aria-label="delete"
+                                                                    onClick={() => handleDeleteClick(index, handleChange)}
+                                                                >
+                                                                    <DeleteOutlineIcon />
+                                                                </IconButton>
+                                                            </Grid>
+                                                        ) : (
+                                                            <Grid item xs={12} md={3} lg={3} display="flex">
                                                                 <Button
                                                                     variant="outlined"
                                                                     sx={{
@@ -230,8 +272,8 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                         {t('wronganswer')}
                                                                     </span>
                                                                 </Button>
-                                                            )}
-                                                        </Grid>
+                                                            </Grid>
+                                                        )}
                                                     </Grid>
                                                 </Grid>
                                             ))}
@@ -249,7 +291,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                 <Button
                                                     variant="contained"
                                                     onClick={() => {
-                                                        push({ id: values.items.length + 1, option_key: '', answer: '' });
+                                                        push({ id: values.options.length + 1, option_key: '', answer: '' });
                                                     }}
                                                 >
                                                     <AddCircleOutlineOutlinedIcon />
@@ -257,10 +299,10 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                 </Button>
                                             </Grid>
                                             <Grid item sx={{ display: 'flex', gap: 2 }}>
-                                                <Button variant="contained" type="submit">
+                                                <Button variant="contained" type="submit" onClick={() => setShouldCloseDialog(true)}>
                                                     {t('submit')}
                                                 </Button>
-                                                <Button variant="outlined" type="submit">
+                                                <Button variant="outlined" type="submit" onClick={() => setShouldCloseDialog(false)}>
                                                     {t('saveAdd')}
                                                 </Button>
                                             </Grid>

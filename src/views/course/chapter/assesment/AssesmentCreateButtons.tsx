@@ -53,9 +53,8 @@ const options = [
     name_bn: 'বর্ণনামূলক প্রশ্নপত্র',
   },
 ];
-const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
-
-  
+const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
+  console.log(assessment, 'ssssssssssssssss');
   // const { data: assesmentTypes } = useAssesmentTypes();
   const { t } = useTranslation();
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -94,7 +93,11 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
         fullWidth
       >
         <DialogTitle>
-          <Stack direction="row" justifyContent="space-between" style={{color:'#006A4E'}}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            style={{ color: '#006A4E' }}
+          >
             {selectedId === 1 && `${t('addBlendedQuestion')} (${moduleName})`}
             {selectedId === 2 && `${t('addMcqWithPicture')} (${moduleName})`}
             {selectedId === 3 && `${t('addMatchingQuestion')} (${moduleName})`}
@@ -111,45 +114,58 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessmentId }) => {
         <DialogContent>
           {selectedId === 1 && (
             <IntegratedQuestionButton
-              assessmentId={assessmentId}
+              type_id={selectedId}
+              assessmentId={assessment.id}
               handleCloseDialog={handleCloseDialog}
+              maxMark={assessment.total_mark}
             />
           )}
           {selectedId === 2 && (
             <AddQuizForm
-              assessmentId={assessmentId}
+              type_id={selectedId}
+              assessmentId={assessment.id}
               handleCloseDialog={handleCloseDialog}
+              maxMark={assessment.total_mark}
             />
           )}
           {selectedId === 3 && (
             <AddMatchingForm
-              assessmentId={assessmentId}
+              type_id={selectedId}
+              assessmentId={assessment.id}
               handleCloseDialog={handleCloseDialog}
+              maxMark={assessment.total_mark}
             />
           )}
           {selectedId === 5 && (
             <TrueFalseForm
-              assessmentId={assessmentId}
+              type_id={selectedId}
+              maxMark={assessment.total_mark}
+              assessmentId={assessment.id}
               handleCloseDialog={handleCloseDialog}
             />
           )}
           {selectedId === 4 && (
             <FillInTheGapForm
-              assessmentId={assessmentId}
+              assessmentId={assessment.id}
               type_id={selectedId}
-              handleCloseDialog={handleCloseDialog}             
+              maxMark={assessment.total_mark}
+              handleCloseDialog={handleCloseDialog}
             />
           )}
           {selectedId === 6 && (
             <OneWordAnswerForm
-              assessmentId={assessmentId}
+              assessmentId={assessment.id}
+              type_id={selectedId}
               handleCloseDialog={handleCloseDialog}
+              maxMark={assessment.total_mark}
             />
           )}
           {selectedId === 7 && (
             <DescriptiveAnswerForm
-              assessmentId={assessmentId}
+              maxMark={assessment.total_mark}
+              assessmentId={assessment.id}
               handleCloseDialog={handleCloseDialog}
+              type_id={selectedId}
             />
           )}
         </DialogContent>

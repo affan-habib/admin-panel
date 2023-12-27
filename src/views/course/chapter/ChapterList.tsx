@@ -39,6 +39,7 @@ import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ViewAssesmentDialog from './assesment/ViewAssesmentDialog';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import VeiwAssignment from './assignment/VeiwAssignment';
 const Chapters: React.FC<any> = ({ modules }) => {
   // console.log(modules);
   const queryClient = useQueryClient();
@@ -120,6 +121,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const handleEditAssignmentDialogClose = () => {
     setEditAssignmentDialogOpen(false);
   };
+  const [isViewAssignmentDialogOpen, setViewAssignmentDialogOpen] =
+    useState(false);
+  const handleViewAssignmentDialogOpen = (assignment: any) => {
+    setselectedAssignment(assignment);
+    setViewAssignmentDialogOpen(true);
+  };
+  const handleViewAssignmentDialogClose = () => {
+    setViewAssignmentDialogOpen(false);
+  };
+
   // Assignment dialog End
 
   //Assessment Dialog
@@ -196,7 +207,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
               <OpenWith />
             </Box>
             <Typography mt={1}>
-              {chapter.module_code} : {chapter.module_name_bn}
+              {chapter.module_code} :{' '}
+              {localStorage.getItem('language') === 'bn'
+                ? chapter.module_name_bn
+                : chapter.module_name_en}
             </Typography>
             <ChapterActions
               module={chapter}
@@ -299,6 +313,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       }}
                       color="primary"
                       size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleViewAssignmentDialogOpen(assignment);
+                      }}
                     >
                       <RemoveRedEyeOutlinedIcon />
                     </IconButton>
@@ -465,7 +483,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         }}
                       >
                         <AssesmentCreateButtons
-                          assessmentId={assessment.id}
+                          assessment={assessment}
                           module={chapter}
                         />
                         <Box
@@ -572,7 +590,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
           name={assignmentName}
         />
       )}
-
+      {/* View Assignment Dialog */}
+      {selectedAssignment && (
+        <VeiwAssignment
+          open={isViewAssignmentDialogOpen}
+          onClose={handleViewAssignmentDialogClose}
+          initialData={selectedAssignment}
+          name={assignmentName}
+        />
+      )}
       {/* Edit Assessment Dialog */}
       {selectedAssessment && (
         <EditAssessmentDialog

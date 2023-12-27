@@ -89,6 +89,15 @@
     "questionNo": " টি প্রশ্ন",
     "time":"সময়",
     "minutes":"মিনিট",
-    "marks":"নম্বর "
+    "marks":"নম্বর ",
+    "editAssignment":"অ্যাসাইনমেন্ট এডিট করুন",
+    "save":"সেভ",
+    "minute":"মিনিট",
+    "assignmentName":"অ্যাসাইনমেন্টের নাম",
+    "totalMarks":"সর্বমোট মার্ক",
+    "passmark":"পাস মার্ক",
+    "totaltime":"সর্বমোট সময়",
+    "assignmentView":"অ্যাসাইনমেন্ট ভিউ করুন",
+    "instruction":"নির্দেশাবলী"
 }
 
