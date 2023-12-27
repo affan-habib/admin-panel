@@ -12,6 +12,7 @@ const OneWordAnswerList = ({ assesments, typeId }: any) => {
       maxHeight={150}
       sx={{ overflowY: 'scroll', overflowX: 'hidden' }}
       bgcolor="#F5F5F7"
+      mb={2}
     >
       {filteredData?.map((item: any) => (
         <Box p={2} key={item.id}>
