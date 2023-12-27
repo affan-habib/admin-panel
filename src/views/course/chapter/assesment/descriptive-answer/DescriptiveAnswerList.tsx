@@ -2,8 +2,7 @@ import React from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-const OneWordAnswerList = ({ assesments, type_id }: any) => {
-
+const DescriptiveAnswerList = ({ assesments, type_id }: any) => {
   const filteredData = assesments?.data?.filter(
     (item: any) => item.type_id == type_id,
   );
@@ -28,7 +27,7 @@ const OneWordAnswerList = ({ assesments, type_id }: any) => {
               alignItems="center"
             >
               <CheckCircleOutlineIcon sx={{ marginRight: 1 }} />
-              <strong style={{ marginRight: '20px' }}>এক কথায় উত্তর :</strong>
+              <strong style={{ marginRight: '20px' }}>বর্ণনামূলক প্রশ্নপত্র :</strong>
               <div dangerouslySetInnerHTML={{ __html: item.question }} />
             </Typography>
 
@@ -52,4 +51,4 @@ const OneWordAnswerList = ({ assesments, type_id }: any) => {
   );
 };
 
-export default OneWordAnswerList;
+export default DescriptiveAnswerList;

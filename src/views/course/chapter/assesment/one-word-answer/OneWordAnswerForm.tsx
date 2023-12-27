@@ -32,7 +32,7 @@ const OneWordAnswerForm: React.FC<any> = ({
       const response = await axios.post(`${apiBaseUrl}/quizzes`, {
         course_assessment_id: assessmentId,
         question: values.question,
-        supporting_notes_en: values.correctAnswer,
+        supporting_notes_en: values.supporting_notes_en,
         mark: values.mark,
         question_type: 'text',
         type_id: 6,

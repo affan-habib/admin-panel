@@ -16,6 +16,8 @@ import { HighlightOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import OneWordAnswerList from './one-word-answer/OneWordAnswerList';
 import useCourseQuizzes from 'hooks/useCourseQuizzes';
+import TrueFalseList from './true-false/TrueFalseList';
+import DescriptiveAnswerList from './descriptive-answer/DescriptiveAnswerList';
 // import useAssesmentTypes from 'hooks/useAssesmentTypes';
 
 const options = [
@@ -140,12 +142,15 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
             />
           )}
           {selectedId === 5 && (
-            <TrueFalseForm
-              type_id={selectedId}
-              maxMark={assessment.total_mark}
-              assessmentId={assessment.id}
-              handleCloseDialog={handleCloseDialog}
-            />
+            <>
+              <TrueFalseList assesments={assesments} type_id={selectedId} />
+              <TrueFalseForm
+                type_id={selectedId}
+                maxMark={assessment.total_mark}
+                assessmentId={assessment.id}
+                handleCloseDialog={handleCloseDialog}
+              />
+            </>
           )}
           {selectedId === 4 && (
             <FillInTheGapForm
@@ -167,12 +172,18 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
             </>
           )}
           {selectedId === 7 && (
-            <DescriptiveAnswerForm
-              maxMark={assessment.total_mark}
-              assessmentId={assessment.id}
-              handleCloseDialog={handleCloseDialog}
-              type_id={selectedId}
-            />
+            <>
+              <DescriptiveAnswerList
+                assesments={assesments}
+                type_id={selectedId}
+              />
+              <DescriptiveAnswerForm
+                maxMark={assessment.total_mark}
+                assessmentId={assessment.id}
+                handleCloseDialog={handleCloseDialog}
+                type_id={selectedId}
+              />
+            </>
           )}
         </DialogContent>
       </Dialog>
