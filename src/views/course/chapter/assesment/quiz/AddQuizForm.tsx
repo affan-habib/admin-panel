@@ -23,6 +23,7 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
+import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
@@ -37,6 +38,14 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
 
   const handleOptionChange = (event: any) => {
     setSelectedOption(event.target.value);
+  };
+
+  type ShowSectionType = {
+    options: {
+      id: number;
+      option_value: string;
+    }[];
+    // ... other properties if any
   };
 
   const handleSubmit = async (values: any) => {
@@ -64,6 +73,14 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       console.error('Error submitting form:', error);
     }
   };
+
+  // const [showSection,setShowSection] = useState([]);
+  const [showSection, setShowSection] = useState<ShowSectionType>({ options: [] });
+  const handleSaveAndAdd = (values: any) => {
+    setShowSection(values);
+
+    console.log(showSection, 'section');
+  }
 
   // const [inputFields, setInputFields] = useState([
   //   { id: 1, placeholder: 'Email 1' },
@@ -124,6 +141,57 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               />
             </RadioGroup>
           </FormControl>
+
+          {showSection.options.length > 0 && <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
+            {/* {
+          showSection.options.map(option =>
+          <>
+          <Box sx={{ display: 'flex' }}>
+                <Box px={1} my={1}>
+                <QuizOutlinedIcon />
+                </Box>
+              
+              <Box>
+              <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span> রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
+              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+              </Box>
+              </Box>
+          </>)
+        } */}
+            <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
+              <Box sx={{ display: 'flex' }}>
+                {/* <Box px={1} my={1}>
+                <QuizOutlinedIcon />
+                </Box>
+              
+              <Box>
+              <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span> রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
+              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+              </Box> */}
+                <Box sx={{ display: 'flex' }}>
+                  <Box px={1} my={1}>
+                    <QuizOutlinedIcon />
+                  </Box>
+
+                  <Box>
+                    <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span>yes</Typography>
+                    <Grid container>
+                    {
+                      showSection.options.map(option =>
+                          <Grid item xs={3}>
+                            <Box>
+                              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+                            </Box>
+                          </Grid>
+                      )
+                    }
+                    </Grid>
+
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>}
 
           <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2} mx={2}>
             <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
@@ -195,8 +263,8 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                         name={`options[${index}].is_correct`}
                                       /> */}
 
-                                      <Checkbox 
-                                       
+                                      <Checkbox
+
                                         name={`options[${index}].is_correct`}
                                         checked={values.options[index].is_correct}
                                         onChange={(e: any) => {
@@ -243,7 +311,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                       </Grid>
                       <Button
                         variant="contained"
-                        onClick={() => push({ option_value: '',is_correct: false })}
+                        onClick={() => push({ option_value: '', is_correct: false })}
                         sx={{ marginTop: '12px', display: 'flex', alignItems: 'center' }}
                         startIcon={<AddCircleOutlineOutlinedIcon />}
                       >
@@ -298,7 +366,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               <Button variant="contained" type="submit">
                 {t('submit')}
               </Button>
-              <Button variant="outlined" type="submit">
+              <Button variant="outlined" onClick={() => handleSaveAndAdd(values)}>
                 {t('saveAdd')}
               </Button>
             </Grid>
