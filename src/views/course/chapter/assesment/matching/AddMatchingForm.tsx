@@ -34,12 +34,16 @@ interface Item {
     showInput?: boolean;
 }
 
-const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog }) => {
+const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
     const [expandedGrids, setExpandedGrids] = useState<number[]>([]);
+    const [uploadOption, setUploadOption] = useState('manualUpload');
 
+    const handleUploadOption = (event: any) => {
+        setUploadOption(event.target.value);
+    }
     const toggleGrid = (index: number) => {
         setExpandedGrids((prev) => {
             const indexInExpandedGrids = prev.indexOf(index);
@@ -67,8 +71,12 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
         // Toggle the grid
         toggleGrid(index);
     };
-    const handleSubmit = async (values: any) => {
-
+    const handleSubmit = async (values: any, formikHelpers: any, shouldCloseDialog: boolean) => {
+        // Filter out options with empty option_key and option_value
+        const filteredOptions = values.options.filter(
+            (option: any) => option.option_key.trim() !== '' || option.option_value.trim() !== ''
+        );
+        console.log(filteredOptions, 'kkkk');
         try {
             const response = await axios.post(`${apiBaseUrl}/quizzes`, {
                 course_assessment_id: assessmentId,
@@ -77,16 +85,26 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                 question_type: 'text',
                 type_id: 3,
                 status: 1,
-                options: values.options
+                options: filteredOptions,
             });
+    
             showSnackbar(response.data.message, 'success');
             queryClient.invalidateQueries('courseDetails');
-            // onClose();
+    
+            // Reset the form
+            formikHelpers.resetForm();
+    
+            // Close the dialog only if shouldCloseDialog is true
+            if (shouldCloseDialog) {
+                handleCloseDialog();
+            }
         } catch (error: any) {
             showSnackbar(error.response.data.message, 'error');
             console.error('Error submitting form:', error);
         }
     };
+    
+    const [shouldCloseDialog, setShouldCloseDialog] = useState(true);
     return (
         <Formik
             initialValues={{
@@ -96,21 +114,34 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                 option_key: '',
                 wrong_answer: '',
                 options: [
-                    { id: 1, option_key: '', option_value: '', wrong_answer: '' },
-                    { id: 2, option_key: '', option_value: '', wrong_answer: '' },
-                    { id: 3, option_key: '', option_value: '', wrong_answer: '' },
-                    { id: 4, option_key: '', option_value: '', wrong_answer: '' },
+                    { option_key: '', option_value: '', wrong_answer: '' },
+                    { option_key: '', option_value: '', wrong_answer: '' },
+                    { option_key: '', option_value: '', wrong_answer: '' },
+                    { option_key: '', option_value: '', wrong_answer: '' },
                 ],
             }}
-            onSubmit={handleSubmit}
+            onSubmit={(values, formikHelpers) => handleSubmit(values, formikHelpers, shouldCloseDialog)}
         >
             {({ values, handleSubmit, handleChange }) => (
                 <Form>
-                    <RadioGroup row aria-label="submissionType" name="submission_type">
-                        <FormControlLabel value="written" control={<Radio />} label={t('manualInput')} />
-                        <FormControlLabel value="upload" control={<Radio />} label={t('bulkUpload')} />
+                    <RadioGroup row
+                    >
+                        <FormControlLabel
+                            value="manualUpload"
+                            control={<Radio />}
+                            onChange={handleUploadOption}
+                            checked={uploadOption === 'manualUpload'}
+                            label={t('manualInput')}
+                        />
+                        <FormControlLabel
+                            value="bulkUpload"
+                            control={<Radio />}
+                            onChange={handleUploadOption}
+                            checked={uploadOption === 'bulkUpload'}
+                            label={t('bulkUpload')}
+                        />
                     </RadioGroup>
-                    <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px', backgroundColor:'rgba(250, 250, 250, 1)' }} p={2}>
+                    <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px', backgroundColor: 'rgba(250, 250, 250, 1)' }} p={2}>
                         <Grid
                             sx={{
                                 display: 'flex',
@@ -133,7 +164,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                     <>
                                         <Grid container spacing={2} xs={12} justifyContent="start">
                                             {values.options.map((item, index) => (
-                                                <Grid item xs={12} md={9} lg={9} key={item.id}>
+                                                <Grid item xs={12} md={9} lg={9} key={index}>
                                                     <Grid
                                                         container
                                                         sx={{
@@ -153,15 +184,15 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                     alignItems="center"
                                                                     bgcolor="gray"
                                                                     justifyContent="space-between"
-                                                                    sx={{ width: '42px',borderTopLeftRadius:'4px', borderBottomLeftRadius:'4px' }}
+                                                                    sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                                                 >
                                                                     <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                        {item.id}
+                                                                        {index + 1}
                                                                     </Typography>
                                                                     <input
                                                                         name={`options.${index}.option_key`}
-                                                                        style={{ padding: '10px', borderTopRightRadius:'4px',borderBottomRightRadius:'4px', border:'1px solid rgba(208, 208, 208, 1)'}}
-                                                                        placeholder={`${t('alternativematch')} : ${item.id}`}
+                                                                        style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
+                                                                        placeholder={`${t('alternativematch')} : ${index}`}
                                                                         value={item.option_key}
                                                                         onChange={handleChange}
                                                                     />
@@ -176,15 +207,15 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                     alignItems="center"
                                                                     bgcolor="gray"
                                                                     justifyContent="space-between"
-                                                                    sx={{ width: '42px',borderTopLeftRadius:'4px', borderBottomLeftRadius:'4px' }}
+                                                                    sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                                                 >
                                                                     <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                        {item.id}
+                                                                        {index + 1}
                                                                     </Typography>
                                                                     <input
                                                                         name={`options.${index}.option_value`}
-                                                                        style={{ padding: '10px', borderTopRightRadius:'4px',borderBottomRightRadius:'4px', border:'1px solid rgba(208, 208, 208, 1)'}}
-                                                                        placeholder={`${t('answer')} : ${item.id}`}
+                                                                        style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
+                                                                        placeholder={`${t('answer')} : ${index}`}
                                                                         value={item.option_value}
                                                                         onChange={handleChange}
                                                                     />
@@ -199,18 +230,18 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                                         alignItems="center"
                                                                         bgcolor="gray"
                                                                         justifyContent="space-between"
-                                                                        sx={{ width: '174px',borderTopLeftRadius:'4px', borderBottomLeftRadius:'4px' }}
+                                                                        sx={{ width: '174px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                                                     >
                                                                         <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                            {item.id}
+                                                                            {index + 1}
                                                                         </Typography>
                                                                         <input
                                                                             name={`options.${index}.wrong_answer`}
-                                                                            style={{ padding: '10px',width:'140px' , borderTopRightRadius:'4px',borderBottomRightRadius:'4px', border:'1px solid rgba(208, 208, 208, 1)'}}
-                                                                            placeholder={`${t('wronganswertwo')} : ${item.id}`}
+                                                                            style={{ padding: '10px', width: '140px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
+                                                                            placeholder={`${t('wronganswertwo')} : ${index}`}
                                                                             value={item.wrong_answer}
                                                                             onChange={handleChange}
-                                                                            
+
                                                                         />
                                                                     </Stack>
                                                                 </FormControl>
@@ -268,10 +299,10 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId = '7', handleCloseDialog 
                                                 </Button>
                                             </Grid>
                                             <Grid item sx={{ display: 'flex', gap: 2 }}>
-                                                <Button variant="contained" type="submit">
+                                                <Button variant="contained" type="submit" onClick={() => setShouldCloseDialog(true)}>
                                                     {t('submit')}
                                                 </Button>
-                                                <Button variant="outlined" type="submit">
+                                                <Button variant="outlined" type="submit" onClick={() => setShouldCloseDialog(false)}>
                                                     {t('saveAdd')}
                                                 </Button>
                                             </Grid>

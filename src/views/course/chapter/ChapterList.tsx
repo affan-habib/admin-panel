@@ -38,6 +38,7 @@ import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ViewAssesmentDialog from './assesment/ViewAssesmentDialog';
+import VeiwAssignment from './assignment/VeiwAssignment';
 const Chapters: React.FC<any> = ({ modules }) => {
   // console.log(modules);
   const queryClient = useQueryClient();
@@ -119,6 +120,16 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const handleEditAssignmentDialogClose = () => {
     setEditAssignmentDialogOpen(false);
   };
+  const [isViewAssignmentDialogOpen, setViewAssignmentDialogOpen] =
+    useState(false);
+  const handleViewAssignmentDialogOpen = (assignment: any) => {
+    setselectedAssignment(assignment);
+    setViewAssignmentDialogOpen(true);
+  };
+  const handleViewAssignmentDialogClose = () => {
+    setViewAssignmentDialogOpen(false);
+  };
+
   // Assignment dialog End
 
   //Assessment Dialog
@@ -298,6 +309,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       }}
                       color="primary"
                       size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleViewAssignmentDialogOpen(assignment);
+                      }}
                     >
                       <RemoveRedEyeOutlinedIcon />
                     </IconButton>
@@ -553,7 +568,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
           name={assignmentName}
         />
       )}
-
+      {/* View Assignment Dialog */}
+      {selectedAssignment && (
+        <VeiwAssignment
+          open={isViewAssignmentDialogOpen}
+          onClose={handleViewAssignmentDialogClose}
+          initialData={selectedAssignment}
+          name={assignmentName}
+        />
+      )}
       {/* Edit Assessment Dialog */}
       {selectedAssessment && (
         <EditAssessmentDialog
