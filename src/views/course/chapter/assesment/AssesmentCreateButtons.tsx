@@ -14,6 +14,8 @@ import AddQuizForm from './quiz/AddQuizForm';
 import { IconButton, Stack } from '@mui/material';
 import { HighlightOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
+import OneWordAnswerList from './one-word-answer/OneWordAnswerList';
+import useCourseQuizzes from 'hooks/useCourseQuizzes';
 // import useAssesmentTypes from 'hooks/useAssesmentTypes';
 
 const options = [
@@ -54,14 +56,15 @@ const options = [
   },
 ];
 const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
-  console.log(assessment, 'ssssssssssssssss');
-  // const { data: assesmentTypes } = useAssesmentTypes();
   const { t } = useTranslation();
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const language = localStorage.getItem('language');
   const moduleName =
     language === 'en' ? module.module_name_en : module.module_name_bn;
+
+  const { data: assesments } = useCourseQuizzes(assessment.id);
+
   const handleOpenDialog = (id: number) => {
     setSelectedId(id);
     setDialogOpen(true);
@@ -153,12 +156,15 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
             />
           )}
           {selectedId === 6 && (
-            <OneWordAnswerForm
-              assessmentId={assessment.id}
-              type_id={selectedId}
-              handleCloseDialog={handleCloseDialog}
-              maxMark={assessment.total_mark}
-            />
+            <>
+              <OneWordAnswerList assesments={assesments} type_id={selectedId} />
+              <OneWordAnswerForm
+                assessmentId={assessment.id}
+                type_id={selectedId}
+                handleCloseDialog={handleCloseDialog}
+                maxMark={assessment.total_mark}
+              />
+            </>
           )}
           {selectedId === 7 && (
             <DescriptiveAnswerForm
