@@ -11,7 +11,7 @@ import {
   Stack,
 } from '@mui/material';
 import { Formik, Form, FieldArray, Field } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -45,10 +45,11 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       id: number;
       option_value: string;
     }[];
-    // ... other properties if any
   };
 
-  const handleSubmit = async (values: any) => {
+
+  const [data,setData] = useState();
+  const handleFormSubmit = async (values: any, shouldCloseModal: boolean) => {
     console.log('Form Values:', values);
     console.log('Uploaded Image:', values.question_img);
     try {
@@ -60,35 +61,47 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
         question_type: 'text',
         supporting_doc: values.quizDescription,
         question_img: values.question_img,
-        // is_correct: values.is_correct,
+        is_correct: values.is_correct,
         type_id: 2,
         status: 1,
       });
+      // if (shouldCloseModal === false) {
+      //   // try {
+      //   //   const getData = await axios.get(`${apiBaseUrl}/quizzes`);
+      //   //   setData(getData);
 
+      //   // } catch (error: any) {
+      //   //   showSnackbar(error.response.data.message, 'error');
+      //   //   console.error('Error getting data', error);
+      //   // }
+
+      //   useEffect(()=>{
+      //     fetch(`${apiBaseUrl}/quizzes`)
+      //       .then(response => response.json())
+      //       .then(data => setData(data))
+      //   },[])
+      //   console.log(data,'fetching the data');
+      // }
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
-      handleCloseDialog()
+      if (shouldCloseModal) {
+        handleCloseDialog();
+      }
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
     }
-  };
-
-  // const [showSection,setShowSection] = useState([]);
-  const [showSection, setShowSection] = useState<ShowSectionType>({ options: [] });
-  const handleSaveAndAdd = (values: any) => {
-    setShowSection(values);
-
-    console.log(showSection, 'section');
   }
 
-  // const [inputFields, setInputFields] = useState([
-  //   { id: 1, placeholder: 'Email 1' },
-  //   { id: 2, placeholder: 'Email 2' },
-  //   { id: 3, placeholder: 'Email 3' },
-  //   { id: 4, placeholder: 'Email 4' },
-  // ]);
+  const handleSubmit = async (values: any) => {
+    await handleFormSubmit(values, true);
+  };
 
+  const [showSection, setShowSection] = useState<ShowSectionType>({ options: [] });
+
+  const handleSaveAndAdd = async (values: any) => {
+    await handleFormSubmit(values, false);
+  };
   const [showEditor, setShowEditor] = useState(false);
 
   const handleToggleEditor = () => {
@@ -142,32 +155,10 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             </RadioGroup>
           </FormControl>
 
-          {showSection.options.length > 0 && <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
-            {/* {
-          showSection.options.map(option =>
-          <>
-          <Box sx={{ display: 'flex' }}>
-                <Box px={1} my={1}>
-                <QuizOutlinedIcon />
-                </Box>
-              
-              <Box>
-              <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span> রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
-              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
-              </Box>
-              </Box>
-          </>)
-        } */}
+          {showSection.options.length > 0 &&
+           <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
             <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
               <Box sx={{ display: 'flex' }}>
-                {/* <Box px={1} my={1}>
-                <QuizOutlinedIcon />
-                </Box>
-              
-              <Box>
-              <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span> রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
-              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
-              </Box> */}
                 <Box sx={{ display: 'flex' }}>
                   <Box px={1} my={1}>
                     <QuizOutlinedIcon />
@@ -176,15 +167,15 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                   <Box>
                     <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span>yes</Typography>
                     <Grid container>
-                    {
-                      showSection.options.map(option =>
+                      {
+                        showSection.options.map(option =>
                           <Grid item xs={3}>
                             <Box>
                               <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
                             </Box>
                           </Grid>
-                      )
-                    }
+                        )
+                      }
                     </Grid>
 
                   </Box>
