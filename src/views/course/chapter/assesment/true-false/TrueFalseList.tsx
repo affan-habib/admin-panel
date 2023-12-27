@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const TrueFalseList = ({ assesments, type_id }: any) => {
-  console.log(type_id);
+  // console.log(type_id);
   const filteredData = assesments?.data?.filter(
     (item: any) => item.type_id == type_id,
   );

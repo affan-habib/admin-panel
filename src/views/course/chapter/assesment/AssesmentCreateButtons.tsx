@@ -119,6 +119,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
         <DialogContent>
           {selectedId === 1 && (
             <IntegratedQuestionButton
+              assesments={assesments}
               type_id={selectedId}
               assessmentId={assessment.id}
               handleCloseDialog={handleCloseDialog}
