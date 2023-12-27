@@ -8,11 +8,10 @@ import {
   FormControl,
   RadioGroup,
   Radio,
-  IconButton,
   Stack,
 } from '@mui/material';
 import { Formik, Form, FieldArray, Field } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -24,83 +23,99 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
+import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+
+type ShowSectionType = {
+  options: {
+    id: number;
+    option_value: string;
+  }[];
+};
 
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const [editorHtml, setEditorHtml] = useState('');
   const [selectedOption, setSelectedOption] = useState('option1');
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
+  const [uploadOption, setUploadOption] = useState('manualUpload');
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const handleUploadOption = (event: any) => {
+    setUploadOption(event.target.value);
+  }
 
   const handleOptionChange = (event: any) => {
     setSelectedOption(event.target.value);
   };
 
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
+  const handleFormSubmit = async (values: any, shouldCloseModal: boolean) => {
+    console.log('Form Values:', values);
+    console.log('Uploaded Image:', values.question_img);
+    try {
+      const response = await axios.post(`${apiBaseUrl}/quizzes`, {
+        course_assessment_id: assessmentId,
+        question: values.question,
+        options: values.options,
+        mark: values.mark,
+        question_type: 'text',
+        supporting_doc: values.quizDescription,
+        question_img: values.question_img,
+        is_correct: values.is_correct,
+        type_id: 2,
+        status: 1,
+      });
+      showSnackbar(response.data.message, 'success');
+      queryClient.invalidateQueries('courseDetails');
+      if (shouldCloseModal) {
+        handleCloseDialog();
+      }
+    } catch (error: any) {
+      showSnackbar(error.response.data.message, 'error');
+      console.error('Error submitting form:', error);
+    }
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const [data, setData] = useState([]);
 
-  // const handleSubmit = (values: any) => {
-  //   console.log('Form Values:', values);
-  //   handleClose();
-  // };
+  // useEffect(() => {
+  //   const fetchQuizzes = async () => {
+  //     try {
+  //       const token = localStorage.getItem('token'); 
+  //       if (!token) {
+  //         console.error('Access token not found!');
+  //         return;
+  //       }
+  //       const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id${assessmentId}&type_id=2`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
 
+  //       if (response.status === 200) {
+  //         setData(response.data);
+  //       } else {
+  //         console.error('Failed to fetch data');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   fetchQuizzes();
+  // }, []); 
+
+
+  // console.log(data,'datafetching');
 
   const handleSubmit = async (values: any) => {
-    console.log('Form Values:', values);
-    console.log('Editor Input:', editorHtml);
-    console.log('Uploaded Image:', values.question_img);
-      try {
-          const response = await axios.post(`${apiBaseUrl}/quizzes`, {
-              course_assessment_id: assessmentId,
-              question: values.question,
-              options: values.options,
-              mark: values.mark,
-              question_type: 'text',
-              type_id: 2,
-              status: 1,
-          });
-
-          showSnackbar(response.data.message, 'success');
-          queryClient.invalidateQueries('courseDetails');
-      } catch (error: any) {
-          showSnackbar(error.response.data.message, 'error');
-          console.error('Error submitting form:', error);
-      }
+    await handleFormSubmit(values, true);
   };
 
-  const handleQuillChange = (html: string) => {
-    setEditorHtml(html);
+  const [showSection, setShowSection] = useState<ShowSectionType>({ options: [] });
+
+  const handleSaveAndAdd = async (values: any) => {
+    await handleFormSubmit(values, false);
   };
-
-
-  const handleImageUpload = (event: any) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-  };
-
-  const [inputFields, setInputFields] = useState([
-    { id: 1, placeholder: 'Email 1' },
-    { id: 2, placeholder: 'Email 2' },
-    { id: 3, placeholder: 'Email 3' },
-    { id: 4, placeholder: 'Email 4' },
-  ]);
-
-  const handleAddMore = () => {
-    const newId = inputFields[inputFields.length - 1].id + 1;
-    setInputFields([
-      ...inputFields,
-      { id: newId, placeholder: `Email ${newId}` },
-    ]);
-  };
-
   const [showEditor, setShowEditor] = useState(false);
 
   const handleToggleEditor = () => {
@@ -114,46 +129,80 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
         {
           options: [
             {
-              option_value
-                : ''
+              option_value: '',
+              is_correct: false
             },
             {
-              option_value
-                : ''
+              option_value: '',
+              is_correct: false
             },
             {
-              option_value
-                : ''
+              option_value: '',
+              is_correct: false
             },
             {
-              option_value
-                : ''
+              option_value: '',
+              is_correct: false
             },
           ]
         }
       } onSubmit={handleSubmit} >
-      {({ values }) => (
+      {({ values, setFieldValue }) => (
         <Form>
-          <FormControl component="fieldset" style={{marginLeft:'20px',marginTop:'10px' }}>
+          <FormControl component="fieldset" style={{ marginLeft: '20px', marginTop: '10px' }}>
             <RadioGroup row
-            //  value={value} onChange={handleChange}
             >
               <FormControlLabel
-                value="manual"
+                value="manualUpload"
                 control={<Radio />}
-                // checked={selectedOption === 'manual'}
-                // onChange={handleOptionChange}
+                onChange={handleUploadOption}
+                checked={uploadOption === 'manualUpload'}
                 label={t('manualInput')}
               />
               <FormControlLabel
-                value="bulk"
+                value="bulkUpload"
                 control={<Radio />}
-                // checked={selectedOption === 'bulk'}
-                // onChange={handleOptionChange}
+                onChange={handleUploadOption}
+                checked={uploadOption === 'bulkUpload'}
                 label={t('bulkUpload')}
               />
             </RadioGroup>
           </FormControl>
+
+          {/* {showSection.options.length > 0 && */}
+           <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
+            <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
+              <Box sx={{ display: 'flex' }}>
+                <Box sx={{ display: 'flex' }}>
+                  <Box px={1} my={1}>
+                    <QuizOutlinedIcon />
+                  </Box>
+
+                  <Box>
+                    <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span>yes</Typography>
+                    <Grid container columns={12}>
+                      {/* {
+                        showSection.options.map(option =>
+                          <Grid item xs={3}>
+                            <Box>
+                              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+                            </Box>
+                          </Grid>
+                        )
+                      } */}
+                          <Grid item>
+                            <Box>
+                              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+                            </Box>
+                          </Grid>
+                    </Grid>
+
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+          {/* } */}
 
           <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2} mx={2}>
             <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
@@ -161,7 +210,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 <Typography>{t('quizType')}:</Typography>
                 <FormControl component="fieldset">
                   <RadioGroup row
-                  //  value={value} onChange={handleChange}
                   >
                     <FormControlLabel
                       value="option1"
@@ -210,45 +258,55 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 <FieldArray name="options">
                   {({ push }) => (
                     <>
-                    <Typography fontWeight="bold" mb={1}>
-                    {t('quizAlternative')}
-                    </Typography>
+                      <Typography fontWeight="bold" mb={1}>
+                        {t('quizAlternative')}
+                      </Typography>
                       <Grid container columns={10} spacing={2}>
                         {values.options.map((_: any, index: any) => (
                           <Grid item md={4} key={index}>
                             <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)' }}>
-                              <Box sx={{ display: 'flex',alignItems: 'center' }}>
-                              <Grid container columns={10} spacing={2}>
-                                <Grid item md={6}>
-                                  <Box sx={{display:'flex'}}>
-                                  <Checkbox/>
-                                  <FormControl fullWidth variant="outlined" size="small" sx={{ padding: '10px',display:'flex' }}>
-                                    <Stack
-                                      direction="row"
-                                      alignItems="center"
-                                      bgcolor="gray"
-                                      justifyContent="space-between"
-                                      // maxWidth={210}
-                                      sx={{ width: '90%'}}
-                                    >
-                                      <Typography align="center" sx={{ color: 'white', px: 2, width: 55 }}>
-                                        {index + 1}
-                                      </Typography>
-                                      <Field name={`options[${index}].option_value`} placeholder={t('alternative')} style={{ padding: '10px' }} />
-                                    </Stack>
-                                  </FormControl>
-                                  </Box>
-                                </Grid>
-                                <Grid item md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                  <Box>
-                                    <Typography>{t('or')}</Typography>
-                                  </Box>
-                                </Grid>
-                                <Grid item md={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                  <Box sx={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', padding: '5px',marginRight:'15px'}}>
-                                    <FileUploadOutlinedIcon />
-                                  </Box>
-                                </Grid>
+                              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Grid container columns={10} spacing={2}>
+                                  <Grid item md={6}>
+                                    <Box sx={{ display: 'flex' }}>
+
+                                      <Checkbox
+                                        name={`options[${index}].is_correct`}
+                                        checked={values.options[index].is_correct}
+                                        onChange={(e: any) => {
+                                          const newOptions = [...values.options];
+                                          newOptions[index].is_correct = e.target.checked;
+                                          setFieldValue('options', newOptions);
+                                        }}
+                                      />
+
+                                      <FormControl fullWidth variant="outlined" size="small" sx={{ padding: '10px', display: 'flex' }}>
+                                        <Stack
+                                          direction="row"
+                                          alignItems="center"
+                                          bgcolor="gray"
+                                          justifyContent="space-between"
+                                          // maxWidth={210}
+                                          sx={{ width: '90%' }}
+                                        >
+                                          <Typography align="center" sx={{ color: 'white', px: 2, width: 55 }}>
+                                            {index + 1}
+                                          </Typography>
+                                          <Field name={`options[${index}].option_value`} placeholder={t('alternative')} style={{ padding: '10px' }} />
+                                        </Stack>
+                                      </FormControl>
+                                    </Box>
+                                  </Grid>
+                                  <Grid item md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Box>
+                                      <Typography>{t('or')}</Typography>
+                                    </Box>
+                                  </Grid>
+                                  <Grid item md={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Box sx={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', padding: '5px', marginRight: '15px' }}>
+                                      <FileUploadOutlinedIcon />
+                                    </Box>
+                                  </Grid>
                                 </Grid>
                               </Box>
                             </Box>
@@ -259,7 +317,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                       </Grid>
                       <Button
                         variant="contained"
-                        onClick={() => push({ option_value: '', })}
+                        onClick={() => push({ option_value: '', is_correct: false })}
                         sx={{ marginTop: '12px', display: 'flex', alignItems: 'center' }}
                         startIcon={<AddCircleOutlineOutlinedIcon />}
                       >
@@ -282,7 +340,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               <Button
                 variant="contained"
                 onClick={handleToggleEditor}
-                sx={{mt: 6}}
+                sx={{ mt: 6 }}
               >
                 {t('addInfo')}
               </Button>
@@ -300,11 +358,11 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                   <>
                     <Typography p={2}>{t('quizDescription')}</Typography>
                     <Box sx={{
-                        marginLeft: '15px',
-                        marginRight:'15px'
-                      }}>
-                  <RichTextInput name="description" height="100px" />
-                      </Box>
+                      marginLeft: '15px',
+                      marginRight: '15px'
+                    }}>
+                      <RichTextInput name="description" height="100px" />
+                    </Box>
                   </>
 
                 )}
@@ -314,7 +372,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               <Button variant="contained" type="submit">
                 {t('submit')}
               </Button>
-              <Button variant="outlined" type="submit">
+              <Button variant="outlined" onClick={() => handleSaveAndAdd(values)}>
                 {t('saveAdd')}
               </Button>
             </Grid>
