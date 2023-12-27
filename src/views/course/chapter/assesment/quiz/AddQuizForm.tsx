@@ -27,7 +27,6 @@ import { useQueryClient } from 'react-query';
 
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
   const [editorHtml, setEditorHtml] = useState('');
   const [selectedOption, setSelectedOption] = useState('option1');
   const { showSnackbar } = useSnackbar();
@@ -38,20 +37,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const handleOptionChange = (event: any) => {
     setSelectedOption(event.target.value);
   };
-
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // const handleSubmit = (values: any) => {
-  //   console.log('Form Values:', values);
-  //   handleClose();
-  // };
-
 
   const handleSubmit = async (values: any) => {
     console.log('Form Values:', values);
@@ -70,6 +55,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
 
           showSnackbar(response.data.message, 'success');
           queryClient.invalidateQueries('courseDetails');
+          handleCloseDialog()
       } catch (error: any) {
           showSnackbar(error.response.data.message, 'error');
           console.error('Error submitting form:', error);
