@@ -59,6 +59,13 @@ export function createComponents() {
         },
       },
     },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          marginTop: 20,
+        },
+      },
+    },
     
   };
 }

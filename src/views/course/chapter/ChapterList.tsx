@@ -195,7 +195,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
               <OpenWith />
             </Box>
             <Typography mt={1}>
-              {chapter.module_code} : {chapter.module_name_bn}
+              {chapter.module_code} :{' '}
+              {localStorage.getItem('language') === 'bn'
+                ? chapter.module_name_bn
+                : chapter.module_name_en}
             </Typography>
             <ChapterActions
               module={chapter}
@@ -360,9 +363,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         sx={{ marginLeft: 2 }}
                       />
                       <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
-                      <Typography >
-                        {assessment.assessment_title_en}
-                      </Typography>
+                        <Typography>
+                          {assessment.assessment_title_en}
+                        </Typography>
                       </Box>
 
                       <Button
@@ -446,7 +449,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         }}
                       >
                         <AssesmentCreateButtons
-                          assessmentId={assessment.id}
+                          assessment={assessment}
                           module={chapter}
                         />
                         <Box

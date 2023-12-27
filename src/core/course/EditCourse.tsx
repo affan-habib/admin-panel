@@ -108,7 +108,7 @@ const EditCourse: React.FC = () => {
           long_desc_bn: data?.data?.long_desc_bn || '',
           icon: data?.data?.icon || '',
           featured_image: data?.data?.featured_image || '',
-          supporting_docs: data?.data?.supporting_docs || '',
+          supporting_doc: data?.data?.supporting_doc || '',
           course_type: data?.data?.course_type || '',
           course_modules: data?.data?.course_modules,
           quiz_types: data?.data?.quiz_types,
