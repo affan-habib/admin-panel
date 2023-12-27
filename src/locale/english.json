@@ -84,7 +84,17 @@
     "wronganswer":"Add wrong answer",
     "wronganswertwo":"Wrong answer",
     "quizAlternative":"Quiz Option",
-    "questionRelatedImage":"Upload Question Related Image"
+    "questionRelatedImage":"Upload Question Related Image",
+    "editAssignment":"Edit Assignment",
+    "save":"Save",
+    "time":"Time",
+    "minute":"Minute",
+    "assignmentName":"Assignment name",
+    "totalMarks":"Total mark",
+    "passmark":"Pass Mark",
+    "totaltime":"Total time",
+    "assignmentView":"View the assignment",
+    "instruction":"Instruction"
     
     
 }

@@ -103,6 +103,8 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
             total_time: '',
             status: 1,
             submission_type: '',
+            pass_mark:''
+
           }}
           onSubmit={handleSubmit}
         >
@@ -111,7 +113,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
               <Grid>
                 <InputField
                   name="title_en"
-                  label={t('addAssignment')}
+                  label={t('assignmentName')}
                   placeholder={t('assignmentname')}
                 />
               </Grid>
@@ -168,7 +170,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                 </Grid>
                 <Grid item xs={6}>
                   <InputField
-                    name="Pass_mark"
+                    name="pass_mark"
                     label={t('assignmentPassMark')}
                     placeholder={t('assignmentpassMarkPlace')}
                     type="number"
