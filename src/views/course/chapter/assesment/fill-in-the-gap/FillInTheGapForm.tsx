@@ -27,6 +27,7 @@ import { useSnackbar } from 'context/SnackbarContext';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { string } from 'yup';
+import { SpaceBar } from '@mui/icons-material';
 
 const FillInTheGapForm: React.FC<any> = ({
   assessmentId,
@@ -55,7 +56,7 @@ const FillInTheGapForm: React.FC<any> = ({
         stringArray2 = optionData.map((item: { question: string }) => item.question);
         console.log(optionsArray)
         setOptionsArray(stringArray2)
-        
+
         console.log("rrrrr sss", optionsArray)
         return response.data;
         // optionsArr.push(result)
@@ -185,7 +186,7 @@ const FillInTheGapForm: React.FC<any> = ({
 
       const payload = {
         course_assessment_id: assessmentId,
-        question: editorTextWithBlankAsHash,
+        question: values.richText,
         type_id: type_id,
         mark: values.mark,
         status: 1,
@@ -212,7 +213,7 @@ const FillInTheGapForm: React.FC<any> = ({
           // // optionsArr.push(response.data.data.options);
           let responseData = [...optionsArray, response.data.data.question]
           setOptionsArray(responseData);
-          console.log("response.dataresponse.dataresponse.data",responseData)
+          console.log("response.dataresponse.dataresponse.data", responseData)
         } else {
           setEditorHtml('');
           handleCloseDialog();
@@ -274,7 +275,9 @@ const FillInTheGapForm: React.FC<any> = ({
                 <List>
                   {/* Your list items */}
                   {optionsArray.map((option, index) => (
-                    <ListItem key={index + 1}>{index + 1}. {option}</ListItem>
+                    <ListItem key={index + 1}>
+                      {index + 1}. { <div dangerouslySetInnerHTML={{ __html: option }} />}
+                    </ListItem>
                   ))}
                   {/* Add more list items as needed */}
                 </List>
