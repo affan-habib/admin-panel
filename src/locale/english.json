@@ -87,7 +87,8 @@
     "questionRelatedImage":"Upload Question Related Image",
     "assessment":"Assessment",
     "time":"Time",
-    "minutes":"Minutes"
+    "minutes":"Minutes",
+    "marks":"Marks"
     
     
 }

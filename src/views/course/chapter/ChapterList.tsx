@@ -38,6 +38,7 @@ import EditAssessmentDialog from './assesment/EditAssessmentDialog';
 import AssesmentCreateButtons from './assesment/AssesmentCreateButtons';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ViewAssesmentDialog from './assesment/ViewAssesmentDialog';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 const Chapters: React.FC<any> = ({ modules }) => {
   console.log(modules);
   const queryClient = useQueryClient();
@@ -363,9 +364,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         <Typography >
                           {t('assessment')} : {assessment.assessment_title_en}
                         </Typography>
-                        <Typography style={{marginRight:'5px'}}>
-                          {assessment.quizzes_count} {t('questionNo')}
-                          <span style={{padding:'12px'}}>
+                        <Box sx={{display:'flex'}}>
+                          <Typography style={{ marginRight: '5px' }}>
+                            {assessment.quizzes_count} {t('questionNo')}
+                          </Typography>
                           <svg
                             width="9"
                             height="20"
@@ -377,12 +379,27 @@ const Chapters: React.FC<any> = ({ modules }) => {
                             <rect x="4" width="1" height="20" fill="#646464" />
                             <rect x="8" y="3" width="1" height="14" fill="#646464" />
                           </svg>
+                          <Typography style={{marginLeft:'10px'}}>
+                          {t('time')} {assessment.total_time} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {t('minutes')} , {t('marks')} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {assessment.total_mark}
+                          </Typography>
+                        </Box>
+                        {/* <Typography style={{ marginRight: '5px' }}>
+                          {assessment.quizzes_count} {t('questionNo')}
+                          <span style={{ padding: '12px' }}>
+                            <svg
+                              width="9"
+                              height="20"
+                              viewBox="0 0 9 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect y="3" width="1" height="14" fill="#646464" />
+                              <rect x="4" width="1" height="20" fill="#646464" />
+                              <rect x="8" y="3" width="1" height="14" fill="#646464" />
+                            </svg>
                           </span>
 
-                          {t('time')} : {assessment.total_time} {t('minutes')}
-                        </Typography>
-                        {/* <Typography>
-                          {t('time')}
+                          {t('time')} : {assessment.total_time} {t('minutes')}, {t('marks')} : {assessment.total_mark}
                         </Typography> */}
                       </Box>
 
