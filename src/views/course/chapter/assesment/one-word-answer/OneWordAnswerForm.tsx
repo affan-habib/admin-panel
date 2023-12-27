@@ -26,9 +26,7 @@ const OneWordAnswerForm: React.FC<any> = ({
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const onSubmit = async (values: any) => {
-    // Handle form submission logic here
-    console.log(values);
+  const onSubmit = async (values: any, buttonType: any = 'submit') => {
     try {
       const response = await axios.post(`${apiBaseUrl}/quizzes`, {
         course_assessment_id: assessmentId,
@@ -40,8 +38,7 @@ const OneWordAnswerForm: React.FC<any> = ({
         status: 1,
       });
       showSnackbar(response.data.message, 'success');
-      queryClient.invalidateQueries('courseDetails');
-      handleCloseDialog();
+      buttonType !== 'saveAndAdd' && handleCloseDialog();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
@@ -68,7 +65,7 @@ const OneWordAnswerForm: React.FC<any> = ({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ values }) => (
+      {({ values, isValid, dirty, resetForm }) => (
         <Form>
           <Box mb={2} display="flex" justifyContent="" gap={8}>
             <FormControl component="fieldset">
@@ -115,11 +112,24 @@ const OneWordAnswerForm: React.FC<any> = ({
               justifyContent="flex-end"
               mt={2} // Adjust the margin top as needed
             >
-              <Button type="submit" variant="contained" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={!isValid || !dirty}
+              >
                 {t('submit')}
               </Button>
-              <Button variant="outlined" sx={{ ml: 2 }}>
-                {t('saveAdd')}
+              <Button
+                variant="outlined"
+                sx={{ ml: 2 }}
+                onClick={() => {
+                  onSubmit(values, 'saveAndAdd');
+                  resetForm();
+                }}
+                disabled={!isValid || !dirty}
+              >
+                {t('saveAndAdd')}
               </Button>
             </Box>
           </Box>
