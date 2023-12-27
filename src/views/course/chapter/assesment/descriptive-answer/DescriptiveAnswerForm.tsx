@@ -35,7 +35,8 @@ const DescriptiveAnswerForm: React.FC<any> = ({
         question: values.question,
         supporting_notes_en: values.supporting_notes_en,
         mark: values.mark,
-        question_type: 'text',
+        question_type: values.question_type,
+        question_img: values.question_img,
         type_id: 7,
         status: 1,
       });
@@ -59,6 +60,7 @@ const DescriptiveAnswerForm: React.FC<any> = ({
     question: '',
     question_type: 'text',
     supporting_notes_en: '',
+    question_img: '',
   };
 
   return (

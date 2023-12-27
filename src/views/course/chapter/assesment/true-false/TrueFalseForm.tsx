@@ -18,8 +18,9 @@ import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 
-const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
+const TrueFalseForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -46,6 +47,7 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
+      handleCloseDialog();
       // onClose();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
@@ -53,9 +55,12 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
     }
   };
 
-  const onCancel = () => {
-    // Handle cancel logic here
-  };
+  const validationSchema = Yup.object().shape<any>({
+    question: Yup.string().required('Question is required'),
+    mark: Yup.number()
+      .required('Mark is required')
+      .positive('Mark must be a positive number'),
+  });
 
   return (
     <Formik
@@ -66,6 +71,7 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
         isTrue: true,
         correctAnswer: '',
       }}
+      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {({ values }) => (
@@ -126,7 +132,7 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
               <Button type="submit" variant="contained" color="primary">
                 {t('submit')}
               </Button>
-              <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
+              <Button variant="outlined" sx={{ ml: 2 }}>
                 {t('saveAdd')}
               </Button>
             </Box>
