@@ -129,7 +129,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             </RadioGroup>
           </FormControl>
 
-          <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
+          <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2} style={{height:'140px',overflowY:'auto'}}>
             <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
               <Box sx={{ display: 'flex' }}>
                 <Box sx={{ display: 'flex' }}>
