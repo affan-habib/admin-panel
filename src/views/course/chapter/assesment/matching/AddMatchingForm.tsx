@@ -26,6 +26,8 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
+import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import * as Yup from 'yup';
 interface Item {
     id: number;
     placeholder: string;
@@ -34,7 +36,7 @@ interface Item {
     showInput?: boolean;
 }
 
-const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
+const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
@@ -59,6 +61,13 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
             }
         });
     };
+    const validationSchema = Yup.object().shape<any>({
+        question: Yup.string().required('Question is required'),
+        mark: Yup.number()
+            .required('Mark is required')
+            .max(maxMark, 'should not be more than total marks')
+            .positive('Mark must be a positive number'),
+    });
     const handleDeleteClick = (index: number, handleChange: any) => {
         // Clear the input value
         handleChange({
@@ -67,7 +76,6 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
                 value: '', // Clear the value
             },
         });
-
         // Toggle the grid
         toggleGrid(index);
     };
@@ -76,7 +84,6 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
         const filteredOptions = values.options.filter(
             (option: any) => option.option_key.trim() !== '' || option.option_value.trim() !== ''
         );
-        console.log(filteredOptions, 'kkkk');
         try {
             const response = await axios.post(`${apiBaseUrl}/quizzes`, {
                 course_assessment_id: assessmentId,
@@ -87,13 +94,13 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
                 status: 1,
                 options: filteredOptions,
             });
-    
+
             showSnackbar(response.data.message, 'success');
             queryClient.invalidateQueries('courseDetails');
-    
+
             // Reset the form
             formikHelpers.resetForm();
-    
+
             // Close the dialog only if shouldCloseDialog is true
             if (shouldCloseDialog) {
                 handleCloseDialog();
@@ -103,7 +110,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
             console.error('Error submitting form:', error);
         }
     };
-    
+
     const [shouldCloseDialog, setShouldCloseDialog] = useState(true);
     return (
         <Formik
@@ -120,6 +127,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
                     { option_key: '', option_value: '', wrong_answer: '' },
                 ],
             }}
+            validationSchema={validationSchema}
             onSubmit={(values, formikHelpers) => handleSubmit(values, formikHelpers, shouldCloseDialog)}
         >
             {({ values, handleSubmit, handleChange }) => (
@@ -141,6 +149,27 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
                             label={t('bulkUpload')}
                         />
                     </RadioGroup>
+                    <Box border="1px dashed rgba(70, 83, 96, 1)" borderRadius={2} p={2} >
+                        <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
+                            <Box sx={{ display: 'flex' }}>
+                                <Box sx={{ display: 'flex' }}>
+                                    <Box px={1} my={1}>
+                                        <QuizOutlinedIcon />
+                                    </Box>
+                                    <Box>
+                                        <Typography px={1} my={1}><span style={{ fontWeight: 'bold', padding: '5px' }}>প্রশ্ন ১:</span>রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
+                                        <Grid container columns={12}>
+                                            <Grid item>
+                                                <Box>
+                                                    <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
                     <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px', backgroundColor: 'rgba(250, 250, 250, 1)' }} p={2}>
                         <Grid
                             sx={{
@@ -192,7 +221,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
                                                                     <input
                                                                         name={`options.${index}.option_key`}
                                                                         style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
-                                                                        placeholder={`${t('alternativematch')} : ${index}`}
+                                                                        placeholder={`${t('alternativematch')} : ${index + 1}`}
                                                                         value={item.option_key}
                                                                         onChange={handleChange}
                                                                     />
@@ -215,7 +244,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
                                                                     <input
                                                                         name={`options.${index}.option_value`}
                                                                         style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
-                                                                        placeholder={`${t('answer')} : ${index}`}
+                                                                        placeholder={`${t('answer')} : ${index + 1}`}
                                                                         value={item.option_value}
                                                                         onChange={handleChange}
                                                                     />
@@ -238,7 +267,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => 
                                                                         <input
                                                                             name={`options.${index}.wrong_answer`}
                                                                             style={{ padding: '10px', width: '140px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
-                                                                            placeholder={`${t('wronganswertwo')} : ${index}`}
+                                                                            placeholder={`${t('wronganswertwo')} : ${index + 1}`}
                                                                             value={item.wrong_answer}
                                                                             onChange={handleChange}
 
