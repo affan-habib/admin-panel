@@ -51,6 +51,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
         question_type: 'text',
         supporting_doc: values.quizDescription,
         question_img: values.question_img,
+        // is_correct: values.is_correct,
         type_id: 2,
         status: 1,
       });
@@ -85,24 +86,24 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
           options: [
             {
               option_value: '',
-              checkField: false
+              is_correct: false
             },
             {
               option_value: '',
-              checkField: false
+              is_correct: false
             },
             {
               option_value: '',
-              checkField: false
+              is_correct: false
             },
             {
               option_value: '',
-              checkField: false
+              is_correct: false
             },
           ]
         }
       } onSubmit={handleSubmit} >
-      {({ values }) => (
+      {({ values, setFieldValue }) => (
         <Form>
           <FormControl component="fieldset" style={{ marginLeft: '20px', marginTop: '10px' }}>
             <RadioGroup row
@@ -191,11 +192,19 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                     <Box sx={{ display: 'flex' }}>
 
                                       {/* <Checkbox
-                                        name={`options[${index}].checkField`}
+                                        name={`options[${index}].is_correct`}
                                       /> */}
 
-                                      <Field type="checkbox"
-                                      name={`options[${index}].checkField`}/>
+                                      <Checkbox 
+                                       
+                                        name={`options[${index}].is_correct`}
+                                        checked={values.options[index].is_correct}
+                                        onChange={(e: any) => {
+                                          const newOptions = [...values.options];
+                                          newOptions[index].is_correct = e.target.checked;
+                                          setFieldValue('options', newOptions);
+                                        }}
+                                      />
 
                                       <FormControl fullWidth variant="outlined" size="small" sx={{ padding: '10px', display: 'flex' }}>
                                         <Stack
@@ -234,7 +243,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                       </Grid>
                       <Button
                         variant="contained"
-                        onClick={() => push({ option_value: '', })}
+                        onClick={() => push({ option_value: '',is_correct: false })}
                         sx={{ marginTop: '12px', display: 'flex', alignItems: 'center' }}
                         startIcon={<AddCircleOutlineOutlinedIcon />}
                       >
