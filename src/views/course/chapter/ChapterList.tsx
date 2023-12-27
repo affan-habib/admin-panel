@@ -361,7 +361,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       />
                       <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
                       <Typography >
-                        {assessment.assessment_title_en}
+                        {t('assessment')} : {assessment.assessment_title_en}
                       </Typography>
                       </Box>
 
