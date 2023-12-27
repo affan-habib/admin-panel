@@ -85,6 +85,9 @@
     "wronganswertwo":"ভুল উত্তর",
     "quizAlternative":"কুইজের বিকল্প",
     "questionRelatedImage":"প্রশ্ন সম্পর্কিত ছবিটি আপলোড করুন",
-    "assessment":"এসেসমেন্ট"
+    "assessment":"এসেসমেন্ট",
+    "questionNo": " টি প্রশ্ন",
+    "time":"সময়",
+    "minutes":"মিনিট"
 }
 

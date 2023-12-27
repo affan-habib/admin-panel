@@ -85,7 +85,9 @@
     "wronganswertwo":"Wrong answer",
     "quizAlternative":"Quiz Option",
     "questionRelatedImage":"Upload Question Related Image",
-    "assessment":"Assessment"
+    "assessment":"Assessment",
+    "time":"Time",
+    "minutes":"Minutes"
     
     
 }
