@@ -19,38 +19,35 @@ import axios from 'axios';
 import { apiBaseUrl } from 'config';
 import ImageUploadBox from 'components/form/ImageUploadBox';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 
 const DescriptiveAnswerForm: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
+  maxMark,
 }) => {
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const onSubmit = async (values: any) => {
-    console.log(values);
+  const onSubmit = async (values: any, buttonType: any = 'submit') => {
     try {
       const response = await axios.post(`${apiBaseUrl}/quizzes`, {
         course_assessment_id: assessmentId,
         question: values.question,
         supporting_notes_en: values.supporting_notes_en,
         mark: values.mark,
-        question_type: 'text',
+        question_type: values.question_type,
+        question_img: values.question_img,
         type_id: 7,
         status: 1,
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
-      handleCloseDialog();
+      buttonType !== 'saveAndAdd' && handleCloseDialog();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
     } // Handle form submission logic here
-    console.log(values);
-  };
-
-  const onCancel = () => {
-    // Handle cancel logic here
   };
 
   const initialValues = {
@@ -59,11 +56,23 @@ const DescriptiveAnswerForm: React.FC<any> = ({
     question: '',
     question_type: 'text',
     supporting_notes_en: '',
+    question_img: '',
   };
+  const validationSchema = Yup.object().shape<any>({
+    question: Yup.string().required('Question is required'),
+    mark: Yup.number()
+      .required('Mark is required')
+      .max(maxMark, 'should not be more than total marks')
+      .positive('Mark must be a positive number'),
+  });
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
-      {({ values }) => (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ values, isValid, dirty, resetForm }) => (
         <Form>
           <Box mb={2} display="flex" justifyContent="" gap={8}>
             <FormControl component="fieldset">
@@ -129,11 +138,24 @@ const DescriptiveAnswerForm: React.FC<any> = ({
               justifyContent="flex-end"
               mt={2} // Adjust the margin top as needed
             >
-              <Button type="submit" variant="contained" color="primary">
-                সাবমিট
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={!isValid || !dirty}
+              >
+                {t('submit')}
               </Button>
-              <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
-                সেভ এবং অ্যাড
+              <Button
+                variant="outlined"
+                sx={{ ml: 2 }}
+                onClick={() => {
+                  onSubmit(values, 'saveAndAdd');
+                  resetForm();
+                }}
+                disabled={!isValid || !dirty}
+              >
+                {t('saveAndAdd')}
               </Button>
             </Box>
           </Box>

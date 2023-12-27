@@ -18,12 +18,17 @@ import axios from 'axios';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 
-const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
+const TrueFalseForm: React.FC<any> = ({
+  assessmentId,
+  handleCloseDialog,
+  maxMark,
+}) => {
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: any, buttonType: any = 'submit') => {
     try {
       const response = await axios.post(`${apiBaseUrl}/quizzes`, {
         course_assessment_id: assessmentId,
@@ -45,7 +50,7 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
         ],
       });
       showSnackbar(response.data.message, 'success');
-      queryClient.invalidateQueries('courseDetails');
+      buttonType !== 'saveAndAdd' && handleCloseDialog();
       // onClose();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
@@ -53,9 +58,13 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
     }
   };
 
-  const onCancel = () => {
-    // Handle cancel logic here
-  };
+  const validationSchema = Yup.object().shape<any>({
+    question: Yup.string().required('Question is required'),
+    mark: Yup.number()
+      .required('Mark is required')
+      .max(maxMark, 'should not be more than total marks')
+      .positive('Mark must be a positive number'),
+  });
 
   return (
     <Formik
@@ -66,9 +75,10 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
         isTrue: true,
         correctAnswer: '',
       }}
+      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ values }) => (
+      {({ values, isValid, dirty, resetForm }) => (
         <Form>
           <Box mb={2} display="flex" justifyContent="" gap={8}>
             <FormControl component="fieldset">
@@ -123,11 +133,24 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId = '7' }) => {
             </div>
 
             <Box display="flex" justifyContent="flex-end" mt={2}>
-              <Button type="submit" variant="contained" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={!isValid || !dirty}
+              >
                 {t('submit')}
               </Button>
-              <Button variant="outlined" onClick={onCancel} sx={{ ml: 2 }}>
-                {t('saveAdd')}
+              <Button
+                variant="outlined"
+                sx={{ ml: 2 }}
+                onClick={() => {
+                  onSubmit(values, 'saveAndAdd');
+                  resetForm();
+                }}
+                disabled={!isValid || !dirty}
+              >
+                {t('saveAndAdd')}
               </Button>
             </Box>
           </Box>
