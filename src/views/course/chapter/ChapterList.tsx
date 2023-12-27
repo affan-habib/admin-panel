@@ -40,7 +40,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ViewAssesmentDialog from './assesment/ViewAssesmentDialog';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 const Chapters: React.FC<any> = ({ modules }) => {
-  console.log(modules);
+  // console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -383,26 +383,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           {t('time')} {assessment.total_time} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {t('minutes')} , {t('marks')} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {assessment.total_mark}
                           </Typography>
                         </Box>
-                        {/* <Typography style={{ marginRight: '5px' }}>
-                          {assessment.quizzes_count} {t('questionNo')}
-                          <span style={{ padding: '12px' }}>
-                            <svg
-                              width="9"
-                              height="20"
-                              viewBox="0 0 9 20"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <rect y="3" width="1" height="14" fill="#646464" />
-                              <rect x="4" width="1" height="20" fill="#646464" />
-                              <rect x="8" y="3" width="1" height="14" fill="#646464" />
-                            </svg>
-                          </span>
-
-                          {t('time')} : {assessment.total_time} {t('minutes')}, {t('marks')} : {assessment.total_mark}
-                        </Typography> */}
                       </Box>
-
                       <Button
                         style={{
                           border: '1px solid rgba(208, 208, 208, 1)',
