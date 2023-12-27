@@ -10,7 +10,7 @@ import {
   TextField,
 } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import AddIcon from '@mui/icons-material/Add';
@@ -24,6 +24,9 @@ import MarkInput from 'components/form/MarkInput';
 import axios from 'axios';
 import { apiBaseUrl } from '../../../../../config';
 import { useSnackbar } from 'context/SnackbarContext';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import { string } from 'yup';
 
 const FillInTheGapForm: React.FC<any> = ({
   assessmentId,
@@ -34,6 +37,37 @@ const FillInTheGapForm: React.FC<any> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const [editorHtml, setEditorHtml] = useState<string>('');
+  const [optionsArray, setOptionsArray] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log("holaaaa")
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id=${assessmentId}&type_id=${type_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // Add any additional headers if needed
+          },
+        });
+        let stringArray2: string[];
+        const optionData = response.data.data;
+        stringArray2 = optionData.map((item: { question: string }) => item.question);
+        console.log(optionsArray)
+        setOptionsArray(stringArray2)
+        
+        console.log("rrrrr sss", optionsArray)
+        return response.data;
+        // optionsArr.push(result)
+      } catch (error) {
+        // setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
   const svgImage = `
   <img 
     src="data:image/svg+xml,
@@ -52,7 +86,7 @@ const FillInTheGapForm: React.FC<any> = ({
 
     insertSvgImage(svgImage);
   };
-  
+
   const insertSvgImage = (svg: string) => {
     const quillRef = quillRefProp.current;
     const range = quillRef?.getEditor().getSelection();
@@ -114,7 +148,7 @@ const FillInTheGapForm: React.FC<any> = ({
           return '৮';
         case 9:
           return '৯';
-    
+
         default:
           return serialNumber; // Return the original number for other cases
       }
@@ -174,6 +208,11 @@ const FillInTheGapForm: React.FC<any> = ({
         if (saveAndAdd) {
           setEditorHtml('');
           resetForm();
+          // optionsArray.push(response.data.data.options)
+          // // optionsArr.push(response.data.data.options);
+          let responseData = [...optionsArray, response.data.data.question]
+          setOptionsArray(responseData);
+          console.log("response.dataresponse.dataresponse.data",responseData)
         } else {
           setEditorHtml('');
           handleCloseDialog();
@@ -193,6 +232,7 @@ const FillInTheGapForm: React.FC<any> = ({
 
   return (
     <>
+
       <Formik
         initialValues={{
           option: 'option1',
@@ -220,6 +260,27 @@ const FillInTheGapForm: React.FC<any> = ({
                 </Field>
               </FormControl>
             </Box>
+            {optionsArray.length > 0 && (
+              <Box
+                sx={{
+                  marginBottom: '8px',
+                  border: '1px dashed #D0D0D0',
+                  borderRadius: 2,
+                  bgcolor: '#FAFAFA',
+                  overflow: 'auto', // Enable scrolling
+                  maxHeight: '60px', // Set the maximum height for the scrollable box
+                }}
+              >
+                <List>
+                  {/* Your list items */}
+                  {optionsArray.map((option, index) => (
+                    <ListItem key={index + 1}>{index + 1}. {option}</ListItem>
+                  ))}
+                  {/* Add more list items as needed */}
+                </List>
+              </Box>
+            )}
+
             <Box
               sx={{
                 border: '1px dashed #D0D0D0',
