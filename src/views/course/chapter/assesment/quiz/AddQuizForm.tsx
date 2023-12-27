@@ -25,6 +25,13 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 
+type ShowSectionType = {
+  options: {
+    id: number;
+    option_value: string;
+  }[];
+};
+
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
@@ -40,15 +47,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     setSelectedOption(event.target.value);
   };
 
-  type ShowSectionType = {
-    options: {
-      id: number;
-      option_value: string;
-    }[];
-  };
-
-
-  const [data,setData] = useState();
   const handleFormSubmit = async (values: any, shouldCloseModal: boolean) => {
     console.log('Form Values:', values);
     console.log('Uploaded Image:', values.question_img);
@@ -65,23 +63,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
         type_id: 2,
         status: 1,
       });
-      // if (shouldCloseModal === false) {
-      //   // try {
-      //   //   const getData = await axios.get(`${apiBaseUrl}/quizzes`);
-      //   //   setData(getData);
-
-      //   // } catch (error: any) {
-      //   //   showSnackbar(error.response.data.message, 'error');
-      //   //   console.error('Error getting data', error);
-      //   // }
-
-      //   useEffect(()=>{
-      //     fetch(`${apiBaseUrl}/quizzes`)
-      //       .then(response => response.json())
-      //       .then(data => setData(data))
-      //   },[])
-      //   console.log(data,'fetching the data');
-      // }
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
       if (shouldCloseModal) {
@@ -92,6 +73,39 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       console.error('Error submitting form:', error);
     }
   }
+
+  // const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchQuizzes = async () => {
+  //     try {
+  //       const token = localStorage.getItem('token'); 
+  //       if (!token) {
+  //         console.error('Access token not found!');
+  //         return;
+  //       }
+  //       const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id${assessmentId}&type_id=2`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
+
+  //       if (response.status === 200) {
+  //         setData(response.data);
+  //       } else {
+  //         console.error('Failed to fetch data');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   fetchQuizzes();
+  // }, []); 
+
+
+  // console.log(data,'datafetching');
 
   const handleSubmit = async (values: any) => {
     await handleFormSubmit(values, true);
@@ -155,7 +169,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             </RadioGroup>
           </FormControl>
 
-          {showSection.options.length > 0 &&
+          {/* {showSection.options.length > 0 && */}
            <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
             <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
               <Box sx={{ display: 'flex' }}>
@@ -166,8 +180,8 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
 
                   <Box>
                     <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span>yes</Typography>
-                    <Grid container>
-                      {
+                    <Grid container columns={12}>
+                      {/* {
                         showSection.options.map(option =>
                           <Grid item xs={3}>
                             <Box>
@@ -175,14 +189,20 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                             </Box>
                           </Grid>
                         )
-                      }
+                      } */}
+                          <Grid item>
+                            <Box>
+                              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+                            </Box>
+                          </Grid>
                     </Grid>
 
                   </Box>
                 </Box>
               </Box>
             </Box>
-          </Box>}
+          </Box>
+          {/* } */}
 
           <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2} mx={2}>
             <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
@@ -250,12 +270,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                   <Grid item md={6}>
                                     <Box sx={{ display: 'flex' }}>
 
-                                      {/* <Checkbox
-                                        name={`options[${index}].is_correct`}
-                                      /> */}
-
                                       <Checkbox
-
                                         name={`options[${index}].is_correct`}
                                         checked={values.options[index].is_correct}
                                         onChange={(e: any) => {
