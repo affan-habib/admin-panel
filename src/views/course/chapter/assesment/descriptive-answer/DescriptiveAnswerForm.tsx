@@ -24,6 +24,7 @@ import * as Yup from 'yup';
 const DescriptiveAnswerForm: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
+  maxMark,
 }) => {
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
@@ -57,8 +58,12 @@ const DescriptiveAnswerForm: React.FC<any> = ({
     supporting_notes_en: '',
     question_img: '',
   };
-  const validationSchema = Yup.object({
-    mark: Yup.string().required('Mark is required'),
+  const validationSchema = Yup.object().shape<any>({
+    question: Yup.string().required('Question is required'),
+    mark: Yup.number()
+      .required('Mark is required')
+      .max(maxMark, 'should not be more than total marks')
+      .positive('Mark must be a positive number'),
   });
 
   return (

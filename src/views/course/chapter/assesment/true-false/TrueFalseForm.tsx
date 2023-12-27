@@ -20,7 +20,11 @@ import { useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
-const TrueFalseForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
+const TrueFalseForm: React.FC<any> = ({
+  assessmentId,
+  handleCloseDialog,
+  maxMark,
+}) => {
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
@@ -58,6 +62,7 @@ const TrueFalseForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     question: Yup.string().required('Question is required'),
     mark: Yup.number()
       .required('Mark is required')
+      .max(maxMark, 'should not be more than total marks')
       .positive('Mark must be a positive number'),
   });
 

@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next';
 const OneWordAnswerForm: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
+  maxMark,
 }) => {
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
@@ -52,12 +53,12 @@ const OneWordAnswerForm: React.FC<any> = ({
     supporting_notes_en: '',
     type_id: 6,
   };
-  const validationSchema = Yup.object().shape({
-    question: Yup.string().required('Please Enter Question'),
+  const validationSchema = Yup.object().shape<any>({
+    question: Yup.string().required('Question is required'),
     mark: Yup.number()
       .required('Mark is required')
-      .positive('Mark should be positive'),
-    supporting_notes_en: Yup.string(),
+      .max(maxMark, 'should not be more than total marks')
+      .positive('Mark must be a positive number'),
   });
   return (
     <Formik

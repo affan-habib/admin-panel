@@ -449,7 +449,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         }}
                       >
                         <AssesmentCreateButtons
-                          assessmentId={assessment.id}
+                          assessment={assessment}
                           module={chapter}
                         />
                         <Box
