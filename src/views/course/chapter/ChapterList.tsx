@@ -374,10 +374,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         paddingBottom: '8px',
                       }}
                     >
-                      {/* <QuizOutlinedIcon
+                      <QuizOutlinedIcon
                         color="primary"
                         sx={{ marginLeft: 2 }}
-                      /> */}
+                      />
                       <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
                         <Typography >
                           {t('assessment')} : {assessment.assessment_title_en}

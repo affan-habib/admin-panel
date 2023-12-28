@@ -11,7 +11,7 @@ import {
   Stack,
 } from '@mui/material';
 import { Formik, Form, FieldArray, Field } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import 'react-quill/dist/quill.snow.css';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -24,8 +24,9 @@ import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+import * as Yup from 'yup';
 
-const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
+const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
   const { showSnackbar } = useSnackbar();
@@ -57,7 +58,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
         status: 1,
       });
       showSnackbar(response.data.message, 'success');
-      queryClient.invalidateQueries('courseDetails');
+      queryClient.invalidateQueries('couse-quizzes');
       if (closeForm) {
         handleCloseDialog();
       }
@@ -82,6 +83,14 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     setShowEditor(!showEditor);
   };
 
+  const validationSchema = Yup.object().shape<any>({
+    question: Yup.string().required('Question is required'),
+    mark: Yup.number()
+      .required('Mark is required')
+      .max(maxMark, 'should not be more than total marks')
+      .positive('Mark must be a positive number'),
+  });
+
   return (
     <Formik
       initialValues={
@@ -105,8 +114,8 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             },
           ]
         }
-      } onSubmit={handleSubmit} >
-      {({ values, setFieldValue,resetForm }) => (
+      }  validationSchema={validationSchema} onSubmit={handleSubmit} >
+      {({ values, setFieldValue,resetForm, isValid, dirty }) => (
         <Form>
           <FormControl
             component="fieldset"
@@ -169,9 +178,9 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 </FormControl>
               </Box>
 
-              <Box>
+              {/* <Box> */}
                 <MarkInput name="mark" />
-              </Box>
+              {/* </Box> */}
             </Box>
 
             {selectedOption == 'option1' ? (
@@ -369,10 +378,10 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 justifyContent: 'flex-end',
               }}
             >
-              <Button variant="contained" type="submit">
+              <Button variant="contained" type="submit" disabled={!isValid || !dirty}>
                 {t('submit')}
               </Button>
-              <Button variant="outlined" onClick={() => handleSaveAndAdd(values,{resetForm})}>
+              <Button variant="outlined" disabled={!isValid || !dirty} onClick={() => handleSaveAndAdd(values,{resetForm})}>
                 {t('saveAdd')}
               </Button>
             </Grid>
