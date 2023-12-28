@@ -83,14 +83,14 @@ const IntegratedQuestionButton: React.FC<any> = ({
       {options.map(
         (option) =>
           selectedButton === option.id && (
-            <>
+            <div key={option.id}>
               {option.listComponent && (
                 <option.listComponent
                   assesments={assesments}
                   type_id={option.id}
                 />
               )}
-            </>
+            </div>
           ),
       )}
       <Box
