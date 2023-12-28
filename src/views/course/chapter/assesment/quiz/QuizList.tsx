@@ -46,7 +46,8 @@ const QuizList = ({ assesments, type_id }: any) => {
                     </Box>
                     <Box display="flex" flexDirection="row" flexWrap="wrap">
                       {item.options.map((option: any,index:number) => (
-                        <Box key={option.id} width="25%" p={1}>
+                        // <Box key={option.id} width="25%" p={1}>
+                        <Box key={option.id} p={1}>
                         <Typography><span style={{color:'green'}}>{index+1}. </span> {option.option_value}</Typography>
                         </Box>
                       ))}
