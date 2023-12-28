@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {
@@ -28,6 +28,8 @@ import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 interface Item {
     id: number;
     placeholder: string;
@@ -36,13 +38,13 @@ interface Item {
     showInput?: boolean;
 }
 
-const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
+const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark, type_id }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
     const [expandedGrids, setExpandedGrids] = useState<number[]>([]);
     const [uploadOption, setUploadOption] = useState('manualUpload');
-
+    const [optionsArray, setOptionsArray] = useState<any[]>([]);
     const handleUploadOption = (event: any) => {
         setUploadOption(event.target.value);
     }
@@ -110,6 +112,41 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
             console.error('Error submitting form:', error);
         }
     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id=${assessmentId}&type_id=${type_id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        // Add any additional headers if needed
+                    },
+                });
+
+                // Log the response data
+                console.log(response.data);
+
+                let stringArray2: string[];
+                const optionData = response.data.data;
+                stringArray2 = optionData.map((item: { question: string }) => item.question);
+                console.log(optionsArray)
+                setOptionsArray(stringArray2);
+                queryClient.invalidateQueries('courseDetails');
+                // Return response data if needed
+                return response.data;
+            } catch (error) {
+                // Handle errors
+                console.error('Error fetching data:', error);
+                // setError(error.message);
+            } finally {
+                // Do cleanup or set loading state if needed
+                // setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []); 
+
 
     const [shouldCloseDialog, setShouldCloseDialog] = useState(true);
     return (
@@ -149,20 +186,24 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                             label={t('bulkUpload')}
                         />
                     </RadioGroup>
-                    <Box border="1px dashed rgba(70, 83, 96, 1)" borderRadius={2} p={2} >
+                    <Box border="1px dashed rgba(70, 83, 96, 1)" borderRadius={2} p={2} sx={{ height: '140px', overflowY: 'auto' }} >
                         <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
                             <Box sx={{ display: 'flex' }}>
                                 <Box sx={{ display: 'flex' }}>
-                                    <Box px={1} my={1}>
-                                        <QuizOutlinedIcon />
-                                    </Box>
+
                                     <Box>
-                                        <Typography px={1} my={1}><span style={{ fontWeight: 'bold', padding: '5px' }}>প্রশ্ন ১:</span>রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
                                         <Grid container columns={12}>
                                             <Grid item>
-                                                <Box>
-                                                    <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
-                                                </Box>
+                                                <List sx={{padding:0}}>
+                                                    {optionsArray.map((option, index) => (
+                                                        <ListItem key={index + 1}>
+                                                            <Box px={1} my={1}>
+                                                                <QuizOutlinedIcon />
+                                                            </Box>
+                                                            প্রশ্ন  {index + 1}. {<div dangerouslySetInnerHTML={{ __html: option }} />}
+                                                        </ListItem>
+                                                    ))}
+                                                </List>
                                             </Grid>
                                         </Grid>
                                     </Box>
