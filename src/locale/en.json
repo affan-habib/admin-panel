@@ -155,5 +155,8 @@
   "videoLink":"Upload video link",
   "writeVideolink":"Enter video link",
   "newQues": "New Question",
-  "addBlank" : "Add Blank"
+  "addBlank" : "Add Blank",
+  "dragAndDropCorrectAnswer":"Drag and drop correct answer",
+  "passMark": "Pass mark",
+  "descriptiveQuestionPaper": "Descriptive question paper"
 }

@@ -98,7 +98,8 @@
     "totaltime":"Total time",
     "assignmentView":"View the assignment",
     "instruction":"Instruction",
-    "editAssesment" : "Edit Assessment"
+    "editAssesment" : "Edit Assessment",
+    "question":"Question"
     
     
 }
