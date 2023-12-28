@@ -276,7 +276,7 @@ const FillInTheGapForm: React.FC<any> = ({
                   {/* Your list items */}
                   {optionsArray.map((option, index) => (
                     <ListItem key={index + 1}>
-                      {index + 1}. { <div dangerouslySetInnerHTML={{ __html: option }} />}
+                      {index + 1}.&nbsp;&nbsp; { <div dangerouslySetInnerHTML={{ __html: option }} />}
                     </ListItem>
                   ))}
                   {/* Add more list items as needed */}
