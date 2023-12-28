@@ -97,7 +97,8 @@
     "passmark":"Pass Mark",
     "totaltime":"Total time",
     "assignmentView":"View the assignment",
-    "instruction":"Instruction"
+    "instruction":"Instruction",
+    "question":"Question"
     
     
 }
