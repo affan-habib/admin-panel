@@ -92,6 +92,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             status: 1,
             module_id: moduleId,
             assessment_title_en: '',
+            assessment_title_bn: '',
             total_mark: '',
             pass_mark: '',
             positive_mark: 15,
@@ -103,6 +104,11 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
           <Form>
             <InputField
               name="assessment_title_en"
+              label={t('assesmentName')}
+              placeholder={t('assesmentNo')}
+            />
+            <InputField
+              name="assessment_title_bn"
               label={t('assesmentName')}
               placeholder={t('assesmentNo')}
             />

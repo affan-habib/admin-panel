@@ -480,6 +480,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           paddingTop: '8px',
                           paddingBottom: '8px',
                           border: '1px dashed rgba(208, 208, 208, 1)',
+                          backgroundColor:'rgba(250, 250, 250, 1)'
                         }}
                       >
                         <AssesmentCreateButtons
