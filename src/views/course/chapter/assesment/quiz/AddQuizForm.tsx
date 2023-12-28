@@ -25,13 +25,6 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 
-type ShowSectionType = {
-  options: {
-    id: number;
-    option_value: string;
-  }[];
-};
-
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
@@ -47,7 +40,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     setSelectedOption(event.target.value);
   };
 
-  const handleFormSubmit = async (values: any, shouldCloseModal: boolean) => {
+  const handleFormSubmit = async (values: any, closeForm: boolean) => {
     console.log('Form Values:', values);
     console.log('Uploaded Image:', values.question_img);
     try {
@@ -65,7 +58,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
-      if (shouldCloseModal) {
+      if (closeForm) {
         handleCloseDialog();
       }
     } catch (error: any) {
@@ -74,47 +67,14 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     }
   }
 
-  // const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchQuizzes = async () => {
-  //     try {
-  //       const token = localStorage.getItem('token'); 
-  //       if (!token) {
-  //         console.error('Access token not found!');
-  //         return;
-  //       }
-  //       const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id${assessmentId}&type_id=2`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           'Content-Type': 'application/json',
-  //         },
-  //       });
-
-  //       if (response.status === 200) {
-  //         setData(response.data);
-  //       } else {
-  //         console.error('Failed to fetch data');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchQuizzes();
-  // }, []); 
-
-
-  // console.log(data,'datafetching');
-
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: any,{ resetForm }: any) => {
     await handleFormSubmit(values, true);
+    resetForm();
   };
 
-  const [showSection, setShowSection] = useState<ShowSectionType>({ options: [] });
-
-  const handleSaveAndAdd = async (values: any) => {
+  const handleSaveAndAdd = async (values: any,{ resetForm }: any) => {
     await handleFormSubmit(values, false);
+    resetForm();
   };
   const [showEditor, setShowEditor] = useState(false);
 
@@ -147,7 +107,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
           ]
         }
       } onSubmit={handleSubmit} >
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue,resetForm }) => (
         <Form>
           <FormControl component="fieldset" style={{ marginLeft: '20px', marginTop: '10px' }}>
             <RadioGroup row
@@ -169,40 +129,27 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             </RadioGroup>
           </FormControl>
 
-          {/* {showSection.options.length > 0 && */}
-           <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2}>
+          <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2} style={{height:'140px',overflowY:'auto'}}>
             <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
               <Box sx={{ display: 'flex' }}>
                 <Box sx={{ display: 'flex' }}>
                   <Box px={1} my={1}>
                     <QuizOutlinedIcon />
                   </Box>
-
                   <Box>
-                    <Typography px={1} my={1}><span style={{ fontWeight: 'bold' }}>প্রশ্ন ১:</span>yes</Typography>
+                    <Typography px={1} my={1}><span style={{ fontWeight: 'bold',padding:'5px' }}>প্রশ্ন ১:</span>রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
                     <Grid container columns={12}>
-                      {/* {
-                        showSection.options.map(option =>
-                          <Grid item xs={3}>
-                            <Box>
-                              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
-                            </Box>
-                          </Grid>
-                        )
-                      } */}
-                          <Grid item>
-                            <Box>
-                              <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
-                            </Box>
-                          </Grid>
+                      <Grid item>
+                        <Box>
+                          <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
+                        </Box>
+                      </Grid>
                     </Grid>
-
                   </Box>
                 </Box>
               </Box>
             </Box>
           </Box>
-          {/* } */}
 
           <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2} mx={2}>
             <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
@@ -287,12 +234,13 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                           bgcolor="gray"
                                           justifyContent="space-between"
                                           // maxWidth={210}
-                                          sx={{ width: '90%' }}
+                                          sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                         >
                                           <Typography align="center" sx={{ color: 'white', px: 2, width: 55 }}>
                                             {index + 1}
                                           </Typography>
-                                          <Field name={`options[${index}].option_value`} placeholder={t('alternative')} style={{ padding: '10px' }} />
+                                          <Field name={`options[${index}].option_value`} placeholder={t('alternative')}  
+                                          style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }} />
                                         </Stack>
                                       </FormControl>
                                     </Box>
@@ -372,7 +320,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               <Button variant="contained" type="submit">
                 {t('submit')}
               </Button>
-              <Button variant="outlined" onClick={() => handleSaveAndAdd(values)}>
+              <Button variant="outlined" onClick={() => handleSaveAndAdd(values,{resetForm})}>
                 {t('saveAdd')}
               </Button>
             </Grid>
