@@ -154,5 +154,8 @@
   "videoLink":"ভিডিওর লিংক আপলোড করুন",
   "writeVideolink":"ভিডিওর লিংক লিখুন",
   "newQues": "নতুন প্রশ্ন",
-  "addBlank" : "ব্ল্যাঙ্ক যোগ করুন"
+  "addBlank" : "ব্ল্যাঙ্ক যোগ করুন",
+  "dragAndDropCorrectAnswer": "সঠিক উত্তরটি ড্র্যাগ করে নিয়ে আসুন",
+  "passMark": "পাস মার্ক",
+  "descriptiveQuestionPaper": "বর্ণনামূলক প্রশ্নপত্র"
 }
