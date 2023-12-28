@@ -50,12 +50,12 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
 
       const response = await axios.post(
         `${apiBaseUrl}/course-assessments`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
+        values,
+        // {
+        //   headers: {
+        //     'Content-Type': 'multipart/form-data',
+        //   },
+        // },
       );
       showSnackbar(response.data.message, 'success');
 

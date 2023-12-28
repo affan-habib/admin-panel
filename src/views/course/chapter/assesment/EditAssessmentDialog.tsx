@@ -48,12 +48,12 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
 
       const response = await axios.patch(
         `${apiBaseUrl}/course-assessments/${values.id}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
+        values,
+        // {
+        //   headers: {
+        //     'Content-Type': 'multipart/form-data',
+        //   },
+        // },
       );
       showSnackbar(response.data.message, 'success');
 
@@ -76,7 +76,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssesment')} {initialData.assessment_title}
+          {t('editAssesment')} {initialData.assessment_title}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
