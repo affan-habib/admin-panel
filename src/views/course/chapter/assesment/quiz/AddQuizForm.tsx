@@ -112,7 +112,8 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
               option_value: '',
               is_correct: false
             },
-          ]
+          ],
+          mark:''
         }
       }  validationSchema={validationSchema} onSubmit={handleSubmit} >
       {({ values, setFieldValue,resetForm, isValid, dirty }) => (
@@ -178,9 +179,9 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
                 </FormControl>
               </Box>
 
-              {/* <Box> */}
+              <Box>
                 <MarkInput name="mark" />
-              {/* </Box> */}
+              </Box>
             </Box>
 
             {selectedOption == 'option1' ? (

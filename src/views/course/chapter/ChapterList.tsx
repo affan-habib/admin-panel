@@ -479,7 +479,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           justifyContent: 'space-between',
                           paddingTop: '8px',
                           paddingBottom: '8px',
-                          border: '1px dashed #000',
+                          border: '1px dashed rgba(208, 208, 208, 1)',
                         }}
                       >
                         <AssesmentCreateButtons
