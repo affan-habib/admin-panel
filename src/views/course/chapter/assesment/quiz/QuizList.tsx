@@ -7,6 +7,8 @@ const QuizList = ({ assesments, type_id }: any) => {
     (item: any) => item.type_id == type_id,
   );
 
+  console.log(filteredData);
+
   return (
     <div>
       {!!filteredData.length && (
@@ -15,8 +17,9 @@ const QuizList = ({ assesments, type_id }: any) => {
           sx={{
             overflowY: 'scroll',
             overflowX: 'hidden',
-            border: '1px dashed #D0D0D0',
+            border: '1px dashed rgba(70, 83, 96, 1)',
             borderRadius: 2,
+            marginLeft: '15px'
           }}
           mb={2}
         >
@@ -29,8 +32,15 @@ const QuizList = ({ assesments, type_id }: any) => {
                   alignItems="center"
                 >
                   <CheckCircleOutlineIcon sx={{ marginRight: 1 }} />
-                  <strong style={{ marginRight: '20px' }}>এক কথায় উত্তর :</strong>
+                  {/* <strong style={{ marginRight: '20px' }}>{item.quiz_type.name_bn}</strong> */}
                   <div dangerouslySetInnerHTML={{ __html: item.question }} />
+
+                  <div>
+                    {item.options.map((option: any) => (
+                      <div key={option.id}>{option.option_value}</div>
+                    ))}
+                  </div>
+
                 </Typography>
 
                 {item.supporting_notes_en && (

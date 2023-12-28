@@ -15,8 +15,9 @@ const MatchingList = ({ assesments, type_id }: any) => {
       sx={{
         overflowY: 'scroll',
         overflowX: 'hidden',
-        border: '1px dashed #D0D0D0',
+        border: '1px dashed rgba(70, 83, 96, 1)',
         borderRadius: 2,
+        marginLeft:'15px'
       }}
       mb={2}
     >
