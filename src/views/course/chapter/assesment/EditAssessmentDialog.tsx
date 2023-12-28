@@ -37,7 +37,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
       delete values.url;
     }
 
-    const formPayload = { ...values, _method: 'PUT', type: 'assessment' };
+    const formPayload = { ...values, _method: 'PATCH', type: 'assessment' };
 
     try {
       const formData = new FormData();
@@ -46,14 +46,14 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
         formData.append(key, formPayload[key]);
       });
 
-      const response = await axios.post(
+      const response = await axios.patch(
         `${apiBaseUrl}/course-assessments/${values.id}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
+        values,
+        // {
+        //   headers: {
+        //     'Content-Type': 'multipart/form-data',
+        //   },
+        // },
       );
       showSnackbar(response.data.message, 'success');
 
@@ -76,7 +76,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssesment')} {initialData.assessment_title}
+          {t('editAssesment')} {initialData.assessment_title}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -96,6 +96,12 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
                 placeholder={t('assesmentNo')}
               />
             </Grid>
+
+            <InputField
+              name="assessment_title_bn"
+              label={t('assesmentName')}
+              placeholder={t('assesmentNo')}
+            />
 
             <Grid container spacing={2} sx={{ marginTop: '2px' }}>
               <Grid item xs={6}>
