@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const MarkInput: React.FC<any> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -17,6 +17,8 @@ const MarkInput: React.FC<any> = ({ label, ...props }) => {
         bgcolor="gray"
         justifyContent="space-between"
         maxWidth={200}
+        borderRadius="4px"
+        border="1px solid #D0D0D0"
       >
         <Typography align="center" sx={{ color: 'white', px: 2, width: 100 }}>
           {t('giveMark')}
@@ -25,7 +27,13 @@ const MarkInput: React.FC<any> = ({ label, ...props }) => {
           type="number"
           {...field}
           {...props}
-          style={{ padding: '10px', width: '100px' }}
+          style={{
+            padding: '10px',
+            width: '100px',
+            borderBottomRightRadius: '4px',
+            borderTopRightRadius: '4px',
+            border: 0,
+          }}
           placeholder="---"
         />
       </Stack>
