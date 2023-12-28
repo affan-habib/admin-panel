@@ -34,7 +34,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
 
   const handleUploadOption = (event: any) => {
     setUploadOption(event.target.value);
-  }
+  };
 
   const handleOptionChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -83,7 +83,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   };
 
   return (
-
     <Formik
       initialValues={
         {
@@ -109,9 +108,11 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       } onSubmit={handleSubmit} >
       {({ values, setFieldValue,resetForm }) => (
         <Form>
-          <FormControl component="fieldset" style={{ marginLeft: '20px', marginTop: '10px' }}>
-            <RadioGroup row
-            >
+          <FormControl
+            component="fieldset"
+            style={{ marginLeft: '20px', marginTop: '10px' }}
+          >
+            <RadioGroup row>
               <FormControlLabel
                 value="manualUpload"
                 control={<Radio />}
@@ -129,35 +130,27 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
             </RadioGroup>
           </FormControl>
 
-          <Box border="1px dashed rgba(208, 208, 208, 1)" borderRadius={2} p={2} mx={2} style={{height:'140px',overflowY:'auto'}}>
-            <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
-              <Box sx={{ display: 'flex' }}>
-                <Box sx={{ display: 'flex' }}>
-                  <Box px={1} my={1}>
-                    <QuizOutlinedIcon />
-                  </Box>
-                  <Box>
-                    <Typography px={1} my={1}><span style={{ fontWeight: 'bold',padding:'5px' }}>প্রশ্ন ১:</span>রবীন্দ্রনাথ ঠাকুর কোথায় জন্ম গ্রহণ করেন?</Typography>
-                    <Grid container columns={12}>
-                      <Grid item>
-                        <Box>
-                          <Typography px={1} my={1}>১. বিকল্প 'ক'</Typography>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-
-          <Box mt={2} border="1px dashed rgba(208, 208, 208, 1)" bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2} mx={2}>
-            <Box mb={2} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
+          <Box
+            mt={2}
+            border="1px dashed rgba(208, 208, 208, 1)"
+            bgcolor={'rgba(250, 250, 250, 1)'}
+            borderRadius={2}
+            p={2}
+            mx={2}
+          >
+            <Box
+              mb={2}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '20px',
+              }}
+            >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                 <Typography>{t('quizType')}:</Typography>
                 <FormControl component="fieldset">
-                  <RadioGroup row
-                  >
+                  <RadioGroup row>
                     <FormControlLabel
                       value="option1"
                       control={<Radio />}
@@ -174,32 +167,30 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                     />
                   </RadioGroup>
                 </FormControl>
-
               </Box>
 
               <Box>
-                <MarkInput name='mark' />
+                <MarkInput name="mark" />
               </Box>
             </Box>
 
-            {
-              selectedOption == 'option1' ?
-                <Box>
-                  <RichTextInput name='question' />
-                </Box>
-                :
-                <Box>
-                  <ImageUploadBox
-                    name="question_img"
-                    label={t('questionRelatedImage')}
-                  />
-                </Box>
-            }
+            {selectedOption == 'option1' ? (
+              <Box>
+                <RichTextInput name="question" />
+              </Box>
+            ) : (
+              <Box>
+                <ImageUploadBox
+                  name="question_img"
+                  label={t('questionRelatedImage')}
+                />
+              </Box>
+            )}
 
-
-
-            <Grid spacing={2} mt={5}
-            // style={{maxHeight:'60vh',overflowY:'auto'}}
+            <Grid
+              spacing={2}
+              mt={5}
+              // style={{maxHeight:'60vh',overflowY:'auto'}}
             >
               <Grid>
                 <FieldArray name="options">
@@ -211,23 +202,41 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                       <Grid container columns={10} spacing={2}>
                         {values.options.map((_: any, index: any) => (
                           <Grid item md={4} key={index}>
-                            <Box sx={{ border: '1px dashed rgba(208, 208, 208, 1)' }}>
-                              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Box
+                              sx={{
+                                border: '1px dashed rgba(208, 208, 208, 1)',
+                              }}
+                            >
+                              <Box
+                                sx={{ display: 'flex', alignItems: 'center' }}
+                              >
                                 <Grid container columns={10} spacing={2}>
                                   <Grid item md={6}>
                                     <Box sx={{ display: 'flex' }}>
-
                                       <Checkbox
                                         name={`options[${index}].is_correct`}
-                                        checked={values.options[index].is_correct}
+                                        checked={
+                                          values.options[index].is_correct
+                                        }
                                         onChange={(e: any) => {
-                                          const newOptions = [...values.options];
-                                          newOptions[index].is_correct = e.target.checked;
+                                          const newOptions = [
+                                            ...values.options,
+                                          ];
+                                          newOptions[index].is_correct =
+                                            e.target.checked;
                                           setFieldValue('options', newOptions);
                                         }}
                                       />
 
-                                      <FormControl fullWidth variant="outlined" size="small" sx={{ padding: '10px', display: 'flex' }}>
+                                      <FormControl
+                                        fullWidth
+                                        variant="outlined"
+                                        size="small"
+                                        sx={{
+                                          padding: '10px',
+                                          display: 'flex',
+                                        }}
+                                      >
                                         <Stack
                                           direction="row"
                                           alignItems="center"
@@ -236,7 +245,14 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                           // maxWidth={210}
                                           sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                         >
-                                          <Typography align="center" sx={{ color: 'white', px: 2, width: 55 }}>
+                                          <Typography
+                                            align="center"
+                                            sx={{
+                                              color: 'white',
+                                              px: 2,
+                                              width: 55,
+                                            }}
+                                          >
                                             {index + 1}
                                           </Typography>
                                           <Field name={`options[${index}].option_value`} placeholder={t('alternative')}  
@@ -245,13 +261,37 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                       </FormControl>
                                     </Box>
                                   </Grid>
-                                  <Grid item md={3} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                  <Grid
+                                    item
+                                    md={3}
+                                    sx={{
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}
+                                  >
                                     <Box>
                                       <Typography>{t('or')}</Typography>
                                     </Box>
                                   </Grid>
-                                  <Grid item md={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Box sx={{ border: '1px solid rgba(208, 208, 208, 1)', borderRadius: '5px', padding: '5px', marginRight: '15px' }}>
+                                  <Grid
+                                    item
+                                    md={1}
+                                    sx={{
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                    }}
+                                  >
+                                    <Box
+                                      sx={{
+                                        border:
+                                          '1px solid rgba(208, 208, 208, 1)',
+                                        borderRadius: '5px',
+                                        padding: '5px',
+                                        marginRight: '15px',
+                                      }}
+                                    >
                                       <FileUploadOutlinedIcon />
                                     </Box>
                                   </Grid>
@@ -260,20 +300,23 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                             </Box>
                           </Grid>
                         ))}
-
-
                       </Grid>
                       <Button
                         variant="contained"
-                        onClick={() => push({ option_value: '', is_correct: false })}
-                        sx={{ marginTop: '12px', display: 'flex', alignItems: 'center' }}
+                        onClick={() =>
+                          push({ option_value: '', is_correct: false })
+                        }
+                        sx={{
+                          marginTop: '12px',
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
                         startIcon={<AddCircleOutlineOutlinedIcon />}
                       >
                         {t('addMore')}
                       </Button>
                     </>
                   )}
-
                 </FieldArray>
               </Grid>
             </Grid>
@@ -305,18 +348,27 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                 {showEditor && (
                   <>
                     <Typography p={2}>{t('quizDescription')}</Typography>
-                    <Box sx={{
-                      marginLeft: '15px',
-                      marginRight: '15px'
-                    }}>
+                    <Box
+                      sx={{
+                        marginLeft: '15px',
+                        marginRight: '15px',
+                      }}
+                    >
                       <RichTextInput name="description" height="100px" />
                     </Box>
                   </>
-
                 )}
               </Box>
             </div>
-            <Grid item sx={{ display: 'flex', gap: 2, marginTop: '20px', justifyContent: 'flex-end' }}>
+            <Grid
+              item
+              sx={{
+                display: 'flex',
+                gap: 2,
+                marginTop: '20px',
+                justifyContent: 'flex-end',
+              }}
+            >
               <Button variant="contained" type="submit">
                 {t('submit')}
               </Button>
@@ -327,7 +379,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
           </Box>
         </Form>
       )}
-    </Formik >
+    </Formik>
   );
 };
 
