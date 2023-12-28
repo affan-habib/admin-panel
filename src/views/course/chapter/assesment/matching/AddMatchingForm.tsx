@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {
@@ -26,10 +26,8 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { apiBaseUrl } from 'config';
 import { useQueryClient } from 'react-query';
 import RichTextInput from 'components/form/RichTextInput';
-import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
+
 import * as Yup from 'yup';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 interface Item {
     id: number;
     placeholder: string;
@@ -38,13 +36,13 @@ interface Item {
     showInput?: boolean;
 }
 
-const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark, type_id }) => {
+const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
     const [expandedGrids, setExpandedGrids] = useState<number[]>([]);
     const [uploadOption, setUploadOption] = useState('manualUpload');
-    const [optionsArray, setOptionsArray] = useState<any[]>([]);
+
     const handleUploadOption = (event: any) => {
         setUploadOption(event.target.value);
     }
@@ -66,10 +64,10 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
     const validationSchema = Yup.object().shape<any>({
         question: Yup.string().required('Question is required'),
         mark: Yup.number()
-            .required('Mark is required')
-            .max(maxMark, 'should not be more than total marks')
-            .positive('Mark must be a positive number'),
-    });
+          .required('Mark is required')
+          .max(maxMark, 'should not be more than total marks')
+          .positive('Mark must be a positive number'),
+      });
     const handleDeleteClick = (index: number, handleChange: any) => {
         // Clear the input value
         handleChange({
@@ -78,6 +76,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                 value: '', // Clear the value
             },
         });
+
         // Toggle the grid
         toggleGrid(index);
     };
@@ -96,13 +95,13 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                 status: 1,
                 options: filteredOptions,
             });
-
+    
             showSnackbar(response.data.message, 'success');
             queryClient.invalidateQueries('courseDetails');
-
+    
             // Reset the form
             formikHelpers.resetForm();
-
+    
             // Close the dialog only if shouldCloseDialog is true
             if (shouldCloseDialog) {
                 handleCloseDialog();
@@ -112,42 +111,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
             console.error('Error submitting form:', error);
         }
     };
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id=${assessmentId}&type_id=${type_id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        // Add any additional headers if needed
-                    },
-                });
-
-                // Log the response data
-                console.log(response.data);
-
-                let stringArray2: string[];
-                const optionData = response.data.data;
-                stringArray2 = optionData.map((item: { question: string }) => item.question);
-                console.log(optionsArray)
-                setOptionsArray(stringArray2);
-                queryClient.invalidateQueries('courseDetails');
-                // Return response data if needed
-                return response.data;
-            } catch (error) {
-                // Handle errors
-                console.error('Error fetching data:', error);
-                // setError(error.message);
-            } finally {
-                // Do cleanup or set loading state if needed
-                // setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []); 
-
-
+    
     const [shouldCloseDialog, setShouldCloseDialog] = useState(true);
     return (
         <Formik
@@ -186,31 +150,6 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                             label={t('bulkUpload')}
                         />
                     </RadioGroup>
-                    <Box border="1px dashed rgba(70, 83, 96, 1)" borderRadius={2} p={2} sx={{ height: '140px', overflowY: 'auto' }} >
-                        <Box bgcolor={'rgba(250, 250, 250, 1)'} borderRadius={2} p={2}>
-                            <Box sx={{ display: 'flex' }}>
-                                <Box sx={{ display: 'flex' }}>
-
-                                    <Box>
-                                        <Grid container columns={12}>
-                                            <Grid item>
-                                                <List sx={{padding:0}}>
-                                                    {optionsArray.map((option, index) => (
-                                                        <ListItem key={index + 1}>
-                                                            <Box px={1} my={1}>
-                                                                <QuizOutlinedIcon />
-                                                            </Box>
-                                                            প্রশ্ন  {index + 1}. {<div dangerouslySetInnerHTML={{ __html: option }} />}
-                                                        </ListItem>
-                                                    ))}
-                                                </List>
-                                            </Grid>
-                                        </Grid>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Box>
                     <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px', backgroundColor: 'rgba(250, 250, 250, 1)' }} p={2}>
                         <Grid
                             sx={{
@@ -262,7 +201,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                                     <input
                                                                         name={`options.${index}.option_key`}
                                                                         style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
-                                                                        placeholder={`${t('alternativematch')} : ${index + 1}`}
+                                                                        placeholder={`${t('alternativematch')} : ${index+1}`}
                                                                         value={item.option_key}
                                                                         onChange={handleChange}
                                                                     />
@@ -285,7 +224,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                                     <input
                                                                         name={`options.${index}.option_value`}
                                                                         style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
-                                                                        placeholder={`${t('answer')} : ${index + 1}`}
+                                                                        placeholder={`${t('answer')} : ${index+1}`}
                                                                         value={item.option_value}
                                                                         onChange={handleChange}
                                                                     />
@@ -308,7 +247,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                                         <input
                                                                             name={`options.${index}.wrong_answer`}
                                                                             style={{ padding: '10px', width: '140px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }}
-                                                                            placeholder={`${t('wronganswertwo')} : ${index + 1}`}
+                                                                            placeholder={`${t('wronganswertwo')} : ${index+1}`}
                                                                             value={item.wrong_answer}
                                                                             onChange={handleChange}
 
