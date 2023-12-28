@@ -97,7 +97,8 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMar
             });
     
             showSnackbar(response.data.message, 'success');
-            queryClient.invalidateQueries('courseDetails');
+            queryClient.invalidateQueries('couse-quizzes');
+
     
             // Reset the form
             formikHelpers.resetForm();
