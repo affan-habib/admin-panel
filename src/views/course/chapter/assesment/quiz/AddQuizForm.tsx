@@ -25,13 +25,6 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 
-type ShowSectionType = {
-  options: {
-    id: number;
-    option_value: string;
-  }[];
-};
-
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
@@ -47,7 +40,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
     setSelectedOption(event.target.value);
   };
 
-  const handleFormSubmit = async (values: any, shouldCloseModal: boolean) => {
+  const handleFormSubmit = async (values: any, closeForm: boolean) => {
     console.log('Form Values:', values);
     console.log('Uploaded Image:', values.question_img);
     try {
@@ -65,25 +58,23 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('courseDetails');
-      if (shouldCloseModal) {
+      if (closeForm) {
         handleCloseDialog();
       }
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
     }
-  };
+  }
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: any,{ resetForm }: any) => {
     await handleFormSubmit(values, true);
+    resetForm();
   };
 
-  const [showSection, setShowSection] = useState<ShowSectionType>({
-    options: [],
-  });
-
-  const handleSaveAndAdd = async (values: any) => {
+  const handleSaveAndAdd = async (values: any,{ resetForm }: any) => {
     await handleFormSubmit(values, false);
+    resetForm();
   };
   const [showEditor, setShowEditor] = useState(false);
 
@@ -93,29 +84,29 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
 
   return (
     <Formik
-      initialValues={{
-        options: [
-          {
-            option_value: '',
-            is_correct: false,
-          },
-          {
-            option_value: '',
-            is_correct: false,
-          },
-          {
-            option_value: '',
-            is_correct: false,
-          },
-          {
-            option_value: '',
-            is_correct: false,
-          },
-        ],
-      }}
-      onSubmit={handleSubmit}
-    >
-      {({ values, setFieldValue }) => (
+      initialValues={
+        {
+          options: [
+            {
+              option_value: '',
+              is_correct: false
+            },
+            {
+              option_value: '',
+              is_correct: false
+            },
+            {
+              option_value: '',
+              is_correct: false
+            },
+            {
+              option_value: '',
+              is_correct: false
+            },
+          ]
+        }
+      } onSubmit={handleSubmit} >
+      {({ values, setFieldValue,resetForm }) => (
         <Form>
           <FormControl
             component="fieldset"
@@ -252,7 +243,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                           bgcolor="gray"
                                           justifyContent="space-between"
                                           // maxWidth={210}
-                                          sx={{ width: '90%' }}
+                                          sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
                                         >
                                           <Typography
                                             align="center"
@@ -264,11 +255,8 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
                                           >
                                             {index + 1}
                                           </Typography>
-                                          <Field
-                                            name={`options[${index}].option_value`}
-                                            placeholder={t('alternative')}
-                                            style={{ padding: '10px' }}
-                                          />
+                                          <Field name={`options[${index}].option_value`} placeholder={t('alternative')}  
+                                          style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }} />
                                         </Stack>
                                       </FormControl>
                                     </Box>
@@ -384,10 +372,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog }) => {
               <Button variant="contained" type="submit">
                 {t('submit')}
               </Button>
-              <Button
-                variant="outlined"
-                onClick={() => handleSaveAndAdd(values)}
-              >
+              <Button variant="outlined" onClick={() => handleSaveAndAdd(values,{resetForm})}>
                 {t('saveAdd')}
               </Button>
             </Grid>
