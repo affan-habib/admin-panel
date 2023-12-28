@@ -40,35 +40,35 @@ const FillInTheGapForm: React.FC<any> = ({
   const [editorHtml, setEditorHtml] = useState<string>('');
   const [optionsArray, setOptionsArray] = useState<any[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("holaaaa")
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id=${assessmentId}&type_id=${type_id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            // Add any additional headers if needed
-          },
-        });
-        let stringArray2: string[];
-        const optionData = response.data.data;
-        stringArray2 = optionData.map((item: { question: string }) => item.question);
-        console.log(optionsArray)
-        setOptionsArray(stringArray2)
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     console.log("holaaaa")
+  //     try {
+  //       const token = localStorage.getItem('token');
+  //       const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id=${assessmentId}&type_id=${type_id}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           // Add any additional headers if needed
+  //         },
+  //       });
+  //       let stringArray2: string[];
+  //       const optionData = response.data.data;
+  //       stringArray2 = optionData.map((item: { question: string }) => item.question);
+  //       console.log(optionsArray)
+  //       setOptionsArray(stringArray2)
 
-        console.log("rrrrr sss", optionsArray)
-        return response.data;
-        // optionsArr.push(result)
-      } catch (error) {
-        // setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       console.log("rrrrr sss", optionsArray)
+  //       return response.data;
+  //       // optionsArr.push(result)
+  //     } catch (error) {
+  //       // setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
   const svgImage = `
   <img 
     src="data:image/svg+xml,
@@ -120,10 +120,9 @@ const FillInTheGapForm: React.FC<any> = ({
     return svgImages.length;
   };
 
-
   // Usage
   const svgCount = countSvgImages(editorHtml);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const enToBn = (serialNumber: number) => {
     const language = localStorage.getItem('language');
@@ -153,9 +152,9 @@ const FillInTheGapForm: React.FC<any> = ({
         default:
           return serialNumber; // Return the original number for other cases
       }
+    } else {
+      return serialNumber;
     }
-    else { return serialNumber; }
-
   };
 
   const handleSubmit = async (
@@ -163,77 +162,71 @@ const FillInTheGapForm: React.FC<any> = ({
     saveAndAdd: boolean,
     { resetForm }: any,
   ) => {
-    if (values.mark == 0) {
-      showSnackbar('Mark can not be zero', 'error');
-    } else {
-      const optionsArr = [];
-      for (let i = 0; i < svgCount; i++) {
-        optionsArr.push({
-          option_key: `${i + 1}`,
-          option_value: values.options[i],
-        });
+    const optionsArr = [];
+    for (let i = 0; i < svgCount; i++) {
+      optionsArr.push({
+        option_key: `${i + 1}`,
+        option_value: values.options[i],
+      });
+    }
+
+    const editorFullText = values.richText.replace(/<(?!img).*?>/g, '');
+    const editorTextExceptSvg = editorFullText.replace(
+      /<img[^>]*>.*?<\/img>/g,
+      '',
+    );
+    const editorTextWithBlankAsHash = editorTextExceptSvg.replace(
+      /<img[^>]*>/g,
+      '#',
+    );
+
+    const payload = {
+      course_assessment_id: assessmentId,
+      question: values.richText,
+      type_id: type_id,
+      mark: values.mark,
+      status: 1,
+      options: optionsArr,
+    };
+
+    setLoading(true);
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const response = await axios.post(`${apiBaseUrl}/quizzes`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (saveAndAdd) {
+        setEditorHtml('');
+        resetForm();
+        showSnackbar(response?.data?.message, 'success');
+        // // optionsArray.push(response.data.data.options)
+        // // // optionsArr.push(response.data.data.options);
+        // let responseData = [...optionsArray, response.data.data.question]
+        // setOptionsArray(responseData);
+        // console.log("response.dataresponse.dataresponse.data", responseData)
+      } else {
+        setEditorHtml('');
+        handleCloseDialog();
+        resetForm();
       }
-
-      const editorFullText = values.richText.replace(/<(?!img).*?>/g, '');
-      const editorTextExceptSvg = editorFullText.replace(
-        /<img[^>]*>.*?<\/img>/g,
-        '',
+    } catch (error: any) {
+      console.error('Error submitting form:', error);
+      showSnackbar(
+        error.response?.data?.message || 'An error occurred',
+        'error',
       );
-      const editorTextWithBlankAsHash = editorTextExceptSvg.replace(
-        /<img[^>]*>/g,
-        '#',
-      );
-
-      const payload = {
-        course_assessment_id: assessmentId,
-        question: values.richText,
-        type_id: type_id,
-        mark: values.mark,
-        status: 1,
-        options: optionsArr,
-      };
-
-      setLoading(true);
-
-      const token = localStorage.getItem('token');
-
-      try {
-        const response = await axios.post(`${apiBaseUrl}/quizzes`, payload, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        showSnackbar(response.data.message, 'success');
-
-        if (saveAndAdd) {
-          setEditorHtml('');
-          resetForm();
-          // optionsArray.push(response.data.data.options)
-          // // optionsArr.push(response.data.data.options);
-          let responseData = [...optionsArray, response.data.data.question]
-          setOptionsArray(responseData);
-          console.log("response.dataresponse.dataresponse.data", responseData)
-        } else {
-          setEditorHtml('');
-          handleCloseDialog();
-          resetForm();
-        }
-      } catch (error: any) {
-        console.error('Error submitting form:', error);
-        showSnackbar(
-          error.response?.data?.message || 'An error occurred',
-          'error',
-        );
-      } finally {
-        setLoading(false);
-      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
-
       <Formik
         initialValues={{
           option: 'option1',
@@ -261,28 +254,6 @@ const FillInTheGapForm: React.FC<any> = ({
                 </Field>
               </FormControl>
             </Box>
-            {optionsArray.length > 0 && (
-              <Box
-                sx={{
-                  marginBottom: '8px',
-                  border: '1px dashed #D0D0D0',
-                  borderRadius: 2,
-                  bgcolor: '#FAFAFA',
-                  overflow: 'auto', // Enable scrolling
-                  maxHeight: '60px', // Set the maximum height for the scrollable box
-                }}
-              >
-                <List>
-                  {/* Your list items */}
-                  {optionsArray.map((option, index) => (
-                    <ListItem key={index + 1}>
-                      {index + 1}. { <div dangerouslySetInnerHTML={{ __html: option }} />}
-                    </ListItem>
-                  ))}
-                  {/* Add more list items as needed */}
-                </List>
-              </Box>
-            )}
 
             <Box
               sx={{
@@ -326,7 +297,6 @@ const FillInTheGapForm: React.FC<any> = ({
               </Box>
 
               <Stack>
-
                 {svgCount > 0 && (
                   <Box mt={4}>
                     <Typography variant="h6" gutterBottom>
