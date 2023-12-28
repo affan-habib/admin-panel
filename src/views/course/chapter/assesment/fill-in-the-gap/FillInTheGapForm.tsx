@@ -28,6 +28,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { string } from 'yup';
 import { SpaceBar } from '@mui/icons-material';
+import { useQueryClient } from 'react-query';
 
 const FillInTheGapForm: React.FC<any> = ({
   assessmentId,
@@ -38,37 +39,7 @@ const FillInTheGapForm: React.FC<any> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const [editorHtml, setEditorHtml] = useState<string>('');
-  const [optionsArray, setOptionsArray] = useState<any[]>([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     console.log("holaaaa")
-  //     try {
-  //       const token = localStorage.getItem('token');
-  //       const response = await axios.get(`${apiBaseUrl}/quizzes?course_assessment_id=${assessmentId}&type_id=${type_id}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           // Add any additional headers if needed
-  //         },
-  //       });
-  //       let stringArray2: string[];
-  //       const optionData = response.data.data;
-  //       stringArray2 = optionData.map((item: { question: string }) => item.question);
-  //       console.log(optionsArray)
-  //       setOptionsArray(stringArray2)
-
-  //       console.log("rrrrr sss", optionsArray)
-  //       return response.data;
-  //       // optionsArr.push(result)
-  //     } catch (error) {
-  //       // setError(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
   const svgImage = `
   <img 
     src="data:image/svg+xml,
@@ -123,7 +94,7 @@ const FillInTheGapForm: React.FC<any> = ({
   // Usage
   const svgCount = countSvgImages(editorHtml);
   const { t } = useTranslation();
-
+  const queryClient = useQueryClient();
   const enToBn = (serialNumber: number) => {
     const language = localStorage.getItem('language');
     if (language == 'bn') {
@@ -204,14 +175,17 @@ const FillInTheGapForm: React.FC<any> = ({
         setEditorHtml('');
         resetForm();
         showSnackbar(response?.data?.message, 'success');
+        queryClient.invalidateQueries('couse-quizzes');
         // // optionsArray.push(response.data.data.options)
         // // // optionsArr.push(response.data.data.options);
         // let responseData = [...optionsArray, response.data.data.question]
         // setOptionsArray(responseData);
         // console.log("response.dataresponse.dataresponse.data", responseData)
       } else {
+        showSnackbar(response?.data?.message, 'success');
         setEditorHtml('');
         handleCloseDialog();
+        queryClient.invalidateQueries('couse-quizzes');
         resetForm();
       }
     } catch (error: any) {
