@@ -13,6 +13,9 @@ import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import FillInTheGapForm from '../fill-in-the-gap/FillInTheGapForm';
 import AddQuizForm from '../quiz/AddQuizForm';
 import AddMatchingForm from '../matching/AddMatchingForm';
+import DescriptiveAnswerList from '../descriptive-answer/DescriptiveAnswerList';
+import OneWordAnswerList from '../one-word-answer/OneWordAnswerList';
+import TrueFalseList from '../true-false/TrueFalseList';
 
 const options = [
   {
@@ -21,6 +24,7 @@ const options = [
     title_en: 'Quiz',
     title_bn: 'কুইজ',
     formComponent: AddQuizForm,
+    listComponent: null,
   },
   {
     id: 3,
@@ -28,6 +32,7 @@ const options = [
     title_en: 'Matching',
     title_bn: 'ম্যাচিং',
     formComponent: AddMatchingForm,
+    listComponent: null,
   },
   {
     id: 4,
@@ -35,6 +40,7 @@ const options = [
     title_en: 'Fill in the Gap',
     title_bn: 'ফিল ইন দি গ্যাপ',
     formComponent: FillInTheGapForm,
+    listComponent: null,
   },
   {
     id: 5,
@@ -42,6 +48,7 @@ const options = [
     title_en: 'True/False',
     title_bn: 'সত্য / মিথ্যা',
     formComponent: TrueFalseForm,
+    listComponent: TrueFalseList,
   },
   {
     id: 6,
@@ -49,6 +56,7 @@ const options = [
     title_en: 'One-word Answer',
     title_bn: 'এক কথায় উত্তর',
     formComponent: OneWordAnswerForm,
+    listComponent: OneWordAnswerList,
   },
   {
     id: 7,
@@ -56,12 +64,14 @@ const options = [
     title_en: 'Descriptive Question',
     title_bn: 'বর্ণনামূলক প্রশ্নপত্র',
     formComponent: DescriptiveAnswerForm,
+    listComponent: DescriptiveAnswerList,
   },
 ];
 
 const IntegratedQuestionButton: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
+  assesments,
 }) => {
   const [selectedButton, setSelectedButton] = useState(2);
   const language = localStorage.getItem('language');
@@ -81,11 +91,19 @@ const IntegratedQuestionButton: React.FC<any> = ({
         {options.map(
           (option) =>
             selectedButton === option.id && (
-              <option.formComponent
-                key={option.id}
-                assessmentId={assessmentId}
-                handleCloseDialog={handleCloseDialog}
-              />
+              <>
+                {option.listComponent && (
+                  <option.listComponent
+                    assesments={assesments}
+                    type_id={option.id}
+                  />
+                )}
+                <option.formComponent
+                  key={option.id}
+                  assessmentId={assessmentId}
+                  handleCloseDialog={handleCloseDialog}
+                />
+              </>
             ),
         )}
       </Box>
