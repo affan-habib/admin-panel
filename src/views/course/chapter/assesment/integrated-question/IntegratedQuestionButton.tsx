@@ -16,6 +16,9 @@ import AddMatchingForm from '../matching/AddMatchingForm';
 import DescriptiveAnswerList from '../descriptive-answer/DescriptiveAnswerList';
 import OneWordAnswerList from '../one-word-answer/OneWordAnswerList';
 import TrueFalseList from '../true-false/TrueFalseList';
+import QuizList from '../quiz/QuizList';
+import MatchingList from '../matching/MatchingList';
+import FillInTheGapList from '../fill-in-the-gap/FillInTheGapList';
 
 const options = [
   {
@@ -24,7 +27,7 @@ const options = [
     title_en: 'Quiz',
     title_bn: 'কুইজ',
     formComponent: AddQuizForm,
-    listComponent: null,
+    listComponent: QuizList,
   },
   {
     id: 3,
@@ -32,7 +35,7 @@ const options = [
     title_en: 'Matching',
     title_bn: 'ম্যাচিং',
     formComponent: AddMatchingForm,
-    listComponent: null,
+    listComponent: MatchingList,
   },
   {
     id: 4,
@@ -40,7 +43,7 @@ const options = [
     title_en: 'Fill in the Gap',
     title_bn: 'ফিল ইন দি গ্যাপ',
     formComponent: FillInTheGapForm,
-    listComponent: null,
+    listComponent: FillInTheGapList,
   },
   {
     id: 5,
@@ -76,57 +79,66 @@ const IntegratedQuestionButton: React.FC<any> = ({
   const [selectedButton, setSelectedButton] = useState(2);
   const language = localStorage.getItem('language');
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'space-between',
-      }}
-    >
+    <>
+      {options.map(
+        (option) =>
+          selectedButton === option.id && (
+            <div key={option.id}>
+              {option.listComponent && (
+                <option.listComponent
+                  assesments={assesments}
+                  type_id={option.id}
+                />
+              )}
+            </div>
+          ),
+      )}
       <Box
         sx={{
+          display: 'flex',
           width: '100%',
+          justifyContent: 'space-between',
         }}
       >
-        {options.map(
-          (option) =>
-            selectedButton === option.id && (
-              <>
-                {option.listComponent && (
-                  <option.listComponent
-                    assesments={assesments}
-                    type_id={option.id}
+        <Box
+          sx={{
+            width: '100%',
+          }}
+        >
+          {options.map(
+            (option) =>
+              selectedButton === option.id && (
+                <>
+                  <option.formComponent
+                    key={option.id}
+                    assessmentId={assessmentId}
+                    handleCloseDialog={handleCloseDialog}
                   />
-                )}
-                <option.formComponent
-                  key={option.id}
-                  assessmentId={assessmentId}
-                  handleCloseDialog={handleCloseDialog}
-                />
-              </>
-            ),
-        )}
+                </>
+              ),
+          )}
+        </Box>
+        <Stack
+          py={2}
+          mt={7}
+          direction="column"
+          alignItems="center"
+          width={150}
+          bgcolor="#465360"
+          borderRadius={2}
+        >
+          {options.map((option) => (
+            <CustomButton
+              key={option.id}
+              icon={option.icon}
+              title={language === 'bn' ? option.title_bn : option.title_en}
+              selected={selectedButton === option.id}
+              onClick={() => setSelectedButton(option.id)}
+            />
+          ))}
+        </Stack>
       </Box>
-      <Stack
-        py={2}
-        mt={7}
-        direction="column"
-        alignItems="center"
-        width={150}
-        bgcolor="#465360"
-        borderRadius={2}
-      >
-        {options.map((option) => (
-          <CustomButton
-            key={option.id}
-            icon={option.icon}
-            title={language === 'bn' ? option.title_bn : option.title_en}
-            selected={selectedButton === option.id}
-            onClick={() => setSelectedButton(option.id)}
-          />
-        ))}
-      </Stack>
-    </Box>
+    </>
   );
 };
 
