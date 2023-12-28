@@ -8,6 +8,8 @@ const MatchingList = ({ assesments, type_id }: any) => {
   );
 
   return (
+    <div>
+    {!!filteredData.length && (
     <Box
       maxHeight={150}
       sx={{
@@ -48,6 +50,8 @@ const MatchingList = ({ assesments, type_id }: any) => {
         ))}
       </Box>
     </Box>
+    )}
+    </div>
   );
 };
 
