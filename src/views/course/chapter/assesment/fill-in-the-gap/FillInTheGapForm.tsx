@@ -205,7 +205,7 @@ const FillInTheGapForm: React.FC<any> = ({
         initialValues={{
           option: 'option1',
           richText: '',
-          mark: 0,
+          mark: '',
           options: [],
         }}
         onSubmit={(values, actions) => handleSubmit(values, false, actions)}
