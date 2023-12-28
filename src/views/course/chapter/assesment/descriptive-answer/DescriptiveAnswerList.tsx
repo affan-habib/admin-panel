@@ -8,46 +8,54 @@ const DescriptiveAnswerList = ({ assesments, type_id }: any) => {
   );
 
   return (
-    <Box
-      maxHeight={150}
-      sx={{
-        overflowY: 'scroll',
-        overflowX: 'hidden',
-        border: '1px dashed #D0D0D0',
-        borderRadius: 2,
-      }}
-      mb={2}
-    >
-      <Box bgcolor="#F5F5F7" m={1} p={2}>
-        {filteredData?.map((item: any) => (
-          <Box key={item.id}>
-            <Typography
-              variant="body1"
-              display="inline-flex"
-              alignItems="center"
-            >
-              <CheckCircleOutlineIcon sx={{ marginRight: 1 }} />
-              <strong style={{ marginRight: '20px' }}>বর্ণনামূলক প্রশ্নপত্র :</strong>
-              <div dangerouslySetInnerHTML={{ __html: item.question }} />
-            </Typography>
+    <div>
+      {!!filteredData.length && (
+        <Box
+          maxHeight={150}
+          sx={{
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            border: '1px dashed #D0D0D0',
+            borderRadius: 2,
+          }}
+          mb={2}
+        >
+          <Box bgcolor="#F5F5F7" m={1} p={2}>
+            {filteredData?.map((item: any) => (
+              <Box key={item.id}>
+                <Typography
+                  variant="body1"
+                  display="inline-flex"
+                  alignItems="center"
+                >
+                  <CheckCircleOutlineIcon sx={{ marginRight: 1 }} />
+                  <strong style={{ marginRight: '20px' }}>
+                    বর্ণনামূলক প্রশ্নপত্র :
+                  </strong>
+                  <div dangerouslySetInnerHTML={{ __html: item.question }} />
+                </Typography>
 
-            {item.supporting_notes_en && (
-              <Box
-                bgcolor="white"
-                p={1.5}
-                border="1px solid #D0D0D0"
-                my={1}
-                borderRadius={2}
-              >
-                <div
-                  dangerouslySetInnerHTML={{ __html: item.supporting_notes_en }}
-                />
+                {item.supporting_notes_en && (
+                  <Box
+                    bgcolor="white"
+                    p={1.5}
+                    border="1px solid #D0D0D0"
+                    my={1}
+                    borderRadius={2}
+                  >
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: item.supporting_notes_en,
+                      }}
+                    />
+                  </Box>
+                )}
               </Box>
-            )}
+            ))}
           </Box>
-        ))}
-      </Box>
-    </Box>
+        </Box>
+      )}
+    </div>
   );
 };
 
