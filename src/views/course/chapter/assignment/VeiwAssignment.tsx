@@ -4,11 +4,14 @@ import {
     DialogTitle,
     DialogContent,
     IconButton,
-    Typography,
     Grid,
     InputLabel,
     FormControlLabel,
     Checkbox,
+    FormControl,
+    Stack,
+    Typography,
+    Box,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
 import InputField from 'components/form/InputField';
@@ -20,6 +23,7 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useTranslation } from 'react-i18next';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 interface ViewAssignmentProps {
     open: boolean;
     initialData: any;
@@ -110,7 +114,7 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
                                     </Typography>
                                 </Grid>
                                 <Grid>
-                                    <InputField
+                                    {/* <InputField
                                         name="supporting_doc"
                                         label={t('instruction')}
                                         value={
@@ -123,7 +127,49 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
                                                 })()
                                                 : values.supporting_doc
                                         }
-                                    />
+                                    /> */}
+                                    <FormControl fullWidth size="small">
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <Stack
+                                                direction="row"
+                                                alignItems="center"
+                                                justifyContent="space-between"
+                                                sx={{ flexGrow: 1 }}
+                                            >
+                                                <Box  
+                                                sx={{ borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', border:'1px solid rgba(208, 208, 208, 1)', borderRight:'none' }}
+                                                    p="10px"
+                                                    px={2}>
+                                                    <Typography align="center" sx={{ color: 'grey', fontSize:'1px'  }} p={0}>
+                                                        <AttachFileIcon />
+                                                    </Typography>
+                                                </Box>
+                                                <input
+                                                    name="supporting_doc"
+                                                    style={{
+                                                        flex: 1, // Allow the input to grow and take up remaining space
+                                                        padding: '14.5px',
+                                                        borderTopRightRadius: '4px',
+                                                        borderBottomRightRadius: '4px',
+                                                        border: '1px solid rgba(208, 208, 208, 1)',
+                                                        backgroundColor: 'white',
+                                                        borderLeft:'none'
+                                                    }}
+                                                    value={
+                                                        typeof values.supporting_doc === 'string'
+                                                            ? (() => {
+                                                                const splitArray = values.supporting_doc.split('-');
+                                                                return splitArray.pop();
+                                                            })()
+                                                            : values.supporting_doc
+                                                    }
+                                                />
+                                            </Stack>
+                                        </Grid>
+
+
+
+                                    </FormControl>
                                 </Grid>
                                 <Grid
                                     container

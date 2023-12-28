@@ -144,7 +144,6 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                 <InputFile
                   name="supporting_doc"
                   label={t('assignmentUploadDoc')}
-                  acceptedFileTypes=".doc, .docx, .ppt"
                   limit={t('supDocLimit')}
                   value={values.supporting_doc} // Pass the value directly
                 />
