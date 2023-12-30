@@ -82,6 +82,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          border:'none'
         }}
       >
         <Typography color="primary" variant="h6">
@@ -91,7 +92,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
           <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ width: 600 }}>
+      <DialogContent sx={{padding:'0px', marginTop:'0px' }} >
         <Formik
           initialValues={{
             course_id: id,
@@ -110,15 +111,17 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
         >
           {({ isSubmitting, values, setFieldValue }) => (
             <Form>
-              <Grid>
+              <Grid  px={2}>
                 <InputField
                   name="title_en"
                   label={t('assignmentName')}
                   placeholder={t('assignmentname')}
                 />
               </Grid>
-              <RichTextInput label={t('assignmentInstruct')} name="instructions_en" />
-              <Grid container alignItems="center" justifyContent="center">
+              <Grid  px={2}>
+              <RichTextInput  label={t('assignmentInstruct')} name="instructions_en" />
+              </Grid>
+              <Grid  px={2} container alignItems="center" justifyContent="center">
                 <Grid item xs={12}>
                   <div
                     style={{
@@ -146,7 +149,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                 </Grid>
               </Grid>
 
-              <Grid sx={{}}>
+              <Grid  px={2} sx={{}}>
                 <InputFile
                   name="supporting_doc"
                   label={t('assignmentUploadDoc')}
@@ -156,6 +159,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
               </Grid>
 
               <Grid
+                 px={2}
                 container
                 spacing={2}
                 sx={{ display: 'flex', marginTop: '1px' }}
@@ -189,9 +193,10 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                 container
                 spacing={2}
                 alignItems="center"
-                sx={{ borderBottom: '1px solid grey', marginTop: 1 }}
+                px={2}
+                sx={{ borderBottom: '1px solid rgba(208, 208, 208, 1)', marginTop: 1 }}
               >
-                <Grid item sx={{ marginBottom: '20px' }}>
+                <Grid item sx={{ marginBottom: '1px' }}>
                   <InputLabel
                     sx={{
                       minWidth: 200,
@@ -228,8 +233,8 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                   />
                 </Grid>
               </Grid>
-              <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+              <Box  p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+                <Button type="submit" variant="contained" sx={{width:'120px'}}>
                   {t('submit')}
                 </Button>
               </Box>

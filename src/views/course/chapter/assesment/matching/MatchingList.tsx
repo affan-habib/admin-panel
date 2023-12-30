@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,7 @@ const MatchingList = ({ assesments, type_id }: any) => {
       }}
       mb={2}
     >
-      <Box bgcolor="#F5F5F7" m={1} p={2}>
+      <Box bgcolor="#F5F5F7" m={1} p={2} borderRadius={2}>
         {filteredData?.map((item: any,index:number) => (
           <Box key={item.id}>
             <Box sx={{ display: 'flex' }}>
@@ -42,13 +42,15 @@ const MatchingList = ({ assesments, type_id }: any) => {
                         <div dangerouslySetInnerHTML={{ __html: item.question }} />
                       </Typography>
                     </Box>
-                    <Box display="flex" flexDirection="row" flexWrap="wrap">
+                    <Grid display="flex" flexDirection="row" flexWrap="wrap" container  >
                       {item.options.map((option: any,index:number) => (
-                        <Box key={option.id} width="25%" p={1}>
-                        <Typography><span style={{color:'green'}}>{index+1}. </span> {option.option_value}</Typography>
-                        </Box>
+                        <Grid key={option.id}  p={1} display="flex" xs={12}  >
+                        <Typography ><span style={{color:'green'}}>{index+1}. </span> <span>Alternative:</span> {option.option_key} </Typography>
+                        <Typography mx={2}><span > Answer: </span>  {option.option_value} </Typography>
+                        <Typography mx={2}><span > Wrong Answer: </span> {option.wrong_answer} </Typography>
+                        </Grid>
                       ))}
-                    </Box>
+                    </Grid>
                   </Box>
                 </Box>
 

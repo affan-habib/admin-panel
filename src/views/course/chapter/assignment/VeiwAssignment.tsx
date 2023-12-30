@@ -80,7 +80,6 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle
-
             >
                 <Grid sx={{
                     display: 'flex',
@@ -94,12 +93,11 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
                         <HighlightOffIcon />
                     </IconButton>
                 </Grid>
-                <Typography sx={{ display: 'flex', alignItems: 'center' }}>
-                    {t('time')} <FiberManualRecordIcon sx={{ fontSize: '10px', margin: '8px', color: 'rgba(100, 100, 100, 1)' }} /> {initialData.total_time} {t('minute')}
+                <Typography sx={{ display: 'flex', alignItems: 'center', fontSize:'12px' }}>
+                    {t('time')} <FiberManualRecordIcon sx={{ fontSize: '5px',color: 'rgba(100, 100, 100, 1)', marginLeft:'5px', marginRight:'5px'}}  /> {initialData.total_time} {t('minute')}
                 </Typography>
-
             </DialogTitle>
-            <DialogContent sx={{ width: 600 }}>
+            <DialogContent sx={{marginTop:'10px' }}>
                 <Formik
                     initialValues={initialData}
                     onSubmit={handleSubmit}
@@ -109,50 +107,41 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
                         <fieldset disabled={true} style={{ border: 'none', padding: 0, margin: 0 }}>
                             <Form>
                                 <Grid>
-                                    <Typography sx={{ fontSize: '20px', fontWeight: '600', marginTop: '10px' }}>
+                                    <Typography sx={{ fontSize: '20px', fontWeight: '600', marginBottom:'10px'}}>
                                         {initialData.title_en}
                                     </Typography>
                                 </Grid>
                                 <Grid>
-                                    {/* <InputField
-                                        name="supporting_doc"
-                                        label={t('instruction')}
-                                        value={
-                                            typeof values.supporting_doc === 'string'
-                                                ? (() => {
-                                                    console.log('Original value:', values.supporting_doc);
-                                                    const splitArray = values.supporting_doc.split('-');
-                                                    console.log('Split array:', splitArray);
-                                                    return splitArray.pop();
-                                                })()
-                                                : values.supporting_doc
-                                        }
-                                    /> */}
+                                <InputLabel htmlFor="supporting_doc">{t('instruction')}</InputLabel>
                                     <FormControl fullWidth size="small">
                                         <Grid item xs={12} md={12} lg={12}>
-                                            <Stack
-                                                direction="row"
-                                                alignItems="center"
-                                                justifyContent="space-between"
-                                                sx={{ flexGrow: 1 }}
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    border: '1px solid rgba(208, 208, 208, 1)',
+                                                    borderRadius: '4px',
+                                                    overflow: 'hidden',
+                                                }}
                                             >
-                                                <Box  
-                                                sx={{ borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px', border:'1px solid rgba(208, 208, 208, 1)', borderRight:'none' }}
-                                                    p="10px"
-                                                    px={2}>
-                                                    <Typography align="center" sx={{ color: 'grey', fontSize:'1px'  }} p={0}>
+                                                <Box
+                                                    sx={{
+                                                        p: '10px',
+                                                        borderRight: 'none',
+                                                        backgroundColor: 'rgba(245, 247, 248, 1)',
+                                                        flexShrink: 0,
+                                                    }}
+                                                >
+                                                    <Typography align="center" sx={{ color: 'grey'}} p={0}>
                                                         <AttachFileIcon />
                                                     </Typography>
                                                 </Box>
                                                 <input
                                                     name="supporting_doc"
                                                     style={{
-                                                        flex: 1, // Allow the input to grow and take up remaining space
+                                                        flex: 1,
                                                         padding: '14.5px',
-                                                        borderTopRightRadius: '4px',
-                                                        borderBottomRightRadius: '4px',
-                                                        border: '1px solid rgba(208, 208, 208, 1)',
-                                                        backgroundColor: 'white',
+                                                        border: 'none',
+                                                        backgroundColor: 'rgba(245, 247, 248, 1)',
                                                         borderLeft:'none'
                                                     }}
                                                     value={
@@ -164,11 +153,8 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
                                                             : values.supporting_doc
                                                     }
                                                 />
-                                            </Stack>
+                                            </Box>
                                         </Grid>
-
-
-
                                     </FormControl>
                                 </Grid>
                                 <Grid
