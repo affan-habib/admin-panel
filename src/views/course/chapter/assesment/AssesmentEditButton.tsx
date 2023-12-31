@@ -7,6 +7,7 @@ import EditTrueFalseForm from './true-false/EditTrueFalseForm';
 import EditOneWordAnswerForm from './one-word-answer/EditOneWordAnswerForm';
 import EditDescriptiveAnswerForm from './descriptive-answer/EditDescriptiveAnswerForm';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { HighlightOff } from '@mui/icons-material';
 const options: any = [
   {
     type_id: 2,
@@ -74,7 +75,23 @@ const AssesmentEditButton: React.FC<any> = ({ data, maxMark }) => {
         maxWidth="lg"
         fullWidth
       >
-        <DialogTitle>{selectedOption?.title_en}</DialogTitle>
+        <DialogTitle
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            border: 'none',
+          }}
+        >
+          {selectedOption?.title_en}
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseDialog}
+            color="error"
+          >
+            <HighlightOff />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           {selectedOption?.formComponent && (
             <selectedOption.formComponent data={data} maxMark={maxMark} />
