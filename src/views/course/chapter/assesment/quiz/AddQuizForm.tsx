@@ -11,7 +11,7 @@ import {
   Stack,
 } from '@mui/material';
 import { Formik, Form, FieldArray, Field } from 'formik';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -26,7 +26,7 @@ import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
 
-const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark }) => {
+const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
   const { showSnackbar } = useSnackbar();
@@ -68,12 +68,12 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
     }
   }
 
-  const handleSubmit = async (values: any,{ resetForm }: any) => {
+  const handleSubmit = async (values: any, { resetForm }: any) => {
     await handleFormSubmit(values, true);
     resetForm();
   };
 
-  const handleSaveAndAdd = async (values: any,{ resetForm }: any) => {
+  const handleSaveAndAdd = async (values: any, { resetForm }: any) => {
     await handleFormSubmit(values, false);
     resetForm();
   };
@@ -113,10 +113,10 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
               is_correct: false
             },
           ],
-          mark:''
+          mark: ''
         }
-      }  validationSchema={validationSchema} onSubmit={handleSubmit} >
-      {({ values, setFieldValue,resetForm, isValid, dirty }) => (
+      } validationSchema={validationSchema} onSubmit={handleSubmit} >
+      {({ values, setFieldValue, resetForm, isValid, dirty }) => (
         <Form>
           <FormControl
             component="fieldset"
@@ -200,7 +200,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
             <Grid
               spacing={2}
               mt={5}
-              // style={{maxHeight:'60vh',overflowY:'auto'}}
+            // style={{maxHeight:'60vh',overflowY:'auto'}}
             >
               <Grid>
                 <FieldArray name="options">
@@ -382,7 +382,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
               <Button variant="contained" type="submit" disabled={!isValid || !dirty}>
                 {t('submit')}
               </Button>
-              <Button variant="outlined" disabled={!isValid || !dirty} onClick={() => handleSaveAndAdd(values,{resetForm})}>
+              <Button variant="outlined" disabled={!isValid || !dirty} onClick={() => handleSaveAndAdd(values, { resetForm })}>
                 {t('saveAdd')}
               </Button>
             </Grid>
