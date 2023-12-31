@@ -41,7 +41,6 @@ import ViewAssesmentDialog from './assesment/ViewAssesmentDialog';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import VeiwAssignment from './assignment/VeiwAssignment';
 const Chapters: React.FC<any> = ({ modules }) => {
-  // console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -109,6 +108,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssinmentName(module_name);
     setAssignmentDialogOpen(true);
   };
+  // console.log(assignmentName);
   const handleAssignmentDialogClose = () => {
     setAssignmentDialogOpen(false);
   };
@@ -176,6 +176,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
       setSelectedId(-1);
     }
   };
+
+  const language = localStorage.getItem('language');
   return (
     <>
       {modules?.map((chapter: any) => (
@@ -518,7 +520,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       onClick={() => {
                         handleAssignmentDialogOpen(
                           chapter.id,
-                          chapter.module_name_bn,
+                         language === 'bn' ? chapter.module_name_bn : chapter.module_name_en,
                         );
                       }}
                       title={t('assigmnment')}
