@@ -46,7 +46,7 @@ const options: any = [
   },
 ];
 
-const AssesmentEditButton: React.FC<any> = ({ data }) => {
+const AssesmentEditButton: React.FC<any> = ({ data, maxMark }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const selectedOption = options.find(
     (option: any) => option.type_id === data.type_id,
@@ -77,7 +77,7 @@ const AssesmentEditButton: React.FC<any> = ({ data }) => {
         <DialogTitle>{selectedOption?.title_en}</DialogTitle>
         <DialogContent>
           {selectedOption?.formComponent && (
-            <selectedOption.formComponent data={data} />
+            <selectedOption.formComponent data={data} maxMark={maxMark} />
           )}
         </DialogContent>
       </Dialog>
