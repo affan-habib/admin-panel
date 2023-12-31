@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -13,17 +13,94 @@ import {
   Box,
 } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-interface ViewAssesmentDialogProps {
+import axiosInstance from 'server/axiosInstance';
+import parse from 'html-react-parser';
+import { useTranslation } from 'react-i18next';
+import { assetBaseUrl } from 'config';
+import { toBanglaNumber } from 'utils/numberUtils';
+
+interface ViewAssessmentDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
 }
 
-const ViewAssesmentDialog: React.FC<ViewAssesmentDialogProps> = ({
+const DotElement = () => (
+  <span style={{margin: '0 8px'}}><svg height="10" width="10"><circle cx="4" cy="4" r="2" stroke="black" stroke-width="1" fill="#646464" /></svg></span>
+);
+
+const MatchingElement = ({title, fSize=16}: any) => {
+  return (<Typography
+    align="center"
+    variant="h6"
+    bgcolor="#FAFAFA"
+    p={1}
+    fontSize={fSize}
+    fontWeight={500}
+    border="2px solid #D0D0D0"
+    borderRadius={2}
+    width={210}
+    minHeight={40}
+  >{title}</Typography>)
+}
+
+const BlankElement = () => {
+  return (
+    <span
+      style={{
+        border: '1px dashed green',
+        width: '100px',
+        display: 'inline-block',
+        backgroundColor: '#F9FEFD',
+      }}
+    >{' '}&nbsp;{' '}
+    </span>
+  )
+}
+const BlankOption = ({title}: any) => (<Typography
+  variant="body1"
+  bgcolor="#DEEEC6"
+  color="#1D1D1F"
+  px={2}
+  py="2px"
+  fontSize={16}
+  fontWeight={400}
+  border="1px dashed #006A4E"
+  borderRadius={1}
+>
+  {title}
+</Typography>);
+
+
+const flatMap = (array: any, fn: (n:any) => void) => {
+  let result:any= [];
+  for (let i = 0; i < array.length; i++) {
+    const mapping = fn(array[i]);
+    result = result.concat(mapping);
+  }
+  result.pop();
+  return result;
+}
+
+const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
   open,
   initialData,
   onClose,
 }) => {
+
+  const [data, setData] = useState([]);
+
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    axiosInstance.get('quizzes', {course_assessment_id: initialData.id})
+    .then((res: any) => {
+      setData(res.data.data);
+    })
+    .catch((e:any) => console.log(e));
+    
+  }, [initialData.id]);
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xl" fullWidth>
       <DialogTitle
@@ -33,13 +110,13 @@ const ViewAssesmentDialog: React.FC<ViewAssesmentDialogProps> = ({
           alignItems: 'center',
         }}
       >
-        <div>
-          <Typography color="primary" variant="h6">
-            এসেসমেন্ট : কারবালা প্রান্তরের উপর সম্মিলিত প্রশ্নপত্র
+        <div style={{fontSize: '12px'}}>
+          <Typography color="primary" variant="h6" sx={{marginBottom: '8px', fontSize: '24px', fontWeight: 600}}>
+            {localStorage.getItem('language') === 'en' ? initialData.assessment_title_en : initialData.assessment_title_en}
           </Typography>
           <Stack direction="row" spacing={2}>
             <Typography variant="body1" color="#646464">
-              বর্ণনামূলক প্রশ্নপত্র : বর্ণনামূলক প্রশ্নপত্র
+              {t('descriptiveQuestionPaper')} 
             </Typography>
             <svg
               width="9"
@@ -53,13 +130,14 @@ const ViewAssesmentDialog: React.FC<ViewAssesmentDialogProps> = ({
               <rect x="8" y="3" width="1" height="14" fill="#646464" />
             </svg>
 
-            <Typography variant="body1" color="#646464">
-              সময় : ২০ মিনিট
+            <Typography variant="body1" color="#646464" alignItems='center'>
+              {t('time')} <DotElement />
+            {toBanglaNumber(initialData.total_time)} {t('minutes')}
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2}>
             <Typography variant="body1" color="#646464">
-              সর্বমোট মার্ক : ২০
+              {t('totalMarks')} <DotElement /> {toBanglaNumber(initialData.total_mark)}
             </Typography>
             <svg
               width="9"
@@ -74,7 +152,7 @@ const ViewAssesmentDialog: React.FC<ViewAssesmentDialogProps> = ({
             </svg>
 
             <Typography variant="body1" color="#646464">
-              পাস মার্ক : ২০
+              {t('passMark')} <DotElement /> {toBanglaNumber(initialData.pass_mark)}
             </Typography>
           </Stack>
         </div>
@@ -83,451 +161,109 @@ const ViewAssesmentDialog: React.FC<ViewAssesmentDialogProps> = ({
         </IconButton>
       </DialogTitle>
       <DialogContent>
+
         <Box mt={4}>
+        {data.length > 0 && data.map((item:any, index:number) => (
           <Stack
+            key={index}
             direction="row"
-            justifyContent="space-between"
             alignItems="flex-start"
           >
-            <div>
-              <Typography variant="h6" mb={2}>
-                <strong>Question: 1</strong> Select your preferences:
+              <Typography variant="h6" mb={2} sx={{display: 'flex', lineHeight:'19px', marginBottom: '0', fontSize: '16px', fontWeight: 500}}>
+                <strong style={{marginRight: '6px', fontSize: '16px', fontWeight: 600}}>{t('question')} {localStorage.getItem('language') === 'en' ? index+1 : toBanglaNumber(index+1)}:</strong> 
               </Typography>
-
-              <FormControlLabel
-                control={<Checkbox />}
-                label={<Typography>Option 1</Typography>}
-              />
-              <FormControlLabel
-                control={<Checkbox checked />}
-                label={<Typography>Option 2</Typography>}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label={<Typography>Option 3</Typography>}
-              />
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-          >
-            <div>
-              <Typography variant="h6" my={2}>
-                <strong>Question: 1</strong> Select your preferences:
-              </Typography>
-
-              <FormControlLabel
-                control={<Checkbox />}
-                label={<Typography>True</Typography>}
-              />
-              <FormControlLabel
-                control={<Checkbox checked />}
-                label={<Typography>False</Typography>}
-              />
-              <Typography
-                variant="body1"
-                bgcolor="#FAFAFA"
-                p={2}
-                border="2px solid #D0D0D0"
-                borderRadius={2}
-                maxWidth={500}
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+                flexGrow={1}
               >
-                'বনলতা সেন ' কাব্যগ্রন্থের রচয়িতা জীবনানন্দ দাশ| জীবননান্দ দাশ
-                প্রধানত প্রকৃতির কবি| তার রচিত কাব্যগ্রন্থের নাম 'ধূসর
-                পাণ্ডুলিপি', 'সাতটি তারার তিমির', 'বেলা অবেলা কালবেলা' এবং
-                'রুপসী বাংলা' প্রভৃতি|
-              </Typography>
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-          >
-            <div>
-              <Typography variant="h6" my={2}>
-                <strong>Question: 1</strong> Select your
-                preferences_______________
-              </Typography>
-
-              <FormControlLabel
-                control={<Checkbox />}
-                label={<Typography>Option 1</Typography>}
-              />
-              <FormControlLabel
-                control={<Checkbox checked />}
-                label={<Typography>Option 2</Typography>}
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                label={<Typography>Option 3</Typography>}
-              />
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-          >
-            <div>
-              <Typography variant="h6" my={2}>
-                <strong>Question: 2</strong> Select options with images:
-              </Typography>
-              <Stack direction="row" alignItems="flex-end" spacing={2}>
-                <Stack>
-                  <img
-                    src="https://picsum.photos/200/200"
-                    style={{ height: '200px', width: '200px' }}
-                  />
+              <div style={{marginBottom: '12px'}}>
+                <Typography variant='h6' sx={{marginTop: '0', paddingTop: '0', lineHeight:'19px', fontWeight: 500, marginBottom: '4px'}}>
+                  {
+                    (item.type_id === 4) ? (flatMap(item.question.split('#'), (part) => {
+                      return [parse(part), <BlankElement />];
+                    })) : (parse(item.question))
+                  }
+                  {(item.question_img) && (
+                    <div style={{marginTop: '8px'}}>
+                        <img
+                          src={`${assetBaseUrl}/${item.question_img}`}
+                          style={{ height: '140px', width: '140px' }}
+                        />
+                    </div>
+                  )}
+                
+                </Typography>
+                <div style={{marginLeft: '0'}}>
+                {/* Quiz / TRUE-FALSE */}
+                {(item.type_id === 2 || item.type_id === 5) && item.options.length > 0 && item.options.map((option: any, secondIndex: number) => (
                   <FormControlLabel
-                    control={<Checkbox checked />}
-                    label={<Typography>Option 1</Typography>}
-                  />
-                </Stack>
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={<Typography>Option 2</Typography>}
+                  key={(index*100) + secondIndex}
+                  control={option.is_correct === false ? <Checkbox size='small' sx={{color: "#646464"}} checked /> : <Checkbox size='small' />}
+                  label={<Typography sx={{fontSize: '16px', marginRight:'12px', fontWeight:400, color: "#646464"}}>{option.option_value}</Typography>}
                 />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={<Typography>Option 3</Typography>}
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={<Typography>Option 4</Typography>}
-                />
-              </Stack>
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-          >
-            <div>
-              <Typography variant="h6" my={2}>
-                <strong>Question: 2</strong> Select options with images:
-              </Typography>
+                ))}
 
-              <FormControlLabel
-                control={<Checkbox />}
-                label={
-                  <div>
-                    <img
-                      src="https://picsum.photos/200/200"
-                      style={{ marginBottom: '8px' }}
-                    />
-                  </div>
-                }
-              />
-              <FormControlLabel
-                control={<Checkbox checked />}
-                label={
-                  <div>
-                    <img
-                      src="https://picsum.photos/200/200"
-                      style={{ marginBottom: '8px' }}
-                    />
-                  </div>
-                }
-              />
-              <FormControlLabel
-                control={<Checkbox checked />}
-                label={
-                  <div>
-                    <img
-                      src="https://picsum.photos/200/200"
-                      style={{ marginBottom: '8px' }}
-                    />
-                  </div>
-                }
-              />
-              <FormControlLabel
-                control={<Checkbox checked />}
-                label={
-                  <div>
-                    <img
-                      src="https://picsum.photos/200/200"
-                      style={{ marginBottom: '8px' }}
-                    />
-                  </div>
-                }
-              />
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-          >
-            <div>
-              <Typography variant="h6" mb={2}>
-                <strong>Question: 1</strong> Select your preferences?
-              </Typography>
-              <Typography
-                variant="body1"
-                bgcolor="#FAFAFA"
-                p={2}
-                border="2px solid #D0D0D0"
-                borderRadius={2}
-                maxWidth={500}
-              >
-                পারিবারিক প্রেক্ষাপট রবীন্দ্রনাথ ঠাকুরের জন্ম জোড়াসাঁকোর ৬ নং
-                দ্বারকানাথ ঠাকুর লেনের পারিবারিক বাসভবনে। জোড়াসাঁকো ছিল সেযুগে
-                “ব্ল্যাক টাউন” (বাঙালি অধ্যুষিত নগরাঞ্চল; ইউরোপীয়দের আবাসস্থল
-                দক্ষিণ কলকাতা ছিল “হোয়াইট টাউন”) নামে পরিচিত উত্তর কলকাতার
-                চিৎপুর রোডের (বর্তমান নাম রবীন্দ্র সরণি) নিকটে।
-              </Typography>
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-          >
-            <div>
-              <Typography variant="h6" my={2}>
-                <strong>Question: 1</strong> Select your{' '}
-                <span
-                  style={{
-                    border: '1px dashed green',
-                    width: '100px',
-                    display: 'inline-block',
-                    backgroundColor: '#F9FEFD',
-                  }}
-                >
-                  {' '}
-                  &nbsp;{' '}
-                </span>{' '}
-                preferences?
-              </Typography>
-              <Stack direction="row" spacing={2}>
-                <Typography
+                {/* Matching */}
+                {item.type_id === 3 && item.options.length > 0 &&
+                (
+                  <Stack direction="row" spacing={4} >
+                    <div>
+                      {item.options.map((option:any, thirdKeyIndex:number) => (
+                        <Stack spacing={1} mb={1} pt={0} key={(index*100) + thirdKeyIndex}>
+                          <MatchingElement title={option.option_key} />
+                          <MatchingElement title={t('dragAndDropCorrectAnswer')} fSize={12} />
+                        </Stack>
+                      ))}
+                    </div>
+                    <div>
+                      {item.options.map((option:any, thirdValueIndex:number) => (
+                        <Stack spacing={1} mb={1} key={(index*100) + thirdValueIndex}>
+                          <MatchingElement title={option.option_value} />
+                          {option.wrong_answer.length > 0 && (
+                            <MatchingElement title={option.wrong_answer} />
+                          )}
+                        </Stack>
+                      ))}
+                    </div>
+                  </Stack>
+                )}
+
+                {/* Fill in the GAP */}
+                {(item.type_id === 4) && item.options.length > 0 && (
+                  <Stack direction="row" spacing={2} mb={2}>
+                    {item.options.map((option: any, gapIndex: number) => (
+                      <BlankOption title={option.option_value} key={(index*100) + gapIndex} />
+                    ))}
+                  </Stack>
+                )}
+                
+                {item.supporting_notes_en.length > 0 && (
+                  <Typography
                   variant="body1"
-                  bgcolor="#DEEEC6"
-                  px={2}
-                  py={1}
-                  border="2px dashed #006A4E"
+                  bgcolor="#FAFAFA"
+                  p={2}
+                  border="2px solid #D0D0D0"
                   borderRadius={2}
-                >
-                  বিকল্প ২
-                </Typography>
-                <Typography
-                  variant="body1"
-                  bgcolor="#DEEEC6"
-                  px={2}
-                  py={1}
-                  border="2px dashed #006A4E"
-                  borderRadius={2}
-                >
-                  বিকল্প ২
-                </Typography>
-              </Stack>
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
+                  maxWidth={500}
+                  >
+                    {parse(item.supporting_notes_en)}
+                  </Typography>
+                )}
+                </div>
+              </div>
+              
+              <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
+                {item.mark} point
+              </Button>
+            </Stack>
           </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="flex-start"
-          >
-            <div>
-              <Typography variant="h6" my={2}>
-                <strong>Question: 1</strong> Select your preferences?
-              </Typography>
-              <Stack direction="row" spacing={2}>
-                <Stack spacing={1}>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    fontSize={12}
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    সঠিক উত্তরটি ড্র্যাগ করে নিয়ে আসুন
-                  </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    fontSize={12}
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    সঠিক উত্তরটি ড্র্যাগ করে নিয়ে আসুন
-                  </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    fontSize={12}
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    সঠিক উত্তরটি ড্র্যাগ করে নিয়ে আসুন
-                  </Typography>
-                </Stack>
-                <Stack spacing={1}>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                    bgcolor="#FAFAFA"
-                    p={2}
-                    border="2px solid #D0D0D0"
-                    borderRadius={2}
-                    width={250}
-                    mb={1}
-                    minHeight={50}
-                  >
-                    বাংলাদেশ
-                  </Typography>
-                </Stack>
-              </Stack>
-            </div>
-            <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-              1 point
-            </Button>
-          </Stack>
+        ))}
         </Box>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default ViewAssesmentDialog;
+export default ViewAssessmentDialog;

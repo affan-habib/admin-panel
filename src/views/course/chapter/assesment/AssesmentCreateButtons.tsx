@@ -14,6 +14,13 @@ import AddQuizForm from './quiz/AddQuizForm';
 import { IconButton, Stack } from '@mui/material';
 import { HighlightOff } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
+import OneWordAnswerList from './one-word-answer/OneWordAnswerList';
+import useCourseQuizzes from 'hooks/useCourseQuizzes';
+import TrueFalseList from './true-false/TrueFalseList';
+import DescriptiveAnswerList from './descriptive-answer/DescriptiveAnswerList';
+import MatchingList from './matching/MatchingList';
+import QuizList from './quiz/QuizList';
+import FillInTheGapList from './fill-in-the-gap/FillInTheGapList';
 // import useAssesmentTypes from 'hooks/useAssesmentTypes';
 
 const options = [
@@ -54,14 +61,15 @@ const options = [
   },
 ];
 const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
-  console.log(assessment, 'ssssssssssssssss');
-  // const { data: assesmentTypes } = useAssesmentTypes();
   const { t } = useTranslation();
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const language = localStorage.getItem('language');
   const moduleName =
     language === 'en' ? module.module_name_en : module.module_name_bn;
+
+  const { data: assesments } = useCourseQuizzes(assessment.id);
+
   const handleOpenDialog = (id: number) => {
     setSelectedId(id);
     setDialogOpen(true);
@@ -114,6 +122,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
         <DialogContent>
           {selectedId === 1 && (
             <IntegratedQuestionButton
+              assesments={assesments}
               type_id={selectedId}
               assessmentId={assessment.id}
               handleCloseDialog={handleCloseDialog}
@@ -121,52 +130,73 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
             />
           )}
           {selectedId === 2 && (
-            <AddQuizForm
-              type_id={selectedId}
-              assessmentId={assessment.id}
-              handleCloseDialog={handleCloseDialog}
-              maxMark={assessment.total_mark}
-            />
+            <>
+              <QuizList assesments={assesments} type_id={selectedId} />
+              <AddQuizForm
+                type_id={selectedId}
+                assessmentId={assessment.id}
+                handleCloseDialog={handleCloseDialog}
+                maxMark={assessment.total_mark}
+              />
+            </>
           )}
           {selectedId === 3 && (
-            <AddMatchingForm
-              type_id={selectedId}
-              assessmentId={assessment.id}
-              handleCloseDialog={handleCloseDialog}
-              maxMark={assessment.total_mark}
-            />
+            <>
+              <MatchingList assesments={assesments} type_id={selectedId} />
+              <AddMatchingForm
+                type_id={selectedId}
+                assessmentId={assessment.id}
+                handleCloseDialog={handleCloseDialog}
+                maxMark={assessment.total_mark}
+              />
+            </>
           )}
           {selectedId === 5 && (
-            <TrueFalseForm
-              type_id={selectedId}
-              maxMark={assessment.total_mark}
-              assessmentId={assessment.id}
-              handleCloseDialog={handleCloseDialog}
-            />
+            <>
+              <TrueFalseList assesments={assesments} type_id={selectedId} />
+              <TrueFalseForm
+                type_id={selectedId}
+                maxMark={assessment.total_mark}
+                assessmentId={assessment.id}
+                handleCloseDialog={handleCloseDialog}
+              />
+            </>
           )}
           {selectedId === 4 && (
-            <FillInTheGapForm
-              assessmentId={assessment.id}
-              type_id={selectedId}
-              maxMark={assessment.total_mark}
-              handleCloseDialog={handleCloseDialog}
-            />
+            <>
+              <FillInTheGapList assesments={assesments} type_id={selectedId} />
+              <FillInTheGapForm
+                assessmentId={assessment.id}
+                type_id={selectedId}
+                maxMark={assessment.total_mark}
+                handleCloseDialog={handleCloseDialog}
+              />
+            </>
           )}
           {selectedId === 6 && (
-            <OneWordAnswerForm
-              assessmentId={assessment.id}
-              type_id={selectedId}
-              handleCloseDialog={handleCloseDialog}
-              maxMark={assessment.total_mark}
-            />
+            <>
+              <OneWordAnswerList assesments={assesments} type_id={selectedId} />
+              <OneWordAnswerForm
+                assessmentId={assessment.id}
+                type_id={selectedId}
+                handleCloseDialog={handleCloseDialog}
+                maxMark={assessment.total_mark}
+              />
+            </>
           )}
           {selectedId === 7 && (
-            <DescriptiveAnswerForm
-              maxMark={assessment.total_mark}
-              assessmentId={assessment.id}
-              handleCloseDialog={handleCloseDialog}
-              type_id={selectedId}
-            />
+            <>
+              <DescriptiveAnswerList
+                assesments={assesments}
+                type_id={selectedId}
+              />
+              <DescriptiveAnswerForm
+                maxMark={assessment.total_mark}
+                assessmentId={assessment.id}
+                handleCloseDialog={handleCloseDialog}
+                type_id={selectedId}
+              />
+            </>
           )}
         </DialogContent>
       </Dialog>

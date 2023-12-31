@@ -383,7 +383,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           {t('assessment')} : {assessment.assessment_title_en}
                         </Typography>
                         <Box sx={{display:'flex'}}>
-                          <Typography style={{ marginRight: '5px' }}>
+                          <Typography variant="caption" style={{ marginRight: '15px',color:'rgba(100, 100, 100, 1)'}}>
                             {assessment.quizzes_count} {t('questionNo')}
                           </Typography>
                           <svg
@@ -397,8 +397,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
                             <rect x="4" width="1" height="20" fill="#646464" />
                             <rect x="8" y="3" width="1" height="14" fill="#646464" />
                           </svg>
-                          <Typography style={{marginLeft:'10px'}}>
-                          {t('time')} {assessment.total_time} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {t('minutes')} , {t('marks')} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {assessment.total_mark}
+                          <Typography variant="caption" style={{marginLeft:'15px',color:'rgba(100, 100, 100, 1)'}}>
+                          {t('time')} {assessment.total_time} <FiberManualRecordIcon style={{fontSize:'8px',marginLeft:'5px',marginRight: '5px'}}/> {t('minutes')} , {t('marks')} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {assessment.total_mark}
                           </Typography>
                         </Box>
                       </Box>
@@ -479,7 +479,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           justifyContent: 'space-between',
                           paddingTop: '8px',
                           paddingBottom: '8px',
-                          border: '1px dashed #000',
+                          border: '1px dashed rgba(208, 208, 208, 1)',
+                          backgroundColor:'rgba(250, 250, 250, 1)'
                         }}
                       >
                         <AssesmentCreateButtons
