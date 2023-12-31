@@ -1,25 +1,12 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-} from '@mui/material';
-import AddQuizForm from 'views/course/chapter/assesment/quiz/AddQuizForm';
-import AddMatchingForm from './matching/AddMatchingForm';
-import FillInTheGapForm from './fill-in-the-gap/FillInTheGapForm';
-import TrueFalseForm from './true-false/TrueFalseForm';
-import OneWordAnswerForm from './one-word-answer/OneWordAnswerForm';
-import DescriptiveAnswerForm from './descriptive-answer/DescriptiveAnswerForm';
-import { Edit } from '@mui/icons-material';
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import EditQuizForm from './quiz/EditQuizForm';
 import EditMatchingForm from './matching/EditMatchingForm';
 import EditFillInTheGapForm from './fill-in-the-gap/EditFillInTheGapForm';
 import EditTrueFalseForm from './true-false/EditTrueFalseForm';
 import EditOneWordAnswerForm from './one-word-answer/EditOneWordAnswerForm';
 import EditDescriptiveAnswerForm from './descriptive-answer/EditDescriptiveAnswerForm';
-
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 const options: any = [
   {
     type_id: 2,
@@ -60,7 +47,6 @@ const options: any = [
 ];
 
 const AssesmentEditButton: React.FC<any> = ({ data }) => {
-  // console.log(data);
   const [openDialog, setOpenDialog] = useState(false);
   const selectedOption = options.find(
     (option: any) => option.type_id === data.type_id,
@@ -76,8 +62,11 @@ const AssesmentEditButton: React.FC<any> = ({ data }) => {
 
   return (
     <>
-      <IconButton onClick={handleOpenDialog}>
-        <Edit />
+      <IconButton
+        onClick={handleOpenDialog}
+        sx={{ bgcolor: '#DEEEC6', borderRadius: 2, color: 'primary.main' }}
+      >
+        <BorderColorIcon />
       </IconButton>
       <Dialog
         open={openDialog}

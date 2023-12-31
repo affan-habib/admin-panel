@@ -355,7 +355,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
                   <div>
                     <Button
                       variant="contained"
-                      sx={{ bgcolor: '#1D1D1F', mr: 2 }}
+                      sx={{ bgcolor: '#F5F5F7', mr: 2 , color: 'black'}}
                     >
                       {item.mark} point
                     </Button>
