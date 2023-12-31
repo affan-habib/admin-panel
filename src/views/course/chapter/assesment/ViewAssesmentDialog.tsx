@@ -255,14 +255,15 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
                           <FormControlLabel
                             key={index * 100 + secondIndex}
                             control={
-                              option.is_correct === false ? (
+                              option.is_correct === true ? (
                                 <Checkbox
                                   size="small"
                                   sx={{ color: '#646464' }}
                                   checked
+                                  disabled
                                 />
                               ) : (
-                                <Checkbox size="small" />
+                                <Checkbox size="small" disabled />
                               )
                             }
                             label={
@@ -351,10 +352,15 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
                     </div>
                   </div>
 
-                  <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-                    {item.mark} point
-                  </Button>
-                  <AssesmentEditButton data={item} />
+                  <div>
+                    <Button
+                      variant="contained"
+                      sx={{ bgcolor: '#1D1D1F', mr: 2 }}
+                    >
+                      {item.mark} point
+                    </Button>
+                    <AssesmentEditButton data={item} />
+                  </div>
                 </Stack>
               </Stack>
             ))}
