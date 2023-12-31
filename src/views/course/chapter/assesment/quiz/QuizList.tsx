@@ -26,7 +26,7 @@ const QuizList = ({ assesments, type_id }: any) => {
           }}
           mb={2}
         >
-          <Box bgcolor="#F5F5F7" m={1} p={2}>
+          <Box bgcolor="#F5F5F7" borderRadius={2} m={1} p={2}>
             {filteredData?.map((item: any,index:number) => (
               <Box key={item.id}>
                 <Box sx={{ display: 'flex' }}>
@@ -46,7 +46,8 @@ const QuizList = ({ assesments, type_id }: any) => {
                     </Box>
                     <Box display="flex" flexDirection="row" flexWrap="wrap">
                       {item.options.map((option: any,index:number) => (
-                        <Box key={option.id} width="25%" p={1}>
+                        // <Box key={option.id} width="25%" p={1}>
+                        <Box key={option.id} p={1}>
                         <Typography><span style={{color:'green'}}>{index+1}. </span> {option.option_value}</Typography>
                         </Box>
                       ))}
