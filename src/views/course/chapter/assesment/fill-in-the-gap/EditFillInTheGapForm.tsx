@@ -31,11 +31,11 @@ import { SpaceBar } from '@mui/icons-material';
 import { useQueryClient } from 'react-query';
 
 const EditFillInTheGapForm: React.FC<any> = ({
-  assessmentId,
-  type_id,
+  data,
+ 
   handleCloseDialog,
 }) => {
-  // console.log("assessmentId", type_id)
+  console.log("assessmentId", data)
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const [editorHtml, setEditorHtml] = useState<string>('');
@@ -151,21 +151,14 @@ const EditFillInTheGapForm: React.FC<any> = ({
       '#',
     );
 
-    const payload = {
-      course_assessment_id: assessmentId,
-      question: values.richText,
-      type_id: type_id,
-      mark: values.mark,
-      status: 1,
-      options: optionsArr,
-    };
+
 
     setLoading(true);
 
     const token = localStorage.getItem('token');
 
     try {
-      const response = await axios.post(`${apiBaseUrl}/quizzes`, payload, {
+      const response = await axios.patch(`${apiBaseUrl}/quizzes/${data.id}`, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -202,12 +195,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
   return (
     <>
       <Formik
-        initialValues={{
-          option: 'option1',
-          richText: '',
-          mark: '',
-          options: [],
-        }}
+        initialValues={data}
         onSubmit={(values, actions) => handleSubmit(values, false, actions)}
       >
         {({ values, setFieldValue, resetForm }) => (

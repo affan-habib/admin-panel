@@ -20,7 +20,7 @@ import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
 const EditOneWordAnswerForm: React.FC<any> = ({
-  assessmentId,
+  data,
   handleCloseDialog,
   maxMark,
 }) => {
@@ -29,15 +29,10 @@ const EditOneWordAnswerForm: React.FC<any> = ({
   const queryClient = useQueryClient();
   const onSubmit = async (values: any, buttonType: any = 'submit') => {
     try {
-      const response = await axios.post(`${apiBaseUrl}/quizzes`, {
-        course_assessment_id: assessmentId,
-        question: values.question,
-        supporting_notes_en: values.supporting_notes_en,
-        mark: values.mark,
-        question_type: 'text',
-        type_id: 6,
-        status: 1,
-      });
+      const response = await axios.patch(
+        `${apiBaseUrl}/quizzes/${data.id}`,
+        values,
+      );
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
       buttonType !== 'saveAndAdd' && handleCloseDialog();
@@ -49,7 +44,7 @@ const EditOneWordAnswerForm: React.FC<any> = ({
 
   const initialValues = {
     option: 'option1',
-    question: '',
+    question: data.question,
     mark: '',
     supporting_notes_en: '',
     type_id: 6,
@@ -63,7 +58,7 @@ const EditOneWordAnswerForm: React.FC<any> = ({
   });
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={data}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
