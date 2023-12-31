@@ -7,6 +7,9 @@ import {
   Typography,
   Button,
   Grid,
+  InputLabel,
+  FormControl,
+  Box,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
@@ -19,7 +22,9 @@ import { useSnackbar } from 'context/SnackbarContext';
 import VideoUploadBox from 'components/form/VideoUploadBox';
 import { useTranslation } from 'react-i18next';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/system';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 interface CreateVideoDialogProps {
   open: boolean;
   initialData: any;
@@ -34,6 +39,8 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
     if (typeof values.url === 'string') {
@@ -75,26 +82,27 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          border:'none'
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addVedio')}
+          {t('updateVedio')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
         <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ width: 600 }}>
+      <DialogContent sx={{ width: isSmallScreen ? '100%' : 600, marginTop: '0px' }}>
         <Formik
           initialValues={initialData}
           onSubmit={handleSubmit}
           enableReinitialize
         >
           <Form>
-            <InputField
+          <InputField
               name="title_en"
               label={t('videoName')}
-              placeholder={t('videoPlace')}
+              placeholder={t('WritevideoName')}
             />
             <VideoUploadBox name="url" label={t('uploadVideo')} />
             <Grid container alignItems="center" justifyContent="center">
@@ -124,11 +132,49 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
                   </div>
                 </Grid>
               </Grid>
-              <InputField name='url_link' label={t('videoLink')} placeholder={t('writeVideolink')}/> 
+              <InputLabel htmlFor="url_link">{t('videoLink')}</InputLabel>
+            <FormControl fullWidth size="small">
+              <Grid item xs={12} md={12} lg={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    border: '1px solid rgba(208, 208, 208, 1)',
+                    borderRadius: '4px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <input
+                    style={{
+                      flex: 1,
+                      padding: '14.5px',
+                      border: 'none',
+                      backgroundColor: 'rgba(245, 247, 248, 1)',
+                      borderLeft: 'none'
+                    }}
+                    name='url_link' placeholder={t('writeVideolink')}
+                    // label={t('videoLink')}
+                  />
+                  <Box 
+                    sx={{
+                      p: '10px',
+                      borderRight: 'none',
+                      backgroundColor: 'rgba(0, 106, 78, 1)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Typography align="center" sx={{ color: 'white' }} p={0}>
+                      <AttachFileIcon />
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            </FormControl> 
             <RichTextInput label={t('videotranscript')} name="transcript_en" />
-            <Button type="submit" variant="contained" sx={{ float: 'right'}}>
-            {t('submit')}
-            </Button>
+            <Box p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+              <Button type="submit" variant="contained" sx={{ width: '120px' }}>
+                {t('submit')}
+              </Button>
+            </Box>
           </Form>
         </Formik>
       </DialogContent>
