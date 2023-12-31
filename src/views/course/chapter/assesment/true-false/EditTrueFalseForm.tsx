@@ -25,15 +25,31 @@ const EditTrueFalseForm: React.FC<any> = ({
   handleCloseDialog,
   maxMark,
 }) => {
+  console.log(data);
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const onSubmit = async (values: any) => {
     try {
-      const response = await axios.patch(
-        `${apiBaseUrl}/quizzes/${data.id}`,
-        values,
-      );
+      const response = await axios.patch(`${apiBaseUrl}/quizzes/${data.id}`, {
+        course_assessment_id: data.course_assessment_id,
+        question: values.question,
+        supporting_notes_en: values.correctAnswer,
+        mark: values.mark,
+        question_type: 'text',
+        type_id: 5,
+        status: 1,
+        options: [
+          {
+            option_value: 'true',
+            is_correct: values.isTrue,
+          },
+          {
+            option_value: 'false',
+            is_correct: !values.isTrue,
+          },
+        ],
+      });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
       handleCloseDialog();
@@ -54,7 +70,13 @@ const EditTrueFalseForm: React.FC<any> = ({
 
   return (
     <Formik
-      initialValues={data}
+      initialValues={{
+        option: 'option1',
+        mark: data.mark,
+        question: data.question,
+        isTrue: data.options[0].is_correct,
+        correctAnswer: data.supporting_notes_en,
+      }}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
