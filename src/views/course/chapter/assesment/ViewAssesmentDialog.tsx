@@ -259,9 +259,10 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
                                   size="small"
                                   sx={{ color: '#646464' }}
                                   checked
+                                  disabled
                                 />
                               ) : (
-                                <Checkbox size="small" />
+                                <Checkbox size="small" disabled />
                               )
                             }
                             label={
