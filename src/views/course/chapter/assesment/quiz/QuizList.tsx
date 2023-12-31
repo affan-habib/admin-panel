@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Checkbox, Typography } from '@mui/material';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import { useTranslation } from 'react-i18next';
 
@@ -27,7 +27,7 @@ const QuizList = ({ assesments, type_id }: any) => {
           mb={2}
         >
           <Box bgcolor="#F5F5F7" borderRadius={2} m={1} p={2}>
-            {filteredData?.map((item: any,index:number) => (
+            {filteredData?.map((item: any, index: number) => (
               <Box key={item.id}>
                 <Box sx={{ display: 'flex' }}>
                   <Box>
@@ -40,15 +40,17 @@ const QuizList = ({ assesments, type_id }: any) => {
                         display="inline-flex"
                         alignItems="center"
                       >
-                        <strong style={{ marginRight: '10px' }}>{t('question')} {index+1}: </strong>
+                        <strong style={{ marginRight: '10px' }}>{t('question')} {index + 1}: </strong>
                         <div dangerouslySetInnerHTML={{ __html: item.question }} />
                       </Typography>
                     </Box>
                     <Box display="flex" flexDirection="row" flexWrap="wrap">
-                      {item.options.map((option: any,index:number) => (
+                      {item.options.map((option: any, index: number) => (
                         // <Box key={option.id} width="25%" p={1}>
                         <Box key={option.id} p={1}>
-                        <Typography><span style={{color:'green'}}>{index+1}. </span> {option.option_value}</Typography>
+                          <Typography><span style={{ color: 'green' }}>{option.is_correct === true ? <Checkbox size="small"
+                           checked disabled sx={{ color: '#646464' }} />
+                            : <Checkbox size="small" disabled />} </span> {option.option_value}</Typography>
                         </Box>
                       ))}
                     </Box>
