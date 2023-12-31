@@ -26,7 +26,7 @@ import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
 
-const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
+const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,data }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
   const { showSnackbar } = useSnackbar();
@@ -42,38 +42,38 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark 
   };
 
   const handleFormSubmit = async (values: any, closeForm: boolean) => {
-    console.log('Form Values:', values);
-    console.log('Uploaded Image:', values.question_img);
-    try {
-      const response = await axios.post(`${apiBaseUrl}/quizzes`, {
-        course_assessment_id: assessmentId,
-        question: values.question,
-        options: values.options,
-        mark: values.mark,
-        question_type: 'text',
-        supporting_doc: values.quizDescription,
-        question_img: values.question_img,
-        is_correct: values.is_correct,
-        type_id: 2,
-        status: 1,
-      });
+    const filteredOptions = values.options.filter(
+      (option: any) => option.option_key.trim() !== '' || option.option_value.trim() !== ''
+  );
+  try {
+      const response = await axios.patch(
+          `${apiBaseUrl}/quizzes/${data.id}`,
+          values,
+        );
+
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
-      if (closeForm) {
-        handleCloseDialog();
-      }
-    } catch (error: any) {
+  } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
-    }
+  }
   }
 
   const handleSubmit = async (values: any, { resetForm }: any) => {
+    if (!values.options.some((option: any) => option.is_correct)) {
+      showSnackbar('Please select at least one correct option', 'error');
+      return;
+    }
+  
     await handleFormSubmit(values, true);
     resetForm();
   };
-
   const handleSaveAndAdd = async (values: any, { resetForm }: any) => {
+    if (!values.options.some((option: any) => option.is_correct)) {
+      showSnackbar('Please select at least one correct option', 'error');
+      return;
+    }
+    
     await handleFormSubmit(values, false);
     resetForm();
   };
@@ -89,43 +89,11 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark 
       .required('Mark is required')
       .max(maxMark, 'should not be more than total marks')
       .positive('Mark must be a positive number'),
-    options: Yup.array().of(
-      Yup.object().shape({
-        option_value: Yup.string().required('Option value is required'),
-        is_correct: Yup.boolean(),
-      })
-    ).test(
-      'atLeastOneChecked',
-      'At least one option should be checked',
-      (options) => Array.isArray(options) && options.some((option) => option.is_correct)
-    )
   });
 
   return (
     <Formik
-      initialValues={
-        {
-          options: [
-            {
-              option_value: '',
-              is_correct: false
-            },
-            {
-              option_value: '',
-              is_correct: false
-            },
-            {
-              option_value: '',
-              is_correct: false
-            },
-            {
-              option_value: '',
-              is_correct: false
-            },
-          ],
-          mark: ''
-        }
-      } validationSchema={validationSchema} onSubmit={handleSubmit} >
+    initialValues={data} validationSchema={validationSchema} onSubmit={handleSubmit} >
       {({ values, setFieldValue, resetForm, isValid, dirty }) => (
         <Form>
           <FormControl
@@ -210,7 +178,6 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark 
             <Grid
               spacing={2}
               mt={5}
-            // style={{maxHeight:'60vh',overflowY:'auto'}}
             >
               <Grid>
                 <FieldArray name="options">

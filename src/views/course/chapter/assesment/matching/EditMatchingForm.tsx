@@ -35,7 +35,7 @@ interface Item {
     showInput?: boolean;
 }
 
-const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
+const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,data }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
@@ -85,15 +85,10 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
             (option: any) => option.option_key.trim() !== '' || option.option_value.trim() !== ''
         );
         try {
-            const response = await axios.post(`${apiBaseUrl}/quizzes`, {
-                course_assessment_id: assessmentId,
-                question: values.question,
-                mark: values.mark,
-                question_type: 'text',
-                type_id: 3,
-                status: 1,
-                options: filteredOptions,
-            });
+            const response = await axios.patch(
+                `${apiBaseUrl}/quizzes/${data.id}`,
+                values,
+              );
 
             showSnackbar(response.data.message, 'success');
             queryClient.invalidateQueries('couse-quizzes');
@@ -111,23 +106,19 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
             console.error('Error submitting form:', error);
         }
     };
-
+    const initialValues = {
+        course_assessment_id: assessmentId,
+                question:'question',
+                mark: 'mark',
+                question_type: 'text',
+                type_id: 3,
+                status: 1,
+                options: 'filteredOptions',
+      };
     const [shouldCloseDialog, setShouldCloseDialog] = useState(true);
     return (
         <Formik
-            initialValues={{
-                mark: '',
-                question: '',
-                option_value: '',
-                option_key: '',
-                wrong_answer: '',
-                options: [
-                    { option_key: '', option_value: '', wrong_answer: '' },
-                    { option_key: '', option_value: '', wrong_answer: '' },
-                    { option_key: '', option_value: '', wrong_answer: '' },
-                    { option_key: '', option_value: '', wrong_answer: '' },
-                ],
-            }}
+        initialValues={data}
             validationSchema={validationSchema}
             onSubmit={(values, formikHelpers) => handleSubmit(values, formikHelpers, shouldCloseDialog)}
         >
@@ -172,7 +163,7 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
                                 render={({ push }) => (
                                     <>
                                         <Grid container  justifyContent="start">
-                                            {values.options.map((item, index) => (
+                                            {values.options.map((item:any, index: number) => (
                                                 <Grid item xs={12} md={9} lg={9} key={index}>
                                                     <Grid
                                                         container
