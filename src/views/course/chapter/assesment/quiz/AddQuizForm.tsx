@@ -69,11 +69,20 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
   }
 
   const handleSubmit = async (values: any, { resetForm }: any) => {
+    if (!values.options.some((option: any) => option.is_correct)) {
+      showSnackbar('Please select at least one correct option', 'error');
+      return;
+    }
+  
     await handleFormSubmit(values, true);
     resetForm();
   };
-
   const handleSaveAndAdd = async (values: any, { resetForm }: any) => {
+    if (!values.options.some((option: any) => option.is_correct)) {
+      showSnackbar('Please select at least one correct option', 'error');
+      return;
+    }
+    
     await handleFormSubmit(values, false);
     resetForm();
   };
@@ -89,16 +98,16 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
       .required('Mark is required')
       .max(maxMark, 'should not be more than total marks')
       .positive('Mark must be a positive number'),
-    options: Yup.array().of(
-      Yup.object().shape({
-        option_value: Yup.string().required('Option value is required'),
-        is_correct: Yup.boolean(),
-      })
-    ).test(
-      'atLeastOneChecked',
-      'At least one option should be checked',
-      (options) => Array.isArray(options) && options.some((option) => option.is_correct)
-    )
+    // options: Yup.array().of(
+    //   Yup.object().shape({
+    //     option_value: Yup.string().required('Option value is required'),
+    //     is_correct: Yup.boolean(),
+    //   })
+    // ).test(
+    //   'atLeastOneChecked',
+    //   'At least one option should be checked',
+    //   (options) => Array.isArray(options) && options.some((option) => option.is_correct)
+    // )
   });
 
   return (
@@ -210,7 +219,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
             <Grid
               spacing={2}
               mt={5}
-            // style={{maxHeight:'60vh',overflowY:'auto'}}
             >
               <Grid>
                 <FieldArray name="options">
