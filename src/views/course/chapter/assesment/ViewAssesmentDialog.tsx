@@ -18,6 +18,7 @@ import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { assetBaseUrl } from 'config';
 import { toBanglaNumber } from 'utils/numberUtils';
+import AssesmentEditButton from './AssesmentEditButton';
 
 interface ViewAssessmentDialogProps {
   open: boolean;
@@ -119,7 +120,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
   }, [initialData.id]);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xl" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
       <DialogTitle
         sx={{
           display: 'flex',
@@ -351,9 +352,15 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
                     </div>
                   </div>
 
-                  <Button variant="contained" sx={{ bgcolor: '#1D1D1F' }}>
-                    {item.mark} point
-                  </Button>
+                  <div>
+                    <Button
+                      variant="contained"
+                      sx={{ bgcolor: '#1D1D1F', mr: 2 }}
+                    >
+                      {item.mark} point
+                    </Button>
+                    <AssesmentEditButton data={item} />
+                  </div>
                 </Stack>
               </Stack>
             ))}
