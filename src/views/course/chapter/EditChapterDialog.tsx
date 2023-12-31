@@ -6,6 +6,7 @@ import {
   IconButton,
   Typography,
   Button,
+  Grid,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
@@ -13,6 +14,8 @@ import InputField from 'components/form/InputField';
 import axios from 'axios';
 import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -51,18 +54,20 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          border:'none'
         }}
       >
         <Typography color="primary" variant="h6">
           অধ্যায় আপডেট করুন
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
-          <Close />
+        <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ width: 600 }}>
+      <DialogContent sx={{marginTop:'0px'}}>
         <Formik initialValues={module} onSubmit={handleSubmit}>
           <Form>
+            <Grid container>
             <InputField
               name="module_code"
               label="অধ্যায়ের কোড"
@@ -78,7 +83,8 @@ const EditChapterDialog: React.FC<CreateChapterDialogProps> = ({
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />
-            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+            </Grid>
+            <Button type="submit" variant="contained" sx={{float: 'right', mt: 2,width:'120px' }}>
               Submit
             </Button>
           </Form>

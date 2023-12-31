@@ -4,8 +4,10 @@ import { Box, Typography } from '@mui/material';
 
 const FillInTheGapList = ({ assesments, type_id }: any) => {
   const filteredData = assesments?.data?.filter(
-    (item: any) => item.type_id == type_id,
+    (item: any) => item.type_id == 4,
   );
+
+  console.log(filteredData);
 
   return (
     <div>
