@@ -120,7 +120,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
   }, [initialData.id]);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xl" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
       <DialogTitle
         sx={{
           display: 'flex',

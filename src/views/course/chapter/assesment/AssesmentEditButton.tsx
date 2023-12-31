@@ -1,55 +1,61 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+} from '@mui/material';
 import AddQuizForm from 'views/course/chapter/assesment/quiz/AddQuizForm';
 import AddMatchingForm from './matching/AddMatchingForm';
 import FillInTheGapForm from './fill-in-the-gap/FillInTheGapForm';
 import TrueFalseForm from './true-false/TrueFalseForm';
 import OneWordAnswerForm from './one-word-answer/OneWordAnswerForm';
 import DescriptiveAnswerForm from './descriptive-answer/DescriptiveAnswerForm';
-
-interface Option {
-  type_id: number;
-  title_en: string;
-  title_bn: string;
-  formComponent: React.ComponentType<any>; // Use React.ComponentType for dynamic components
-}
+import { Edit } from '@mui/icons-material';
+import EditQuizForm from './quiz/EditQuizForm';
+import EditMatchingForm from './matching/EditMatchingForm';
+import EditFillInTheGapForm from './fill-in-the-gap/EditFillInTheGapForm';
+import EditTrueFalseForm from './true-false/EditTrueFalseForm';
+import EditOneWordAnswerForm from './one-word-answer/EditOneWordAnswerForm';
+import EditDescriptiveAnswerForm from './descriptive-answer/EditDescriptiveAnswerForm';
 
 const options: any = [
   {
     type_id: 2,
     title_en: 'Quiz',
     title_bn: 'কুইজ',
-    formComponent: <AddQuizForm />,
+    formComponent: EditQuizForm,
   },
   {
     type_id: 3,
     title_en: 'Matching',
     title_bn: 'ম্যাচিং',
-    formComponent: <AddMatchingForm />,
+    formComponent: EditMatchingForm,
   },
   {
     type_id: 4,
     title_en: 'Fill in the Gap',
     title_bn: 'ফিল ইন দি গ্যাপ',
-    formComponent: <FillInTheGapForm />,
+    formComponent: EditFillInTheGapForm,
   },
   {
     type_id: 5,
     title_en: 'True/False',
     title_bn: 'সত্য / মিথ্যা',
-    formComponent: <TrueFalseForm />,
+    formComponent: EditTrueFalseForm,
   },
   {
     type_id: 6,
     title_en: 'One-word Answer',
     title_bn: 'এক কথায় উত্তর',
-    formComponent: <OneWordAnswerForm />,
+    formComponent: EditOneWordAnswerForm,
   },
   {
     type_id: 7,
     title_en: 'Descriptive Question',
     title_bn: 'বর্ণনামূলক প্রশ্নপত্র',
-    formComponent: <DescriptiveAnswerForm />,
+    formComponent: EditDescriptiveAnswerForm,
   },
 ];
 
@@ -70,7 +76,9 @@ const AssesmentEditButton: React.FC<any> = ({ data }) => {
 
   return (
     <>
-      <Button onClick={handleOpenDialog}>Click</Button>
+      <IconButton onClick={handleOpenDialog}>
+        <Edit />
+      </IconButton>
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
@@ -78,7 +86,11 @@ const AssesmentEditButton: React.FC<any> = ({ data }) => {
         fullWidth
       >
         <DialogTitle>{selectedOption?.title_en}</DialogTitle>
-        <DialogContent>{selectedOption?.formComponent}</DialogContent>
+        <DialogContent>
+          {selectedOption?.formComponent && (
+            <selectedOption.formComponent data={data} />
+          )}
+        </DialogContent>
       </Dialog>
     </>
   );
