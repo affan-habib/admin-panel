@@ -35,7 +35,7 @@ interface Item {
     showInput?: boolean;
 }
 
-const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
+const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
@@ -376,4 +376,4 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
     );
 };
 
-export default AddMatchingForm;
+export default EditMatchingForm;

@@ -7,6 +7,9 @@ import {
   Typography,
   Button,
   Grid,
+  Box,
+  FormControl,
+  InputLabel,
 } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Form, Formik, FormikHelpers } from 'formik';
@@ -19,12 +22,17 @@ import RichTextInput from 'components/form/RichTextInput';
 import { useSnackbar } from 'context/SnackbarContext';
 import VideoUploadBox from 'components/form/VideoUploadBox';
 import { useTranslation } from 'react-i18next';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/system';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+
 
 interface CreateVideoDialogProps {
   open: boolean;
   moduleId: any;
   onClose: () => void;
 }
+
 
 const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   open,
@@ -35,6 +43,8 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleSubmit = async (
     values: any,
@@ -79,16 +89,17 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          border: 'none'
         }}
       >
         <Typography color="primary" variant="h6">
           {t('addVedio')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
-        <HighlightOffIcon />
+          <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ width: 600 }}>
+      <DialogContent sx={{ width: isSmallScreen ? '100%' : 600, marginTop: '0px' }}>
         <Formik
           initialValues={{
             type: 'video',
@@ -105,42 +116,79 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
             <InputField
               name="title_en"
               label={t('videoName')}
-              placeholder={t('videoName')}
+              placeholder={t('WritevideoName')}
             />
             <VideoUploadBox name="url" label={t('uploadVideo')} />
             <Grid container alignItems="center" justifyContent="center">
-                <Grid item xs={12}>
-                  <div
+              <Grid item xs={12}>
+                <div
+                  style={{
+                    borderBottom: '1px dashed rgba(208, 208, 208, 1)',
+                    width: '100%',
+                    textAlign: 'center',
+                    margin: '10px 0 20px',
+                    position: 'relative',
+                  }}
+                >
+                  <Typography
+                    variant="h6"
                     style={{
-                      borderBottom: '1px dashed rgba(208, 208, 208, 1)',
-                      width: '100%',
-                      textAlign: 'center',
-                      margin: '10px 0 20px',
-                      position: 'relative',
+                      backgroundColor: '#fff',
+                      padding: '0 10px',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
                     }}
                   >
-                    <Typography
-                      variant="h6"
-                      style={{
-                        backgroundColor: '#fff',
-                        padding: '0 10px',
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                      }}
-                    >
-                      {t('or')}
-                    </Typography>
-                  </div>
-                </Grid>
+                    {t('or')}
+                  </Typography>
+                </div>
               </Grid>
-              <InputField name='url_link' label={t('videoLink')} placeholder={t('writeVideolink')}/> 
+            </Grid>
+            <InputLabel htmlFor="url_link">{t('videoLink')}</InputLabel>
+            <FormControl fullWidth size="small">
+              <Grid item xs={12} md={12} lg={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    border: '1px solid rgba(208, 208, 208, 1)',
+                    borderRadius: '4px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <input
+                    style={{
+                      flex: 1,
+                      padding: '14.5px',
+                      border: 'none',
+                      backgroundColor: 'rgba(245, 247, 248, 1)',
+                      borderLeft: 'none'
+                    }}
+                    name='url_link' placeholder={t('writeVideolink')}
+                    // label={t('videoLink')}
+                  />
+                  <Box 
+                    sx={{
+                      p: '10px',
+                      borderRight: 'none',
+                      backgroundColor: 'rgba(0, 106, 78, 1)',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Typography align="center" sx={{ color: 'white' }} p={0}>
+                      <AttachFileIcon />
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            </FormControl>
             <RichTextInput label={t('videoTransacript')} name="transcript_en" />
-            
-            <Button type="submit" variant="contained" sx={{ float: 'right'}}>
-            {t('submit')}
-            </Button>
+            <Box p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+              <Button type="submit" variant="contained" sx={{ width: '120px' }}>
+                {t('submit')}
+              </Button>
+            </Box>
           </Form>
         </Formik>
       </DialogContent>

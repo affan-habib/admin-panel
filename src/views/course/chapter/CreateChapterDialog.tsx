@@ -6,6 +6,7 @@ import {
   IconButton,
   Typography,
   Button,
+  Grid,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { Form, Formik } from 'formik';
@@ -16,6 +17,8 @@ import { useQueryClient } from 'react-query';
 import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
 import { useTranslation } from 'react-i18next';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
 
 interface CreateChapterDialogProps {
   open: boolean;
@@ -55,16 +58,17 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          border:'none'
         }}
       >
         <Typography color="primary" variant="h6">
           {t('addChapter')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
-          <Close />
+        <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ width: 600 }}>
+      <DialogContent sx={{marginTop:'0px'}}>
         <Formik
           initialValues={{
             course_id: id,
@@ -76,6 +80,7 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
           onSubmit={handleSubmit}
         >
           <Form>
+            <Grid container >
             <InputField
               name="module_code"
               label="অধ্যায়ের কোড"
@@ -91,10 +96,12 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
               label="Chapter Name (English)"
               placeholder="Chapter Name"
             />
+            </Grid>
+           
             <Button
               type="submit"
               variant="contained"
-              sx={{ float: 'right', mt: 2 }}
+              sx={{ float: 'right', mt: 2 ,width:'120px'}}
             >
               {t('submit')}
             </Button>

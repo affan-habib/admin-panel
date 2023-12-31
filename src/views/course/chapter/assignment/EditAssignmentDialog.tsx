@@ -45,7 +45,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
       delete values.supporting_doc;
     }
 
-    const formPayload = { ...values, _method: 'PUT', type: 'video' };
+    const formPayload = { ...values, _method: 'PUT', type: 'assignment' };
 
     try {
       const formData = new FormData();
@@ -77,8 +77,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle
-
+      <DialogTitle 
       >
         <Grid sx={{
           display: 'flex',
@@ -92,12 +91,11 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
             <HighlightOffIcon />
           </IconButton>
         </Grid>
-        <Typography sx={{ display: 'flex', alignItems: 'center' }}>
-          {t('time')} <FiberManualRecordIcon sx={{ fontSize: '10px', margin: '8px', color: 'rgba(100, 100, 100, 1)' }} /> {initialData.total_time} {t('minute')}
+        <Typography sx={{ display: 'flex', alignItems: 'center', fontSize:'12px' }}>
+                    {t('time')} <FiberManualRecordIcon sx={{ fontSize: '5px',color: 'rgba(100, 100, 100, 1)', marginLeft:'5px', marginRight:'5px'}}  /> {initialData.total_time} {t('minute')}
         </Typography>
-
       </DialogTitle>
-      <DialogContent sx={{ width: 600 }}>
+      <DialogContent sx={{padding:'0px', marginTop:'0px' }}>
         <Formik
           initialValues={initialData}
           onSubmit={handleSubmit}
@@ -105,15 +103,17 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
         >
           {({ isSubmitting, values, setFieldValue }) => (
             <Form>
-              <Grid>
+              <Grid px={2}>
                 <InputField
                   name="title_en"
                   label={t('assignmentName')}
                   placeholder={t('assignmentname')}
                 />
               </Grid>
+              <Grid px={2}>
               <RichTextInput label={t('assignmentInstruct')} name="instructions_en" />
-              <Grid container alignItems="center" justifyContent="center">
+              </Grid>
+              <Grid container alignItems="center" justifyContent="center" px={2}>
                 <Grid item xs={12}>
                   <div
                     style={{
@@ -140,16 +140,16 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                   </div>
                 </Grid>
               </Grid>
-              <Grid sx={{}}>
+              <Grid sx={{}} px={2}>
                 <InputFile
                   name="supporting_doc"
                   label={t('assignmentUploadDoc')}
-                  acceptedFileTypes=".doc, .docx, .ppt"
                   limit={t('supDocLimit')}
                   value={values.supporting_doc} // Pass the value directly
                 />
               </Grid>
               <Grid
+                px={2}
                 container
                 spacing={2}
                 sx={{ display: 'flex', marginTop: '3px' }}
@@ -180,12 +180,13 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                 </Grid>
               </Grid>
               <Grid
+                px={2}
                 container
                 spacing={2}
                 alignItems="center"
-                sx={{ borderBottom: '1px solid grey', marginTop: 1 }}
+                sx={{ borderBottom: '1px solid rgba(208, 208, 208, 1)', marginTop: 1 }}
               >
-                <Grid item sx={{ marginBottom: '20px' }}>
+                <Grid item sx={{ marginBottom: '1px' }}>
                   <InputLabel
                     sx={{
                       minWidth: 200,
@@ -222,9 +223,9 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                   />
                 </Grid>
               </Grid>
-              <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                  {t('save')}
+              <Box  p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+                <Button type="submit" variant="contained" sx={{width:'120px'}}>
+                  {t('submit')}
                 </Button>
               </Box>
             </Form>
