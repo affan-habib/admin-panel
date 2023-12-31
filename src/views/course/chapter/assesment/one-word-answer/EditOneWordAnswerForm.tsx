@@ -27,7 +27,7 @@ const EditOneWordAnswerForm: React.FC<any> = ({
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const onSubmit = async (values: any, buttonType: any = 'submit') => {
+  const onSubmit = async (values: any) => {
     try {
       const response = await axios.patch(
         `${apiBaseUrl}/quizzes/${data.id}`,
@@ -35,20 +35,13 @@ const EditOneWordAnswerForm: React.FC<any> = ({
       );
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
-      buttonType !== 'saveAndAdd' && handleCloseDialog();
+      handleCloseDialog();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
     }
   };
 
-  const initialValues = {
-    option: 'option1',
-    question: data.question,
-    mark: '',
-    supporting_notes_en: '',
-    type_id: 6,
-  };
   const validationSchema = Yup.object().shape<any>({
     question: Yup.string().required('Question is required'),
     mark: Yup.number()
@@ -116,17 +109,6 @@ const EditOneWordAnswerForm: React.FC<any> = ({
                 disabled={!isValid || !dirty}
               >
                 {t('submit')}
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ ml: 2 }}
-                onClick={() => {
-                  onSubmit(values, 'saveAndAdd');
-                  resetForm();
-                }}
-                disabled={!isValid || !dirty}
-              >
-                {t('saveAndAdd')}
               </Button>
             </Box>
           </Box>

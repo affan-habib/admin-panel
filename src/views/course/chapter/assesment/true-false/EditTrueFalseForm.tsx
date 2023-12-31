@@ -21,34 +21,19 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 const EditTrueFalseForm: React.FC<any> = ({
-  assessmentId,
+  data,
   handleCloseDialog,
   maxMark,
 }) => {
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-  const onSubmit = async (values: any, buttonType: any = 'submit') => {
+  const onSubmit = async (values: any) => {
     try {
-      const response = await axios.post(`${apiBaseUrl}/quizzes`, {
-        course_assessment_id: assessmentId,
-        question: values.question,
-        supporting_notes_en: values.correctAnswer,
-        mark: values.mark,
-        question_type: 'text',
-        type_id: 5,
-        status: 1,
-        options: [
-          {
-            option_value: 'true',
-            is_correct: values.isTrue,
-          },
-          {
-            option_value: 'false',
-            is_correct: !values.isTrue,
-          },
-        ],
-      });
+      const response = await axios.patch(
+        `${apiBaseUrl}/quizzes/${data.id}`,
+        values,
+      );
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
       handleCloseDialog();
@@ -69,17 +54,11 @@ const EditTrueFalseForm: React.FC<any> = ({
 
   return (
     <Formik
-      initialValues={{
-        option: 'option1',
-        mark: '',
-        question: '',
-        isTrue: true,
-        correctAnswer: '',
-      }}
+      initialValues={data}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ values, isValid, dirty, resetForm }) => (
+      {({ values, isValid, dirty }) => (
         <Form>
           <Box mb={2} display="flex" justifyContent="" gap={8}>
             <FormControl component="fieldset">
