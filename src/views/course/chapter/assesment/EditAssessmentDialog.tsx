@@ -82,14 +82,14 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
           <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{ width: 600 }}>
+      <DialogContent sx={{ width: 600, padding: '0px' }}>
         <Formik
           initialValues={initialData}
           onSubmit={handleSubmit}
           enableReinitialize
         >
           <Form>
-            <Grid>
+            <Grid px={2}>
               <InputField
                 name="assessment_title_en"
                 label={t('assesmentName')}
@@ -97,14 +97,17 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               />
             </Grid>
 
-            <InputField
-              name="assessment_title_bn"
-              label={t('assesmentName')}
-              placeholder={t('assesmentNo')}
-            />
+            <Grid px={2}>
+              <InputField
+                name="assessment_title_bn"
+                label={t('assesmentName')}
+                placeholder={t('assesmentNo')}
+              />
+            </Grid>
 
-            <Grid container spacing={2} sx={{ marginTop: '2px' }}>
-              <Grid item xs={6}>
+
+            <Grid container spacing={2} sx={{ marginTop: '2px' }}  px={2}>
+              <Grid item xs={6} >
                 <InputField
                   type="number"
                   name="total_mark"
@@ -127,6 +130,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               spacing={2}
               marginBottom={1}
               sx={{ marginTop: '2px' }}
+              px={2}
             >
               <Grid item xs={6}>
                 <InputField
@@ -158,7 +162,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               />
             </Stack>
 
-            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'end'}} p={2}>
               <Button type="submit" variant="contained" sx={{ mt: 2 }}>
                 {t('submit')}
               </Button>
