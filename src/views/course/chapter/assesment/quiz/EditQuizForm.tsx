@@ -67,15 +67,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
   
     await handleFormSubmit(values, true);
     resetForm();
-  };
-  const handleSaveAndAdd = async (values: any, { resetForm }: any) => {
-    if (!values.options.some((option: any) => option.is_correct)) {
-      showSnackbar('Please select at least one correct option', 'error');
-      return;
-    }
-    
-    await handleFormSubmit(values, false);
-    resetForm();
+    handleCloseDialog();
   };
   const [showEditor, setShowEditor] = useState(false);
 
@@ -348,9 +340,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
               <Button variant="contained" type="submit" disabled={!isValid || !dirty}>
                 {t('submit')}
               </Button>
-              <Button variant="outlined" disabled={!isValid || !dirty} onClick={() => handleSaveAndAdd(values, { resetForm })}>
-                {t('saveAdd')}
-              </Button>
+          
             </Grid>
           </Box>
         </Form>
