@@ -268,7 +268,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                                               {index + 1}
                                             </Typography>
                                           </Box>
-                                          <input
+                                          <Field
                                            name={`options[${index}].option_value`} placeholder={t('alternative')}
                                             style={{
                                               flex: 1,
