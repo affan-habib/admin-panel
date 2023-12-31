@@ -38,7 +38,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
 }) => {
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
-  console.log(initialData);
+  console.log(name);
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
     if (typeof values.supporting_doc === 'string') {
