@@ -22,7 +22,7 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 const EditDescriptiveAnswerForm: React.FC<any> = ({
-  assessmentId,
+  data,
   handleCloseDialog,
   maxMark,
 }) => {
@@ -31,16 +31,10 @@ const EditDescriptiveAnswerForm: React.FC<any> = ({
   const queryClient = useQueryClient();
   const onSubmit = async (values: any, buttonType: any = 'submit') => {
     try {
-      const response = await axios.post(`${apiBaseUrl}/quizzes`, {
-        course_assessment_id: assessmentId,
-        question: values.question,
-        supporting_notes_en: values.supporting_notes_en,
-        mark: values.mark,
-        question_type: values.question_type,
-        question_img: values.question_img,
-        type_id: 7,
-        status: 1,
-      });
+      const response = await axios.patch(
+        `${apiBaseUrl}/quizzes/${data.id}`,
+        values,
+      );
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
       buttonType !== 'saveAndAdd' && handleCloseDialog();
@@ -50,14 +44,7 @@ const EditDescriptiveAnswerForm: React.FC<any> = ({
     } // Handle form submission logic here
   };
 
-  const initialValues = {
-    option: 'option1',
-    mark: '',
-    question: '',
-    question_type: 'text',
-    supporting_notes_en: '',
-    question_img: '',
-  };
+
   const validationSchema = Yup.object().shape<any>({
     question: Yup.string().required('Question is required'),
     mark: Yup.number()
@@ -68,7 +55,7 @@ const EditDescriptiveAnswerForm: React.FC<any> = ({
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={data}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
