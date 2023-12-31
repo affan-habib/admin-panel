@@ -19,13 +19,13 @@ import { useTranslation } from 'react-i18next';
 import { assetBaseUrl } from 'config';
 import { toBanglaNumber } from 'utils/numberUtils';
 import AssesmentEditButton from './AssesmentEditButton';
+import useCourseQuizzes from 'hooks/useCourseQuizzes';
 
 interface ViewAssessmentDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
 }
-
 const DotElement = () => (
   <span style={{ margin: '0 8px' }}>
     <svg height="10" width="10">
@@ -106,18 +106,8 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
   initialData,
   onClose,
 }) => {
-  const [data, setData] = useState([]);
-
+  const { data: assesments } = useCourseQuizzes(initialData.id);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    axiosInstance
-      .get('quizzes', { course_assessment_id: initialData.id })
-      .then((res: any) => {
-        setData(res.data.data);
-      })
-      .catch((e: any) => console.log(e));
-  }, [initialData.id]);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
@@ -188,185 +178,182 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
       </DialogTitle>
       <DialogContent>
         <Box mt={4}>
-          {data.length > 0 &&
-            data.map((item: any, index: number) => (
-              <Stack key={index} direction="row" alignItems="flex-start">
-                <Typography
-                  variant="h6"
-                  mb={2}
-                  sx={{
-                    display: 'flex',
-                    lineHeight: '19px',
-                    marginBottom: '0',
+          {assesments?.data.map((item: any, index: number) => (
+            <Stack key={index} direction="row" alignItems="flex-start">
+              <Typography
+                variant="h6"
+                mb={2}
+                sx={{
+                  display: 'flex',
+                  lineHeight: '19px',
+                  marginBottom: '0',
+                  fontSize: '16px',
+                  fontWeight: 500,
+                }}
+              >
+                <strong
+                  style={{
+                    marginRight: '6px',
                     fontSize: '16px',
-                    fontWeight: 500,
+                    fontWeight: 600,
                   }}
                 >
-                  <strong
-                    style={{
-                      marginRight: '6px',
-                      fontSize: '16px',
-                      fontWeight: 600,
+                  {t('question')}{' '}
+                  {localStorage.getItem('language') === 'en'
+                    ? index + 1
+                    : toBanglaNumber(index + 1)}
+                  :
+                </strong>
+              </Typography>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="flex-start"
+                flexGrow={1}
+              >
+                <div style={{ marginBottom: '12px' }}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      marginTop: '0',
+                      paddingTop: '0',
+                      lineHeight: '19px',
+                      fontWeight: 500,
+                      marginBottom: '4px',
                     }}
                   >
-                    {t('question')}{' '}
-                    {localStorage.getItem('language') === 'en'
-                      ? index + 1
-                      : toBanglaNumber(index + 1)}
-                    :
-                  </strong>
-                </Typography>
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="flex-start"
-                  flexGrow={1}
-                >
-                  <div style={{ marginBottom: '12px' }}>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        marginTop: '0',
-                        paddingTop: '0',
-                        lineHeight: '19px',
-                        fontWeight: 500,
-                        marginBottom: '4px',
-                      }}
-                    >
-                      {item.type_id === 4
-                        ? flatMap(item.question.split('#'), (part) => {
-                            return [parse(part), <BlankElement />];
-                          })
-                        : parse(item.question)}
-                      {item.question_img && (
-                        <div style={{ marginTop: '8px' }}>
-                          <img
-                            src={`${assetBaseUrl}/${item.question_img}`}
-                            style={{ height: '140px', width: '140px' }}
-                          />
-                        </div>
-                      )}
-                    </Typography>
-                    <div style={{ marginLeft: '0' }}>
-                      {/* Quiz / TRUE-FALSE */}
-                      {(item.type_id === 2 || item.type_id === 5) &&
-                        item.options.length > 0 &&
-                        item.options.map((option: any, secondIndex: number) => (
-                          <FormControlLabel
-                            key={index * 100 + secondIndex}
-                            control={
-                              option.is_correct === true ? (
-                                <Checkbox
-                                  size="small"
-                                  sx={{ color: '#646464' }}
-                                  checked
-                                  disabled
-                                />
-                              ) : (
-                                <Checkbox size="small" disabled />
-                              )
-                            }
-                            label={
-                              <Typography
-                                sx={{
-                                  fontSize: '16px',
-                                  marginRight: '12px',
-                                  fontWeight: 400,
-                                  color: '#646464',
-                                }}
+                    {item.type_id === 4
+                      ? flatMap(item.question.split('#'), (part) => {
+                          return [parse(part), <BlankElement />];
+                        })
+                      : parse(item.question)}
+                    {item.question_img && (
+                      <div style={{ marginTop: '8px' }}>
+                        <img
+                          src={`${assetBaseUrl}/${item.question_img}`}
+                          style={{ height: '140px', width: '140px' }}
+                        />
+                      </div>
+                    )}
+                  </Typography>
+                  <div style={{ marginLeft: '0' }}>
+                    {/* Quiz / TRUE-FALSE */}
+                    {(item.type_id === 2 || item.type_id === 5) &&
+                      item.options.length > 0 &&
+                      item.options.map((option: any, secondIndex: number) => (
+                        <FormControlLabel
+                          key={index * 100 + secondIndex}
+                          control={
+                            option.is_correct === true ? (
+                              <Checkbox
+                                size="small"
+                                sx={{ color: '#646464' }}
+                                checked
+                                disabled
+                              />
+                            ) : (
+                              <Checkbox size="small" disabled />
+                            )
+                          }
+                          label={
+                            <Typography
+                              sx={{
+                                fontSize: '16px',
+                                marginRight: '12px',
+                                fontWeight: 400,
+                                color: '#646464',
+                              }}
+                            >
+                              {option.option_value}
+                            </Typography>
+                          }
+                        />
+                      ))}
+
+                    {/* Matching */}
+                    {item.type_id === 3 && item.options.length > 0 && (
+                      <Stack direction="row" spacing={4}>
+                        <div>
+                          {item.options.map(
+                            (option: any, thirdKeyIndex: number) => (
+                              <Stack
+                                spacing={1}
+                                mb={1}
+                                pt={0}
+                                key={index * 100 + thirdKeyIndex}
                               >
-                                {option.option_value}
-                              </Typography>
-                            }
+                                <MatchingElement title={option.option_key} />
+                                <MatchingElement
+                                  title={t('dragAndDropCorrectAnswer')}
+                                  fSize={12}
+                                />
+                              </Stack>
+                            ),
+                          )}
+                        </div>
+                        <div>
+                          {item.options.map(
+                            (option: any, thirdValueIndex: number) => (
+                              <Stack
+                                spacing={1}
+                                mb={1}
+                                key={index * 100 + thirdValueIndex}
+                              >
+                                <MatchingElement title={option.option_value} />
+                                {option.wrong_answer.length > 0 && (
+                                  <MatchingElement
+                                    title={option.wrong_answer}
+                                  />
+                                )}
+                              </Stack>
+                            ),
+                          )}
+                        </div>
+                      </Stack>
+                    )}
+
+                    {/* Fill in the GAP */}
+                    {item.type_id === 4 && item.options.length > 0 && (
+                      <Stack direction="row" spacing={2} mb={2}>
+                        {item.options.map((option: any, gapIndex: number) => (
+                          <BlankOption
+                            title={option.option_value}
+                            key={index * 100 + gapIndex}
                           />
                         ))}
+                      </Stack>
+                    )}
 
-                      {/* Matching */}
-                      {item.type_id === 3 && item.options.length > 0 && (
-                        <Stack direction="row" spacing={4}>
-                          <div>
-                            {item.options.map(
-                              (option: any, thirdKeyIndex: number) => (
-                                <Stack
-                                  spacing={1}
-                                  mb={1}
-                                  pt={0}
-                                  key={index * 100 + thirdKeyIndex}
-                                >
-                                  <MatchingElement title={option.option_key} />
-                                  <MatchingElement
-                                    title={t('dragAndDropCorrectAnswer')}
-                                    fSize={12}
-                                  />
-                                </Stack>
-                              ),
-                            )}
-                          </div>
-                          <div>
-                            {item.options.map(
-                              (option: any, thirdValueIndex: number) => (
-                                <Stack
-                                  spacing={1}
-                                  mb={1}
-                                  key={index * 100 + thirdValueIndex}
-                                >
-                                  <MatchingElement
-                                    title={option.option_value}
-                                  />
-                                  {option.wrong_answer.length > 0 && (
-                                    <MatchingElement
-                                      title={option.wrong_answer}
-                                    />
-                                  )}
-                                </Stack>
-                              ),
-                            )}
-                          </div>
-                        </Stack>
-                      )}
-
-                      {/* Fill in the GAP */}
-                      {item.type_id === 4 && item.options.length > 0 && (
-                        <Stack direction="row" spacing={2} mb={2}>
-                          {item.options.map((option: any, gapIndex: number) => (
-                            <BlankOption
-                              title={option.option_value}
-                              key={index * 100 + gapIndex}
-                            />
-                          ))}
-                        </Stack>
-                      )}
-
-                      {item.supporting_notes_en.length > 0 && (
-                        <Typography
-                          variant="body1"
-                          bgcolor="#FAFAFA"
-                          p={2}
-                          border="2px solid #D0D0D0"
-                          borderRadius={2}
-                          maxWidth={500}
-                        >
-                          {parse(item.supporting_notes_en)}
-                        </Typography>
-                      )}
-                    </div>
+                    {item.supporting_notes_en.length > 0 && (
+                      <Typography
+                        variant="body1"
+                        bgcolor="#FAFAFA"
+                        p={2}
+                        border="2px solid #D0D0D0"
+                        borderRadius={2}
+                        maxWidth={500}
+                      >
+                        {parse(item.supporting_notes_en)}
+                      </Typography>
+                    )}
                   </div>
+                </div>
 
-                  <div>
-                    <Button
-                      variant="contained"
-                      sx={{ bgcolor: '#F5F5F7', mr: 2, color: 'black' }}
-                    >
-                      {item.mark} point
-                    </Button>
-                    <AssesmentEditButton
-                      data={item}
-                      maxMark={initialData.total_mark}
-                    />
-                  </div>
-                </Stack>
+                <div>
+                  <Button
+                    variant="contained"
+                    sx={{ bgcolor: '#F5F5F7', mr: 2, color: 'black' }}
+                  >
+                    {item.mark} point
+                  </Button>
+                  <AssesmentEditButton
+                    data={item}
+                    maxMark={initialData.total_mark}
+                  />
+                </div>
               </Stack>
-            ))}
+            </Stack>
+          ))}
         </Box>
       </DialogContent>
     </Dialog>

@@ -94,7 +94,11 @@ const AssesmentEditButton: React.FC<any> = ({ data, maxMark }) => {
         </DialogTitle>
         <DialogContent>
           {selectedOption?.formComponent && (
-            <selectedOption.formComponent data={data} maxMark={maxMark} />
+            <selectedOption.formComponent
+              data={data}
+              maxMark={maxMark}
+              handleCloseDialog={handleCloseDialog}
+            />
           )}
         </DialogContent>
       </Dialog>

@@ -51,7 +51,7 @@ const EditTrueFalseForm: React.FC<any> = ({
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
-      buttonType !== 'saveAndAdd' && handleCloseDialog();
+      handleCloseDialog();
       // onClose();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
@@ -141,17 +141,6 @@ const EditTrueFalseForm: React.FC<any> = ({
                 disabled={!isValid || !dirty}
               >
                 {t('submit')}
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ ml: 2 }}
-                onClick={() => {
-                  onSubmit(values, 'saveAndAdd');
-                  resetForm();
-                }}
-                disabled={!isValid || !dirty}
-              >
-                {t('saveAndAdd')}
               </Button>
             </Box>
           </Box>
