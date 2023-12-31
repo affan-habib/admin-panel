@@ -89,6 +89,16 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
       .required('Mark is required')
       .max(maxMark, 'should not be more than total marks')
       .positive('Mark must be a positive number'),
+      options: Yup.array().of(
+        Yup.object().shape({
+          option_value: Yup.string().required('Option value is required'),
+          is_correct: Yup.boolean(),
+        })
+      ).test(
+        'atLeastOneChecked',
+        'At least one option should be checked',
+        (options) => Array.isArray(options) && options.some((option) => option.is_correct)
+      )
   });
 
   return (
