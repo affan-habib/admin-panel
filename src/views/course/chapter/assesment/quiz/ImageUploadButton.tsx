@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Delete, FileUpload } from '@mui/icons-material';
 import { useSnackbar } from 'context/SnackbarContext';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 interface ImageUploadIconProps {
     name: string;
@@ -61,8 +62,8 @@ const ImageUploadIcon: React.FC<ImageUploadIconProps> = ({ name, label }) => {
                     cursor: 'pointer',
                 }}
             >
-                <IconButton style={{ color: field.value !== "" ? "green" : "inherit" }}>
-                    <FileUpload />
+                <IconButton style={{border:'1px solid rgba(208, 208, 208, 1)',borderRadius:'5px'}}>
+                    <FileUploadOutlinedIcon style={{fontSize:'20px'}} />
                 </IconButton>
 
                 {/* {field.value && (

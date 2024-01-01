@@ -234,7 +234,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                       <Typography fontWeight="bold" mb={1}>
                         {t('quizAlternative')}
                       </Typography>
-                      <Grid container xs={12} md={8} xl={9} spacing={2}>
+                      <Grid container xs={12} md={10} xl={10} spacing={2}>
                         {values.options.map((_: any, index: any) => (
                           <Grid item md={6} key={index}>
                             <Box p={1}
@@ -306,6 +306,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
+                                    marginRight:'10px'
                                   }}
                                 >
                                   <ImageUploadIcon
