@@ -63,7 +63,8 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
               background: loginPageTitle == card.title ? 'rgba(254, 254, 254, 1)' : 'inherit',
               border: '1px solid rgba(208, 208, 208, 1)',
               height: '300px',
-              borderRadius: '8px'
+              borderRadius: '8px',
+              backgroundColor:'rgba(254, 254, 254, 1)'
             }}
           >
             <CardMedia
