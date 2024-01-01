@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, Container, Grid, Typography, InputLabel, Breadcrumbs,Link } from '@mui/material';
+import {
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+  InputLabel,
+  Breadcrumbs,
+  Link,
+} from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,21 +15,23 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from '../../config';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'context/SnackbarContext';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import * as Yup from 'yup';
 const validationSchema = Yup.object({
-  name: Yup.string()
-    .matches(/^[a-zA-Z\s]+$/, 'Name must contain only letters')
-    .required('Name is required'),
+  name: Yup.string().required('Name is required'),
   username: Yup.string()
     .matches(/^[a-zA-Z]+$/, 'Username must contain only letters')
     .required('Username is required'),
+  email: Yup.string().email('Invalid email address'),
+  // .required('Email is required'),
   mobile_no: Yup.string()
-    .matches(/^[0-9+\-]+$/, 'Mobile number must contain only numbers, +, and - signs')
+    .matches(
+      /^[0-9+\-]+$/,
+      'Mobile number must contain only numbers, +, and - signs',
+    )
     .required('Mobile number is required'),
   // Add other validation rules for other fields as needed
 });
@@ -30,13 +40,7 @@ const CreateAdminUser: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<'success' | 'error'>('success');
   const { t } = useTranslation();
-  const handleCloseSnackbar = () => {
-    setSnackbarOpen(false);
-  };
 
   const handleSubmit = async (values: any) => {
     setLoading(true);
@@ -50,11 +54,14 @@ const CreateAdminUser: React.FC = () => {
         },
       });
 
-      showSnackbar(response.data.message === 'success' ? 'Data saved successfully' : '', 'success');
+      showSnackbar(response.data.message, 'success');
       navigate('/admin-user-list');
     } catch (error: any) {
       console.error('Error submitting form:', error);
-      showSnackbar(error.response?.data?.message || 'An error occurred', 'error');
+      showSnackbar(
+        error.response?.data?.message || 'An error occurred',
+        'error',
+      );
     } finally {
       setLoading(false);
     }
@@ -65,19 +72,49 @@ const CreateAdminUser: React.FC = () => {
       <Container maxWidth="xl" style={{ marginTop: '10px' }}>
         <Grid container>
           <Grid item xs={12}>
-          <Breadcrumbs aria-label="breadcrumb" separator="››" sx={{ color: 'rgba(28, 27, 31, 1)', fontSize: '20px', fontWeight: 600 }}>
-          <Link href="/" sx={{ color: 'rgba(255, 74, 95, 1)', fontSize: '16px', fontWeight: 500 }}>
-            <HomeOutlinedIcon sx={{marginTop:"8px"}} />
-          </Link>
-          <Typography color="primary" sx={{ fontSize: '16px', fontWeight: 500 }}>
-            {t('createUser')}
-          </Typography>
-        </Breadcrumbs>
-            <Typography variant="h6" gutterBottom sx={{ color: 'rgba(0, 106, 78, 1)',marginTop:'20px'  }}>
+            <Breadcrumbs
+              aria-label="breadcrumb"
+              separator="››"
+              sx={{
+                color: 'rgba(28, 27, 31, 1)',
+                fontSize: '20px',
+                fontWeight: 600,
+              }}
+            >
+              <Link
+                href="/"
+                sx={{
+                  color: 'rgba(255, 74, 95, 1)',
+                  fontSize: '16px',
+                  fontWeight: 500,
+                }}
+              >
+                <HomeOutlinedIcon sx={{ marginTop: '8px' }} />
+              </Link>
+              <Typography
+                color="primary"
+                sx={{ fontSize: '16px', fontWeight: 500 }}
+              >
+                {t('createUser')}
+              </Typography>
+            </Breadcrumbs>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ color: 'rgba(0, 106, 78, 1)', marginTop: '20px' }}
+            >
               {t('createUser')}
             </Typography>
           </Grid>
-          <Grid item xs={12} sx={{ border: '1px solid rgba(180, 180, 180, 1)', borderRadius: '8px', p: 2, }}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              border: '1px solid rgba(180, 180, 180, 1)',
+              borderRadius: '8px',
+              p: 2,
+            }}
+          >
             <Formik
               initialValues={{
                 name: '',
@@ -102,7 +139,10 @@ const CreateAdminUser: React.FC = () => {
                 >
                   <Grid container spacing={3}>
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="textField" style={{ marginBottom: '7px' }}>
+                      <InputLabel
+                        htmlFor="textField"
+                        style={{ marginBottom: '7px' }}
+                      >
                         {t('fullUserName')}
                         <span style={{ color: 'red' }}>*</span>
                       </InputLabel>
@@ -116,8 +156,14 @@ const CreateAdminUser: React.FC = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3} >
-                      <InputLabel htmlFor="dropdown" style={{ marginBottom: '7px' }}>{t('designation')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                    <Grid item xs={12} md={3}>
+                      <InputLabel
+                        htmlFor="dropdown"
+                        style={{ marginBottom: '7px' }}
+                      >
+                        {t('designation')}{' '}
+                        <span style={{ color: 'red' }}>*</span>
+                      </InputLabel>
                       <Field
                         name="type"
                         as={TextField}
@@ -126,19 +172,24 @@ const CreateAdminUser: React.FC = () => {
                         size="small"
                         //label="সিলেক্ট করুন"
                         //
-                      // Set an empty default value
+                        // Set an empty default value
                       >
                         <MenuItem value="superadmin">Super admin</MenuItem>
                         <MenuItem value="reportadmin">Report admin</MenuItem>
                         <MenuItem value="dsheadmin">DSHE admin</MenuItem>
                         <MenuItem value="hsttiadmin">Hstti admin</MenuItem>
                         <MenuItem value="contentadmin">Content admin</MenuItem>
-                        <MenuItem value="batchcoordinator">Batch Coordinator</MenuItem>
+                        <MenuItem value="batchcoordinator">
+                          Batch Coordinator
+                        </MenuItem>
                       </Field>
                     </Grid>
 
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="name" style={{ marginBottom: '7px' }}>
+                      <InputLabel
+                        htmlFor="name"
+                        style={{ marginBottom: '7px' }}
+                      >
                         {t('userName')}
                         <span style={{ color: 'red' }}>*</span>
                       </InputLabel>
@@ -153,7 +204,12 @@ const CreateAdminUser: React.FC = () => {
                     </Grid>
 
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="email" style={{ marginBottom: '7px' }}>{t('email')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                      <InputLabel
+                        htmlFor="email"
+                        style={{ marginBottom: '7px' }}
+                      >
+                        {t('email')} <span style={{ color: 'red' }}>*</span>
+                      </InputLabel>
                       <Field
                         name="email"
                         as={TextField}
@@ -162,7 +218,10 @@ const CreateAdminUser: React.FC = () => {
                       />
                     </Grid>
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="number" style={{ marginBottom: '7px' }}>
+                      <InputLabel
+                        htmlFor="number"
+                        style={{ marginBottom: '7px' }}
+                      >
                         {t('mobileNo')}
                         <span style={{ color: 'red' }}>*</span>
                       </InputLabel>
@@ -176,7 +235,12 @@ const CreateAdminUser: React.FC = () => {
                       />
                     </Grid>
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="dropdown" style={{ marginBottom: '7px' }}>{t('status')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                      <InputLabel
+                        htmlFor="dropdown"
+                        style={{ marginBottom: '7px' }}
+                      >
+                        {t('status')} <span style={{ color: 'red' }}>*</span>
+                      </InputLabel>
                       <Field
                         name="status"
                         as={TextField}
@@ -184,8 +248,8 @@ const CreateAdminUser: React.FC = () => {
                         fullWidth
                         size="small"
                         //label="সিলেক্ট করুন"
-                       
-                      // Set an empty default value
+
+                        // Set an empty default value
                       >
                         <MenuItem value="1">Active</MenuItem>
                         <MenuItem value="2">Inactive</MenuItem>
@@ -193,7 +257,13 @@ const CreateAdminUser: React.FC = () => {
                     </Grid>
 
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="dropdown" style={{ marginBottom: '7px' }}>{t('userRoleName')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                      <InputLabel
+                        htmlFor="dropdown"
+                        style={{ marginBottom: '7px' }}
+                      >
+                        {t('userRoleName')}{' '}
+                        <span style={{ color: 'red' }}>*</span>
+                      </InputLabel>
                       <Field
                         name="role"
                         as={TextField}
@@ -201,8 +271,8 @@ const CreateAdminUser: React.FC = () => {
                         fullWidth
                         size="small"
                         //label="সিলেক্ট করুন"
-                       
-                      // Set an empty default value
+
+                        // Set an empty default value
                       >
                         <MenuItem value="super-admin">Super Admin</MenuItem>
                         <MenuItem value="admin">Admin</MenuItem>
@@ -211,7 +281,12 @@ const CreateAdminUser: React.FC = () => {
                       </Field>
                     </Grid>
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="password" style={{ marginBottom: '7px' }}>{t('password')} <span style={{ color: 'red' }}>*</span></InputLabel>
+                      <InputLabel
+                        htmlFor="password"
+                        style={{ marginBottom: '7px' }}
+                      >
+                        {t('password')} <span style={{ color: 'red' }}>*</span>
+                      </InputLabel>
                       <Field
                         name="password"
                         type="password"
@@ -221,7 +296,12 @@ const CreateAdminUser: React.FC = () => {
                       />
                     </Grid>
                     <Grid item xs={12} md={3}>
-                      <InputLabel htmlFor="file" style={{ marginBottom: '7px' }}>{t('uploadImage')} - {t('profileImageLimit')}</InputLabel>
+                      <InputLabel
+                        htmlFor="file"
+                        style={{ marginBottom: '7px' }}
+                      >
+                        {t('uploadImage')} - {t('profileImageLimit')}
+                      </InputLabel>
                       <Field
                         name="file"
                         type="file"
@@ -232,7 +312,6 @@ const CreateAdminUser: React.FC = () => {
                       />
                     </Grid>
 
-
                     <Grid
                       item
                       xs={12}
@@ -240,32 +319,34 @@ const CreateAdminUser: React.FC = () => {
                       alignItems="center"
                       justifyContent="right"
                       display="flex"
-                    > {loading ? (
-                      // Show the loader if loading
-                      <CircularProgress size={20} color="inherit" />
-                    ) : (
-                      <Button
-                        type="submit"
-                        aria-label="toggle-status"
-                        size="small"
-                        variant='contained'
-                        style={{
-                          backgroundColor: 'primary.main',
-                          color: '#FAFAFA',
-                          width: '249px',
-                          height: '40px',
-                          display: 'inline-flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          fontSize: '16px',
-                          fontWeight: '600',
-                          fontFamily: 'Roboto',
-                          marginTop: '14px',
-                        }}
-                      >
-                        {t('submit')}
-                      </Button>
-                    )}
+                    >
+                      {' '}
+                      {loading ? (
+                        // Show the loader if loading
+                        <CircularProgress size={20} color="inherit" />
+                      ) : (
+                        <Button
+                          type="submit"
+                          aria-label="toggle-status"
+                          size="small"
+                          variant="contained"
+                          style={{
+                            backgroundColor: 'primary.main',
+                            color: '#FAFAFA',
+                            width: '249px',
+                            height: '40px',
+                            display: 'inline-flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            fontSize: '16px',
+                            fontWeight: '600',
+                            fontFamily: 'Roboto',
+                            marginTop: '14px',
+                          }}
+                        >
+                          {t('submit')}
+                        </Button>
+                      )}
                     </Grid>
                   </Grid>
                 </Form>
@@ -273,16 +354,6 @@ const CreateAdminUser: React.FC = () => {
             </Formik>
           </Grid>
         </Grid>
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleCloseSnackbar}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
-            {snackbarMessage}
-          </Alert>
-        </Snackbar>
       </Container>
     </div>
   );
