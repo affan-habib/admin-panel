@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Checkbox, Typography } from '@mui/material';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import { useTranslation } from 'react-i18next';
+import { assetBaseUrl } from 'config';
 
 const QuizList = ({ assesments, type_id }: any) => {
   const filteredData = assesments?.data?.filter(
@@ -34,6 +35,7 @@ const QuizList = ({ assesments, type_id }: any) => {
                     <QuizOutlinedIcon sx={{ marginRight: 1 }} />
                   </Box>
                   <Box>
+                    
                     <Box>
                       <Typography
                         variant="body1"
@@ -44,6 +46,10 @@ const QuizList = ({ assesments, type_id }: any) => {
                         <div dangerouslySetInnerHTML={{ __html: item.question }} />
                       </Typography>
                     </Box>
+                    <img
+                            src={`${assetBaseUrl}/${item.question_img}`}
+                            style={{ height: '140px', width: '140px' }}
+                          />
                     <Box display="flex" flexDirection="row" flexWrap="wrap">
                       {item.options.map((option: any, index: number) => (
                         // <Box key={option.id} width="25%" p={1}>
