@@ -21,17 +21,18 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 const EditTrueFalseForm: React.FC<any> = ({
-  assessmentId,
+  data,
   handleCloseDialog,
   maxMark,
 }) => {
+  console.log(data);
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-  const onSubmit = async (values: any, buttonType: any = 'submit') => {
+  const onSubmit = async (values: any) => {
     try {
-      const response = await axios.post(`${apiBaseUrl}/quizzes`, {
-        course_assessment_id: assessmentId,
+      const response = await axios.patch(`${apiBaseUrl}/quizzes/${data.id}`, {
+        course_assessment_id: data.course_assessment_id,
         question: values.question,
         supporting_notes_en: values.correctAnswer,
         mark: values.mark,
@@ -51,7 +52,7 @@ const EditTrueFalseForm: React.FC<any> = ({
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
-      buttonType !== 'saveAndAdd' && handleCloseDialog();
+      handleCloseDialog();
       // onClose();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
@@ -71,15 +72,15 @@ const EditTrueFalseForm: React.FC<any> = ({
     <Formik
       initialValues={{
         option: 'option1',
-        mark: '',
-        question: '',
-        isTrue: true,
-        correctAnswer: '',
+        mark: data.mark,
+        question: data.question,
+        isTrue: data.options[0].is_correct,
+        correctAnswer: data.supporting_notes_en,
       }}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ values, isValid, dirty, resetForm }) => (
+      {({ values, isValid, dirty }) => (
         <Form>
           <Box mb={2} display="flex" justifyContent="" gap={8}>
             <FormControl component="fieldset">
@@ -141,17 +142,6 @@ const EditTrueFalseForm: React.FC<any> = ({
                 disabled={!isValid || !dirty}
               >
                 {t('submit')}
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{ ml: 2 }}
-                onClick={() => {
-                  onSubmit(values, 'saveAndAdd');
-                  resetForm();
-                }}
-                disabled={!isValid || !dirty}
-              >
-                {t('saveAndAdd')}
               </Button>
             </Box>
           </Box>

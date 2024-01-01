@@ -40,8 +40,8 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ViewAssesmentDialog from './assesment/ViewAssesmentDialog';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import VeiwAssignment from './assignment/VeiwAssignment';
+import { toBanglaNumber } from 'utils/numberUtils';
 const Chapters: React.FC<any> = ({ modules }) => {
-  // console.log(modules);
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
@@ -109,6 +109,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssinmentName(module_name);
     setAssignmentDialogOpen(true);
   };
+  // console.log(assignmentName);
   const handleAssignmentDialogClose = () => {
     setAssignmentDialogOpen(false);
   };
@@ -176,6 +177,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
       setSelectedId(-1);
     }
   };
+
+  const language = localStorage.getItem('language');
   return (
     <>
       {modules?.map((chapter: any) => (
@@ -379,12 +382,19 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         sx={{ marginLeft: 2 }}
                       />
                       <Box sx={{ flexGrow: 1, marginLeft: 2 }}>
-                        <Typography >
+                        <Typography>
                           {t('assessment')} : {assessment.assessment_title_en}
                         </Typography>
-                        <Box sx={{display:'flex'}}>
-                          <Typography variant="caption" style={{ marginRight: '15px',color:'rgba(100, 100, 100, 1)'}}>
-                            {assessment.quizzes_count} {t('questionNo')}
+                        <Box sx={{ display: 'flex' }}>
+                          <Typography
+                            variant="caption"
+                            style={{
+                              marginRight: '15px',
+                              color: 'rgba(100, 100, 100, 1)',
+                            }}
+                          >
+                            {toBanglaNumber(assessment.quizzes_count)}{' '}
+                            {t('questionNo')}
                           </Typography>
                           <svg
                             width="9"
@@ -395,10 +405,66 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           >
                             <rect y="3" width="1" height="14" fill="#646464" />
                             <rect x="4" width="1" height="20" fill="#646464" />
-                            <rect x="8" y="3" width="1" height="14" fill="#646464" />
+                            <rect
+                              x="8"
+                              y="3"
+                              width="1"
+                              height="14"
+                              fill="#646464"
+                            />
                           </svg>
-                          <Typography variant="caption" style={{marginLeft:'15px',color:'rgba(100, 100, 100, 1)'}}>
-                          {t('time')} {assessment.total_time} <FiberManualRecordIcon style={{fontSize:'8px',marginLeft:'5px',marginRight: '5px'}}/> {t('minutes')} , {t('marks')} <FiberManualRecordIcon style={{fontSize:'10px',marginLeft:'5px',marginRight: '5px'}}/> {assessment.total_mark}
+                          <Typography
+                            variant="caption"
+                            style={{
+                              marginLeft: '15px',
+                              marginRight: '15px',
+                              color: 'rgba(100, 100, 100, 1)',
+                            }}
+                          >
+                            {t('time')}{' '}
+                            <FiberManualRecordIcon
+                              style={{
+                                fontSize: '8px',
+                                marginLeft: '5px',
+                                marginRight: '5px',
+                              }}
+                            />{' '}
+                            {toBanglaNumber(assessment.total_time)}{' '}
+                            {t('minutes')}
+                          </Typography>
+                          <svg
+                            width="9"
+                            height="20"
+                            viewBox="0 0 9 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect y="3" width="1" height="14" fill="#646464" />
+                            <rect x="4" width="1" height="20" fill="#646464" />
+                            <rect
+                              x="8"
+                              y="3"
+                              width="1"
+                              height="14"
+                              fill="#646464"
+                            />
+                          </svg>
+                          <Typography
+                            variant="caption"
+                            style={{
+                              marginLeft: '15px',
+                              color: 'rgba(100, 100, 100, 1)',
+                            }}
+                          >
+                            {t('marks')}{' '}
+                            <FiberManualRecordIcon
+                              style={{
+                                fontSize: '10px',
+                                marginLeft: '5px',
+                                marginRight: '5px',
+                              }}
+                            />{' '}
+                            {toBanglaNumber(assessment.total_mark)}
                           </Typography>
                         </Box>
                       </Box>
@@ -480,7 +546,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                           paddingTop: '8px',
                           paddingBottom: '8px',
                           border: '1px dashed rgba(208, 208, 208, 1)',
-                          backgroundColor:'rgba(250, 250, 250, 1)'
+                          backgroundColor: 'rgba(250, 250, 250, 1)',
                         }}
                       >
                         <AssesmentCreateButtons
@@ -518,7 +584,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       onClick={() => {
                         handleAssignmentDialogOpen(
                           chapter.id,
-                          chapter.module_name_bn,
+                          language === 'bn'
+                            ? chapter.module_name_bn
+                            : chapter.module_name_en,
                         );
                       }}
                       title={t('assigmnment')}
@@ -526,7 +594,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => { }}
+                      onClick={() => {}}
                       title={t('vdoWithQuiz')}
                       disabled={true}
                       icon={<AssignmentIcon />}
@@ -535,7 +603,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       onClick={() =>
                         handleAssesmentDialogOpen(
                           chapter.id,
-                          chapter.module_name_bn,
+                          language === 'bn' ? chapter.module_name_bn : chapter.module_name_en,
                         )
                       }
                       title={t('assesment')}
@@ -570,7 +638,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
-        // onEdit={handleVideoEdit}
+          // onEdit={handleVideoEdit}
         />
       )}
 

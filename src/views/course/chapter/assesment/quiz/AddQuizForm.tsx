@@ -11,13 +11,13 @@ import {
   Stack,
 } from '@mui/material';
 import { Formik, Form, FieldArray, Field } from 'formik';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from 'react-i18next';
 import MarkInput from 'components/form/MarkInput';
-import ImageUploadBox from 'components/form/ImageUploadBox';
+
 import RichTextInput from 'components/form/RichTextInput';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
@@ -25,8 +25,11 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
+import ImageUploadButton from './ImageUploadButton';
+import ImageUploadBox from 'components/form/ImageUploadBox';
+import ImageUploadIcon from './ImageUploadButton';
 
-const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark }) => {
+const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
   const { showSnackbar } = useSnackbar();
@@ -68,12 +71,21 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
     }
   }
 
-  const handleSubmit = async (values: any,{ resetForm }: any) => {
+  const handleSubmit = async (values: any, { resetForm }: any) => {
+    if (!values.options.some((option: any) => option.is_correct)) {
+      showSnackbar('Please select at least one correct option', 'error');
+      return;
+    }
+
     await handleFormSubmit(values, true);
     resetForm();
   };
+  const handleSaveAndAdd = async (values: any, { resetForm }: any) => {
+    if (!values.options.some((option: any) => option.is_correct)) {
+      showSnackbar('Please select at least one correct option', 'error');
+      return;
+    }
 
-  const handleSaveAndAdd = async (values: any,{ resetForm }: any) => {
     await handleFormSubmit(values, false);
     resetForm();
   };
@@ -89,6 +101,16 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
       .required('Mark is required')
       .max(maxMark, 'should not be more than total marks')
       .positive('Mark must be a positive number'),
+    // options: Yup.array().of(
+    //   Yup.object().shape({
+    //     option_value: Yup.string().required('Option value is required'),
+    //     is_correct: Yup.boolean(),
+    //   })
+    // ).test(
+    //   'atLeastOneChecked',
+    //   'At least one option should be checked',
+    //   (options) => Array.isArray(options) && options.some((option) => option.is_correct)
+    // )
   });
 
   return (
@@ -98,25 +120,29 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
           options: [
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
           ],
-          mark:''
+          mark: '',
         }
-      }  validationSchema={validationSchema} onSubmit={handleSubmit} >
-      {({ values, setFieldValue,resetForm, isValid, dirty }) => (
+      } validationSchema={validationSchema} onSubmit={handleSubmit} >
+      {({ values, setFieldValue, resetForm, isValid, dirty }) => (
         <Form>
           <FormControl
             component="fieldset"
@@ -200,7 +226,6 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
             <Grid
               spacing={2}
               mt={5}
-              // style={{maxHeight:'60vh',overflowY:'auto'}}
             >
               <Grid>
                 <FieldArray name="options">
@@ -209,19 +234,19 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
                       <Typography fontWeight="bold" mb={1}>
                         {t('quizAlternative')}
                       </Typography>
-                      <Grid container columns={10} spacing={2}>
+                      <Grid container xs={12} md={8} xl={9} spacing={2}>
                         {values.options.map((_: any, index: any) => (
-                          <Grid item md={4} key={index}>
-                            <Box
+                          <Grid item md={6} key={index}>
+                            <Box p={1}
                               sx={{
                                 border: '1px dashed rgba(208, 208, 208, 1)',
                               }}
                             >
                               <Box
-                                sx={{ display: 'flex', alignItems: 'center' }}
+                                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                               >
-                                <Grid container columns={10} spacing={2}>
-                                  <Grid item md={6}>
+                                <Grid container spacing={1}>
+                                  <Grid item md={11}>
                                     <Box sx={{ display: 'flex' }}>
                                       <Checkbox
                                         name={`options[${index}].is_correct`}
@@ -237,74 +262,57 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
                                           setFieldValue('options', newOptions);
                                         }}
                                       />
-
-                                      <FormControl
-                                        fullWidth
-                                        variant="outlined"
-                                        size="small"
-                                        sx={{
-                                          padding: '10px',
-                                          display: 'flex',
-                                        }}
-                                      >
-                                        <Stack
-                                          direction="row"
-                                          alignItems="center"
-                                          bgcolor="gray"
-                                          justifyContent="space-between"
-                                          // maxWidth={210}
-                                          sx={{ width: '42px', borderTopLeftRadius: '4px', borderBottomLeftRadius: '4px' }}
+                                      <FormControl fullWidth size="small">
+                                        <Box
+                                          sx={{
+                                            display: 'flex',
+                                            borderRadius: '4px',
+                                            overflow: 'hidden',
+                                            border: '1px solid rgba(100, 100, 100, 1)',
+                                            marginBottom: { xs: '10px', md: '0' },
+                                          }}
                                         >
-                                          <Typography
-                                            align="center"
+                                          <Box
                                             sx={{
-                                              color: 'white',
-                                              px: 2,
-                                              width: 55,
+                                              p: '10px',
+                                              backgroundColor: 'rgba(100, 100, 100, 1)',
+                                              flexShrink: 0,
                                             }}
                                           >
-                                            {index + 1}
-                                          </Typography>
-                                          <Field name={`options[${index}].option_value`} placeholder={t('alternative')}  
-                                          style={{ padding: '10px', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', border: '1px solid rgba(208, 208, 208, 1)' }} />
-                                        </Stack>
+                                            <Typography align="center" sx={{ color: 'white', px: 2 }}>
+                                              {index + 1}
+                                            </Typography>
+                                          </Box>
+                                          <Field
+                                            name={`options[${index}].option_value`} placeholder={t('alternative')}
+                                            style={{
+                                              flex: 1,
+                                              padding: '14.5px',
+                                              backgroundColor: 'rgba(245, 247, 248, 1)',
+                                              border: 'none',
+                                              borderLeft: 'none',
+                                              outline: 'none',
+                                            }}
+                                          />
+                                        </Box>
                                       </FormControl>
                                     </Box>
                                   </Grid>
-                                  <Grid
-                                    item
-                                    md={3}
-                                    sx={{
-                                      display: 'flex',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                    }}
-                                  >
-                                    <Box>
-                                      <Typography>{t('or')}</Typography>
-                                    </Box>
-                                  </Grid>
-                                  <Grid
-                                    item
-                                    md={1}
-                                    sx={{
-                                      display: 'flex',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                    }}
-                                  >
-                                    <Box
-                                      sx={{
-                                        border:
-                                          '1px solid rgba(208, 208, 208, 1)',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                        marginRight: '15px',
-                                      }}
-                                    >
-                                      <FileUploadOutlinedIcon />
-                                    </Box>
-                                  </Grid>
+                                </Grid>
+                                <Grid
+                                  item
+                                  md={1}
+                                  sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                  }}
+                                >
+                                  <ImageUploadIcon
+                                    name={`options[${index}].option_img`}
+                                    label="Upload Image"
+                                  />
+
                                 </Grid>
                               </Box>
                             </Box>
@@ -314,7 +322,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
                       <Button
                         variant="contained"
                         onClick={() =>
-                          push({ option_value: '', is_correct: false })
+                          push({ option_value: '', is_correct: false, option_img: '' })
                         }
                         sx={{
                           marginTop: '12px',
@@ -382,7 +390,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog,maxMark })
               <Button variant="contained" type="submit" disabled={!isValid || !dirty}>
                 {t('submit')}
               </Button>
-              <Button variant="outlined" disabled={!isValid || !dirty} onClick={() => handleSaveAndAdd(values,{resetForm})}>
+              <Button variant="outlined" disabled={!isValid || !dirty} onClick={() => handleSaveAndAdd(values, { resetForm })}>
                 {t('saveAdd')}
               </Button>
             </Grid>
