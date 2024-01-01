@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import { saveAuthData } from 'utils/authUtils';
 import { useDispatch } from 'react-redux';
 import { login } from 'store/reducers/authSlice';
+import { useSnackbar } from 'context/SnackbarContext';
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -37,24 +38,28 @@ const LoginForm: React.FC = () => {
     username: Yup.string().required(),
     password: Yup.string().required(),
   });
+  const { showSnackbar } = useSnackbar();
 
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
-
+  
       const response = await axios.post(`${apiBaseUrl}/login`, {
         username: values.username,
         password: values.password,
         rememberMe: values.rememberMe,
       });
-
+  
       const data = response.data.data;
       saveAuthData(data);
       dispatch(login(data.user));
       navigate('/');
-    } catch (error) {
+    } catch (error: any) {
+      // Keep existing error handling logic
+      showSnackbar(error.response.data.message, 'error');
+      console.error('Error submitting form:', error);
     } finally {
       setLoading(false);
     }
@@ -74,9 +79,8 @@ const LoginForm: React.FC = () => {
       <form onSubmit={formik.handleSubmit}>
         <TextField
           variant="outlined"
-          size="small"
           name="username"
-          placeholder={t('email')}
+          placeholder={t('username')}
           fullWidth
           margin="normal"
           value={formik.values.username}
@@ -84,12 +88,18 @@ const LoginForm: React.FC = () => {
           onBlur={formik.handleBlur}
           error={formik.touched.username && Boolean(formik.errors.username)}
           helperText={formik.touched.username && formik.errors.username}
+          sx={{
+            '& .MuiFormHelperText-root.Mui-error': {
+              color: 'white',  // Set the error message color to red
+            },
+          }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
                 <PersonIcon />
               </InputAdornment>
             ),
+            style: { backgroundColor: 'white' }
           }}
         />
         <TextField
@@ -105,6 +115,11 @@ const LoginForm: React.FC = () => {
           onBlur={formik.handleBlur}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
+          sx={{
+            '& .MuiFormHelperText-root.Mui-error': {
+              color: 'white',  // Set the error message color to red
+            },
+          }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -126,48 +141,59 @@ const LoginForm: React.FC = () => {
                 )}
               </InputAdornment>
             ),
+            style: { backgroundColor: 'white' }
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <FormControlLabel
             control={
               <Checkbox
-                color="primary"
                 name="rememberMe"
                 checked={formik.values.rememberMe}
                 onChange={formik.handleChange}
+                sx={{
+                  color: 'white',
+                  '&.Mui-checked': {
+                    color: 'white',
+                  },
+                }}
               />
             }
             label={
-              <Box component="div" fontSize={12} sx={{fontWeight:400}}>
+              <Box component="div" fontSize={12} sx={{ fontWeight: 400, color: 'white' }}>
                 {t('remeberPassword')}
               </Box>
             }
           />
-          <Box><h6 style={{fontSize:'12px', fontWeight:400}}>{t('forgotPassword')}</h6></Box>
+          <Box><h6 style={{ fontSize: '12px', fontWeight: 400, color: 'rgba(205, 255, 126, 1)' }}>{t('forgotPassword')}</h6></Box>
         </div>
         <Box sx={{
-              display: 'flex', justifyContent: 'center', 
-            }}>
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
           <Button
             variant="contained"
-            color="primary"
             type="submit"
-
             disabled={loading}
             startIcon={loading ? <RefreshIcon /> : null}
             sx={{
-              marginTop:'20px',
-              height:'40px',
-              width:'200px',
-              fontSize:'18px',
-              fontWeight:500
-
+              marginTop: '20px',
+              height: '40px',
+              width: '200px',
+              fontSize: '18px',
+              fontWeight: 700,
+              backgroundColor: 'white',
+              color: 'rgba(0, 106, 78, 1)',
+              '&:hover': {
+                backgroundColor: 'white',  // Set the same background color as the default
+                color: 'rgba(0, 106, 78, 1)',  // Set the same text color as the default
+              },
             }}
           >
             {t('login')}
           </Button>
         </Box>
+
 
       </form>
     </>

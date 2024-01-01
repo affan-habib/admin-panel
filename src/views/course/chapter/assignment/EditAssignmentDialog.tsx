@@ -28,20 +28,20 @@ interface EditAssignmentProps {
   initialData: any;
   onClose: () => void;
   name: any;
+  assessment: any;
 }
 
 const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
   open,
   initialData,
   onClose,
-  name
+  name,
+  assessment,
 }) => {
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
-  console.log(name);
   const handleSubmit = async (values: any) => {
-    // Remove the "url" key if the value is a string
-    if (typeof values.supporting_doc === 'string') {
+    if (!values.supporting_doc) {
       delete values.supporting_doc;
     }
 
@@ -77,25 +77,37 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle 
-      >
-        <Grid sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
+      <DialogTitle>
+        <Grid
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <Typography color="primary" variant="h6">
-            {t('editAssignment')} ({name})
+            {t('editAssignment')} ({assessment})
           </Typography>
           <IconButton aria-label="close" onClick={onClose} color="error">
             <HighlightOffIcon />
           </IconButton>
         </Grid>
-        <Typography sx={{ display: 'flex', alignItems: 'center', fontSize:'12px' }}>
-                    {t('time')} <FiberManualRecordIcon sx={{ fontSize: '5px',color: 'rgba(100, 100, 100, 1)', marginLeft:'5px', marginRight:'5px'}}  /> {initialData.total_time} {t('minute')}
+        <Typography
+          sx={{ display: 'flex', alignItems: 'center', fontSize: '12px' }}
+        >
+          {t('time')}{' '}
+          <FiberManualRecordIcon
+            sx={{
+              fontSize: '5px',
+              color: 'rgba(100, 100, 100, 1)',
+              marginLeft: '5px',
+              marginRight: '5px',
+            }}
+          />{' '}
+          {initialData.total_time} {t('minute')}
         </Typography>
       </DialogTitle>
-      <DialogContent sx={{padding:'0px', marginTop:'0px' }}>
+      <DialogContent sx={{ padding: '0px', marginTop: '0px' }}>
         <Formik
           initialValues={initialData}
           onSubmit={handleSubmit}
@@ -111,9 +123,17 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                 />
               </Grid>
               <Grid px={2}>
-              <RichTextInput label={t('assignmentInstruct')} name="instructions_en" />
+                <RichTextInput
+                  label={t('assignmentInstruct')}
+                  name="instructions_en"
+                />
               </Grid>
-              <Grid container alignItems="center" justifyContent="center" px={2}>
+              <Grid
+                container
+                alignItems="center"
+                justifyContent="center"
+                px={2}
+              >
                 <Grid item xs={12}>
                   <div
                     style={{
@@ -184,7 +204,10 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                 container
                 spacing={2}
                 alignItems="center"
-                sx={{ borderBottom: '1px solid rgba(208, 208, 208, 1)', marginTop: 1 }}
+                sx={{
+                  borderBottom: '1px solid rgba(208, 208, 208, 1)',
+                  marginTop: 1,
+                }}
               >
                 <Grid item sx={{ marginBottom: '1px' }}>
                   <InputLabel
@@ -223,8 +246,12 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                   />
                 </Grid>
               </Grid>
-              <Box  p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button type="submit" variant="contained" sx={{width:'120px'}}>
+              <Box p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ width: '120px' }}
+                >
                   {t('submit')}
                 </Button>
               </Box>

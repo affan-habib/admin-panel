@@ -22,8 +22,7 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
     transition: 'transform 0.3s, background-color 0.3s',
     cursor: 'pointer', // Add pointer cursor on hover
     '&:hover': {
-      transform: 'scale(1.05)',
-      backgroundColor: '#e0f7fa',
+      backgroundColor: '#E8FFF8!important',
       '& .title': {
         fontWeight: '700', // Make font weight bold on hover
       },
@@ -54,14 +53,18 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
   ];
 
   return (
-    <Grid container spacing={{ xs: 3, md: 8 }} mt="20px">
+    <Grid container spacing={{ xs: 2, md: 3 }} mt="20px">
       {cardData.map((card, index) => (
-        <Grid item key={index} xs={12} md={2.4} sm={6}>
+        <Grid item key={index} xs={12} md={4} sm={6}>
           <Card
             sx={cardStyle}
             onClick={() => handleCardClick(card.title)}
             style={{
-              background: loginPageTitle == card.title ? '#e0f7fa' : 'inherit',
+              background: loginPageTitle == card.title ? 'rgba(254, 254, 254, 1)' : 'inherit',
+              border: '1px solid rgba(208, 208, 208, 1)',
+              height: '300px',
+              borderRadius: '8px',
+              backgroundColor:'rgba(254, 254, 254, 1)'
             }}
           >
             <CardMedia
@@ -69,18 +72,21 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
               alt={card.title}
               image={card.imageUrl}
               sx={{
-                height: 80,
-                width: 120,
+                height: 160,
+                width: 235.9,
                 margin: 'auto',
                 mt: 4,
               }}
             />
             <CardContent>
               <Typography
-                variant="body2"
-                color="text.secondary"
                 align="center"
                 className="title"
+                sx={{
+                  color: 'rgba(34, 34, 34, 1)',
+                  fontWeight: 600,
+                  fontSize: '20px'
+                }}
               >
                 {t(card.title)}
               </Typography>

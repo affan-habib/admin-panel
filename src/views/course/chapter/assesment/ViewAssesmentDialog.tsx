@@ -25,6 +25,7 @@ interface ViewAssessmentDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
+  assessment: any;
 }
 const DotElement = () => (
   <span style={{ margin: '0 8px' }}>
@@ -105,6 +106,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
   open,
   initialData,
   onClose,
+  assessment
 }) => {
   const { data: assesments } = useCourseQuizzes(initialData.id);
   const { t } = useTranslation();
@@ -124,13 +126,11 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
             variant="h6"
             sx={{ marginBottom: '8px', fontSize: '24px', fontWeight: 600 }}
           >
-            {localStorage.getItem('language') === 'en'
-              ? initialData.assessment_title_en
-              : initialData.assessment_title_en}
+            {t('editAssesment')} {initialData.assessment_title} ({assessment})
           </Typography>
           <Stack direction="row" spacing={2}>
             <Typography variant="body1" color="#646464">
-              {t('descriptiveQuestionPaper')}
+              {t('questionPaper')}
             </Typography>
             <svg
               width="9"
@@ -148,8 +148,17 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
               {t('time')} <DotElement />
               {toBanglaNumber(initialData.total_time)} {t('minutes')}
             </Typography>
-          </Stack>
-          <Stack direction="row" spacing={2}>
+            <svg
+              width="9"
+              height="20"
+              viewBox="0 0 9 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="3" width="1" height="14" fill="#646464" />
+              <rect x="4" width="1" height="20" fill="#646464" />
+              <rect x="8" y="3" width="1" height="14" fill="#646464" />
+            </svg>
             <Typography variant="body1" color="#646464">
               {t('totalMarks')} <DotElement />{' '}
               {toBanglaNumber(initialData.total_mark)}

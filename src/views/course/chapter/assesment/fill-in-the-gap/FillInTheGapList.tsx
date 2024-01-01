@@ -11,7 +11,7 @@ const FillInTheGapList = ({ assesments, type_id }: any) => {
 
   return (
     <div>
-      {!!filteredData.length && (
+      {!!filteredData?.length && (
         <Box
           maxHeight={150}
           sx={{

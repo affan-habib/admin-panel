@@ -67,7 +67,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
     }
   };
 
-  // const language = localStorage.getItem('language');
+  const language = localStorage.getItem('language');
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -79,7 +79,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssesment')},{name}
+          {t('addAssesment')} ({name})
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -104,14 +104,15 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
           onSubmit={handleSubmit}
         >
           <Form>
-            <InputField
-              name="assessment_title_en"
+          <InputField
+              name="assessment_title_bn"
               label={t('assesmentName')}
               placeholder={t('assesmentNo')}
             />
             <InputField
-              name="assessment_title_bn"
-              label={t('assesmentName')}
+              name="assessment_title_en"
+              // label={t('assesmentName')}
+              label='Assessment Name (English)'
               placeholder={t('assesmentNo')}
             />
             <Grid container spacing={2} sx={{ marginTop: '2px' }}>

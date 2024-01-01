@@ -75,6 +75,7 @@ const IntegratedQuestionButton: React.FC<any> = ({
   assessmentId,
   handleCloseDialog,
   assesments,
+  maxMark,
 }) => {
   const [selectedButton, setSelectedButton] = useState(2);
   const language = localStorage.getItem('language');
@@ -113,6 +114,7 @@ const IntegratedQuestionButton: React.FC<any> = ({
                     key={option.id}
                     assessmentId={assessmentId}
                     handleCloseDialog={handleCloseDialog}
+                    maxMark={maxMark}
                   />
                 </>
               ),

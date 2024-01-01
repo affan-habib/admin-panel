@@ -22,13 +22,16 @@ interface EditAssessmentDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
+  assessment:any
 }
 
 const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
   open,
   initialData,
   onClose,
+  assessment
 }) => {
+  console.log(assessment);
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
 
@@ -76,7 +79,8 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('editAssesment')} {initialData.assessment_title}
+          {t('editAssesment')} ({assessment})
+          {/* {t('editAssesment')} {initialData.assessment_title} {assessment} */}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />
@@ -89,14 +93,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
           enableReinitialize
         >
           <Form>
-            <Grid px={2}>
-              <InputField
-                name="assessment_title_en"
-                label={t('assesmentName')}
-                placeholder={t('assesmentNo')}
-              />
-            </Grid>
-
+            
             <Grid px={2}>
               <InputField
                 name="assessment_title_bn"
@@ -105,6 +102,14 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               />
             </Grid>
 
+            <Grid px={2}>
+              <InputField
+                name="assessment_title_en"
+                // label={t('assesmentName')}
+                label="Assessment Name (English)"
+                placeholder={t('assesmentNo')}
+              />
+            </Grid>
 
             <Grid container spacing={2} sx={{ marginTop: '2px' }}  px={2}>
               <Grid item xs={6} >

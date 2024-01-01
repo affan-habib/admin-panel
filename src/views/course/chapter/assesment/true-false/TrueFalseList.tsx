@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const TrueFalseList = ({ assesments, type_id }: any) => {
@@ -34,6 +34,37 @@ const TrueFalseList = ({ assesments, type_id }: any) => {
                   <div dangerouslySetInnerHTML={{ __html: item.question }} />
                 </Typography>
 
+                <Box ml={4}>
+                  {item?.options?.map((option: any) => (
+                    <FormControlLabel
+                      // key={index * 100 + secondIndex}
+                      control={
+                        option.is_correct === true ? (
+                          <Checkbox
+                            size="small"
+                            sx={{ color: '#646464' }}
+                            checked
+                            disabled
+                          />
+                        ) : (
+                          <Checkbox size="small" disabled />
+                        )
+                      }
+                      label={
+                        <Typography
+                          sx={{
+                            fontSize: '16px',
+                            marginRight: '12px',
+                            fontWeight: 400,
+                            color: '#646464',
+                          }}
+                        >
+                          {option.option_value}
+                        </Typography>
+                      }
+                    />
+                  ))}
+                </Box>
                 {item.supporting_notes_en && (
                   <Box
                     bgcolor="white"
