@@ -33,7 +33,6 @@ import { toBanglaNumber } from 'utils/numberUtils';
 
 const EditFillInTheGapForm: React.FC<any> = ({
   data,
-
   handleCloseDialog,
 }) => {
   console.log("assessmentId", data)
@@ -98,54 +97,18 @@ const EditFillInTheGapForm: React.FC<any> = ({
   const queryClient = useQueryClient();
 
 
-  const handleSubmit = async (
-    values: any,
-    saveAndAdd: boolean,
-    { resetForm }: any,
-  ) => {
-    const optionsArr = [];
-    for (let i = 0; i < svgCount; i++) {
-      optionsArr.push({
-        option_key: `${i + 1}`,
-        option_value: values.options[i],
-      });
-    }
-
-    const editorFullText = values.question.replace(/<(?!img).*?>/g, '');
-    const editorTextExceptSvg = editorFullText.replace(
-      /<img[^>]*>.*?<\/img>/g,
-      '',
-    );
-    const editorTextWithBlankAsHash = editorTextExceptSvg.replace(
-      /<img[^>]*>/g,
-      '#',
-    );
-
-
-
-    setLoading(true);
-
-    const token = localStorage.getItem('token');
-
+  const onSubmit = async (values: any) => {
     try {
-      const response = await axios.patch(`${apiBaseUrl}/quizzes/${data.id}`, values, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      resetForm();
-      showSnackbar(response?.data?.message, 'success');
-      queryClient.invalidateQueries('couse-quizzes');
-
-
-    } catch (error: any) {
-      console.error('Error submitting form:', error);
-      showSnackbar(
-        error.response?.data?.message || 'An error occurred',
-        'error',
+      const response = await axios.patch(
+        `${apiBaseUrl}/quizzes/${data.id}`,
+        values,
       );
-    } finally {
-      setLoading(false);
+      showSnackbar(response.data.message, 'success');
+      queryClient.invalidateQueries('couse-quizzes');
+      handleCloseDialog();
+    } catch (error: any) {
+      showSnackbar(error.response.data.message, 'error');
+      console.error('Error submitting form:', error);
     }
   };
 
@@ -153,7 +116,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
     <>
       <Formik
         initialValues={data}
-        onSubmit={(values, actions) => handleSubmit(values, false, actions)}
+        onSubmit={onSubmit}
       >
         {({ values, setFieldValue, resetForm }) => (
           <Form>
@@ -281,12 +244,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
                   >
                     {t('submit')}
                   </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleSubmit(values, true, { resetForm })}
-                  >
-                    {t('saveAndAdd')}
-                  </Button>
+
                 </Box>
               </Box>
             </Box>
