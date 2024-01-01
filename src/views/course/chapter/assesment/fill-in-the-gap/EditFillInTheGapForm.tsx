@@ -10,24 +10,15 @@ import {
   TextField,
 } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
-
-import 'react-quill/dist/quill.snow.css';
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.bubble.css';
 import MarkInput from 'components/form/MarkInput';
 import axios from 'axios';
 import { apiBaseUrl } from '../../../../../config';
 import { useSnackbar } from 'context/SnackbarContext';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import { string } from 'yup';
-import { SpaceBar } from '@mui/icons-material';
 import { useQueryClient } from 'react-query';
 import { toBanglaNumber } from 'utils/numberUtils';
 
@@ -35,8 +26,6 @@ const EditFillInTheGapForm: React.FC<any> = ({
   data,
   handleCloseDialog,
 }) => {
-  console.log("assessmentId", data)
-  const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const [editorHtml, setEditorHtml] = useState<string>(data.question);
 

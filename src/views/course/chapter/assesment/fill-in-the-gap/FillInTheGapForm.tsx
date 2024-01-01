@@ -108,9 +108,6 @@ const FillInTheGapForm: React.FC<any> = ({
       status: 1,
       options: optionsArr,
     };
-
-    setLoading(true);
-
     const token = localStorage.getItem('token');
 
     try {
@@ -136,8 +133,6 @@ const FillInTheGapForm: React.FC<any> = ({
         error.response?.data?.message || 'An error occurred',
         'error',
       );
-    } finally {
-      setLoading(false);
     }
   };
 
