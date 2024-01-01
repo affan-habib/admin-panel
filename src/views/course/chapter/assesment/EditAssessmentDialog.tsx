@@ -93,14 +93,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
           enableReinitialize
         >
           <Form>
-            <Grid px={2}>
-              <InputField
-                name="assessment_title_en"
-                label={t('assesmentName')}
-                placeholder={t('assesmentNo')}
-              />
-            </Grid>
-
+            
             <Grid px={2}>
               <InputField
                 name="assessment_title_bn"
@@ -109,6 +102,14 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               />
             </Grid>
 
+            <Grid px={2}>
+              <InputField
+                name="assessment_title_en"
+                // label={t('assesmentName')}
+                label="Assessment Name (English)"
+                placeholder={t('assesmentNo')}
+              />
+            </Grid>
 
             <Grid container spacing={2} sx={{ marginTop: '2px' }}  px={2}>
               <Grid item xs={6} >
