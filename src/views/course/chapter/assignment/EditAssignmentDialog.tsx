@@ -28,13 +28,15 @@ interface EditAssignmentProps {
   initialData: any;
   onClose: () => void;
   name: any;
+  assessment:any
 }
 
 const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
   open,
   initialData,
   onClose,
-  name
+  name,
+ assessment
 }) => {
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
@@ -85,7 +87,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
           alignItems: 'center',
         }}>
           <Typography color="primary" variant="h6">
-            {t('editAssignment')} ({name})
+            {t('editAssignment')} ({assessment})
           </Typography>
           <IconButton aria-label="close" onClick={onClose} color="error">
             <HighlightOffIcon />
