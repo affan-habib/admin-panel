@@ -22,13 +22,16 @@ interface EditAssessmentDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
+  assessment:any
 }
 
 const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
   open,
   initialData,
   onClose,
+  assessment
 }) => {
+  console.log(assessment);
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
 
@@ -76,7 +79,8 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('editAssesment')} {initialData.assessment_title}
+          {t('editAssesment')} ({assessment})
+          {/* {t('editAssesment')} {initialData.assessment_title} {assessment} */}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />

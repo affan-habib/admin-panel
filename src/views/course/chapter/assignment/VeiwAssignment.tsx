@@ -29,6 +29,7 @@ interface ViewAssignmentProps {
     initialData: any;
     onClose: () => void;
     name: any;
+    assessment:any
 
 }
 
@@ -36,7 +37,8 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
     open,
     initialData,
     onClose,
-    name
+    name,
+    assessment
 }) => {
     const queryClient = useQueryClient();
     const { showSnackbar } = useSnackbar();
@@ -87,7 +89,7 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
                     alignItems: 'center',
                 }}>
                     <Typography color="primary" variant="h6">
-                        {t('assignmentView')} ({name})
+                        {t('assignmentView')} ({assessment})
                     </Typography>
                     <IconButton aria-label="close" onClick={onClose} color="error">
                         <HighlightOffIcon />
