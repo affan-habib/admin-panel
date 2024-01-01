@@ -25,6 +25,7 @@ interface ViewAssessmentDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
+  assessment: any;
 }
 const DotElement = () => (
   <span style={{ margin: '0 8px' }}>
@@ -105,6 +106,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
   open,
   initialData,
   onClose,
+  assessment
 }) => {
   const { data: assesments } = useCourseQuizzes(initialData.id);
   const { t } = useTranslation();
@@ -124,9 +126,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
             variant="h6"
             sx={{ marginBottom: '8px', fontSize: '24px', fontWeight: 600 }}
           >
-            {localStorage.getItem('language') === 'en'
-              ? initialData.assessment_title_en
-              : initialData.assessment_title_en}
+            {t('editAssesment')} {initialData.assessment_title} ({assessment})
           </Typography>
           <Stack direction="row" spacing={2}>
             <Typography variant="body1" color="#646464">
