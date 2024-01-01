@@ -41,8 +41,8 @@ export const DeleteModalProvider: React.FC<DeleteModalContextProps> = ({ childre
                 <DialogTitle>{t('message')}</DialogTitle>
                 <span style={{ margin: ' 20px', marginLeft: '20px' }}>{t('confirmation')}</span>
                 <DialogActions>
-                    <Button variant='contained' onClick={handleConfirm}>{t('remove')}</Button>
-                    <Button onClick={closeModal} variant='outlined' color='error' sx={{ ml: 2 }}>{t('cancel')}</Button>
+                    <Button onClick={closeModal} variant='contained' color='secondary' sx={{ ml: 2 }}>{t('cancel')}</Button>
+                    <Button variant='contained' color="error" onClick={handleConfirm}>{t('remove')}</Button>
                 </DialogActions>
             </Dialog>
         </DeleteModalContext.Provider>
