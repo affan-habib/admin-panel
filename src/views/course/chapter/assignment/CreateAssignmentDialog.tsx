@@ -35,8 +35,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
   open,
   onClose,
   moduleId,
-  name
-
+  name,
 }) => {
   const { id } = useParams();
   const queryClient = useQueryClient();
@@ -44,8 +43,8 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
 
   const handleSubmit = async (values: any) => {
     // Remove the "url" key if the value is a string
-    if (typeof values.url === 'string') {
-      delete values.url;
+    if (typeof values.supporting_doc === 'string') {
+      delete values.supporting_doc;
     }
 
     try {
@@ -82,7 +81,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          border:'none'
+          border: 'none',
         }}
       >
         <Typography color="primary" variant="h6">
@@ -92,7 +91,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
           <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{padding:'0px', marginTop:'0px' }} >
+      <DialogContent sx={{ padding: '0px', marginTop: '0px' }}>
         <Formik
           initialValues={{
             course_id: id,
@@ -104,24 +103,31 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
             total_time: '',
             status: 1,
             submission_type: '',
-            pass_mark:''
-
+            pass_mark: '',
           }}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting, values, setFieldValue }) => (
             <Form>
-              <Grid  px={2}>
+              <Grid px={2}>
                 <InputField
                   name="title_en"
                   label={t('assignmentName')}
                   placeholder={t('assignmentname')}
                 />
               </Grid>
-              <Grid  px={2}>
-              <RichTextInput  label={t('assignmentInstruct')} name="instructions_en" />
+              <Grid px={2}>
+                <RichTextInput
+                  label={t('assignmentInstruct')}
+                  name="instructions_en"
+                />
               </Grid>
-              <Grid  px={2} container alignItems="center" justifyContent="center">
+              <Grid
+                px={2}
+                container
+                alignItems="center"
+                justifyContent="center"
+              >
                 <Grid item xs={12}>
                   <div
                     style={{
@@ -149,7 +155,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                 </Grid>
               </Grid>
 
-              <Grid  px={2} sx={{}}>
+              <Grid px={2} sx={{}}>
                 <InputFile
                   name="supporting_doc"
                   label={t('assignmentUploadDoc')}
@@ -159,7 +165,7 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
               </Grid>
 
               <Grid
-                 px={2}
+                px={2}
                 container
                 spacing={2}
                 sx={{ display: 'flex', marginTop: '1px' }}
@@ -194,7 +200,10 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                 spacing={2}
                 alignItems="center"
                 px={2}
-                sx={{ borderBottom: '1px solid rgba(208, 208, 208, 1)', marginTop: 1 }}
+                sx={{
+                  borderBottom: '1px solid rgba(208, 208, 208, 1)',
+                  marginTop: 1,
+                }}
               >
                 <Grid item sx={{ marginBottom: '1px' }}>
                   <InputLabel
@@ -233,8 +242,12 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                   />
                 </Grid>
               </Grid>
-              <Box  p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button type="submit" variant="contained" sx={{width:'120px'}}>
+              <Box p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ width: '120px' }}
+                >
                   {t('submit')}
                 </Button>
               </Box>

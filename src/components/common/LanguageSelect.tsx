@@ -21,7 +21,7 @@ const LanguageSwitch: React.FC = () => {
   };
 
   return (
-    <div style={{ width: 70 }}>
+    <div style={{ width: 100 }}>
 
       {language == 'en' && <img src={ensvg} style={{ cursor: 'pointer' }} onClick={handleChange} />}
       {language == 'bn' && <img src={bnsvg} style={{ cursor: 'pointer' }} onClick={handleChange} />}
