@@ -25,6 +25,7 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
+import ImageUploadIcon from './ImageUploadButton';
 
 const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,data }) => {
   const { t } = useTranslation();
@@ -252,17 +253,10 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                                       alignItems: 'center',
                                     }}
                                   >
-                                    <Box
-                                      sx={{
-                                        border:
-                                          '1px solid rgba(208, 208, 208, 1)',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                        marginRight: '15px',
-                                      }}
-                                    >
-                                      <FileUploadOutlinedIcon />
-                                    </Box>
+                                    <ImageUploadIcon
+                                    name={`options[${index}].option_img`}
+                                    label="Upload Image"
+                                  />
                                   </Grid>
                               </Box>
                             </Box>

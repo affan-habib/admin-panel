@@ -17,7 +17,7 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useTranslation } from 'react-i18next';
 import MarkInput from 'components/form/MarkInput';
-import ImageUploadBox from 'components/form/ImageUploadBox';
+
 import RichTextInput from 'components/form/RichTextInput';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
@@ -25,6 +25,9 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
+import ImageUploadButton from './ImageUploadButton';
+import ImageUploadBox from 'components/form/ImageUploadBox';
+import ImageUploadIcon from './ImageUploadButton';
 
 const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }) => {
   const { t } = useTranslation();
@@ -73,7 +76,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
       showSnackbar('Please select at least one correct option', 'error');
       return;
     }
-  
+
     await handleFormSubmit(values, true);
     resetForm();
   };
@@ -82,7 +85,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
       showSnackbar('Please select at least one correct option', 'error');
       return;
     }
-    
+
     await handleFormSubmit(values, false);
     resetForm();
   };
@@ -117,22 +120,26 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
           options: [
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
             {
               option_value: '',
-              is_correct: false
+              is_correct: false,
+              option_img: ''
             },
           ],
-          mark: ''
+          mark: '',
         }
       } validationSchema={validationSchema} onSubmit={handleSubmit} >
       {({ values, setFieldValue, resetForm, isValid, dirty }) => (
@@ -236,9 +243,9 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                               }}
                             >
                               <Box
-                                sx={{ display: 'flex', alignItems: 'center', justifyContent:'space-between' }}
+                                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                               >
-                                <Grid container  spacing={1}>
+                                <Grid container spacing={1}>
                                   <Grid item md={11}>
                                     <Box sx={{ display: 'flex' }}>
                                       <Checkbox
@@ -277,7 +284,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                                             </Typography>
                                           </Box>
                                           <Field
-                                           name={`options[${index}].option_value`} placeholder={t('alternative')}
+                                            name={`options[${index}].option_value`} placeholder={t('alternative')}
                                             style={{
                                               flex: 1,
                                               padding: '14.5px',
@@ -293,26 +300,20 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                                   </Grid>
                                 </Grid>
                                 <Grid
-                                    item
-                                    md={1}
-                                    sx={{
-                                      display: 'flex',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                    }}
-                                  >
-                                    <Box
-                                      sx={{
-                                        border:
-                                          '1px solid rgba(208, 208, 208, 1)',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                        marginRight: '15px',
-                                      }}
-                                    >
-                                      <FileUploadOutlinedIcon />
-                                    </Box>
-                                  </Grid>
+                                  item
+                                  md={1}
+                                  sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                  }}
+                                >
+                                  <ImageUploadIcon
+                                    name={`options[${index}].option_img`}
+                                    label="Upload Image"
+                                  />
+
+                                </Grid>
                               </Box>
                             </Box>
                           </Grid>
@@ -321,7 +322,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                       <Button
                         variant="contained"
                         onClick={() =>
-                          push({ option_value: '', is_correct: false })
+                          push({ option_value: '', is_correct: false, option_img: '' })
                         }
                         sx={{
                           marginTop: '12px',
