@@ -10,24 +10,15 @@ import {
   TextField,
 } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
-
-import 'react-quill/dist/quill.snow.css';
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.bubble.css';
 import MarkInput from 'components/form/MarkInput';
 import axios from 'axios';
-import { apiBaseUrl } from '../../../../../config';
+import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import { string } from 'yup';
-import { SpaceBar } from '@mui/icons-material';
 import { useQueryClient } from 'react-query';
 import { toBanglaNumber } from 'utils/numberUtils';
 
@@ -39,7 +30,6 @@ const FillInTheGapForm: React.FC<any> = ({
   // console.log("assessmentId", type_id)
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
-  const [editorHtml, setEditorHtml] = useState<string>('');
 
   const svgImage = `
   <img 
@@ -71,7 +61,6 @@ const FillInTheGapForm: React.FC<any> = ({
       // Move the cursor to the end of the inserted content
       quillRef.getEditor().setSelection(range ? range.index + 1 : 1, 0);
     } // Access the editor value
-    console.log('Editor Value:', editorHtml.replace(/<[^>]*>/g, ''));
   };
 
   const quillRefProp = useRef<ReactQuill>(null);
@@ -93,7 +82,7 @@ const FillInTheGapForm: React.FC<any> = ({
   };
 
   // Usage
-  const svgCount = countSvgImages(editorHtml);
+  // const svgCount = countSvgImages(editorHtml);
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -104,22 +93,12 @@ const FillInTheGapForm: React.FC<any> = ({
     { resetForm }: any,
   ) => {
     const optionsArr = [];
-    for (let i = 0; i < svgCount; i++) {
+    for (let i = 0; i < countSvgImages(values.question); i++) {
       optionsArr.push({
         option_key: `${i + 1}`,
         option_value: values.options[i],
       });
     }
-
-    const editorFullText = values.question.replace(/<(?!img).*?>/g, '');
-    const editorTextExceptSvg = editorFullText.replace(
-      /<img[^>]*>.*?<\/img>/g,
-      '',
-    );
-    const editorTextWithBlankAsHash = editorTextExceptSvg.replace(
-      /<img[^>]*>/g,
-      '#',
-    );
 
     const payload = {
       course_assessment_id: assessmentId,
@@ -142,18 +121,11 @@ const FillInTheGapForm: React.FC<any> = ({
       });
 
       if (saveAndAdd) {
-        setEditorHtml('');
         resetForm();
         showSnackbar(response?.data?.message, 'success');
         queryClient.invalidateQueries('couse-quizzes');
-        // // optionsArray.push(response.data.data.options)
-        // // // optionsArr.push(response.data.data.options);
-        // let responseData = [...optionsArray, response.data.data.question]
-        // setOptionsArray(responseData);
-        // console.log("response.dataresponse.dataresponse.data", responseData)
       } else {
         showSnackbar(response?.data?.message, 'success');
-        setEditorHtml('');
         handleCloseDialog();
         queryClient.invalidateQueries('couse-quizzes');
         resetForm();
@@ -233,14 +205,13 @@ const FillInTheGapForm: React.FC<any> = ({
                   value={values.question}
                   onChange={(value) => {
                     setFieldValue('question', value);
-                    setEditorHtml(value);
                   }}
                   modules={modules}
                   ref={quillRefProp}
                 />
               </Box>
               <Stack>
-                {svgCount > 0 && (
+                {countSvgImages(values.question) > 0 && (
                   <Box mt={4}>
                     <Typography variant="h6" gutterBottom>
                       {t('answer')}
