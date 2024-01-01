@@ -537,7 +537,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       onClick={() =>
                         handleAssesmentDialogOpen(
                           chapter.id,
-                          chapter.module_name_bn,
+                          language === 'bn' ? chapter.module_name_bn : chapter.module_name_en,
                         )
                       }
                       title={t('assesment')}
