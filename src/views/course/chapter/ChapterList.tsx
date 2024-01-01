@@ -130,12 +130,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
   };
   const [isViewAssignmentDialogOpen, setViewAssignmentDialogOpen] =
     useState(false);
-  const handleViewAssignmentDialogOpen = (assignment: any) => {
+  const handleViewAssignmentDialogOpen = (assignment: any,chapterName:any) => {
     setselectedAssignment(assignment);
     setViewAssignmentDialogOpen(true);
+    setAssessment(chapterName)
   };
   const handleViewAssignmentDialogClose = () => {
     setViewAssignmentDialogOpen(false);
+    setAssessment('')
   };
 
   // Assignment dialog End
@@ -328,7 +330,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       size="small"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleViewAssignmentDialogOpen(assignment);
+                        handleViewAssignmentDialogOpen(assignment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                       }}
                     >
                       <RemoveRedEyeOutlinedIcon />
@@ -613,6 +615,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           onClose={handleViewAssignmentDialogClose}
           initialData={selectedAssignment}
           name={assignmentName}
+          assessment={assessment}
         />
       )}
       {/* Edit Assessment Dialog */}
