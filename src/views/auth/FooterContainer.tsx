@@ -22,7 +22,7 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
     transition: 'transform 0.3s, background-color 0.3s',
     cursor: 'pointer', // Add pointer cursor on hover
     '&:hover': {
-      backgroundColor: '#e0f7fa!important',
+      backgroundColor: '#E8FFF8!important',
       '& .title': {
         fontWeight: '700', // Make font weight bold on hover
       },
@@ -63,7 +63,8 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
               background: loginPageTitle == card.title ? 'rgba(254, 254, 254, 1)' : 'inherit',
               border: '1px solid rgba(208, 208, 208, 1)',
               height: '300px',
-              borderRadius: '8px'
+              borderRadius: '8px',
+              backgroundColor:'rgba(254, 254, 254, 1)'
             }}
           >
             <CardMedia

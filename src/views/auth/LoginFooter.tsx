@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 const LoginFooter: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <Box py={5} style={{ textAlign: 'start' }}>
+    <Box py={5} style={{ textAlign: 'center' }}>
       <Typography  variant="body1" fontSize={16}>
         {t('howCanIHelpYou')}{' '}
         <span style={{ color: '#1D8839' }}> {t('fastStartGuide')} </span>
