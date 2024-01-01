@@ -25,6 +25,7 @@ import { useSnackbar } from 'context/SnackbarContext';
 import { useQueryClient } from 'react-query';
 import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
+import ImageUploadIcon from './ImageUploadButton';
 
 const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,data }) => {
   const { t } = useTranslation();
@@ -67,15 +68,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
   
     await handleFormSubmit(values, true);
     resetForm();
-  };
-  const handleSaveAndAdd = async (values: any, { resetForm }: any) => {
-    if (!values.options.some((option: any) => option.is_correct)) {
-      showSnackbar('Please select at least one correct option', 'error');
-      return;
-    }
-    
-    await handleFormSubmit(values, false);
-    resetForm();
+    handleCloseDialog();
   };
   const [showEditor, setShowEditor] = useState(false);
 
@@ -260,17 +253,10 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                                       alignItems: 'center',
                                     }}
                                   >
-                                    <Box
-                                      sx={{
-                                        border:
-                                          '1px solid rgba(208, 208, 208, 1)',
-                                        borderRadius: '5px',
-                                        padding: '5px',
-                                        marginRight: '15px',
-                                      }}
-                                    >
-                                      <FileUploadOutlinedIcon />
-                                    </Box>
+                                    <ImageUploadIcon
+                                    name={`options[${index}].option_img`}
+                                    label="Upload Image"
+                                  />
                                   </Grid>
                               </Box>
                             </Box>
@@ -348,9 +334,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
               <Button variant="contained" type="submit" disabled={!isValid || !dirty}>
                 {t('submit')}
               </Button>
-              <Button variant="outlined" disabled={!isValid || !dirty} onClick={() => handleSaveAndAdd(values, { resetForm })}>
-                {t('saveAdd')}
-              </Button>
+          
             </Grid>
           </Box>
         </Form>

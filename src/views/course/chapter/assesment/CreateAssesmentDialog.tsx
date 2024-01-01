@@ -67,6 +67,8 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
     }
   };
 
+  // const language = localStorage.getItem('language');
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle
