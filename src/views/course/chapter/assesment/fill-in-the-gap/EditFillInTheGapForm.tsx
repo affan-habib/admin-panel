@@ -258,7 +258,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
 
                         <Field
                           type="text"
-                          name={`options.${index}`} // Dynamic name based on index
+                          name={`options.${index}.option_value`} // Dynamic name based on index
                           as={TextField}
                           sx={{ width: '400px' }}
                           label={`${t('answer')} ${toBanglaNumber(index + 1)}`}
