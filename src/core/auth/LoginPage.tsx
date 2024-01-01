@@ -33,7 +33,7 @@ const LoginPage: React.FC = () => {
     }}>
       <CssBaseline />
       <Grid container >
-        <Grid xs={12} md={9} xl={9} p={6} px={20}  style={{
+        <Grid xs={12} md={9} xl={9} p={6} px={20} style={{
           backgroundImage: `url(${backgroundLogin})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
             display="flex"
             justifyContent="space-between"
           >
-            <img src={logo} alt="ss" style={{width:'164px',boxShadow: '0px 4px 8px 0px rgba(100, 100, 100, 0.15)', borderRadius:'15px', marginBottom:'15px'}} />
+            <img src={logo} alt="ss" style={{ width: '164px', boxShadow: '0px 4px 8px 0px rgba(100, 100, 100, 0.15)', borderRadius: '15px', marginBottom: '15px' }} />
           </Grid>
           <Grid item xs={12} sx={{ mt: 2 }}>
             <FooterContainer
@@ -60,8 +60,11 @@ const LoginPage: React.FC = () => {
             <LoginFooter />
           </Grid>
         </Grid>
-        <Grid xs={12} md={3} xl={3} alignSelf='center'>
-          <Grid item xs={12} display="flex" direction="column" px={5}>
+        <Grid xs={12} md={3} xl={3}>
+          <Box m={3} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <LanguageSelect />
+          </Box>
+          <Grid item xs={12} display="flex" direction="column" px={5} mt={20}>
             <Box display="flex" justifyContent="center" mb={5}>
               <img src={loginImage} alt="ss" style={{ width: '153px', height: '119px' }} />
             </Box>
