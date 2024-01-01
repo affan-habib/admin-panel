@@ -130,7 +130,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
           </Typography>
           <Stack direction="row" spacing={2}>
             <Typography variant="body1" color="#646464">
-              {t('descriptiveQuestionPaper')}
+              {t('questionPaper')}
             </Typography>
             <svg
               width="9"
@@ -148,8 +148,17 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
               {t('time')} <DotElement />
               {toBanglaNumber(initialData.total_time)} {t('minutes')}
             </Typography>
-          </Stack>
-          <Stack direction="row" spacing={2}>
+            <svg
+              width="9"
+              height="20"
+              viewBox="0 0 9 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="3" width="1" height="14" fill="#646464" />
+              <rect x="4" width="1" height="20" fill="#646464" />
+              <rect x="8" y="3" width="1" height="14" fill="#646464" />
+            </svg>
             <Typography variant="body1" color="#646464">
               {t('totalMarks')} <DotElement />{' '}
               {toBanglaNumber(initialData.total_mark)}
