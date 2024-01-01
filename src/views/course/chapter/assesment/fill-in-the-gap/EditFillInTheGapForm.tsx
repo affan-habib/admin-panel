@@ -29,16 +29,17 @@ import ListItem from '@mui/material/ListItem';
 import { string } from 'yup';
 import { SpaceBar } from '@mui/icons-material';
 import { useQueryClient } from 'react-query';
+import { toBanglaNumber } from 'utils/numberUtils';
 
 const EditFillInTheGapForm: React.FC<any> = ({
   data,
- 
+
   handleCloseDialog,
 }) => {
   console.log("assessmentId", data)
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
-  const [editorHtml, setEditorHtml] = useState<string>('');
+  const [editorHtml, setEditorHtml] = useState<string>(data.question);
 
   const svgImage = `
   <img 
@@ -95,38 +96,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
   const svgCount = countSvgImages(editorHtml);
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const enToBn = (serialNumber: number) => {
-    const language = localStorage.getItem('language');
-    if (language == 'bn') {
-      switch (serialNumber) {
-        case 1:
-          return '১';
-        case 2:
-          return '২';
-        case 2:
-          return '২';
-        case 3:
-          return '৩';
-        case 4:
-          return '৪';
-        case 5:
-          return '৫';
-        case 6:
-          return '৬';
-        case 7:
-          return '৭';
-        case 8:
-          return '৮';
-        case 9:
-          return '৯';
 
-        default:
-          return serialNumber; // Return the original number for other cases
-      }
-    } else {
-      return serialNumber;
-    }
-  };
 
   const handleSubmit = async (
     values: any,
@@ -141,7 +111,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
       });
     }
 
-    const editorFullText = values.richText.replace(/<(?!img).*?>/g, '');
+    const editorFullText = values.question.replace(/<(?!img).*?>/g, '');
     const editorTextExceptSvg = editorFullText.replace(
       /<img[^>]*>.*?<\/img>/g,
       '',
@@ -163,24 +133,11 @@ const EditFillInTheGapForm: React.FC<any> = ({
           Authorization: `Bearer ${token}`,
         },
       });
+      resetForm();
+      showSnackbar(response?.data?.message, 'success');
+      queryClient.invalidateQueries('couse-quizzes');
 
-      if (saveAndAdd) {
-        setEditorHtml('');
-        resetForm();
-        showSnackbar(response?.data?.message, 'success');
-        queryClient.invalidateQueries('couse-quizzes');
-        // // optionsArray.push(response.data.data.options)
-        // // // optionsArr.push(response.data.data.options);
-        // let responseData = [...optionsArray, response.data.data.question]
-        // setOptionsArray(responseData);
-        // console.log("response.dataresponse.dataresponse.data", responseData)
-      } else {
-        showSnackbar(response?.data?.message, 'success');
-        setEditorHtml('');
-        handleCloseDialog();
-        queryClient.invalidateQueries('couse-quizzes');
-        resetForm();
-      }
+
     } catch (error: any) {
       console.error('Error submitting form:', error);
       showSnackbar(
@@ -248,10 +205,10 @@ const EditFillInTheGapForm: React.FC<any> = ({
                 <ReactQuill
                   style={{ height: '140px' }}
                   theme="snow"
-                  value={editorHtml}
+                  value={values.question}
                   onChange={(value) => {
                     setEditorHtml(value);
-                    setFieldValue('richText', value);
+                    setFieldValue('question', value);
                   }}
                   modules={modules}
                   ref={quillRefProp}
@@ -268,7 +225,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
                   </Box>
                 )}
                 {Array.from(
-                  { length: countSvgImages(values.richText) },
+                  { length: countSvgImages(values.question) },
                   (_, index) => (
                     <Stack direction="row" spacing={4} mb={2}>
                       <Button
@@ -296,7 +253,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
                             textAlign: 'center',
                           }}
                         >
-                          {enToBn(index + 1)}
+                          {toBanglaNumber(index + 1)}
                         </Typography>
 
                         <Field
@@ -304,7 +261,7 @@ const EditFillInTheGapForm: React.FC<any> = ({
                           name={`options.${index}`} // Dynamic name based on index
                           as={TextField}
                           sx={{ width: '400px' }}
-                          label={`${t('answer')} ${enToBn(index + 1)}`}
+                          label={`${t('answer')} ${toBanglaNumber(index + 1)}`}
                         />
                       </Stack>
                     </Stack>

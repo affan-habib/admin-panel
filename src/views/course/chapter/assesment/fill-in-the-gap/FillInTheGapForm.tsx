@@ -29,6 +29,7 @@ import ListItem from '@mui/material/ListItem';
 import { string } from 'yup';
 import { SpaceBar } from '@mui/icons-material';
 import { useQueryClient } from 'react-query';
+import { toBanglaNumber } from 'utils/numberUtils';
 
 const FillInTheGapForm: React.FC<any> = ({
   assessmentId,
@@ -95,38 +96,7 @@ const FillInTheGapForm: React.FC<any> = ({
   const svgCount = countSvgImages(editorHtml);
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const enToBn = (serialNumber: number) => {
-    const language = localStorage.getItem('language');
-    if (language == 'bn') {
-      switch (serialNumber) {
-        case 1:
-          return '১';
-        case 2:
-          return '২';
-        case 2:
-          return '২';
-        case 3:
-          return '৩';
-        case 4:
-          return '৪';
-        case 5:
-          return '৫';
-        case 6:
-          return '৬';
-        case 7:
-          return '৭';
-        case 8:
-          return '৮';
-        case 9:
-          return '৯';
 
-        default:
-          return serialNumber; // Return the original number for other cases
-      }
-    } else {
-      return serialNumber;
-    }
-  };
 
   const handleSubmit = async (
     values: any,
@@ -141,7 +111,7 @@ const FillInTheGapForm: React.FC<any> = ({
       });
     }
 
-    const editorFullText = values.richText.replace(/<(?!img).*?>/g, '');
+    const editorFullText = values.question.replace(/<(?!img).*?>/g, '');
     const editorTextExceptSvg = editorFullText.replace(
       /<img[^>]*>.*?<\/img>/g,
       '',
@@ -153,7 +123,7 @@ const FillInTheGapForm: React.FC<any> = ({
 
     const payload = {
       course_assessment_id: assessmentId,
-      question: values.richText,
+      question: values.question,
       type_id: type_id,
       mark: values.mark,
       status: 1,
@@ -204,7 +174,7 @@ const FillInTheGapForm: React.FC<any> = ({
       <Formik
         initialValues={{
           option: 'option1',
-          richText: '',
+          question: '',
           mark: '',
           options: [],
         }}
@@ -260,16 +230,15 @@ const FillInTheGapForm: React.FC<any> = ({
                 <ReactQuill
                   style={{ height: '140px' }}
                   theme="snow"
-                  value={editorHtml}
+                  value={values.question}
                   onChange={(value) => {
+                    setFieldValue('question', value);
                     setEditorHtml(value);
-                    setFieldValue('richText', value);
                   }}
                   modules={modules}
                   ref={quillRefProp}
                 />
               </Box>
-
               <Stack>
                 {svgCount > 0 && (
                   <Box mt={4}>
@@ -280,7 +249,7 @@ const FillInTheGapForm: React.FC<any> = ({
                   </Box>
                 )}
                 {Array.from(
-                  { length: countSvgImages(values.richText) },
+                  { length: countSvgImages(values.question) },
                   (_, index) => (
                     <Stack direction="row" spacing={4} mb={2}>
                       <Button
@@ -308,7 +277,7 @@ const FillInTheGapForm: React.FC<any> = ({
                             textAlign: 'center',
                           }}
                         >
-                          {enToBn(index + 1)}
+                          {toBanglaNumber(index + 1)}
                         </Typography>
 
                         <Field
@@ -316,7 +285,7 @@ const FillInTheGapForm: React.FC<any> = ({
                           name={`options.${index}`} // Dynamic name based on index
                           as={TextField}
                           sx={{ width: '400px' }}
-                          label={`${t('answer')} ${enToBn(index + 1)}`}
+                          label={`${t('answer')} ${toBanglaNumber(index + 1)}`}
                         />
                       </Stack>
                     </Stack>
