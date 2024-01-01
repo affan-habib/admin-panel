@@ -29,12 +29,14 @@ interface CreateVideoDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
+  assessment: any
 }
 
 const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   open,
   onClose,
   initialData,
+  assessment
 }) => {
   const queryClient = useQueryClient();
   const { showSnackbar } = useSnackbar();
@@ -86,7 +88,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('updateVedio')}
+          {t('updateVedio')} ({assessment})
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
         <HighlightOffIcon />

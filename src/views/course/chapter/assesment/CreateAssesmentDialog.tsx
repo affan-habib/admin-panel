@@ -79,7 +79,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
         }}
       >
         <Typography color="primary" variant="h6">
-          {t('addAssesment')},{name}
+          {t('addAssesment')} ({name})
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
           <HighlightOffIcon />

@@ -52,6 +52,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [selectedAssessment, setSelectedAssessment] = useState<any>(null);
   const [visibleAddTopicId, setVisibleAddTopicId] = useState<any>('');
   const [moduleId, setModuleId] = useState();
+  const [assessmentName, setAssessmentName] = useState(''); //This state is passing the assessment names into different components. 
 
   const handleDialogOpen = (module_id: any) => {
     setModuleId(module_id);
@@ -60,9 +61,15 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   const handleDialogClose = () => setDialogOpen(false);
 
-  const handleEditDialogOpen = (video: any) => {
+  const handleEditDialogOpen = (video: any,chapterName:any) => {
     setSelectedVideo(video);
     setEditDialogOpen(true);
+    setAssessment(chapterName)
+  };
+
+  const handleEditDialogClose = () => {
+    setEditDialogOpen(false);
+    setAssessment('');
   };
 
   const handleDeleteClick = (id: any, type: string) => {
@@ -98,8 +105,6 @@ const Chapters: React.FC<any> = ({ modules }) => {
       });
   };
 
-  const handleEditDialogClose = () => setEditDialogOpen(false);
-
   // Assignment dialog start
   const [isAssignmentDialogOpen, setAssignmentDialogOpen] = useState(false);
   const [assignmentName, setAssinmentName] = useState('');
@@ -114,12 +119,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
   };
   const [isEditAssignmentDialogOpen, setEditAssignmentDialogOpen] =
     useState(false);
-  const handleEditAssignmentDialogOpen = (assignment: any) => {
+  const handleEditAssignmentDialogOpen = (assignment: any,chapterName : any) => {
     setselectedAssignment(assignment);
     setEditAssignmentDialogOpen(true);
+    setAssessment(chapterName)
   };
   const handleEditAssignmentDialogClose = () => {
     setEditAssignmentDialogOpen(false);
+    setAssessment('')
   };
   const [isViewAssignmentDialogOpen, setViewAssignmentDialogOpen] =
     useState(false);
@@ -135,8 +142,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   //Assessment Dialog
   const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
-  const [assessmentName, setAssessmentName] = useState('');
-
+ 
   const handleAssesmentDialogOpen = (module_id: any, module_name: any) => {
     setModuleId(module_id);
     setAssessmentName(module_name);
@@ -151,20 +157,25 @@ const Chapters: React.FC<any> = ({ modules }) => {
     useState(false);
   const [isEditAssessmentDialogOpen, setEditAssessmentDialogOpen] =
     useState(false);
-  const handleViewAssessmentDialogOpen = (assessment: any) => {
+  const handleViewAssessmentDialogOpen = (assessment: any,chapterName:any) => {
     setSelectedAssessment(assessment);
     setViewAssessmentDialogOpen(true);
+    setAssessment(chapterName);
   };
   const handleViewAssessmentDialogClose = () => {
     setViewAssessmentDialogOpen(false);
+    setAssessment('')
   };
 
-  const handleEditAssessmentDialogOpen = (assessment: any) => {
+  const [assessment,setAssessment] = useState('')
+  const handleEditAssessmentDialogOpen = (assessment: any,chapterName : any) => {
     setSelectedAssessment(assessment);
     setEditAssessmentDialogOpen(true);
+    setAssessment(chapterName)
   };
   const handleEditAssessmentDialogClose = () => {
     setEditAssessmentDialogOpen(false);
+    setAssessment('');
   };
 
   //Assesssment Category
@@ -263,7 +274,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       color="primary"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleEditDialogOpen(el);
+                        handleEditDialogOpen(el,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                       }}
                     >
                       <BorderColorOutlinedIcon />
@@ -334,7 +345,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       color="primary"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleEditAssignmentDialogOpen(assignment);
+                        handleEditAssignmentDialogOpen(assignment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en)
                       }}
                     >
                       <BorderColorOutlinedIcon />
@@ -432,7 +443,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         size="small"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleViewAssessmentDialogOpen(assessment);
+                          handleViewAssessmentDialogOpen(assessment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                         }}
                       >
                         <RemoveRedEyeOutlinedIcon />
@@ -448,7 +459,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         color="primary"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleEditAssessmentDialogOpen(assessment);
+                          handleEditAssessmentDialogOpen(assessment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                         }}
                       >
                         <BorderColorOutlinedIcon />
@@ -572,6 +583,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditDialogOpen}
           onClose={handleEditDialogClose}
           initialData={selectedVideo}
+          assessment={assessment}
         // onEdit={handleVideoEdit}
         />
       )}
@@ -591,6 +603,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           onClose={handleEditAssignmentDialogClose}
           initialData={selectedAssignment}
           name={assignmentName}
+          assessment={assessment}
         />
       )}
       {/* View Assignment Dialog */}
@@ -608,6 +621,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isEditAssessmentDialogOpen}
           onClose={handleEditAssessmentDialogClose}
           initialData={selectedAssessment}
+          assessment={assessment}
         />
       )}
       {selectedAssessment && (
@@ -615,6 +629,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
           open={isViewAssessmentDialogOpen}
           onClose={handleViewAssessmentDialogClose}
           initialData={selectedAssessment}
+          assessment={assessment}
         />
       )}
     </>
