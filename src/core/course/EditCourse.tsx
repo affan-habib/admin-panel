@@ -39,7 +39,15 @@ const EditCourse: React.FC = () => {
     // ),
   });
   const handleSubmit = async (values: any) => {
-    console.log(values);
+    if (typeof values.supporting_doc === 'string') {
+      delete values.supporting_doc;
+    }
+    if (typeof values.icon === 'string') {
+      delete values.icon;
+    }
+    if (typeof values.featured_image === 'string') {
+      delete values.featured_image;
+    }
 
     try {
       const formData = new FormData();
