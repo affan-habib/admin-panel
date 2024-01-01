@@ -96,7 +96,7 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
 
             // Reset the form
             formikHelpers.resetForm();
-
+            handleCloseDialog();
             // Close the dialog only if shouldCloseDialog is true
             if (shouldCloseDialog) {
                 handleCloseDialog();
@@ -350,9 +350,6 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
                                             <Grid item sx={{ display: 'flex', gap: 2 }}>
                                                 <Button variant="contained" type="submit" onClick={() => setShouldCloseDialog(true)}>
                                                     {t('submit')}
-                                                </Button>
-                                                <Button variant="outlined" type="submit" onClick={() => setShouldCloseDialog(false)}>
-                                                    {t('saveAdd')}
                                                 </Button>
                                             </Grid>
                                         </Grid>

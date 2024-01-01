@@ -72,7 +72,7 @@ const LoginForm: React.FC = () => {
         {/* Your welcome message */}
       </Typography>
       <form onSubmit={formik.handleSubmit}>
-        <TextField
+        <TextField 
           variant="outlined"
           size="small"
           name="username"
@@ -90,6 +90,7 @@ const LoginForm: React.FC = () => {
                 <PersonIcon />
               </InputAdornment>
             ),
+            style: { backgroundColor: 'white' }
           }}
         />
         <TextField
@@ -126,34 +127,34 @@ const LoginForm: React.FC = () => {
                 )}
               </InputAdornment>
             ),
+            style: { backgroundColor: 'white' }
           }}
         />
         <div style={{ display: 'flex', alignItems: 'center', justifyContent:'space-between' }}>
           <FormControlLabel
             control={
               <Checkbox
-                color="primary"
                 name="rememberMe"
                 checked={formik.values.rememberMe}
                 onChange={formik.handleChange}
+                sx={{color:'white'}}
               />
             }
             label={
-              <Box component="div" fontSize={12} sx={{fontWeight:400}}>
+              <Box component="div" fontSize={12} sx={{fontWeight:400, color:'white'}}>
                 {t('remeberPassword')}
               </Box>
             }
           />
-          <Box><h6 style={{fontSize:'12px', fontWeight:400}}>{t('forgotPassword')}</h6></Box>
+          <Box><h6 style={{fontSize:'12px', fontWeight:400, color:'rgba(205, 255, 126, 1)'}}>{t('forgotPassword')}</h6></Box>
         </div>
         <Box sx={{
               display: 'flex', justifyContent: 'center', 
             }}>
           <Button
             variant="contained"
-            color="primary"
             type="submit"
-
+            
             disabled={loading}
             startIcon={loading ? <RefreshIcon /> : null}
             sx={{
@@ -161,8 +162,9 @@ const LoginForm: React.FC = () => {
               height:'40px',
               width:'200px',
               fontSize:'18px',
-              fontWeight:500
-
+              fontWeight:700,
+              backgroundColor:'white',
+              color:'rgba(0, 106, 78, 1)'
             }}
           >
             {t('login')}
