@@ -22,7 +22,7 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
     transition: 'transform 0.3s, background-color 0.3s',
     cursor: 'pointer', // Add pointer cursor on hover
     '&:hover': {
-      backgroundColor: '#e0f7fa!important',
+      backgroundColor: '#E8FFF8!important',
       '& .title': {
         fontWeight: '700', // Make font weight bold on hover
       },
