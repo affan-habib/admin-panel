@@ -87,10 +87,10 @@ const EditFillInTheGapForm: React.FC<any> = ({
 
 
   const onSubmit = async (values: any) => {
-    try {
+        try {
       const response = await axios.patch(
         `${apiBaseUrl}/quizzes/${data.id}`,
-        values,
+        {...values, options:values.options.slice(0,svgCount)},
       );
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
