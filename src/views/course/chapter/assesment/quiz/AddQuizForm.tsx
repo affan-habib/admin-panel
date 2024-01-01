@@ -215,12 +215,23 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                 <RichTextInput name="question" />
               </Box>
             ) : (
-              <Box>
-                <ImageUploadBox
-                  name="question_img"
-                  label={t('questionRelatedImage')}
-                />
-              </Box>
+              <>
+                <Box>
+                  <RichTextInput name="question" />
+                </Box>
+                <Typography sx={{color:'rgba(100, 100, 100, 1)'}} my={2}>{t('questionRelatedImage')}</Typography>
+                <Grid container item xs={12} sx={{display:'flex',justifyContent:"center"}}>
+                  <Grid xs={10}>
+                    <Box>
+                      <ImageUploadBox
+                        name="question_img"
+                        // label={t('questionRelatedImage')}
+                      />
+                    </Box>
+                  </Grid>
+
+                </Grid>
+              </>
             )}
 
             <Grid
@@ -306,7 +317,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    marginRight:'10px'
+                                    marginRight: '10px'
                                   }}
                                 >
                                   <ImageUploadIcon
