@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
+import { useSnackbar } from 'context/SnackbarContext';
 
 const fetchCourseQuizzes = async (id: any) => {
   const token = localStorage.getItem('token');
@@ -9,7 +10,6 @@ const fetchCourseQuizzes = async (id: any) => {
     {
       headers: {
         Authorization: `Bearer ${token}`,
-        // Add any additional headers if needed
       },
     },
   );
@@ -17,11 +17,16 @@ const fetchCourseQuizzes = async (id: any) => {
 };
 
 const useCourseQuizzes = (assesmentId: any) => {
+  const { showSnackbar } = useSnackbar();
   return useQuery(
     ['couse-quizzes', assesmentId],
     () => fetchCourseQuizzes(assesmentId),
     {
-      refetchOnWindowFocus: false, // Disable automatic refetching on window focus
+      refetchOnWindowFocus: false,
+
+      onError: (error: any) => {
+        showSnackbar(error.message || 'An error occurred', 'error');
+      },
     },
   );
 };

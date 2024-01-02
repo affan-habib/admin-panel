@@ -2,8 +2,8 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
+import { useSnackbar } from 'context/SnackbarContext';
 
-// Define the fetch function that makes the API request
 const fetchAssesmentTypes = async () => {
   try {
     const token = localStorage.getItem('token');
@@ -18,11 +18,14 @@ const fetchAssesmentTypes = async () => {
   }
 };
 
-// Define the custom hook using useQuery
 const useAssesmentTypes = () => {
+  const { showSnackbar } = useSnackbar();
+
   return useQuery('assesmentTypes', () => fetchAssesmentTypes(), {
-    // enabled: false, // Do not automatically fetch data
-    refetchOnWindowFocus: false, // Disable automatic refetching on window focus
+    refetchOnWindowFocus: false,
+    onError: (error: any) => {
+      showSnackbar(error.message || 'An error occurred', 'error');
+    },
   });
 };
 

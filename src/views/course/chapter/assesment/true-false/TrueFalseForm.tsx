@@ -81,21 +81,20 @@ const TrueFalseForm: React.FC<any> = ({
     >
       {({ values, isValid, dirty, resetForm }) => (
         <Form>
-          <Box mb={2} display="flex" justifyContent="" gap={8}>
-            <FormControl component="fieldset">
-              <Field as={RadioGroup} row name="option">
-                <FormControlLabel
-                  value="option1"
-                  control={<Radio />}
-                  label={t('manualInput')}
-                />
-                <FormControlLabel
-                  value="option2"
-                  control={<Radio />}
-                  label={t('bulkUpload')}
-                />
-              </Field>
-            </FormControl>
+          <Box mb={2} display="flex" flexDirection="row" justifyContent="">
+            <FormControlLabel
+              value="option1"
+              control={<Radio />}
+              label={t('manualInput')}
+              disabled // Make the first option disabled
+              checked // Make the first option selected
+            />
+            <FormControlLabel
+              value="option2"
+              disabled // Make the first option disabled
+              control={<Radio />}
+              label={t('bulkUpload')}
+            />
           </Box>
           <Box
             sx={{
