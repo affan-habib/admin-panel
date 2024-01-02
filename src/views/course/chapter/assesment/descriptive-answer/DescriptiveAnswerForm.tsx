@@ -74,21 +74,20 @@ const DescriptiveAnswerForm: React.FC<any> = ({
     >
       {({ values, isValid, dirty, resetForm }) => (
         <Form>
-          <Box mb={2} display="flex" justifyContent="" gap={8}>
-            <FormControl component="fieldset">
-              <Field as={RadioGroup} row name="option">
-                <FormControlLabel
-                  value="option1"
-                  control={<Radio />}
-                  label={t('manualInput')}
-                />
-                <FormControlLabel
-                  value="option2"
-                  control={<Radio />}
-                  label={t('bulkUpload')}
-                />
-              </Field>
-            </FormControl>
+          <Box mb={2} display="flex" flexDirection="row" justifyContent="">
+            <FormControlLabel
+              value="option1"
+              control={<Radio />}
+              label={t('manualInput')}
+              disabled
+              checked
+            />
+            <FormControlLabel
+              value="option2"
+              disabled
+              control={<Radio />}
+              label={t('bulkUpload')}
+            />
           </Box>
           <Box
             sx={{
