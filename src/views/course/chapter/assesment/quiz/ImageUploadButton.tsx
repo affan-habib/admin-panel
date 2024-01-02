@@ -41,6 +41,7 @@ const ImageUploadIcon: React.FC<ImageUploadIconProps> = ({ name, label }) => {
                 }
             } catch (error) {
                 console.error('Error uploading image', error);
+                showSnackbar('Error occured uploading image', 'error');
             }
         },
         [helpers, showSnackbar],

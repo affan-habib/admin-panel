@@ -55,8 +55,8 @@ const QuizList = ({ assesments, type_id }: any) => {
                     <Box display="flex" flexDirection="row" flexWrap="wrap">
                       {item.options.map((option: any, index: number) => (
                         // <Box key={option.id} width="25%" p={1}>
-                        <Box key={option.id} p={1}>
-                          <Typography sx={{display:'flex', justifyContent:'center',alignItems:'center'}}><span style={{ color: 'green' }}>{option.is_correct === true ? <Checkbox size="small"
+                        <Box key={option.id} p={1} sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                          {/* <Typography sx={{display:'flex', justifyContent:'center',alignItems:'center'}}><span style={{ color: 'green' }}>{option.is_correct === true ? <Checkbox size="small"
                             checked disabled sx={{ color: '#646464' }} />
                             : <Checkbox size="small" disabled />} </span> {option.option_value}
                             {option.option_img && (
@@ -65,7 +65,22 @@ const QuizList = ({ assesments, type_id }: any) => {
                                 style={{ height: '140px', width: '140px' }}
                               />
                             )}
-                          </Typography>
+                          </Typography> */}
+                          <Box>
+                          <span style={{ color: 'green' }}>{option.is_correct === true ? <Checkbox size="small"
+                            checked disabled sx={{ color: '#646464' }} />
+                            : <Checkbox size="small" disabled />}
+                          </span>
+                          </Box>
+                          <Box>
+                            {option.option_img && (
+                              <img
+                                src={`${assetBaseUrl}/${option.option_img}`}
+                                style={{ height: '140px', width: '140px' }}
+                              />
+                            )}
+                            <Typography sx={{textAlign:'center'}}>{option.option_value}</Typography>
+                          </Box>
                         </Box>
                       ))}
                     </Box>
