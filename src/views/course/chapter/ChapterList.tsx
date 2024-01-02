@@ -53,15 +53,20 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [selectedAssessment, setSelectedAssessment] = useState<any>(null);
   const [visibleAddTopicId, setVisibleAddTopicId] = useState<any>('');
   const [moduleId, setModuleId] = useState();
-  const [assessmentName, setAssessmentName] = useState(''); //This state is passing the assessment names into different components. 
+  const [assessmentName, setAssessmentName] = useState('');
 
-  const handleDialogOpen = (module_id: any) => {
+  const handleDialogOpen = (module_id: any,chapterName: string) => {
     setModuleId(module_id);
     setDialogOpen(true);
+    setAssessment(chapterName)
   };
 
-  const handleDialogClose = () => setDialogOpen(false);
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    setAssessment('');
+  }
 
+  //video edit modal handlers
   const handleEditDialogOpen = (video: any,chapterName:any) => {
     setSelectedVideo(video);
     setEditDialogOpen(true);
@@ -170,7 +175,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssessment('')
   };
 
-  const [assessment,setAssessment] = useState('')
+  const [assessment,setAssessment] = useState('') //This state is passing the assessment names into different components.
   const handleEditAssessmentDialogOpen = (assessment: any,chapterName : any) => {
     setSelectedAssessment(assessment);
     setEditAssessmentDialogOpen(true);
@@ -589,7 +594,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                   <Typography mt={2}>{t('selectTopic')}</Typography>
                   <Stack direction="row" spacing={2} mt={2}>
                     <CustomButton
-                      onClick={() => handleDialogOpen(chapter.id)}
+                      onClick={() => handleDialogOpen(chapter.id,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en)}
                       title={t('vdo')}
                       icon={<PlayCircleFilledIcon />}
                     />
@@ -635,6 +640,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
         open={isDialogOpen}
         onClose={handleDialogClose}
         moduleId={moduleId}
+        name={assessment}
       />
 
       {/* Create assesment dialog */}
