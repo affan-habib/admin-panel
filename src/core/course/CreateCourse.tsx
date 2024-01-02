@@ -104,8 +104,7 @@ const CreateCourse: React.FC = () => {
       });
       showSnackbar(response.data.message, 'success');
 
-      console.log('API Response:', response.data);
-      navigate(`/course/edit/${response.data.data.id}`);
+      navigate(`/course/edit/${response.data.data.id}`, {state: { isScroll: true}});
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
