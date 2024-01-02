@@ -96,7 +96,10 @@ const VeiwAssignment: React.FC<ViewAssignmentProps> = ({
                     </IconButton>
                 </Grid>
                 <Typography sx={{ display: 'flex', alignItems: 'center', fontSize:'12px' }}>
-                    {t('time')} <FiberManualRecordIcon sx={{ fontSize: '5px',color: 'rgba(100, 100, 100, 1)', marginLeft:'5px', marginRight:'5px'}}  /> {initialData.total_time} {t('minute')}
+                    {t('time')} <FiberManualRecordIcon 
+                    sx={{ fontSize: '5px',color: 'rgba(100, 100, 100, 1)',
+                     marginLeft:'5px', marginRight:'5px',marginBottom:'3px'}}  /> 
+                    {initialData.total_time} {t('minute')}
                 </Typography>
             </DialogTitle>
             <DialogContent sx={{marginTop:'10px' }}>

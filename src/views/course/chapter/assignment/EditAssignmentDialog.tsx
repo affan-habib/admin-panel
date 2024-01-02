@@ -102,6 +102,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
               color: 'rgba(100, 100, 100, 1)',
               marginLeft: '5px',
               marginRight: '5px',
+              marginBottom:'2px'
             }}
           />{' '}
           {initialData.total_time} {t('minute')}
