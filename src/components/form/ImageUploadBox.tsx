@@ -35,7 +35,6 @@ const ImageUploadBox: React.FC<ImageUploadBoxProps> = ({ name, label }) => {
           const responseData = await response.json();
           helpers.setValue(responseData.data);
           helpers.setTouched(true);
-          showSnackbar(responseData.message, 'success');
         } else {
           // Handle error if needed
           console.error('Failed to upload image');
@@ -43,6 +42,7 @@ const ImageUploadBox: React.FC<ImageUploadBoxProps> = ({ name, label }) => {
       } catch (error) {
         // Handle error if needed
         console.error('Error uploading image', error);
+        showSnackbar('Some error occured while uploading image', 'error');
       }
     },
     [helpers],
