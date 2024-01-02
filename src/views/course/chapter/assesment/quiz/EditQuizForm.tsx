@@ -76,18 +76,18 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
     setShowEditor(!showEditor);
   };
 
-  const validationSchema = Yup.object().shape<any>({
-    question: Yup.string().required('Question is required'),
-    mark: Yup.number()
-      .required('Mark is required')
-      .max(maxMark, 'should not be more than total marks')
-      .positive('Mark must be a positive number'),
-  });
+  // const validationSchema = Yup.object().shape<any>({
+  //   question: Yup.string().required('Question is required'),
+  //   mark: Yup.number()
+  //     .required('Mark is required')
+  //     .max(maxMark, 'should not be more than total marks')
+  //     .positive('Mark must be a positive number'),
+  // });
 
   return (
     <Formik
-    initialValues={data} validationSchema={validationSchema} onSubmit={handleSubmit} >
-      {({ values, setFieldValue, resetForm, isValid, dirty }) => (
+    initialValues={data} onSubmit={handleSubmit} >
+      {({ values, setFieldValue, resetForm, isValid}) => (
         <Form>
           <FormControl
             component="fieldset"
@@ -332,7 +332,9 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                 justifyContent: 'flex-end',
               }}
             >
-              <Button variant="contained" type="submit" disabled={!isValid || !dirty}>
+              <Button variant="contained" type="submit"
+              //  disabled={!isValid}
+               >
                 {t('submit')}
               </Button>
           
