@@ -12,7 +12,6 @@ const QuizList = ({ assesments, type_id }: any) => {
   const { t } = useTranslation();
 
   console.log(filteredData);
-
   return (
     <div>
       {!!filteredData.length && (
@@ -54,23 +53,24 @@ const QuizList = ({ assesments, type_id }: any) => {
                     )}
                     <Box display="flex" flexDirection="row" flexWrap="wrap">
                       {item.options.map((option: any, index: number) => (
-                        // <Box key={option.id} width="25%" p={1}>
-                        <Box key={option.id} p={1} sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                          {/* <Typography sx={{display:'flex', justifyContent:'center',alignItems:'center'}}><span style={{ color: 'green' }}>{option.is_correct === true ? <Checkbox size="small"
-                            checked disabled sx={{ color: '#646464' }} />
-                            : <Checkbox size="small" disabled />} </span> {option.option_value}
-                            {option.option_img && (
-                              <img
-                                src={`${assetBaseUrl}/${option.option_img}`}
-                                style={{ height: '140px', width: '140px' }}
-                              />
-                            )}
-                          </Typography> */}
+                        <Box
+                          key={option.id}
+                          p={1}
+                          sx={{
+                            width: item.options.some((opt: any) => opt.option_img) ? '50%' : '25%',
+                            display: 'flex',
+                            // justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
                           <Box>
-                          <span style={{ color: 'green' }}>{option.is_correct === true ? <Checkbox size="small"
-                            checked disabled sx={{ color: '#646464' }} />
-                            : <Checkbox size="small" disabled />}
-                          </span>
+                            <span style={{ color: 'green' }}>
+                              {option.is_correct === true ? (
+                                <Checkbox size="small" checked disabled sx={{ color: '#646464' }} />
+                              ) : (
+                                <Checkbox size="small" disabled />
+                              )}
+                            </span>
                           </Box>
                           <Box>
                             {option.option_img && (
@@ -79,7 +79,7 @@ const QuizList = ({ assesments, type_id }: any) => {
                                 style={{ height: '140px', width: '140px' }}
                               />
                             )}
-                            <Typography sx={{textAlign:'center'}}>{option.option_value}</Typography>
+                            <Typography>{option.option_value}</Typography>
                           </Box>
                         </Box>
                       ))}
