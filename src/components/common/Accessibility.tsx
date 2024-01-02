@@ -13,6 +13,9 @@ import {
   TextDecrease,
   MonochromePhotos,
   Restore,
+  ArrowOutward,
+  InvertColors,
+  InsertLink,
 } from '@mui/icons-material';
 import AccessibleIcon from '@mui/icons-material/Accessible';
 
@@ -32,7 +35,10 @@ const buttons: ButtonItem[] = [
   { key: 'formatText', text: 'Format Text', icon: <TextFormat sx={{ color: 'white' }} /> },
   { key: 'decreaseText', text: 'Decrease Text', icon: <TextDecrease sx={{ color: 'white' }} /> },
   { key: 'monochrome', text: 'Monochrome', icon: <MonochromePhotos sx={{ color: 'white' }} /> },
-  { key: 'big-cursor', text: 'Big Cursor', icon: <MonochromePhotos sx={{ color: 'white' }} /> },
+  { key: 'big-cursor', text: 'Big Cursor', icon: <ArrowOutward sx={{ color: 'white' }} /> },
+  { key: 'invert-color', text: 'Invert Color', icon: <InvertColors sx={{ color: 'white' }} /> },
+  { key: 'highlight-link', text: 'Heightlight Links', icon: <InsertLink sx={{ color: 'white' }} /> },
+  { key: 'Show-Headings', text: 'Show Headings', icon: <h3 style={{ color: "white" }}>H</h3> },
   { key: 'reset', text: 'Reset', icon: <Restore sx={{ color: 'white' }} /> },
   // Add more buttons as needed
 ];
@@ -130,7 +136,7 @@ const Accessibility: React.FC<AccessibilityProps> = ({
                   borderBottomLeftRadius: '10px',
                   cursor: 'pointer',
                   ml: 1,
-                  mb: 2
+                  mb: 1
                 }}
                 onClick={() => handleListItemClick(button.key)}
               >
