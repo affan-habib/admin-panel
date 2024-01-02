@@ -219,6 +219,7 @@ const ViewAssessmentDialog: React.FC<ViewAssessmentDialogProps> = ({
                 justifyContent="space-between"
                 alignItems="flex-start"
                 flexGrow={1}
+                mb={2}
               >
                 <div style={{ marginBottom: '12px' }}>
                   <Typography
