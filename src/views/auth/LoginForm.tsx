@@ -144,7 +144,7 @@ const LoginForm: React.FC = () => {
             style: { backgroundColor: 'white' }
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',  }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -177,7 +177,9 @@ const LoginForm: React.FC = () => {
             disabled={loading}
             startIcon={loading ? <RefreshIcon /> : null}
             sx={{
-              marginTop: '20px',
+              alignItems:'center',
+              textAlign:'center',
+              marginTop: '25px',
               height: '40px',
               width: '200px',
               fontSize: '18px',

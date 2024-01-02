@@ -6,6 +6,8 @@ import {
   Menu,
   MenuItem,
   IconButton,
+  Popover,
+  Grid,
   styled,
 } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -19,6 +21,9 @@ import notificationIcon from 'assets/Notification.svg';
 import { useNavigate } from 'react-router-dom';
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import AllDashbordDialog from 'views/allDashbord/AllDashbordDialog';
+
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -56,6 +61,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [gridAnchorEl, setGridAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -64,7 +70,17 @@ const Header: React.FC<HeaderProps> = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleGridClick = (event: React.MouseEvent<HTMLElement>) => {
+    setGridAnchorEl(event.currentTarget);
+  };
+
+  const handleGridClose = () => {
+    setGridAnchorEl(null);
+  };
+
   const navigate = useNavigate();
+
   return (
     <AppBar
       position="fixed"
@@ -79,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({
             onClick={handleToggleDrawer}
             edge="start"
             sx={{
-              color: 'white', // Set the color to white
+              color: 'white',
               marginRight: 2,
             }}
           >
@@ -100,23 +116,38 @@ const Header: React.FC<HeaderProps> = ({
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Notification Icon */}
-          <Box sx={{ marginRight: '18px' }}>
-            <DashboardCustomizeOutlinedIcon sx={{ fontSize: 24 }} />
+          <Box sx={{ marginRight: '18px' }} onClick={handleGridClick}>
+            <DashboardCustomizeOutlinedIcon
+              sx={{ fontSize: 24, cursor: 'pointer' }}
+            />
           </Box>
+          <Popover
+            open={Boolean(gridAnchorEl)}
+            anchorEl={gridAnchorEl}
+            onClose={handleGridClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            sx={{ marginTop: '23px'}}
+          >
+            <Grid width={450} sx={{ border: '1px solid rgba(221, 221, 221, 1)', borderRadius: '8px'}}>
+                <Grid  p={2}>
+                  <AllDashbordDialog />
+                </Grid>
+            </Grid>
+          </Popover>
 
           <Box mr={2}>
             <LanguageSelect />
           </Box>
-          {/* <img
-            src={notificationIcon}
-            alt="Notification Icon"
-            style={{ height: 25, width: 25, marginRight: 20 }}
-          /> */}
           <Box>
             <NotificationsActiveOutlinedIcon sx={{ fontSize: 25 }} />
           </Box>
-          {/* Avatar and ExpandMore Icon */}
           <IconButton
             color="primary"
             aria-label="user-options"
@@ -126,10 +157,8 @@ const Header: React.FC<HeaderProps> = ({
             <Avatar alt="User Avatar" sx={{ height: 25, width: 25 }}>
               <Person />
             </Avatar>
-            <ExpandMoreIcon style={{color: '#FFF'}} />
+            <ExpandMoreIcon style={{ color: '#FFF' }} />
           </IconButton>
-
-          {/* User Options Menu */}
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
