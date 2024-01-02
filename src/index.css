@@ -23,3 +23,15 @@
   border-radius: 10px;
   /* margin-right: 20px; */
 }
+@keyframes yellow-fade {
+  0% {
+    background: #006A4E;
+  }
+  100% {
+    background: none;
+  }
+}
+
+.highlight {
+  animation: yellow-fade 2s ease-in 1;
+}
