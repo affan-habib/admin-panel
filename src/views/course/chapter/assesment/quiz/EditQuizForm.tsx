@@ -108,6 +108,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                 onChange={handleUploadOption}
                 checked={uploadOption === 'bulkUpload'}
                 label={t('bulkUpload')}
+                disabled
               />
             </RadioGroup>
           </FormControl>

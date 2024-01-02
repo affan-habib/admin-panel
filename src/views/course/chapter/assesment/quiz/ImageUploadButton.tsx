@@ -35,12 +35,13 @@ const ImageUploadIcon: React.FC<ImageUploadIconProps> = ({ name, label }) => {
                     const responseData = await response.json();
                     helpers.setValue(responseData.data);
                     helpers.setTouched(true);
-                    showSnackbar(responseData.message, 'success');
+                    // showSnackbar(responseData.message, 'success');
                 } else {
                     console.error('Failed to upload image');
                 }
             } catch (error) {
                 console.error('Error uploading image', error);
+                showSnackbar('Error occured uploading image', 'error');
             }
         },
         [helpers, showSnackbar],
