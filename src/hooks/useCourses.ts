@@ -2,6 +2,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { apiBaseUrl } from 'config';
+import { useSnackbar } from 'context/SnackbarContext';
 
 // Define the fetch function that makes the API request
 const fetchCourses = async ({ itemsPerPage, page, search }: any) => {
@@ -24,13 +25,16 @@ const fetchCourses = async ({ itemsPerPage, page, search }: any) => {
   }
 };
 
-// Define the custom hook using useQuery
 const useCourses = ({ itemsPerPage, page, search }: any) => {
+  const { showSnackbar } = useSnackbar();
   return useQuery(
     ['courses', { itemsPerPage, page, search }],
     () => fetchCourses({ itemsPerPage, page, search }),
     {
-      refetchOnWindowFocus: false, // Disable automatic refetching on window focus
+      refetchOnWindowFocus: false,
+      onError: (error: any) => {
+        showSnackbar(error.message || 'An error occurred', 'error');
+      },
     },
   );
 };

@@ -10,25 +10,17 @@ import {
   TextField,
 } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
-
-import 'react-quill/dist/quill.snow.css';
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.bubble.css';
 import MarkInput from 'components/form/MarkInput';
 import axios from 'axios';
-import { apiBaseUrl } from '../../../../../config';
+import { apiBaseUrl } from 'config';
 import { useSnackbar } from 'context/SnackbarContext';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import { string } from 'yup';
-import { SpaceBar } from '@mui/icons-material';
 import { useQueryClient } from 'react-query';
+import { toBanglaNumber } from 'utils/numberUtils';
 
 const FillInTheGapForm: React.FC<any> = ({
   assessmentId,
@@ -38,7 +30,6 @@ const FillInTheGapForm: React.FC<any> = ({
   // console.log("assessmentId", type_id)
   const [loading, setLoading] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
-  const [editorHtml, setEditorHtml] = useState<string>('');
 
   const svgImage = `
   <img 
@@ -70,7 +61,6 @@ const FillInTheGapForm: React.FC<any> = ({
       // Move the cursor to the end of the inserted content
       quillRef.getEditor().setSelection(range ? range.index + 1 : 1, 0);
     } // Access the editor value
-    console.log('Editor Value:', editorHtml.replace(/<[^>]*>/g, ''));
   };
 
   const quillRefProp = useRef<ReactQuill>(null);
@@ -92,41 +82,10 @@ const FillInTheGapForm: React.FC<any> = ({
   };
 
   // Usage
-  const svgCount = countSvgImages(editorHtml);
+  // const svgCount = countSvgImages(editorHtml);
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const enToBn = (serialNumber: number) => {
-    const language = localStorage.getItem('language');
-    if (language == 'bn') {
-      switch (serialNumber) {
-        case 1:
-          return '১';
-        case 2:
-          return '২';
-        case 2:
-          return '২';
-        case 3:
-          return '৩';
-        case 4:
-          return '৪';
-        case 5:
-          return '৫';
-        case 6:
-          return '৬';
-        case 7:
-          return '৭';
-        case 8:
-          return '৮';
-        case 9:
-          return '৯';
 
-        default:
-          return serialNumber; // Return the original number for other cases
-      }
-    } else {
-      return serialNumber;
-    }
-  };
 
   const handleSubmit = async (
     values: any,
@@ -134,34 +93,21 @@ const FillInTheGapForm: React.FC<any> = ({
     { resetForm }: any,
   ) => {
     const optionsArr = [];
-    for (let i = 0; i < svgCount; i++) {
+    for (let i = 0; i < countSvgImages(values.question); i++) {
       optionsArr.push({
         option_key: `${i + 1}`,
         option_value: values.options[i],
       });
     }
 
-    const editorFullText = values.richText.replace(/<(?!img).*?>/g, '');
-    const editorTextExceptSvg = editorFullText.replace(
-      /<img[^>]*>.*?<\/img>/g,
-      '',
-    );
-    const editorTextWithBlankAsHash = editorTextExceptSvg.replace(
-      /<img[^>]*>/g,
-      '#',
-    );
-
     const payload = {
       course_assessment_id: assessmentId,
-      question: values.richText,
+      question: values.question,
       type_id: type_id,
       mark: values.mark,
       status: 1,
       options: optionsArr,
     };
-
-    setLoading(true);
-
     const token = localStorage.getItem('token');
 
     try {
@@ -172,18 +118,11 @@ const FillInTheGapForm: React.FC<any> = ({
       });
 
       if (saveAndAdd) {
-        setEditorHtml('');
         resetForm();
         showSnackbar(response?.data?.message, 'success');
         queryClient.invalidateQueries('couse-quizzes');
-        // // optionsArray.push(response.data.data.options)
-        // // // optionsArr.push(response.data.data.options);
-        // let responseData = [...optionsArray, response.data.data.question]
-        // setOptionsArray(responseData);
-        // console.log("response.dataresponse.dataresponse.data", responseData)
       } else {
         showSnackbar(response?.data?.message, 'success');
-        setEditorHtml('');
         handleCloseDialog();
         queryClient.invalidateQueries('couse-quizzes');
         resetForm();
@@ -194,8 +133,6 @@ const FillInTheGapForm: React.FC<any> = ({
         error.response?.data?.message || 'An error occurred',
         'error',
       );
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -204,7 +141,7 @@ const FillInTheGapForm: React.FC<any> = ({
       <Formik
         initialValues={{
           option: 'option1',
-          richText: '',
+          question: '',
           mark: '',
           options: [],
         }}
@@ -212,21 +149,20 @@ const FillInTheGapForm: React.FC<any> = ({
       >
         {({ values, setFieldValue, resetForm }) => (
           <Form>
-            <Box mb={2} display="flex" justifyContent="" gap={8}>
-              <FormControl component="fieldset">
-                <Field as={RadioGroup} row name="option">
-                  <FormControlLabel
-                    value="option1"
-                    control={<Radio />}
-                    label={t('manualInput')}
-                  />
-                  <FormControlLabel
-                    value="option2"
-                    control={<Radio />}
-                    label={t('bulkUpload')}
-                  />
-                </Field>
-              </FormControl>
+            <Box mb={2} display="flex" flexDirection="row" justifyContent="">
+              <FormControlLabel
+                value="option1"
+                control={<Radio />}
+                label={t('manualInput')}
+                disabled // Make the first option disabled
+                checked // Make the first option selected
+              />
+              <FormControlLabel
+                value="option2"
+                disabled // Make the first option disabled
+                control={<Radio />}
+                label={t('bulkUpload')}
+              />
             </Box>
 
             <Box
@@ -260,18 +196,16 @@ const FillInTheGapForm: React.FC<any> = ({
                 <ReactQuill
                   style={{ height: '140px' }}
                   theme="snow"
-                  value={editorHtml}
+                  value={values.question}
                   onChange={(value) => {
-                    setEditorHtml(value);
-                    setFieldValue('richText', value);
+                    setFieldValue('question', value);
                   }}
                   modules={modules}
                   ref={quillRefProp}
                 />
               </Box>
-
               <Stack>
-                {svgCount > 0 && (
+                {countSvgImages(values.question) > 0 && (
                   <Box mt={4}>
                     <Typography variant="h6" gutterBottom>
                       {t('answer')}
@@ -280,7 +214,7 @@ const FillInTheGapForm: React.FC<any> = ({
                   </Box>
                 )}
                 {Array.from(
-                  { length: countSvgImages(values.richText) },
+                  { length: countSvgImages(values.question) },
                   (_, index) => (
                     <Stack direction="row" spacing={4} mb={2}>
                       <Button
@@ -308,7 +242,7 @@ const FillInTheGapForm: React.FC<any> = ({
                             textAlign: 'center',
                           }}
                         >
-                          {enToBn(index + 1)}
+                          {toBanglaNumber(index + 1)}
                         </Typography>
 
                         <Field
@@ -316,7 +250,7 @@ const FillInTheGapForm: React.FC<any> = ({
                           name={`options.${index}`} // Dynamic name based on index
                           as={TextField}
                           sx={{ width: '400px' }}
-                          label={`${t('answer')} ${enToBn(index + 1)}`}
+                          label={`${t('answer')} ${toBanglaNumber(index + 1)}`}
                         />
                       </Stack>
                     </Stack>
