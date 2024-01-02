@@ -17,8 +17,7 @@ import {
   InvertColors,
   InsertLink,
 } from '@mui/icons-material';
-import AccessibleIcon from '@mui/icons-material/Accessible';
-
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 interface AccessibilityProps {
   selectedButton: string;
   onButtonSelect: (buttonName: string) => void;
@@ -76,6 +75,7 @@ const Accessibility: React.FC<AccessibilityProps> = ({
       <Fab
         onClick={handleButtonClick}
         aria-label="add"
+        size='small'
         sx={{
           background: '#6B6A6A',
           position: 'fixed',
@@ -90,7 +90,7 @@ const Accessibility: React.FC<AccessibilityProps> = ({
           },
         }}
       >
-        <AccessibleIcon />
+        <AccessibilityIcon />
       </Fab>
 
       <Popover
