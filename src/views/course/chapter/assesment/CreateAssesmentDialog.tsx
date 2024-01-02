@@ -96,13 +96,13 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             negative_mark: '',
             total_time: '',
           }}
-          validate={(values) => {
-            const errors: Partial<typeof values> = {};
-            if (values.pass_mark > values.total_mark) {
-              errors.pass_mark = 'Pass mark cannot be greater than total mark';
-            }
-            return errors;
-          }}
+          // validate={(values) => {
+          //   const errors: Partial<typeof values> = {};
+          //   if (values.pass_mark > values.total_mark) {
+          //     errors.pass_mark = 'Pass mark cannot be greater than total mark';
+          //   }
+          //   return errors;
+          // }}
           onSubmit={handleSubmit}
         >
           {({ errors, touched, handleChange }) => (
