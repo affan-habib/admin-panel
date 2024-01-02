@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import image2 from '../../assets/eLibrary.svg';
 import image3 from '../../assets/teachersGuide.svg';
@@ -14,10 +14,19 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
   loginPageTitle,
 }) => {
   const { t } = useTranslation();
-
   const hoverColor = '#E8FFF8'; // Define the hover color
 
+  const [activeCard, setActiveCard] = useState('learningManagementSystem');
+
+  useEffect(() => {
+    // Set the initial active card when the component mounts
+    setActiveCard((prevActiveCard) =>
+      loginPageTitle ? loginPageTitle : prevActiveCard
+    );
+  }, [loginPageTitle]);
+
   const handleCardClick = (value: string) => {
+    setActiveCard(value);
     onCardClick(value);
   };
 
@@ -66,11 +75,10 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
             onClick={() => handleCardClick(card.title)}
             style={{
               background:
-                loginPageTitle === card.title ? hoverColor : 'inherit', // Apply hover color if selected
+                activeCard === card.title ? hoverColor : 'rgba(254, 254, 254, 1)', // Apply hover color if selected
               border: '1px solid rgba(208, 208, 208, 1)',
               height: '300px',
               borderRadius: '8px',
-              backgroundColor: 'rgba(254, 254, 254, 1)',
             }}
           >
             <CardMedia
