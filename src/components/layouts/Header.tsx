@@ -135,7 +135,7 @@ const Header: React.FC<HeaderProps> = ({
             }}
             sx={{ marginTop: '23px'}}
           >
-            <Grid width={450} sx={{ border: '1px solid rgba(221, 221, 221, 1)', borderRadius: '8px'}}>
+            <Grid width={400} sx={{ border: '1px solid rgba(221, 221, 221, 1)', borderRadius: '8px'}}>
                 <Grid  p={2}>
                   <AllDashbordDialog />
                 </Grid>
