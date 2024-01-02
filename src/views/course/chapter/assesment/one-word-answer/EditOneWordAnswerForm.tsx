@@ -35,6 +35,7 @@ const EditOneWordAnswerForm: React.FC<any> = ({
       );
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
+      queryClient.invalidateQueries('courseDetails');
       handleCloseDialog();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');

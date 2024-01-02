@@ -51,6 +51,7 @@ const TrueFalseForm: React.FC<any> = ({
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
+      queryClient.invalidateQueries('courseDetails');
       buttonType !== 'saveAndAdd' && handleCloseDialog();
       // onClose();
     } catch (error: any) {

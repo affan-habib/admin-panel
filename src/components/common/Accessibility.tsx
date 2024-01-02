@@ -10,6 +10,9 @@ import {
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import { MonochromePhotos, NoMeetingRoom, Restore } from '@mui/icons-material';
 import AccessibleIcon from '@mui/icons-material/Accessible';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 interface AccessibilityProps {
   selectedButton: string;
@@ -47,15 +50,22 @@ const Accessibility: React.FC<AccessibilityProps> = ({
   return (
     <div>
       <Fab
-        color="primary"
         onClick={handleButtonClick}
+
         aria-label="add"
         sx={{
+          background: '#6B6A6A',
           position: 'fixed',
+          color: 'white',
           bottom: '60%',
-          right: '10px',
+          right: '0px',
           zIndex: '1000',
-          borderRadius: '50%',
+          borderRadius: 4,
+          '&:hover': {
+            background: 'black',
+            color: 'white',
+          },
+
         }}
       >
         <AccessibleIcon />
@@ -75,38 +85,54 @@ const Accessibility: React.FC<AccessibilityProps> = ({
           horizontal: 'right',
         }}
       >
-        <div
-          style={{
-            width: '300px',
+        <Box
+          py={2}
+          sx={{
+            width: '250px',
             height: '51%',
             borderRadius: '5px',
+            background: '#6B6A6A'
+
           }}
         >
+          <Stack direction='row' ml={1} spacing={1} mt={1}>
+            <Box p={1} className='customIcon'>
+              <Restore sx={{ color: "white" }} />
+            </Box>
+            <Box p={1} className='customIcon'>
+              <Restore sx={{ color: "white" }} />
+            </Box>
+            <Box p={1} className='customIcon'>
+              <Restore sx={{ color: "white" }} />
+            </Box>
+          </Stack>
           <List>
-            <ListItem
-              button
-              key="monochrome"
-              selected={selectedButton === 'monochrome'}
+            <Stack
+              direction='row'
+              alignItems='center'
+              sx={{ p: 0, bgcolor: 'white', borderTopLeftRadius: "10px", borderBottomLeftRadius: '10px', cursor: 'pointer', ml: 1 }}
+              // button
               onClick={() => handleListItemClick('monochrome')}
             >
-              <ListItemIcon>
-                <MonochromePhotos />
-              </ListItemIcon>
-              <ListItemText primary="Monochrome" />
-            </ListItem>
-            <ListItem
-              button
-              key="reset"
-              selected={selectedButton === 'normal'}
+              <Box className='customIcon'>
+                <MonochromePhotos sx={{ color: "white" }} />
+              </Box>
+              <Typography fontWeight={600} ml={2} >Monochrome</Typography>
+            </Stack>
+            <Stack
+              mt={1}
+              direction='row'
+              alignItems='center'
+              sx={{ p: 0, bgcolor: 'white', borderTopLeftRadius: "10px", borderBottomLeftRadius: '10px', cursor: 'pointer', ml: 1 }}
               onClick={() => handleListItemClick('normal')}
             >
-              <ListItemIcon>
-                <Restore />
-              </ListItemIcon>
-              <ListItemText primary="Reset" />
-            </ListItem>
+              <Box p={1} className='customIcon'>
+                <Restore sx={{ color: "white" }} />
+              </Box>
+              <Typography ml={2} fontWeight={600}>Reset</Typography>
+            </Stack>
           </List>
-        </div>
+        </Box>
       </Popover>
     </div>
   );
