@@ -63,7 +63,6 @@ const EditOneWordAnswerForm: React.FC<any> = ({
                 value="option1"
                 control={<Radio />}
                 label={t('manualInput')}
-                disabled // Make the first option disabled
                 checked // Make the first option selected
               />
               <FormControlLabel

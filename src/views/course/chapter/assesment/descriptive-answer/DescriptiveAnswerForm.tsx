@@ -79,7 +79,6 @@ const DescriptiveAnswerForm: React.FC<any> = ({
               value="option1"
               control={<Radio />}
               label={t('manualInput')}
-              disabled
               checked
             />
             <FormControlLabel
