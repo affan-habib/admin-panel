@@ -148,6 +148,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                             onChange={handleUploadOption}
                             checked={uploadOption === 'bulkUpload'}
                             label={t('bulkUpload')}
+                            disabled
                         />
                     </RadioGroup>
                     <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px', backgroundColor: 'rgba(250, 250, 250, 1)' }} p={2}>
@@ -173,7 +174,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                     <>
                                         <Grid container  justifyContent="start">
                                             {values.options.map((item, index) => (
-                                                <Grid item xs={12} md={9} lg={9} key={index}>
+                                                <Grid item xs={12} md={10} lg={10} key={index}>
                                                     <Grid
                                                         container
                                                         sx={{
@@ -184,8 +185,9 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                             color: 'rgba(100, 100, 100, 1)',
                                                             borderRadius: '4px',
                                                         }}
-                                                        justifyContent="space-between"
+                                                        
                                                     >
+                                                        <Grid container spacing={2}>
                                                         <Grid item xs={12} md={4} lg={4}>
                                                             <FormControl fullWidth size="small">
                                                                 <Box
@@ -266,7 +268,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                             </FormControl>
                                                         </Grid>
                                                         {expandedGrids.includes(index) ? (
-                                                            <Grid item xs={12} md={3} lg={3} display="flex">
+                                                            <Grid item xs={12} md={4} lg={4} display="flex">
                                                                 <FormControl fullWidth size="small">
                                                                     <Box
                                                                         sx={{
@@ -311,7 +313,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                                 </IconButton>
                                                             </Grid>
                                                         ) : (
-                                                            <Grid item xs={12} md={3} lg={3} display="flex">
+                                                            <Grid item xs={12} md={4} lg={4} display="flex">
                                                                 <Button
                                                                     variant="outlined"
                                                                     sx={{
@@ -332,6 +334,8 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                                 </Button>
                                                             </Grid>
                                                         )}
+                                                        </Grid>
+
                                                     </Grid>
                                                 </Grid>
                                             ))}

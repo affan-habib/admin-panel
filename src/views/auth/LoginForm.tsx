@@ -80,7 +80,7 @@ const LoginForm: React.FC = () => {
         <TextField
           variant="outlined"
           name="username"
-          placeholder={t('username')}
+          placeholder={t('userName')}
           fullWidth
           margin="normal"
           value={formik.values.username}
@@ -193,8 +193,6 @@ const LoginForm: React.FC = () => {
             {t('login')}
           </Button>
         </Box>
-
-
       </form>
     </>
   );

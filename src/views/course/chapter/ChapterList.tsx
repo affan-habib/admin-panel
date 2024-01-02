@@ -477,7 +477,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                             {t('marks')}{' '}
                             <FiberManualRecordIcon
                               style={{
-                                fontSize: '10px',
+                                fontSize: '8px',
                                 marginLeft: '5px',
                                 marginRight: '5px',
                               }}
