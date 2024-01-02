@@ -246,9 +246,9 @@ const CreateAssignmentDialog: React.FC<CreateAssignmentDialogProps> = ({
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ width: '120px' }}
+                  sx={{ width: '120px',height:'40px',borderRadius:'8px', }}
                 >
-                  {t('submit')}
+                   <span style={{marginTop:'5px'}}>{t('submit')}</span>
                 </Button>
               </Box>
             </Form>
