@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Accessibility from 'components/common/Accessibility';
 import { DeleteModalProvider } from 'context/DeleteModalContext';
 import { SnackbarProvider } from 'context/SnackbarContext';

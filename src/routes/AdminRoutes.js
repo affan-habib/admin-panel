@@ -1,10 +1,5 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
-import AdminUserList from 'core/adminUserList/AdminUserList';
-import CreateAdminUser from 'core/createUser/CreateAdminUser';
-// import EditAdminUser from 'core/createUser/EditAdminUser';
-import EditCourse from 'core/course/EditCourse';
-import RoleListContainer from 'core/roleList/RoleListContainer';
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
 );
@@ -15,10 +10,13 @@ const Dashboard = Loadable(lazy(() => import('core/dashboard/Dashboard')));
 const BatchList = Loadable(lazy(() => import('core/batch/BatchList')));
 const CreateBatch = Loadable(lazy(() => import('core/batch/CreateBatch')));
 const CreateCourse = Loadable(lazy(() => import('core/course/CreateCourse')));
+const EditCourse = Loadable(lazy(() => import('core/course/EditCourse')));
 const CourseList = Loadable(lazy(() => import('core/course/CourseList')));
+const AdminUserList = Loadable(lazy(() => import('core/adminUserList/AdminUserList')));
+const CreateAdminUser = Loadable(lazy(() => import('core/createUser/CreateAdminUser')));
 const UserProfile = Loadable(lazy(() => import('core/userProfile/UserProfile')));
-// const AdminUserList = Loadable(lazy(() => import('core/adminUserList/AdminUserList')));
 const EditAdminUser = Loadable(lazy(() => import('core/createUser/EditAdminUser')));
+const RoleListContainer = Loadable(lazy(() => import('core/roleList/RoleListContainer')));
 
 
 const AdminRoutes = {
