@@ -35,7 +35,7 @@ interface Item {
     showInput?: boolean;
 }
 
-const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,data }) => {
+const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark, data }) => {
     const { t } = useTranslation();
     const { showSnackbar } = useSnackbar();
     const queryClient = useQueryClient();
@@ -88,12 +88,11 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
             const response = await axios.patch(
                 `${apiBaseUrl}/quizzes/${data.id}`,
                 values,
-              );
+            );
 
             showSnackbar(response.data.message, 'success');
             queryClient.invalidateQueries('couse-quizzes');
-
-
+            queryClient.invalidateQueries('courses');
             // Reset the form
             formikHelpers.resetForm();
             handleCloseDialog();
@@ -108,17 +107,17 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
     };
     const initialValues = {
         course_assessment_id: assessmentId,
-                question:'question',
-                mark: 'mark',
-                question_type: 'text',
-                type_id: 3,
-                status: 1,
-                options: 'filteredOptions',
-      };
+        question: 'question',
+        mark: 'mark',
+        question_type: 'text',
+        type_id: 3,
+        status: 1,
+        options: 'filteredOptions',
+    };
     const [shouldCloseDialog, setShouldCloseDialog] = useState(true);
     return (
         <Formik
-        initialValues={data}
+            initialValues={data}
             validationSchema={validationSchema}
             onSubmit={(values, formikHelpers) => handleSubmit(values, formikHelpers, shouldCloseDialog)}
         >
@@ -163,8 +162,8 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
                                 name="options"
                                 render={({ push }) => (
                                     <>
-                                        <Grid container  justifyContent="start">
-                                            {values.options.map((item:any, index: number) => (
+                                        <Grid container justifyContent="start">
+                                            {values.options.map((item: any, index: number) => (
                                                 <Grid item xs={12} md={9} lg={9} key={index}>
                                                     <Grid
                                                         container
@@ -218,7 +217,7 @@ const EditMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxM
                                                             </FormControl>
                                                         </Grid>
                                                         <Grid item xs={12} md={4} lg={4} display="flex" alignItems="center">
-                                                            <CheckBoxIcon sx={{color:'rgba(159, 159, 159, 1)'}} />
+                                                            <CheckBoxIcon sx={{ color: 'rgba(159, 159, 159, 1)' }} />
                                                             <FormControl fullWidth size="small">
                                                                 <Box
                                                                     sx={{

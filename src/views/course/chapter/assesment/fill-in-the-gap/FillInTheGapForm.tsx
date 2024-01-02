@@ -121,6 +121,7 @@ const FillInTheGapForm: React.FC<any> = ({
         resetForm();
         showSnackbar(response?.data?.message, 'success');
         queryClient.invalidateQueries('couse-quizzes');
+        queryClient.invalidateQueries('courses');
       } else {
         showSnackbar(response?.data?.message, 'success');
         handleCloseDialog();

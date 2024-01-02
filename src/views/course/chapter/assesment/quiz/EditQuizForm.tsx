@@ -27,7 +27,7 @@ import QuizOutlinedIcon from '@mui/icons-material/QuizOutlined';
 import * as Yup from 'yup';
 import ImageUploadIcon from './ImageUploadButton';
 
-const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,data }) => {
+const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark, data }) => {
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState('option1');
   const { showSnackbar } = useSnackbar();
@@ -45,19 +45,20 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
   const handleFormSubmit = async (values: any, closeForm: boolean) => {
     const filteredOptions = values.options.filter(
       (option: any) => option.option_key.trim() !== '' || option.option_value.trim() !== ''
-  );
-  try {
+    );
+    try {
       const response = await axios.patch(
-          `${apiBaseUrl}/quizzes/${data.id}`,
-          values,
-        );
+        `${apiBaseUrl}/quizzes/${data.id}`,
+        values,
+      );
 
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
-  } catch (error: any) {
+      queryClient.invalidateQueries('courseDetails');
+    } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
-  }
+    }
   }
 
   const handleSubmit = async (values: any, { resetForm }: any) => {
@@ -65,7 +66,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
       showSnackbar('Please select at least one correct option', 'error');
       return;
     }
-  
+
     await handleFormSubmit(values, true);
     resetForm();
     handleCloseDialog();
@@ -189,9 +190,9 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                               }}
                             >
                               <Box
-                                sx={{ display: 'flex', alignItems: 'center', justifyContent:'space-between' }}
+                                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                               >
-                                <Grid container  spacing={1}>
+                                <Grid container spacing={1}>
                                   <Grid item md={11}>
                                     <Box sx={{ display: 'flex' }}>
                                       <Checkbox
@@ -230,7 +231,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                                             </Typography>
                                           </Box>
                                           <Field
-                                           name={`options[${index}].option_value`} placeholder={t('alternative')}
+                                            name={`options[${index}].option_value`} placeholder={t('alternative')}
                                             style={{
                                               flex: 1,
                                               padding: '14.5px',
@@ -246,19 +247,19 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                                   </Grid>
                                 </Grid>
                                 <Grid
-                                    item
-                                    md={1}
-                                    sx={{
-                                      display: 'flex',
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                    }}
-                                  >
-                                    <ImageUploadIcon
+                                  item
+                                  md={1}
+                                  sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                  }}
+                                >
+                                  <ImageUploadIcon
                                     name={`options[${index}].option_img`}
                                     label="Upload Image"
                                   />
-                                  </Grid>
+                                </Grid>
                               </Box>
                             </Box>
                           </Grid>
@@ -337,7 +338,7 @@ const EditQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark,
                >
                 {t('submit')}
               </Button>
-          
+
             </Grid>
           </Box>
         </Form>

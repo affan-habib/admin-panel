@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Form } from 'formik';
 import {
   Container,
@@ -14,7 +14,7 @@ import StepOne from 'views/course/StepOne';
 import StepTwo from 'views/course/StepTwo';
 import StepThree from 'views/course/StepThree';
 import DyanamicForm from 'views/course/chapter/CreateChapter';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import useCourseDetails from 'hooks/useCourseDetails';
 import { apiBaseUrl } from 'config';
 import axios from 'axios';
@@ -26,6 +26,8 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SouthOutlinedIcon from '@mui/icons-material/SouthOutlined';
 
 const EditCourse: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { state } = useLocation();
   const { t } = useTranslation();
   const { id } = useParams();
   const { data } = useCourseDetails(id);
@@ -38,6 +40,14 @@ const EditCourse: React.FC = () => {
     //   'Bangla short description is required',
     // ),
   });
+  useEffect(() => {
+    if(state && state?.isScroll === true) {
+      ref.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }, [])
   const handleSubmit = async (values: any) => {
     if (typeof values.supporting_doc === 'string') {
       delete values.supporting_doc;
@@ -67,7 +77,10 @@ const EditCourse: React.FC = () => {
         },
       );
       showSnackbar(response.data.message, 'success');
-      console.log('API Response:', response.data);
+      ref.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
@@ -238,6 +251,7 @@ const EditCourse: React.FC = () => {
           </Form>
         )}
       </Formik>
+      <div style={{ position: 'fixed', bottom: 0 }} ref={ref}></div>
     </Container>
   );
 };
