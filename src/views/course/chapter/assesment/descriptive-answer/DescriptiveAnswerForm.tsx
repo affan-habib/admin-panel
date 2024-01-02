@@ -43,6 +43,7 @@ const DescriptiveAnswerForm: React.FC<any> = ({
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
+      queryClient.invalidateQueries('courseDetails');
       buttonType !== 'saveAndAdd' && handleCloseDialog();
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');

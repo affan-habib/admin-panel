@@ -62,6 +62,7 @@ const AddQuizForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMark }
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
+      queryClient.invalidateQueries('courseDetails');
       if (closeForm) {
         handleCloseDialog();
       }
