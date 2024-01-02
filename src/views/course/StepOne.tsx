@@ -8,18 +8,18 @@ const StepOne: React.FC = () => {
     <>
       <InputField
         name="name_bn"
-        label="পাঠ্যক্রমের নাম"
-        placeholder="পাঠ্যক্রমের নাম লিখুন"
+        label="অধিবেশনের নাম"
+        placeholder="অধিবেশনের নাম লিখুন"
         required={true}
         withKeyboard={true}
       />
       <InputField
         name="short_desc_bn"
-        label="পাঠ্যক্রমের সংক্ষেপ বিবরণ"
+        label="অধিবেশনের সংক্ষেপ বিবরণ"
         placeholder="সংক্ষেপ বিবরণ লিখুন"
         withKeyboard={true}
       />
-      <RichTextInput label="পাঠ্যক্রমের বিস্তারিত বিবরণ" name="long_desc_bn" height='280px'/>
+      <RichTextInput label="অধিবেশনের বিস্তারিত বিবরণ" name="long_desc_bn" height='280px'/>
     </>
   );
 };

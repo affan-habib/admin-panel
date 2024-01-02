@@ -85,6 +85,9 @@ const EditCourse: React.FC = () => {
         behavior: 'smooth',
         block: 'end',
       });
+      window.scrollTo(0, 720);
+      console.log("should down", ref.current?.scrollIntoView);
+      
       setIsNew(true);
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
