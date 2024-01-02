@@ -35,7 +35,7 @@ const QuizList = ({ assesments, type_id }: any) => {
                     <QuizOutlinedIcon sx={{ marginRight: 1 }} />
                   </Box>
                   <Box>
-                    
+
                     <Box>
                       <Typography
                         variant="body1"
@@ -46,17 +46,26 @@ const QuizList = ({ assesments, type_id }: any) => {
                         <div dangerouslySetInnerHTML={{ __html: item.question }} />
                       </Typography>
                     </Box>
-                    <img
-                            src={`${assetBaseUrl}/${item.question_img}`}
-                            style={{ height: '140px', width: '140px' }}
-                          />
+                    {item.question_img && (
+                      <img
+                        src={`${assetBaseUrl}/${item.question_img}`}
+                        style={{ height: '140px', width: '140px' }}
+                      />
+                    )}
                     <Box display="flex" flexDirection="row" flexWrap="wrap">
                       {item.options.map((option: any, index: number) => (
                         // <Box key={option.id} width="25%" p={1}>
                         <Box key={option.id} p={1}>
                           <Typography><span style={{ color: 'green' }}>{option.is_correct === true ? <Checkbox size="small"
-                           checked disabled sx={{ color: '#646464' }} />
-                            : <Checkbox size="small" disabled />} </span> {option.option_value}</Typography>
+                            checked disabled sx={{ color: '#646464' }} />
+                            : <Checkbox size="small" disabled />} </span> {option.option_value}
+                            {option.option_img && (
+                              <img
+                                src={`${assetBaseUrl}/${option.option_img}`}
+                                style={{ height: '140px', width: '140px' }}
+                              />
+                            )}
+                          </Typography>
                         </Box>
                       ))}
                     </Box>
