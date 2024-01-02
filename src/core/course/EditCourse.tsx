@@ -32,6 +32,7 @@ const EditCourse: React.FC = () => {
   const { id } = useParams();
   const { data } = useCourseDetails(id);
   const [selectedStep, setSelectedStep] = useState<number>(1);
+  const [isNew, setIsNew] = useState<boolean>(false);
   const { showSnackbar } = useSnackbar();
   const validationSchema = Yup.object({
     code: Yup.string().required('Course code is required'),
@@ -46,6 +47,9 @@ const EditCourse: React.FC = () => {
         behavior: 'smooth',
         block: 'end',
       });
+      setIsNew(true);
+    } else {
+      setIsNew(false);
     }
   }, [])
   const handleSubmit = async (values: any) => {
@@ -81,6 +85,7 @@ const EditCourse: React.FC = () => {
         behavior: 'smooth',
         block: 'end',
       });
+      setIsNew(true);
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
@@ -245,7 +250,7 @@ const EditCourse: React.FC = () => {
               }}
             >
               <Grid item md={8} sm={12} xs={12}>
-                <DyanamicForm modules={data?.data?.course_modules} />
+                <DyanamicForm modules={data?.data?.course_modules} highlight={isNew ? 'highlight': ''} />
               </Grid>
             </Grid>
           </Form>
