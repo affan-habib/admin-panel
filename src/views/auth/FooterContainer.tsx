@@ -8,21 +8,26 @@ interface LoginFooterProps {
   loginPageTitle: string;
   onCardClick: (value: string) => void;
 }
+
 const FooterContainer: React.FC<LoginFooterProps> = ({
   onCardClick,
   loginPageTitle,
 }) => {
   const { t } = useTranslation();
+
+  const hoverColor = '#E8FFF8'; // Define the hover color
+
   const handleCardClick = (value: string) => {
     onCardClick(value);
   };
+
   const cardStyle = {
     height: '190px',
     boxShadow: '-4px 4px 20px 0px rgba(7, 109, 171, 0.15)',
     transition: 'transform 0.3s, background-color 0.3s',
     cursor: 'pointer', // Add pointer cursor on hover
     '&:hover': {
-      backgroundColor: '#E8FFF8!important',
+      backgroundColor: `${hoverColor} !important`, // Use the hover color
       '& .title': {
         fontWeight: '700', // Make font weight bold on hover
       },
@@ -60,11 +65,12 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
             sx={cardStyle}
             onClick={() => handleCardClick(card.title)}
             style={{
-              background: loginPageTitle == card.title ? 'rgba(254, 254, 254, 1)' : 'inherit',
+              background:
+                loginPageTitle === card.title ? hoverColor : 'inherit', // Apply hover color if selected
               border: '1px solid rgba(208, 208, 208, 1)',
               height: '300px',
               borderRadius: '8px',
-              backgroundColor:'rgba(254, 254, 254, 1)'
+              backgroundColor: 'rgba(254, 254, 254, 1)',
             }}
           >
             <CardMedia
@@ -85,7 +91,7 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
                 sx={{
                   color: 'rgba(34, 34, 34, 1)',
                   fontWeight: 600,
-                  fontSize: '20px'
+                  fontSize: '20px',
                 }}
               >
                 {t(card.title)}

@@ -148,6 +148,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                             onChange={handleUploadOption}
                             checked={uploadOption === 'bulkUpload'}
                             label={t('bulkUpload')}
+                            disabled
                         />
                     </RadioGroup>
                     <Grid mt={1} mb={1} border="1px dashed rgba(70, 83, 96, 1)" sx={{ borderRadius: '8px', backgroundColor: 'rgba(250, 250, 250, 1)' }} p={2}>
