@@ -24,7 +24,7 @@ interface CreateAssesmentDialogProps {
   open: boolean;
   moduleId: any;
   onClose: () => void;
-  name:any
+  name: any
 }
 
 const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
@@ -51,11 +51,6 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
       const response = await axios.post(
         `${apiBaseUrl}/course-assessments`,
         values,
-        // {
-        //   headers: {
-        //     'Content-Type': 'multipart/form-data',
-        //   },
-        // },
       );
       showSnackbar(response.data.message, 'success');
 
@@ -101,81 +96,92 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             negative_mark: '',
             total_time: '',
           }}
+          validate={(values) => {
+            const errors: Partial<typeof values> = {};
+            if (values.pass_mark > values.total_mark) {
+              errors.pass_mark = 'Pass mark cannot be greater than total mark';
+            }
+            return errors;
+          }}
           onSubmit={handleSubmit}
         >
-          <Form>
-          <InputField
-              name="assessment_title_bn"
-              label={t('assesmentName')}
-              placeholder={t('assesmentNo')}
-            />
-            <InputField
-              name="assessment_title_en"
-              // label={t('assesmentName')}
-              label='Assessment Name (English)'
-              placeholder={t('assesmentNo')}
-            />
-            <Grid container spacing={2} sx={{ marginTop: '2px' }}>
-              <Grid item xs={6}>
-                <InputField
-                  type="number"
-                  name="total_mark"
-                  label={t('markInput')}
-                  placeholder={t('placeHolderNumber')}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <InputField
-                  type="number"
-                  name="pass_mark"
-                  label={t('passmarkInput')}
-                  placeholder={t('placeHolderNumber')}
-                />
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              spacing={2}
-              marginBottom={1}
-              sx={{ marginTop: '2px' }}
-            >
-              <Grid item xs={6}>
-                <InputField
-                  type="number"
-                  name="negative_mark"
-                  label={t('negativeMarkInput')}
-                  placeholder={t('placeHolderNumber')}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <InputField
-                  type='number'
-                  name="total_time"
-                  label={t('enterTime')}
-                  placeholder={t('placeHolderNumber')}
-                />
-              </Grid>
-            </Grid>
-
-            <Stack
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Box
-                borderBottom="1px solid rgba(208, 208, 208, 1)"
-                width="100%"
-                sx={{ my: 2 }}
+          {({ errors, touched, handleChange }) => (
+            <Form>
+              <InputField
+                name="assessment_title_bn"
+                label={t('assesmentName')}
+                placeholder={t('assesmentNo')}
               />
-            </Stack>
+              <InputField
+                name="assessment_title_en"
+                // label={t('assesmentName')}
+                label='Assessment Name (English)'
+                placeholder={t('assesmentNo')}
+              />
+              <Grid container spacing={2} sx={{ marginTop: '2px' }}>
+                <Grid item xs={6}>
+                  <InputField
+                    type="number"
+                    name="total_mark"
+                    label={t('markInput')}
+                    placeholder={t('placeHolderNumber')}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <InputField
+                    type="number"
+                    name="pass_mark"
+                    label={t('passmarkInput')}
+                    placeholder={t('placeHolderNumber')}
+                  />
+                </Grid>
 
-            <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button type="submit" variant="contained" sx={{ mt: 1 }}>
-                {t('submit')}
-              </Button>
-            </Box>
-          </Form>
+              </Grid>
+
+              <Grid
+                container
+                spacing={2}
+                marginBottom={1}
+                sx={{ marginTop: '2px' }}
+              >
+                <Grid item xs={6}>
+                  <InputField
+                    type="number"
+                    name="negative_mark"
+                    label={t('negativeMarkInput')}
+                    placeholder={t('placeHolderNumber')}
+                    step="any" 
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <InputField
+                    type='number'
+                    name="total_time"
+                    label={t('enterTime')}
+                    placeholder={t('placeHolderNumber')}
+                  />
+                </Grid>
+              </Grid>
+
+              <Stack
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Box
+                  borderBottom="1px solid rgba(208, 208, 208, 1)"
+                  width="100%"
+                  sx={{ my: 2 }}
+                />
+              </Stack>
+
+              <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+                <Button type="submit" variant="contained" sx={{ mt: 1 }}>
+                  {t('submit')}
+                </Button>
+              </Box>
+            </Form>
+          )}
         </Formik>
       </DialogContent>
     </Dialog>

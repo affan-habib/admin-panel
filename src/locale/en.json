@@ -160,5 +160,8 @@
   "addBlank": "Add Blank",
   "dragAndDropCorrectAnswer": "Drag and drop correct answer",
   "passMark": "Pass mark",
-  "questionPaper": "Question paper"
+  "questionPaper": "Question paper",
+  "module_code": "Chapter Code",
+  "module_name_bn": "Chapter Name (Bangla)",
+  "module_name_en": "Chapter Name(English)"
 }

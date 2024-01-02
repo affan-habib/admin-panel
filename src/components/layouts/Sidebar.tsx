@@ -152,7 +152,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
 
           {item.subMenu && (
             <Collapse in={menuStates[item.path]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
+              <List component="div" disablePadding sx={{bgcolor: '#074116'}}>
                 {item.subMenu.map((subItem, subIndex) => (
                   <ListItem
                     component="div"

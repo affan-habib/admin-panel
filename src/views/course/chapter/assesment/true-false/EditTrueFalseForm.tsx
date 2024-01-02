@@ -52,6 +52,7 @@ const EditTrueFalseForm: React.FC<any> = ({
       });
       showSnackbar(response.data.message, 'success');
       queryClient.invalidateQueries('couse-quizzes');
+      queryClient.invalidateQueries('courseDetails');
       handleCloseDialog();
       // onClose();
     } catch (error: any) {

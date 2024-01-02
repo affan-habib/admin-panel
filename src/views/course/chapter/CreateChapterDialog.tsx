@@ -58,17 +58,17 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          border:'none'
+          border: 'none'
         }}
       >
         <Typography color="primary" variant="h6">
           {t('addChapter')}
         </Typography>
         <IconButton aria-label="close" onClick={onClose} color="error">
-        <HighlightOffIcon />
+          <HighlightOffIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent sx={{marginTop:'0px'}}>
+      <DialogContent sx={{ marginTop: '0px' }}>
         <Formik
           initialValues={{
             course_id: id,
@@ -81,27 +81,27 @@ const CreateChapterDialog: React.FC<CreateChapterDialogProps> = ({
         >
           <Form>
             <Grid container >
-            <InputField
-              name="module_code"
-              label="অধ্যায়ের কোড"
-              placeholder="অধ্যায়ের কোড লিখুন"
-            />
-            <InputField
-              name="module_name_bn"
-              label="অধ্যায়ের নাম"
-              placeholder="অধ্যায়ের নাম লিখুন"
-            />
-            <InputField
-              name="module_name_en"
-              label="Chapter Name (English)"
-              placeholder="Chapter Name"
-            />
+              <InputField
+                name="module_code"
+                label={t('module_code')}
+                placeholder="অধ্যায়ের কোড লিখুন"
+              />
+              <InputField
+                name="module_name_bn"
+                label={t('module_name_bn')}
+                placeholder="অধ্যায়ের নাম লিখুন"
+              />
+              <InputField
+                name="module_name_en"
+                label={t('module_name_en')}
+                placeholder="Chapter Name"
+              />
             </Grid>
-           
+
             <Button
               type="submit"
               variant="contained"
-              sx={{ float: 'right', mt: 2 ,width:'120px'}}
+              sx={{ float: 'right', mt: 2, width: '120px' }}
             >
               {t('submit')}
             </Button>

@@ -2,19 +2,45 @@ import React, { useState, useEffect } from 'react';
 import {
   Popover,
   List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  Stack,
+  Typography,
+  Box,
   Fab,
 } from '@mui/material';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import { MonochromePhotos, NoMeetingRoom, Restore } from '@mui/icons-material';
-import AccessibleIcon from '@mui/icons-material/Accessible';
-
+import {
+  TextIncrease,
+  TextFormat,
+  TextDecrease,
+  MonochromePhotos,
+  Restore,
+  ArrowOutward,
+  InvertColors,
+  InsertLink,
+} from '@mui/icons-material';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 interface AccessibilityProps {
   selectedButton: string;
   onButtonSelect: (buttonName: string) => void;
 }
+
+interface ButtonItem {
+  key: string;
+  text: string;
+  icon: React.ReactNode;
+}
+
+const buttons: ButtonItem[] = [
+  { key: 'increaseText', text: 'Increase Text', icon: <TextIncrease sx={{ color: 'white' }} /> },
+  { key: 'formatText', text: 'Format Text', icon: <TextFormat sx={{ color: 'white' }} /> },
+  { key: 'decreaseText', text: 'Decrease Text', icon: <TextDecrease sx={{ color: 'white' }} /> },
+  { key: 'monochrome', text: 'Monochrome', icon: <MonochromePhotos sx={{ color: 'white' }} /> },
+  { key: 'big-cursor', text: 'Big Cursor', icon: <ArrowOutward sx={{ color: 'white' }} /> },
+  { key: 'invert-color', text: 'Invert Color', icon: <InvertColors sx={{ color: 'white' }} /> },
+  { key: 'highlight-link', text: 'Heightlight Links', icon: <InsertLink sx={{ color: 'white' }} /> },
+  { key: 'Show-Headings', text: 'Show Headings', icon: <h3 style={{ color: "white" }}>H</h3> },
+  { key: 'reset', text: 'Reset', icon: <Restore sx={{ color: 'white' }} /> },
+  // Add more buttons as needed
+];
 
 const Accessibility: React.FC<AccessibilityProps> = ({
   selectedButton,
@@ -47,18 +73,24 @@ const Accessibility: React.FC<AccessibilityProps> = ({
   return (
     <div>
       <Fab
-        color="primary"
         onClick={handleButtonClick}
         aria-label="add"
+        size='small'
         sx={{
+          background: '#6B6A6A',
           position: 'fixed',
+          color: 'white',
           bottom: '60%',
-          right: '10px',
+          right: '0px',
           zIndex: '1000',
-          borderRadius: '50%',
+          borderRadius: 4,
+          '&:hover': {
+            background: 'black',
+            color: 'white',
+          },
         }}
       >
-        <AccessibleIcon />
+        <AccessibilityIcon />
       </Fab>
 
       <Popover
@@ -75,38 +107,47 @@ const Accessibility: React.FC<AccessibilityProps> = ({
           horizontal: 'right',
         }}
       >
-        <div
-          style={{
-            width: '300px',
+        <Box
+          py={2}
+          sx={{
+            width: '250px',
             height: '51%',
             borderRadius: '5px',
+            background: '#6B6A6A',
           }}
         >
+          <Stack direction="row" ml={1} spacing={1} m={1}>
+            {buttons.slice(0, 3).map((button) => (
+              <Box key={button.key} p={1} className="customIcon" onClick={() => handleListItemClick(button.key)}>
+                {button.icon}
+              </Box>
+            ))}
+          </Stack>
           <List>
-            <ListItem
-              button
-              key="monochrome"
-              selected={selectedButton === 'monochrome'}
-              onClick={() => handleListItemClick('monochrome')}
-            >
-              <ListItemIcon>
-                <MonochromePhotos />
-              </ListItemIcon>
-              <ListItemText primary="Monochrome" />
-            </ListItem>
-            <ListItem
-              button
-              key="reset"
-              selected={selectedButton === 'normal'}
-              onClick={() => handleListItemClick('normal')}
-            >
-              <ListItemIcon>
-                <Restore />
-              </ListItemIcon>
-              <ListItemText primary="Reset" />
-            </ListItem>
+            {buttons.slice(3).map((button) => (
+              <Stack
+                key={button.key}
+                direction="row"
+                alignItems="center"
+                sx={{
+                  p: 0,
+                  bgcolor: 'white',
+                  borderTopLeftRadius: '10px',
+                  borderBottomLeftRadius: '10px',
+                  cursor: 'pointer',
+                  ml: 1,
+                  mb: 1
+                }}
+                onClick={() => handleListItemClick(button.key)}
+              >
+                <Box className="customIcon">{button.icon}</Box>
+                <Typography fontWeight={600} ml={2}>
+                  {button.text}
+                </Typography>
+              </Stack>
+            ))}
           </List>
-        </div>
+        </Box>
       </Popover>
     </div>
   );

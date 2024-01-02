@@ -97,7 +97,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
 
             showSnackbar(response.data.message, 'success');
             queryClient.invalidateQueries('couse-quizzes');
-
+            queryClient.invalidateQueries('courses');
 
             // Reset the form
             formikHelpers.resetForm();
@@ -172,7 +172,7 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                 name="options"
                                 render={({ push }) => (
                                     <>
-                                        <Grid container  justifyContent="start">
+                                        <Grid container justifyContent="start">
                                             {values.options.map((item, index) => (
                                                 <Grid item xs={12} md={10} lg={10} key={index}>
                                                     <Grid
@@ -185,90 +185,10 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                             color: 'rgba(100, 100, 100, 1)',
                                                             borderRadius: '4px',
                                                         }}
-                                                        
+
                                                     >
                                                         <Grid container spacing={2}>
-                                                        <Grid item xs={12} md={4} lg={4}>
-                                                            <FormControl fullWidth size="small">
-                                                                <Box
-                                                                    sx={{
-                                                                        display: 'flex',
-                                                                        borderRadius: '4px',
-                                                                        overflow: 'hidden',
-                                                                        border: '1px solid rgba(100, 100, 100, 1)',
-                                                                        marginBottom: { xs: '10px', md: '0' },
-                                                                    }}
-                                                                >
-                                                                    <Box
-                                                                        sx={{
-                                                                            p: '10px',
-                                                                            backgroundColor: 'rgba(100, 100, 100, 1)',
-                                                                            flexShrink: 0,
-                                                                        }}
-                                                                    >
-                                                                        <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                            {index + 1}
-                                                                        </Typography>
-                                                                    </Box>
-                                                                    <input
-                                                                        name={`options.${index}.option_key`}
-                                                                        placeholder={`${t('alternativematch')} : ${index + 1}`}
-                                                                        style={{
-                                                                            flex: 1,
-                                                                            padding: '14.5px',
-                                                                            backgroundColor: 'rgba(245, 247, 248, 1)',
-                                                                            border: 'none',
-                                                                            borderLeft: 'none',
-                                                                            outline: 'none',
-                                                                        }}
-                                                                        value={item.option_key}
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                </Box>
-                                                            </FormControl>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={4} lg={4} display="flex" alignItems="center">
-                                                            <CheckBoxIcon sx={{color:'rgba(159, 159, 159, 1)'}} />
-                                                            <FormControl fullWidth size="small">
-                                                                <Box
-                                                                    sx={{
-                                                                        display: 'flex',
-                                                                        borderRadius: '4px',
-                                                                        overflow: 'hidden',
-                                                                        border: '1px solid rgba(100, 100, 100, 1)',
-                                                                        marginBottom: { xs: '10px', md: '0' },
-                                                                    }}
-                                                                >
-                                                                    <Box
-                                                                        sx={{
-                                                                            p: '10px',
-                                                                            backgroundColor: 'rgba(100, 100, 100, 1)',
-                                                                            flexShrink: 0,
-                                                                        }}
-                                                                    >
-                                                                        <Typography align="center" sx={{ color: 'white', px: 2 }}>
-                                                                            {index + 1}
-                                                                        </Typography>
-                                                                    </Box>
-                                                                    <input
-                                                                        style={{
-                                                                            flex: 1,
-                                                                            padding: '14.5px',
-                                                                            backgroundColor: 'rgba(245, 247, 248, 1)',
-                                                                            border: 'none',
-                                                                            borderLeft: 'none',
-                                                                            outline: 'none',
-                                                                        }}
-                                                                        name={`options.${index}.option_value`}
-                                                                        placeholder={`${t('answer')} : ${index + 1}`}
-                                                                        value={item.option_value}
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                </Box>
-                                                            </FormControl>
-                                                        </Grid>
-                                                        {expandedGrids.includes(index) ? (
-                                                            <Grid item xs={12} md={4} lg={4} display="flex">
+                                                            <Grid item xs={12} md={4} lg={4}>
                                                                 <FormControl fullWidth size="small">
                                                                     <Box
                                                                         sx={{
@@ -276,6 +196,47 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                                             borderRadius: '4px',
                                                                             overflow: 'hidden',
                                                                             border: '1px solid rgba(100, 100, 100, 1)',
+                                                                            marginBottom: { xs: '10px', md: '0' },
+                                                                        }}
+                                                                    >
+                                                                        <Box
+                                                                            sx={{
+                                                                                p: '10px',
+                                                                                backgroundColor: 'rgba(100, 100, 100, 1)',
+                                                                                flexShrink: 0,
+                                                                            }}
+                                                                        >
+                                                                            <Typography align="center" sx={{ color: 'white', px: 2 }}>
+                                                                                {index + 1}
+                                                                            </Typography>
+                                                                        </Box>
+                                                                        <input
+                                                                            name={`options.${index}.option_key`}
+                                                                            placeholder={`${t('alternativematch')} : ${index + 1}`}
+                                                                            style={{
+                                                                                flex: 1,
+                                                                                padding: '14.5px',
+                                                                                backgroundColor: 'rgba(245, 247, 248, 1)',
+                                                                                border: 'none',
+                                                                                borderLeft: 'none',
+                                                                                outline: 'none',
+                                                                            }}
+                                                                            value={item.option_key}
+                                                                            onChange={handleChange}
+                                                                        />
+                                                                    </Box>
+                                                                </FormControl>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4} lg={4} display="flex" alignItems="center">
+                                                                <CheckBoxIcon sx={{ color: 'rgba(159, 159, 159, 1)' }} />
+                                                                <FormControl fullWidth size="small">
+                                                                    <Box
+                                                                        sx={{
+                                                                            display: 'flex',
+                                                                            borderRadius: '4px',
+                                                                            overflow: 'hidden',
+                                                                            border: '1px solid rgba(100, 100, 100, 1)',
+                                                                            marginBottom: { xs: '10px', md: '0' },
                                                                         }}
                                                                     >
                                                                         <Box
@@ -298,42 +259,81 @@ const AddMatchingForm: React.FC<any> = ({ assessmentId, handleCloseDialog, maxMa
                                                                                 borderLeft: 'none',
                                                                                 outline: 'none',
                                                                             }}
-                                                                            name={`options.${index}.wrong_answer`}
-                                                                            placeholder={`${t('wronganswertwo')} : ${index + 1}`}
-                                                                            value={item.wrong_answer}
+                                                                            name={`options.${index}.option_value`}
+                                                                            placeholder={`${t('answer')} : ${index + 1}`}
+                                                                            value={item.option_value}
                                                                             onChange={handleChange}
                                                                         />
                                                                     </Box>
                                                                 </FormControl>
-                                                                <IconButton
-                                                                    aria-label="delete"
-                                                                    onClick={() => handleDeleteClick(index, handleChange)}
-                                                                >
-                                                                    <DeleteOutlineIcon />
-                                                                </IconButton>
                                                             </Grid>
-                                                        ) : (
-                                                            <Grid item xs={12} md={4} lg={4} display="flex">
-                                                                <Button
-                                                                    variant="outlined"
-                                                                    sx={{
-                                                                        fontWeight: '400',
-                                                                        color: 'rgba(100, 100, 100, 1)',
-                                                                        borderColor: 'rgba(100, 100, 100, 1)',
-                                                                        '&:hover': {
+                                                            {expandedGrids.includes(index) ? (
+                                                                <Grid item xs={12} md={4} lg={4} display="flex">
+                                                                    <FormControl fullWidth size="small">
+                                                                        <Box
+                                                                            sx={{
+                                                                                display: 'flex',
+                                                                                borderRadius: '4px',
+                                                                                overflow: 'hidden',
+                                                                                border: '1px solid rgba(100, 100, 100, 1)',
+                                                                            }}
+                                                                        >
+                                                                            <Box
+                                                                                sx={{
+                                                                                    p: '10px',
+                                                                                    backgroundColor: 'rgba(100, 100, 100, 1)',
+                                                                                    flexShrink: 0,
+                                                                                }}
+                                                                            >
+                                                                                <Typography align="center" sx={{ color: 'white', px: 2 }}>
+                                                                                    {index + 1}
+                                                                                </Typography>
+                                                                            </Box>
+                                                                            <input
+                                                                                style={{
+                                                                                    flex: 1,
+                                                                                    padding: '14.5px',
+                                                                                    backgroundColor: 'rgba(245, 247, 248, 1)',
+                                                                                    border: 'none',
+                                                                                    borderLeft: 'none',
+                                                                                    outline: 'none',
+                                                                                }}
+                                                                                name={`options.${index}.wrong_answer`}
+                                                                                placeholder={`${t('wronganswertwo')} : ${index + 1}`}
+                                                                                value={item.wrong_answer}
+                                                                                onChange={handleChange}
+                                                                            />
+                                                                        </Box>
+                                                                    </FormControl>
+                                                                    <IconButton
+                                                                        aria-label="delete"
+                                                                        onClick={() => handleDeleteClick(index, handleChange)}
+                                                                    >
+                                                                        <DeleteOutlineIcon />
+                                                                    </IconButton>
+                                                                </Grid>
+                                                            ) : (
+                                                                <Grid item xs={12} md={4} lg={4} display="flex">
+                                                                    <Button
+                                                                        variant="outlined"
+                                                                        sx={{
+                                                                            fontWeight: '400',
+                                                                            color: 'rgba(100, 100, 100, 1)',
                                                                             borderColor: 'rgba(100, 100, 100, 1)',
-                                                                        },
-                                                                    }}
-                                                                    fullWidth
-                                                                    onClick={() => toggleGrid(index)}
-                                                                >
-                                                                    <AddCircleOutlinedIcon sx={{ fontWeight: '400' }} />
-                                                                    <span style={{ marginLeft: '3px', fontSize: '12px' }}>
-                                                                        {t('wronganswer')}
-                                                                    </span>
-                                                                </Button>
-                                                            </Grid>
-                                                        )}
+                                                                            '&:hover': {
+                                                                                borderColor: 'rgba(100, 100, 100, 1)',
+                                                                            },
+                                                                        }}
+                                                                        fullWidth
+                                                                        onClick={() => toggleGrid(index)}
+                                                                    >
+                                                                        <AddCircleOutlinedIcon sx={{ fontWeight: '400' }} />
+                                                                        <span style={{ marginLeft: '3px', fontSize: '12px' }}>
+                                                                            {t('wronganswer')}
+                                                                        </span>
+                                                                    </Button>
+                                                                </Grid>
+                                                            )}
                                                         </Grid>
 
                                                     </Grid>

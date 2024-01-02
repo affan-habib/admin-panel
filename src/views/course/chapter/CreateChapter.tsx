@@ -6,7 +6,7 @@ import CreateChapterDialog from './CreateChapterDialog';
 import Chapters from './ChapterList';
 import { useTranslation } from 'react-i18next';
 
-const DyanamicForm: React.FC<any> = ({ modules }) => {
+const DyanamicForm: React.FC<any> = ({ modules, highlight = '' }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const { t } = useTranslation();
   const handleDialogOpen = () => setDialogOpen(true);
@@ -16,6 +16,7 @@ const DyanamicForm: React.FC<any> = ({ modules }) => {
     <>
       <Grid
         sx={{ p: 2, border: '1px solid #D0D0D0', borderRadius: '8px', mt: 2 }}
+        className={`${highlight}`}
       >
         <Grid
           container
@@ -24,8 +25,8 @@ const DyanamicForm: React.FC<any> = ({ modules }) => {
           sx={{
             display: 'flex', // Set display to flex
             flexDirection: 'row', // Horizontal flex direction
-            borderBottom: '1px solid #D0D0D0',
-            mb: 2,
+            borderBottom: `${modules && modules.length > 0 ? '1px solid #D0D0D0' : ''}`,
+            mb: `${modules && modules.length > 0 ? 2 : 0}`,
           }}
         >
           <Typography

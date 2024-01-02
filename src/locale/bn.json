@@ -159,5 +159,8 @@
   "addBlank": "ব্ল্যাঙ্ক যোগ করুন",
   "dragAndDropCorrectAnswer": "সঠিক উত্তরটি ড্র্যাগ করে নিয়ে আসুন",
   "passMark": "পাস মার্ক",
-  "questionPaper": "প্রশ্নপত্র"
+  "questionPaper": "প্রশ্নপত্র",
+  "module_code": "অধ্যায়ের কোড",
+  "module_name_bn": "অধ্যায়ের নাম",
+  "module_name_en": "অধ্যায়ের নাম (ইংরেজিতে)"
 }

@@ -12,3 +12,26 @@
   filter: grayscale(100%);
   /* transition: filter 0.5s ease; */
 }
+.customIcon {
+  background-color: #222222;
+  /* color: 'white'; */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #9C9B9B;
+  border-radius: 10px;
+  /* margin-right: 20px; */
+}
+@keyframes yellow-fade {
+  0% {
+    background: #006A4E;
+  }
+  100% {
+    background: none;
+  }
+}
+
+.highlight {
+  animation: yellow-fade 2s ease-in 1;
+}
