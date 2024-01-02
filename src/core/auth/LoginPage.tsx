@@ -12,9 +12,7 @@ import FooterContainer from 'views/auth/FooterContainer';
 import LoginFooter from 'views/auth/LoginFooter';
 import { useTranslation } from 'react-i18next';
 import LoginForm from 'views/auth/LoginForm';
-import CarouselComponent from 'views/auth/CarouselComponent';
 import LanguageSelect from 'components/common/LanguageSelect';
-import { green } from '@mui/material/colors';
 import backgroundLogin from '../../assets/backgroundLogin.svg';
 import loginImage from '../../assets/login-asset.svg';
 
