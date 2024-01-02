@@ -83,7 +83,7 @@ const CreateCourse: React.FC = () => {
   });
 
   const handleSubmit = async (values: any) => {
-    let user : any = localStorage.getItem('user');
+    let user: any = localStorage.getItem('user');
     user = JSON.parse(user);
 
     try {
@@ -104,7 +104,7 @@ const CreateCourse: React.FC = () => {
       });
       showSnackbar(response.data.message, 'success');
 
-      navigate(`/course/edit/${response.data.data.id}`, {state: { isScroll: true}});
+      navigate(`/course/edit/${response.data.data.id}`, { state: { isScroll: true } });
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
       console.error('Error submitting form:', error);
@@ -158,13 +158,20 @@ const CreateCourse: React.FC = () => {
                       <ButtonGroup sx={{ borderRadius: 0 }}>
                         <Button
                           sx={{
-                            width: 90,
                             borderRadius: 0,
+                            width: 120,
                             borderColor: 'transparent',
                             backgroundColor:
                               selectedStep === 1 ? 'primary.main' : 'white',
                             '&:hover': { borderColor: 'transparent' },
                           }}
+                          endIcon={selectedStep === 1 ? <SouthOutlinedIcon
+                            sx={{
+                              width: '14px',
+                              height: '20px',
+                              marginLeft: '8px',
+                            }}
+                          /> : null}
                           variant={
                             selectedStep === 1 ? 'contained' : 'outlined'
                           }
@@ -172,20 +179,11 @@ const CreateCourse: React.FC = () => {
                           onClick={() => setSelectedStep(1)}
                         >
                           বাংলা
-                          {selectedStep === 1 && (
-                            <SouthOutlinedIcon
-                              sx={{
-                                width: '14px',
-                                height: '20px',
-                                marginLeft: '8px',
-                              }}
-                            />
-                          )}{' '}
-                          {/* Conditionally render the icon */}
+
                         </Button>
                         <Button
                           sx={{
-                            width: 90,
+                            width: 120,
                             borderRadius: 0,
                             borderTopRightRadius: '8px',
                             borderColor: 'transparent',
@@ -193,6 +191,13 @@ const CreateCourse: React.FC = () => {
                               selectedStep === 2 ? 'primary.main' : 'white',
                             '&:hover': { borderColor: 'transparent' },
                           }}
+                          endIcon={selectedStep === 2 ? <SouthOutlinedIcon
+                            sx={{
+                              width: '14px',
+                              height: '20px',
+                              marginLeft: '8px',
+                            }}
+                          /> : null}
                           variant={
                             selectedStep === 2 ? 'contained' : 'outlined'
                           }
@@ -200,16 +205,7 @@ const CreateCourse: React.FC = () => {
                           onClick={() => setSelectedStep(2)}
                         >
                           English
-                          {selectedStep === 2 && (
-                            <SouthOutlinedIcon
-                              sx={{
-                                width: '14px',
-                                height: '20px',
-                                marginLeft: '8px',
-                              }}
-                            />
-                          )}{' '}
-                          {/* Conditionally render the icon */}
+
                         </Button>
                       </ButtonGroup>
                     }

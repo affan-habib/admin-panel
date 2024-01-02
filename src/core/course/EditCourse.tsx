@@ -41,7 +41,7 @@ const EditCourse: React.FC = () => {
     // ),
   });
   useEffect(() => {
-    if(state && state?.isScroll === true) {
+    if (state && state?.isScroll === true) {
       ref.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'end',
@@ -153,13 +153,20 @@ const EditCourse: React.FC = () => {
                       <ButtonGroup sx={{ borderRadius: 0 }}>
                         <Button
                           sx={{
-                            width: 90,
                             borderRadius: 0,
+                            width: 120,
                             borderColor: 'transparent',
                             backgroundColor:
                               selectedStep === 1 ? 'primary.main' : 'white',
                             '&:hover': { borderColor: 'transparent' },
                           }}
+                          endIcon={selectedStep === 1 ? <SouthOutlinedIcon
+                            sx={{
+                              width: '14px',
+                              height: '20px',
+                              marginLeft: '8px',
+                            }}
+                          /> : null}
                           variant={
                             selectedStep === 1 ? 'contained' : 'outlined'
                           }
@@ -167,20 +174,11 @@ const EditCourse: React.FC = () => {
                           onClick={() => setSelectedStep(1)}
                         >
                           বাংলা
-                          {selectedStep === 1 && (
-                            <SouthOutlinedIcon
-                              sx={{
-                                width: '14px',
-                                height: '20px',
-                                marginLeft: '8px',
-                              }}
-                            />
-                          )}{' '}
-                          {/* Conditionally render the icon */}
+
                         </Button>
                         <Button
                           sx={{
-                            width: 90,
+                            width: 120,
                             borderRadius: 0,
                             borderTopRightRadius: '8px',
                             borderColor: 'transparent',
@@ -188,6 +186,13 @@ const EditCourse: React.FC = () => {
                               selectedStep === 2 ? 'primary.main' : 'white',
                             '&:hover': { borderColor: 'transparent' },
                           }}
+                          endIcon={selectedStep === 2 ? <SouthOutlinedIcon
+                            sx={{
+                              width: '14px',
+                              height: '20px',
+                              marginLeft: '8px',
+                            }}
+                          /> : null}
                           variant={
                             selectedStep === 2 ? 'contained' : 'outlined'
                           }
@@ -195,16 +200,7 @@ const EditCourse: React.FC = () => {
                           onClick={() => setSelectedStep(2)}
                         >
                           English
-                          {selectedStep === 2 && (
-                            <SouthOutlinedIcon
-                              sx={{
-                                width: '14px',
-                                height: '20px',
-                                marginLeft: '8px',
-                              }}
-                            />
-                          )}{' '}
-                          {/* Conditionally render the icon */}
+
                         </Button>
                       </ButtonGroup>
                     }
