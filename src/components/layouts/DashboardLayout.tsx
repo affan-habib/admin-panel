@@ -104,14 +104,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       />
       <Box minHeight={'100vh'}>
         <Drawer variant="permanent" open={shouldSidebarBeOpen}>
-          <DrawerHeader sx={{ bgcolor: 'rgba(0, 106, 78, 1)' }}><img
-          src={logo}
-          alt=""
-          style={{
-            width: '164px', // Set maximum width relative to its container
-            height:'auto'
-            
-          }}/></DrawerHeader>
+          <DrawerHeader sx={{ bgcolor: 'rgba(0, 106, 78, 1)', cursor: 'pointer' }} onClick={() => navigate('/')}><img
+            src={logo}
+            alt=""
+            style={{
+              width: '164px', // Set maximum width relative to its container
+              height: 'auto'
+
+            }} /></DrawerHeader>
           <Divider />
           <Sidebar handleLogout={handleLogout} isSidebarOpen={shouldSidebarBeOpen} />
         </Drawer>
