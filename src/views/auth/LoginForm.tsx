@@ -9,6 +9,7 @@ import {
   Checkbox,
   InputAdornment,
   Box,
+  Grid,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import HttpsIcon from '@mui/icons-material/Https';
@@ -144,7 +145,7 @@ const LoginForm: React.FC = () => {
             style: { backgroundColor: 'white' }
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',  }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding:'0px 0px 0px 8px' }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -152,6 +153,7 @@ const LoginForm: React.FC = () => {
                 checked={formik.values.rememberMe}
                 onChange={formik.handleChange}
                 sx={{
+                  padding:'2px',
                   color: 'white',
                   '&.Mui-checked': {
                     color: 'white',
@@ -167,20 +169,19 @@ const LoginForm: React.FC = () => {
           />
           <Box><h6 style={{ fontSize: '12px', fontWeight: 400, color: 'rgba(205, 255, 126, 1)' }}>{t('forgotPassword')}</h6></Box>
         </div>
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}>
+        <Grid item
+                  xs={12}
+                  style={{ textAlign: 'center' }}
+                  alignItems="center"
+                  justifyContent="center"
+                  display="flex">
           <Button
             variant="contained"
             type="submit"
             disabled={loading}
             startIcon={loading ? <RefreshIcon /> : null}
             sx={{
-              alignItems:'center',
-              textAlign:'center',
               marginTop: '25px',
-              height: '40px',
               width: '200px',
               fontSize: '18px',
               fontWeight: 700,
@@ -194,7 +195,7 @@ const LoginForm: React.FC = () => {
           >
             {t('login')}
           </Button>
-        </Box>
+        </Grid>
       </form>
     </>
   );

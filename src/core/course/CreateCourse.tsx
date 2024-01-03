@@ -159,6 +159,7 @@ const CreateCourse: React.FC = () => {
                         <Button
                           sx={{
                             borderRadius: 0,
+                            height:'35px',
                             width: 120,
                             borderColor: 'transparent',
                             backgroundColor:
@@ -178,18 +179,20 @@ const CreateCourse: React.FC = () => {
                           color="primary"
                           onClick={() => setSelectedStep(1)}
                         >
-                          বাংলা
+                           <span style={{marginTop:"5px"}}>বাংলা</span>
 
                         </Button>
                         <Button
                           sx={{
                             width: 120,
+                            height:'35px',
                             borderRadius: 0,
                             borderTopRightRadius: '8px',
                             borderColor: 'transparent',
                             backgroundColor:
                               selectedStep === 2 ? 'primary.main' : 'white',
                             '&:hover': { borderColor: 'transparent' },
+                            textTransform: 'none',
                           }}
                           endIcon={selectedStep === 2 ? <SouthOutlinedIcon
                             sx={{
@@ -204,8 +207,7 @@ const CreateCourse: React.FC = () => {
                           color="primary"
                           onClick={() => setSelectedStep(2)}
                         >
-                          English
-
+                          <span style={{marginTop:"5px"}}>English</span>
                         </Button>
                       </ButtonGroup>
                     }
