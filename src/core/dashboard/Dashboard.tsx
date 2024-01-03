@@ -22,13 +22,16 @@ const Dashboard: React.FC = () => {
           color: 'error',
           fontSize: '20px',
           fontWeight: 600,
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom:'15px'
         }}
       >
 
         <HomeOutlined sx={{ marginTop: '8px', color: 'rgba(255, 74, 95, 1)' }} />
         <Typography
           color="primary"
-          sx={{ fontSize: '16px', fontWeight: 500 }}
+          sx={{ fontSize: '16px', fontWeight: 500, marginTop: '2.5px', }}
         >
           {t('adminPanel')}
         </Typography>

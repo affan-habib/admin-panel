@@ -85,6 +85,9 @@ const EditCourse: React.FC = () => {
         behavior: 'smooth',
         block: 'end',
       });
+      window.scrollTo(0, 720);
+      console.log("should down", ref.current?.scrollIntoView);
+      
       setIsNew(true);
     } catch (error: any) {
       showSnackbar(error.response.data.message, 'error');
@@ -160,6 +163,7 @@ const EditCourse: React.FC = () => {
                           sx={{
                             borderRadius: 0,
                             width: 120,
+                            height:'35px',
                             borderColor: 'transparent',
                             backgroundColor:
                               selectedStep === 1 ? 'primary.main' : 'white',
@@ -178,18 +182,20 @@ const EditCourse: React.FC = () => {
                           color="primary"
                           onClick={() => setSelectedStep(1)}
                         >
-                          বাংলা
+                          <span style={{marginTop:"5px"}}>বাংলা</span>
 
                         </Button>
                         <Button
                           sx={{
                             width: 120,
                             borderRadius: 0,
+                            height:'35px',
                             borderTopRightRadius: '8px',
                             borderColor: 'transparent',
                             backgroundColor:
                               selectedStep === 2 ? 'primary.main' : 'white',
                             '&:hover': { borderColor: 'transparent' },
+                            textTransform: 'none'
                           }}
                           endIcon={selectedStep === 2 ? <SouthOutlinedIcon
                             sx={{
@@ -204,7 +210,7 @@ const EditCourse: React.FC = () => {
                           color="primary"
                           onClick={() => setSelectedStep(2)}
                         >
-                          English
+                          <span style={{marginTop:"5px"}}>English</span>
 
                         </Button>
                       </ButtonGroup>
