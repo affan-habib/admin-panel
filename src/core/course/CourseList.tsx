@@ -72,7 +72,6 @@ const CourseList: React.FC = () => {
   };
 
   return (
-
     <Container maxWidth="xl">
       <Breadcrumbs
           aria-label="breadcrumb"
