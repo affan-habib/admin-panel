@@ -46,15 +46,16 @@ const LoginForm: React.FC = () => {
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
-  
+
       const response = await axios.post(`${apiBaseUrl}/login`, {
         username: values.username,
         password: values.password,
         rememberMe: values.rememberMe,
       });
-  
+
       const data = response.data.data;
       saveAuthData(data);
+      showSnackbar("Login Successful", 'success');
       dispatch(login(data.user));
       navigate('/');
     } catch (error: any) {
@@ -145,7 +146,7 @@ const LoginForm: React.FC = () => {
             style: { backgroundColor: 'white' }
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding:'0px 0px 0px 8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0px 0px 0px 8px' }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -153,7 +154,7 @@ const LoginForm: React.FC = () => {
                 checked={formik.values.rememberMe}
                 onChange={formik.handleChange}
                 sx={{
-                  padding:'2px',
+                  padding: '2px',
                   color: 'white',
                   '&.Mui-checked': {
                     color: 'white',
@@ -170,11 +171,11 @@ const LoginForm: React.FC = () => {
           <Box><h6 style={{ fontSize: '12px', fontWeight: 400, color: 'rgba(205, 255, 126, 1)' }}>{t('forgotPassword')}</h6></Box>
         </div>
         <Grid item
-                  xs={12}
-                  style={{ textAlign: 'center' }}
-                  alignItems="center"
-                  justifyContent="center"
-                  display="flex">
+          xs={12}
+          style={{ textAlign: 'center' }}
+          alignItems="center"
+          justifyContent="center"
+          display="flex">
           <Button
             variant="contained"
             type="submit"

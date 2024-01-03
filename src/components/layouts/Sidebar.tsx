@@ -82,10 +82,18 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
     }
   }, [location.pathname, menuItems]);
   const handleToggle = (path: string) => {
-    setMenuStates((prevStates) => ({
-      ...prevStates,
-      [path]: !prevStates[path],
-    }));
+    setMenuStates((prevStates) => {
+      const newState = { [path]: !prevStates[path] };
+
+      // Collapse all other menu items
+      for (const key in prevStates) {
+        if (key !== path) {
+          newState[key] = false;
+        }
+      }
+
+      return newState;
+    });
   };
 
   const handleMenuClick = (item: MenuItem) => {
@@ -118,6 +126,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
               handleMenuClick(item);
             }}
             sx={{
+              borderBottom: '1px solid #074116',
               backgroundColor:
                 selectedMenu === item.path ? 'primary.main' : 'primary.main',
               color: selectedMenu === item.path ? '#FFD700' : 'white',
@@ -134,8 +143,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                     isMenuHovered === item.path
                       ? 'primary.main'
                       : selectedMenu === item.path
-                      ? '#FFD700'
-                      : 'white',
+                        ? '#FFD700'
+                        : 'white',
                 }}
               >
                 {item.icon}
@@ -152,7 +161,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
 
           {item.subMenu && (
             <Collapse in={menuStates[item.path]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{bgcolor: '#074116'}}>
+              <List component="div" disablePadding sx={{ bgcolor: '#074116' }}>
                 {item.subMenu.map((subItem, subIndex) => (
                   <ListItem
                     component="div"
@@ -169,7 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                         backgroundColor: '#B6D7A8',
                         color: 'black',
                       },
-                      cursor: 'pointer'
+                      cursor: 'pointer',
                     }}
                   >
                     {subItem.icon && (
@@ -179,8 +188,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                             isMenuHovered === subItem.path
                               ? 'black'
                               : selectedSubMenu === subItem.path
-                              ? '#FFD700'
-                              : 'white',
+                                ? '#FFD700'
+                                : 'white',
                         }}
                       >
                         {subItem.icon}
@@ -196,9 +205,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
       ))}
       <ListItem
         disableRipple
-        divider
         button
-        sx={{ color: 'white' }}
+        sx={{ color: 'white', borderBottom: '1px solid #074116', }}
         onClick={handleLogout}
       >
         <ListItemIcon sx={{ color: 'white' }}>

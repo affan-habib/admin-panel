@@ -63,8 +63,8 @@ const ImageUploadIcon: React.FC<ImageUploadIconProps> = ({ name, label }) => {
                     cursor: 'pointer',
                 }}
             >
-                <IconButton style={{border:'1px solid rgba(208, 208, 208, 1)',borderRadius:'5px'}}>
-                    <FileUploadOutlinedIcon style={{fontSize:'20px'}} />
+                <IconButton style={{border:'1px solid rgba(208, 208, 208, 1)',borderRadius:'5px', backgroundColor: field.value ? 'rgba(0, 106, 78, 1)' : 'inherit'}}>
+                    <FileUploadOutlinedIcon style={{fontSize:'20px',color: field.value ? 'white' : 'inherit'}} />
                 </IconButton>
 
                 {/* {field.value && (
