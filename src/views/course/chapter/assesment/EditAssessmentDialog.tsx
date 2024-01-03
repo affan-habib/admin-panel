@@ -22,7 +22,7 @@ interface EditAssessmentDialogProps {
   open: boolean;
   initialData: any;
   onClose: () => void;
-  assessment:any
+  assessment: any
 }
 
 const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
@@ -93,7 +93,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
           enableReinitialize
         >
           <Form>
-            
+
             <Grid px={2}>
               <InputField
                 name="assessment_title_bn"
@@ -111,7 +111,7 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               />
             </Grid>
 
-            <Grid container spacing={2} sx={{ marginTop: '2px' }}  px={2}>
+            <Grid container spacing={2} sx={{ marginTop: '2px' }} px={2}>
               <Grid item xs={6} >
                 <InputField
                   type="number"
@@ -167,9 +167,13 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
               />
             </Stack>
 
-            <Box sx={{ display: 'flex', justifyContent: 'end'}} p={2}>
-              <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-                {t('submit')}
+            <Box sx={{ display: 'flex', justifyContent: 'end' }} p={2}>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ width: '120px', height: '40px', borderRadius: '8px', }}
+              >
+                <span style={{ marginTop: '5px' }}>{t('submit')}</span>
               </Button>
             </Box>
           </Form>

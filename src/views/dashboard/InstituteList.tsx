@@ -21,7 +21,7 @@ const InstituteList: React.FC = () => {
   ];
 
   return (
-    <Grid sx={{ backgroundColor: "rgba(227, 238, 235, 1)", padding: "20px", marginTop: "40px", borderRadius: "8px" }}>
+    <Grid sx={{ backgroundColor: "rgba(227, 238, 235, 1)", padding: "25px", marginTop: "40px", borderRadius: "8px" }}>
       <Typography sx={{ marginBottom: "8px", fontSize: "16px", fontWeight: "500", color: "rgba(21, 83, 19, 1)", mt: -1 }}>
         {t('summaryOfTraining')}
       </Typography>
