@@ -1,6 +1,6 @@
 export const createTypography = () => {
   const defaultFontFamily =
-  '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
+  '"Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
 const bengaliFontFamily = "'Noto Sans Bengali', sans-serif";
 
 // Get the language from local storage or use a default
