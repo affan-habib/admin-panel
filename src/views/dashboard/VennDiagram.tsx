@@ -9,25 +9,25 @@ const VennDiagram = () => {
   const theme = useTheme();
   return (
     <Grid
-      
+
       sx={{
         backgroundColor: 'rgba(237, 244, 242, 1)',
         borderRadius: '8px',
-       
+
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         padding: "20px",
-        height:300,
+        height: 300,
         marginTop: '10px', // Default margin for small screens
         [theme.breakpoints.up('md')]: {
           marginTop: '40px', // Apply for medium and large screens
         },
       }}
     >
-      <Grid sx={{paddingBottom:"8px"}}>
-        <Typography style={{ color: 'rgba(21, 83, 19, 1)',fontSize:'17px',fontWeight:'500'}}>{t('venDiagram')}</Typography>
+      <Grid sx={{ paddingBottom: "8px" }}>
+        <Typography style={{ color: 'rgba(21, 83, 19, 1)', fontSize: '17px', fontWeight: '500' }}>{t('venDiagram')}</Typography>
       </Grid>
       <Grid
         sx={{
@@ -42,8 +42,8 @@ const VennDiagram = () => {
           alt=""
           style={{
             maxWidth: '100%', // Set maximum width relative to its container
-            height:'auto'
-            
+            height: 'auto'
+
           }}
         />
       </Grid>
