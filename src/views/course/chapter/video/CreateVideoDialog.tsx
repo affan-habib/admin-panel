@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/system';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-
+import linkIcon from 'assets/linkImage.svg';
 
 interface CreateVideoDialogProps {
   open: boolean;
@@ -33,8 +33,6 @@ interface CreateVideoDialogProps {
   onClose: () => void;
   name: any
 }
-
-
 const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
   open,
   moduleId,
@@ -156,8 +154,9 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
                   sx={{
                     display: 'flex',
                     border: '1px solid rgba(208, 208, 208, 1)',
-                    borderRadius: '4px',
+                    borderRadius: '8px',
                     overflow: 'hidden',
+                    height:'48px'
                   }}
                 >
                   <input
@@ -165,7 +164,8 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
                       flex: 1,
                       padding: '14.5px',
                       border: 'none',
-                      borderLeft: 'none'
+                      borderLeft: 'none',
+                      outline: 'none',
                     }}
                     name='url_link'
                     placeholder={`${t('writeVideolink')} : https://meet.google.com/fxr-rekv-ntq`}
@@ -178,7 +178,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
                     }}
                   >
                     <Typography align="center" sx={{ color: 'rgba(100, 100, 100, 1)' }} p={0}>
-                      <AttachFileIcon />
+                      <img src={linkIcon} alt="" />
                     </Typography>
                   </Box>
                 </Box>
@@ -192,7 +192,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
               justifyContent="end"
               display="flex">
               <Button type="submit" variant="contained" sx={{ width: '120px',height:'40px',borderRadius:'8px', alignItems: 'center', textAlign: 'center' }}>
-                <span style={{marginTop:'5px'}}>{t('submit')} </span>
+                <span style={{}}>{t('submit')} </span>
               </Button>
             </Grid>
           </Form>

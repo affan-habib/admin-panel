@@ -104,6 +104,15 @@ const FooterContainer: React.FC<LoginFooterProps> = ({
               >
                 {t(card.title)}
               </Typography>
+              { card.title == 'learningManagementSystem' &&
+                <Typography align="center"
+                className="title"
+                sx={{
+                  color: 'rgba(34, 34, 34, 1)',
+                  fontWeight: 600,
+                  fontSize: '20px',
+                }}>({t('LMS')})</Typography>
+              }
             </CardContent>
           </Card>
         </Grid>

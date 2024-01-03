@@ -183,7 +183,7 @@ const EditCourse: React.FC = () => {
                           color="primary"
                           onClick={() => setSelectedStep(1)}
                         >
-                          <span style={{marginTop:"5px"}}>বাংলা</span>
+                          <span style={{}}>বাংলা</span>
 
                         </Button>
                         <Button
@@ -211,7 +211,7 @@ const EditCourse: React.FC = () => {
                           color="primary"
                           onClick={() => setSelectedStep(2)}
                         >
-                          <span style={{marginTop:"5px"}}>English</span>
+                          <span style={{}}>English</span>
 
                         </Button>
                       </ButtonGroup>
