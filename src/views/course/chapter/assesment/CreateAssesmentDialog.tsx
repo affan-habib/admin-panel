@@ -175,7 +175,10 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Stack>
 
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button type="submit" variant="contained" sx={{ mt: 1 }}>
+                {/* <Button type="submit" variant="contained" sx={{ mt: 1 }}>
+                  {t('submit')}
+                </Button> */}
+                <Button type="submit" variant="contained" sx={{ width: '120px', height: '40px', borderRadius: '8px' }}>
                   {t('submit')}
                 </Button>
               </Box>
