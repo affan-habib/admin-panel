@@ -26,7 +26,8 @@ const DyanamicForm: React.FC<any> = ({ modules, highlight = '' }) => {
             display: 'flex', // Set display to flex
             flexDirection: 'row', // Horizontal flex direction
             borderBottom: `${modules && modules.length > 0 ? '1px solid #D0D0D0' : ''}`,
-            mb: `${modules && modules.length > 0 ? 2 : 0}`,
+            // mb: `${modules && modules.length > 2 ? 2 : 2}`,
+            marginBottom:'16px'
           }}
         >
           <Typography
