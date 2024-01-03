@@ -55,7 +55,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   const [moduleId, setModuleId] = useState();
   const [assessmentName, setAssessmentName] = useState('');
 
-  const handleDialogOpen = (module_id: any,chapterName: string) => {
+  const handleDialogOpen = (module_id: any, chapterName: string) => {
     setModuleId(module_id);
     setDialogOpen(true);
     setAssessment(chapterName)
@@ -67,7 +67,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   }
 
   //video edit modal handlers
-  const handleEditDialogOpen = (video: any,chapterName:any) => {
+  const handleEditDialogOpen = (video: any, chapterName: any) => {
     setSelectedVideo(video);
     setEditDialogOpen(true);
     setAssessment(chapterName)
@@ -125,7 +125,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   };
   const [isEditAssignmentDialogOpen, setEditAssignmentDialogOpen] =
     useState(false);
-  const handleEditAssignmentDialogOpen = (assignment: any,chapterName : any) => {
+  const handleEditAssignmentDialogOpen = (assignment: any, chapterName: any) => {
     setselectedAssignment(assignment);
     setEditAssignmentDialogOpen(true);
     setAssessment(chapterName)
@@ -136,7 +136,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
   };
   const [isViewAssignmentDialogOpen, setViewAssignmentDialogOpen] =
     useState(false);
-  const handleViewAssignmentDialogOpen = (assignment: any,chapterName:any) => {
+  const handleViewAssignmentDialogOpen = (assignment: any, chapterName: any) => {
     setselectedAssignment(assignment);
     setViewAssignmentDialogOpen(true);
     setAssessment(chapterName)
@@ -150,7 +150,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
 
   //Assessment Dialog
   const [isAssesmentDialogOpen, setAssesmentDialogOpen] = useState(false);
- 
+
   const handleAssesmentDialogOpen = (module_id: any, module_name: any) => {
     setModuleId(module_id);
     setAssessmentName(module_name);
@@ -165,7 +165,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
     useState(false);
   const [isEditAssessmentDialogOpen, setEditAssessmentDialogOpen] =
     useState(false);
-  const handleViewAssessmentDialogOpen = (assessment: any,chapterName:any) => {
+  const handleViewAssessmentDialogOpen = (assessment: any, chapterName: any) => {
     setSelectedAssessment(assessment);
     setViewAssessmentDialogOpen(true);
     setAssessment(chapterName);
@@ -175,8 +175,8 @@ const Chapters: React.FC<any> = ({ modules }) => {
     setAssessment('')
   };
 
-  const [assessment,setAssessment] = useState('') //This state is passing the assessment names into different components.
-  const handleEditAssessmentDialogOpen = (assessment: any,chapterName : any) => {
+  const [assessment, setAssessment] = useState('') //This state is passing the assessment names into different components.
+  const handleEditAssessmentDialogOpen = (assessment: any, chapterName: any) => {
     setSelectedAssessment(assessment);
     setEditAssessmentDialogOpen(true);
     setAssessment(chapterName)
@@ -200,14 +200,14 @@ const Chapters: React.FC<any> = ({ modules }) => {
   return (
     <>
       {modules?.map((chapter: any) => (
+        <>
         <Accordion
           disableGutters
           key={chapter.module_id}
           sx={{
             border: '1px solid #D0D0D0',
-            borderRadius: '8px',
             marginBottom: '15px',
-            marginTop:'20px'
+            marginTop: '20px'
           }}
           expanded
         >
@@ -239,7 +239,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
             />
           </AccordionSummary>
           <>
-            <AccordionDetails sx={{padding:'0px'}} >
+            <AccordionDetails sx={{ padding: '0px' }} >
               {chapter.course_videos.length > 0 &&
                 chapter.course_videos.map((el: any) => (
                   <div
@@ -250,7 +250,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       borderBottom: '1px solid #D0D0D0',
                       paddingTop: '8px',
                       paddingBottom: '8px',
-                      paddingRight:'10px'
+                      paddingRight: '10px'
                     }}
                   >
                     <SmartDisplayOutlinedIcon
@@ -282,7 +282,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       color="primary"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleEditDialogOpen(el,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
+                        handleEditDialogOpen(el, language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                       }}
                     >
                       <BorderColorOutlinedIcon />
@@ -316,7 +316,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       borderBottom: '1px solid #D0D0D0',
                       paddingTop: '8px',
                       paddingBottom: '8px',
-                      paddingRight:'10px'
+                      paddingRight: '10px'
                     }}
                   >
                     {/* Assignment details */}
@@ -337,7 +337,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       size="small"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleViewAssignmentDialogOpen(assignment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
+                        handleViewAssignmentDialogOpen(assignment, language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                       }}
                     >
                       <RemoveRedEyeOutlinedIcon />
@@ -354,7 +354,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       color="primary"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleEditAssignmentDialogOpen(assignment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en)
+                        handleEditAssignmentDialogOpen(assignment, language === 'bn' ? chapter.module_name_bn : chapter.module_name_en)
                       }}
                     >
                       <BorderColorOutlinedIcon />
@@ -393,7 +393,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         alignItems: 'center',
                         paddingTop: '8px',
                         paddingBottom: '8px',
-                        paddingRight:'10px',
+                        paddingRight: '10px',
                       }}
                     >
                       <QuizOutlinedIcon
@@ -515,7 +515,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         size="small"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleViewAssessmentDialogOpen(assessment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
+                          handleViewAssessmentDialogOpen(assessment, language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                         }}
                       >
                         <RemoveRedEyeOutlinedIcon />
@@ -531,7 +531,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                         color="primary"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleEditAssessmentDialogOpen(assessment,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
+                          handleEditAssessmentDialogOpen(assessment, language === 'bn' ? chapter.module_name_bn : chapter.module_name_en);
                         }}
                       >
                         <BorderColorOutlinedIcon />
@@ -556,46 +556,55 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       </IconButton>
                     </div>
                     {selectedId === assessment.id && (
-                      <div
-                        key={assessment.id}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          paddingTop: '8px',
-                          paddingBottom: '8px',
-                          border: '1px dashed rgba(208, 208, 208, 1)',
-                          backgroundColor: 'rgba(250, 250, 250, 1)',
-                        }}
-                      >
-                        <AssesmentCreateButtons
-                          assessment={assessment}
-                          module={chapter}
-                        />
-                        <Box
-                          alignItems="start"
-                          px={1}
-                          sx={{ marginBottom: '20px' }}
+                      <div style={{padding:'17px 17px 17px 17px'}}>
+                        <div
+                          key={assessment.id}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            paddingTop: '8px',
+                            paddingBottom: '8px',
+                            border: '1px dashed rgba(208, 208, 208, 1)',
+                            backgroundColor: 'rgba(250, 250, 250, 1)',
+                          }}
                         >
-                          <ClearIcon
-                            color="error"
-                            style={{ cursor: 'pointer' }}
-                            onClick={toggleAssessmentSection}
+                          <AssesmentCreateButtons
+                            assessment={assessment}
+                            module={chapter}
                           />
-                        </Box>
+                          <Box
+                            alignItems="start"
+                            px={1}
+                            sx={{ marginBottom: '20px' }}
+                          >
+                            <ClearIcon
+                              color="error"
+                              style={{ cursor: 'pointer' }}
+                              onClick={toggleAssessmentSection}
+                            />
+                          </Box>
+                        </div>
                       </div>
+
                     )}
                   </>
                 ))}
 
               {/* Assesment section end  */}
 
-              {chapter.id === visibleAddTopicId && (
-                <Stack width="100%" alignItems="center">
+              
+            </AccordionDetails>
+          
+          </>
+        </Accordion>
+        {chapter.id === visibleAddTopicId && (
+                <div style={{}}>
+                  <Stack width="100%" alignItems="center"  sx={{border:'1px solid rgba(208, 208, 208, 1)', borderRadius:'4px' }}>
                   <Typography mt={2}>{t('selectTopic')}</Typography>
-                  <Stack direction="row" spacing={2} mt={2}>
+                  <Stack direction="row" spacing={2} mt={2} mb={2} >
                     <CustomButton
-                      onClick={() => handleDialogOpen(chapter.id,language === 'bn' ? chapter.module_name_bn : chapter.module_name_en)}
+                      onClick={() => handleDialogOpen(chapter.id, language === 'bn' ? chapter.module_name_bn : chapter.module_name_en)}
                       title={t('vdo')}
                       icon={<PlayCircleFilledIcon />}
                     />
@@ -613,7 +622,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       icon={<AssignmentIcon />}
                     />
                     <CustomButton
-                      onClick={() => {}}
+                      onClick={() => { }}
                       title={t('vdoWithQuiz')}
                       disabled={true}
                       icon={<AssignmentIcon />}
@@ -630,10 +639,10 @@ const Chapters: React.FC<any> = ({ modules }) => {
                     />
                   </Stack>
                 </Stack>
+                </div>
+                
               )}
-            </AccordionDetails>
-          </>
-        </Accordion>
+       </>
       ))}
 
       {/* Create Video Dialog */}
