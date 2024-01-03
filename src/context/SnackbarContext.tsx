@@ -45,11 +45,7 @@ export const SnackbarProvider: React.FC<SnackbarContextProps> = ({ children }) =
                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                     style={{ marginTop: '50px' }}
                 >
-                    <Alert
-                        elevation={6}
-                        variant="filled"
-                        severity={snackbarState.severity === 'success' ? 'info' : snackbarState.severity}
-                    >
+                    <Alert elevation={6} variant="filled" severity={snackbarState.severity}>
                         {snackbarState.message}
                     </Alert>
                 </Snackbar>
