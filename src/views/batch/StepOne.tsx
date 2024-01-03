@@ -6,8 +6,8 @@ const StepOne: React.FC = () => (
   <>
     <InputField
       name="batchName"
-      label="পাঠ্যক্রমের নাম"
-      placeholder="পাঠ্যক্রমের নাম লিখুন"
+      label="অধিবেশনের নাম"
+      placeholder="অধিবেশনের নাম লিখুন"
     />
     <InputField
       name="batchName"
