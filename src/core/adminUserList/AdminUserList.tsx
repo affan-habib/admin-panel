@@ -37,6 +37,7 @@ import { useDeleteModal } from 'context/DeleteModalContext';
 import Pagination from '@mui/material/Pagination';
 import { Search } from '@mui/icons-material';
 import useDebounce from 'hooks/useDebounce';
+import { toBanglaNumber } from 'utils/numberUtils';
 
 const AdminUserList: React.FC = () => {
   const { openModal } = useDeleteModal();
@@ -142,11 +143,13 @@ const AdminUserList: React.FC = () => {
         >
           <Stack direction="row" spacing={2}>
             <Stack direction="row" alignItems="center">
+              
               <span>
-                Showing{' '}
-                {pageSize > users?.data?.total ? users?.data?.total : pageSize}{' '}
-                out of {users?.data?.total}
+                {t('showing')}
+                {pageSize > users?.data?.total ? toBanglaNumber(users?.data?.total) : pageSize}{' '}
+                {t('outOf')} {toBanglaNumber(users?.data?.total)}
               </span>
+
               <FormControl sx={{ width: 80, ml: 2 }}>
                 <Select
                   size="small"

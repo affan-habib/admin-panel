@@ -33,6 +33,7 @@ import { useTranslation } from 'react-i18next';
 import { Add, SaveAlt, Search } from '@mui/icons-material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useSnackbar } from 'context/SnackbarContext';
+import { toBanglaNumber } from 'utils/numberUtils';
 
 const CourseList: React.FC = () => {
   const { showSnackbar } = useSnackbar()
@@ -121,11 +122,11 @@ const CourseList: React.FC = () => {
           <Stack direction="row" alignItems="center">
             {
               <span>
-                Showing{' '}
+                {t('showing')} {' '}
                 {pageSize > courses?.meta?.total
-                  ? courses?.meta?.total
+                  ?  toBanglaNumber(courses?.meta?.total)
                   : pageSize}{' '}
-                out of {courses?.meta?.total}
+                {t('outOf')} {toBanglaNumber(courses?.meta?.total)}
               </span>
             }
             <FormControl sx={{ width: 80, ml: 2 }}>
