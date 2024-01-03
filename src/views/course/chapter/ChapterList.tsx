@@ -205,10 +205,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
           key={chapter.module_id}
           sx={{
             border: '1px solid #D0D0D0',
-            borderRadius: '4px',
-            borderTopLeftRadius: '4px',
-            borderTopRightRadius: '4px',
+            borderRadius: '8px',
             marginBottom: '15px',
+            marginTop:'20px'
           }}
           expanded
         >
@@ -240,7 +239,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
             />
           </AccordionSummary>
           <>
-            <AccordionDetails sx={{}}>
+            <AccordionDetails sx={{padding:'0px'}} >
               {chapter.course_videos.length > 0 &&
                 chapter.course_videos.map((el: any) => (
                   <div
@@ -251,6 +250,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       borderBottom: '1px solid #D0D0D0',
                       paddingTop: '8px',
                       paddingBottom: '8px',
+                      paddingRight:'10px'
                     }}
                   >
                     <SmartDisplayOutlinedIcon
@@ -316,6 +316,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       borderBottom: '1px solid #D0D0D0',
                       paddingTop: '8px',
                       paddingBottom: '8px',
+                      paddingRight:'10px'
                     }}
                   >
                     {/* Assignment details */}
@@ -390,9 +391,9 @@ const Chapters: React.FC<any> = ({ modules }) => {
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        borderBottom: '1px solid #D0D0D0',
                         paddingTop: '8px',
                         paddingBottom: '8px',
+                        paddingRight:'10px',
                       }}
                     >
                       <QuizOutlinedIcon

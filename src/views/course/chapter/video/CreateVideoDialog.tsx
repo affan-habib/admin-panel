@@ -165,21 +165,19 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
                       flex: 1,
                       padding: '14.5px',
                       border: 'none',
-                      backgroundColor: 'rgba(245, 247, 248, 1)',
                       borderLeft: 'none'
                     }}
-                    name='url_link' placeholder={t('writeVideolink')}
-                    // label={t('videoLink')}
+                    name='url_link'
+                    placeholder={`${t('writeVideolink')} : https://meet.google.com/fxr-rekv-ntq`}
                   />
-                  <Box 
+                  <Box
                     sx={{
                       p: '10px',
                       borderRight: 'none',
-                      backgroundColor: 'rgba(0, 106, 78, 1)',
                       flexShrink: 0,
                     }}
                   >
-                    <Typography align="center" sx={{ color: 'white' }} p={0}>
+                    <Typography align="center" sx={{ color: 'rgba(100, 100, 100, 1)' }} p={0}>
                       <AttachFileIcon />
                     </Typography>
                   </Box>
@@ -187,11 +185,16 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
               </Grid>
             </FormControl>
             <RichTextInput label={t('videoTransacript')} name="transcript_en" />
-            <Box p={2} sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button type="submit" variant="contained" sx={{ width: '120px' }}>
-                {t('submit')}
+            <Grid  item
+              xs={12}
+              style={{ textAlign: 'center' }}
+              alignItems="center"
+              justifyContent="end"
+              display="flex">
+              <Button type="submit" variant="contained" sx={{ width: '120px',height:'40px',borderRadius:'8px', alignItems: 'center', textAlign: 'center' }}>
+                <span style={{marginTop:'5px'}}>{t('submit')} </span>
               </Button>
-            </Box>
+            </Grid>
           </Form>
         </Formik>
       </DialogContent>
