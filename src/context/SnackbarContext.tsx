@@ -25,7 +25,7 @@ export const SnackbarProvider: React.FC<SnackbarContextProps> = ({ children }) =
         severity: 'success',
     });
 
-    const showSnackbar =async (message: string, severity: 'success' | 'error') => {
+    const showSnackbar = async (message: string, severity: 'success' | 'error') => {
         await setSnackbarState({ open: true, message, severity });
     };
 
@@ -43,8 +43,13 @@ export const SnackbarProvider: React.FC<SnackbarContextProps> = ({ children }) =
                     autoHideDuration={6000}
                     onClose={closeSnackbar}
                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    style={{ marginTop: '50px' }}
                 >
-                    <Alert elevation={6} variant="filled" severity={snackbarState.severity}>
+                    <Alert
+                        elevation={6}
+                        variant="filled"
+                        severity={snackbarState.severity === 'success' ? 'info' : snackbarState.severity}
+                    >
                         {snackbarState.message}
                     </Alert>
                 </Snackbar>
