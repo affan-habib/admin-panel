@@ -192,7 +192,7 @@ const CreateVideoDialog: React.FC<CreateVideoDialogProps> = ({
               justifyContent="end"
               display="flex">
               <Button type="submit" variant="contained" sx={{ width: '120px',height:'40px',borderRadius:'8px', alignItems: 'center', textAlign: 'center' }}>
-                <span style={{marginTop:'5px'}}>{t('submit')} </span>
+                <span style={{}}>{t('submit')} </span>
               </Button>
             </Grid>
           </Form>
