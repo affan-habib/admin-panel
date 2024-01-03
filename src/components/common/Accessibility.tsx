@@ -77,17 +77,22 @@ const Accessibility: React.FC<AccessibilityProps> = ({
         aria-label="add"
         size='small'
         sx={{
-          background: '#6B6A6A',
+          background: '#222222',
           position: 'fixed',
           color: 'white',
           bottom: '60%',
           right: '0px',
           zIndex: '1000',
-          borderRadius: 4,
+          border: '2px solid #B3E0DD',
+          borderRadius: 0,
+          borderTopLeftRadius: 10,
+          borderBottomLeftRadius: 10,
           '&:hover': {
             background: 'black',
             color: 'white',
           },
+          width: 48,
+          height: 48
         }}
       >
         <AccessibilityIcon />
