@@ -160,6 +160,7 @@ const CreateCourse: React.FC = () => {
                 <Grid item md={8} sm={12}>
                   <MainCard
                     title={t('createCourse')}
+                    titleRightIcon={true}
                     rightButton={
                       <ButtonGroup sx={{ borderRadius: 0 }}>
                         <Button
