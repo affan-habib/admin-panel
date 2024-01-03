@@ -105,6 +105,7 @@ const AssesmentCreateButtons: React.FC<any> = ({ module, assessment }) => {
             direction="row"
             justifyContent="space-between"
             style={{ color: '#006A4E' }}
+            alignItems='center'
           >
             {selectedId === 1 && `${t('addBlendedQuestion')} (${moduleName})`}
             {selectedId === 2 && `${t('addMcqWithPicture')} (${moduleName})`}
