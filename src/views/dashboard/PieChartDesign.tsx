@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import Chart, { ChartConfiguration, ChartType } from 'chart.js/auto';
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import line from 'assets/line.svg';
 
 const PieChartDesign: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
@@ -32,6 +33,19 @@ const PieChartDesign: React.FC = () => {
       const config: ChartConfiguration<ChartType> = {
         type: 'pie',
         data: data,
+        options: {
+          plugins: {
+            legend: {
+              position: 'right',
+              align: 'center',
+              labels: {
+                boxWidth: 22,
+                boxHeight: 8,
+                padding: 45
+              },
+            },
+          }
+        },
       };
 
       const myChart = new Chart(chartRef.current, config);
@@ -70,9 +84,25 @@ const PieChartDesign: React.FC = () => {
           height: '90%',
           borderRadius: '8px',
           border: '1px solid rgba(250, 250, 250, 1)',
+          // position: 'relative',
         }}
       >
+        <Box sx={{position:'relative'}}>
         <canvas ref={chartRef} style={{ borderRadius: '8px' }} />
+        <Box sx={{
+            position: 'absolute', 
+            zIndex: 2,
+            height: 'auto', 
+            top: '50%', 
+            transform: 'translateY(-50%)', 
+            left: '64%',
+          }}>
+        <img
+          src={line}
+          alt="Your Line Image"
+        />
+        </Box>
+        </Box>
       </Box>
     </Box>
   );
