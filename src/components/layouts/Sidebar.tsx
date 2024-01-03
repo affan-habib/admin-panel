@@ -82,10 +82,18 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
     }
   }, [location.pathname, menuItems]);
   const handleToggle = (path: string) => {
-    setMenuStates((prevStates) => ({
-      ...prevStates,
-      [path]: !prevStates[path],
-    }));
+    setMenuStates((prevStates) => {
+      const newState = { [path]: !prevStates[path] };
+
+      // Collapse all other menu items
+      for (const key in prevStates) {
+        if (key !== path) {
+          newState[key] = false;
+        }
+      }
+
+      return newState;
+    });
   };
 
   const handleMenuClick = (item: MenuItem) => {
