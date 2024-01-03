@@ -29,8 +29,10 @@ import useDebounce from 'hooks/useDebounce';
 import useCourses from 'hooks/useCourses';
 import { useTranslation } from 'react-i18next';
 import { Add, SaveAlt, Search } from '@mui/icons-material';
+import { useSnackbar } from 'context/SnackbarContext';
 
 const CourseList: React.FC = () => {
+  const { showSnackbar } = useSnackbar()
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
@@ -59,14 +61,19 @@ const CourseList: React.FC = () => {
       const response = await fetch(apiUrl, { method: 'DELETE' });
 
       if (response.ok) {
+        const responseData = await response.json();
+        showSnackbar(responseData.message, 'success');
         queryClient.invalidateQueries('courses');
       } else {
         // Handle error
+        const errorData = await response.json();
+        console.error('Error:', errorData);
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
 
   return (
     <Container maxWidth="xl">
@@ -151,12 +158,12 @@ const CourseList: React.FC = () => {
             <Table>
               <TableHead>
                 <TableRow sx={{ background: '#B3E0DD !important' }}>
-                  <TableCell variant='head' align='center' size='medium' sx={{fontWeight: 800}}>#</TableCell>
-                  <TableCell variant='head' align='center' size='medium' sx={{fontWeight: 800}}>
+                  <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>#</TableCell>
+                  <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>
                     {t('nameAndCode')}
-                    </TableCell>
-                  <TableCell variant='head' align='center' sx={{fontWeight: 800}}>{t('numberOfModule')}</TableCell>
-                  <TableCell variant='head' align='center' sx={{fontWeight: 800}}>{t('action')}</TableCell>
+                  </TableCell>
+                  <TableCell variant='head' align='center' sx={{ fontWeight: 800 }}>{t('numberOfModule')}</TableCell>
+                  <TableCell variant='head' align='center' sx={{ fontWeight: 800 }}>{t('action')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
