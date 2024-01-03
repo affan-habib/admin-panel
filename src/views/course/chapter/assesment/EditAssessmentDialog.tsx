@@ -89,94 +89,104 @@ const EditAssessmentDialog: React.FC<EditAssessmentDialogProps> = ({
       <DialogContent sx={{ width: 600, padding: '0px' }}>
         <Formik
           initialValues={initialData}
+          validate={(values) => {
+            const errors: Partial<typeof values> = {};
+            if (!/^\d+(\.\d+)?$/.test(values.negative_mark)) {
+              errors.negative_mark = 'Please enter a valid number';
+            }
+            return errors;
+          }}
           onSubmit={handleSubmit}
           enableReinitialize
         >
-          <Form>
-
-            <Grid px={2}>
-              <InputField
-                name="assessment_title_bn"
-                label={t('assesmentName')}
-                placeholder={t('assesmentNo')}
-              />
-            </Grid>
-
-            <Grid px={2}>
-              <InputField
-                name="assessment_title_en"
-                // label={t('assesmentName')}
-                label="Assessment Name (English)"
-                placeholder={t('assesmentNo')}
-              />
-            </Grid>
-
-            <Grid container spacing={2} sx={{ marginTop: '2px' }} px={2}>
-              <Grid item xs={6} >
+          {({ values,handleChange }) => (
+            <Form>
+              <Grid px={2}>
                 <InputField
-                  type="number"
-                  name="total_mark"
-                  label={t('markInput')}
-                  placeholder={t('placeHolderNumber')}
+                  name="assessment_title_bn"
+                  label={t('assesmentName')}
+                  placeholder={t('assesmentNo')}
                 />
               </Grid>
-              <Grid item xs={6}>
+
+              <Grid px={2}>
                 <InputField
-                  type="number"
-                  name="pass_mark"
-                  label={t('passmarkInput')}
-                  placeholder={t('placeHolderNumber')}
+                  name="assessment_title_en"
+                  // label={t('assesmentName')}
+                  label="Assessment Name (English)"
+                  placeholder={t('assesmentNo')}
                 />
               </Grid>
-            </Grid>
 
-            <Grid
-              container
-              spacing={2}
-              marginBottom={1}
-              sx={{ marginTop: '2px' }}
-              px={2}
-            >
-              <Grid item xs={6}>
-                <InputField
-                  type="number"
-                  name="negative_mark"
-                  label={t('negativeMarkInput')}
-                  placeholder={t('placeHolderNumber')}
-                />
+              <Grid container spacing={2} sx={{ marginTop: '2px' }} px={2}>
+                <Grid item xs={6} >
+                  <InputField
+                    type="number"
+                    name="total_mark"
+                    label={t('markInput')}
+                    placeholder={t('placeHolderNumber')}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <InputField
+                    type="number"
+                    name="pass_mark"
+                    label={t('passmarkInput')}
+                    placeholder={t('placeHolderNumber')}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <InputField
-                  type="number"
-                  name="total_time"
-                  label={t('enterTime')}
-                  placeholder={t('placeHolderNumber')}
-                />
-              </Grid>
-            </Grid>
 
-            <Stack
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Box
-                borderBottom="1px solid rgba(208, 208, 208, 1)"
-                width="100%"
-                sx={{ my: 2 }}
-              />
-            </Stack>
-
-            <Box sx={{ display: 'flex', justifyContent: 'end' }} p={2}>
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{ width: '120px', height: '40px', borderRadius: '8px', }}
+              <Grid
+                container
+                spacing={2}
+                marginBottom={1}
+                sx={{ marginTop: '2px' }}
+                px={2}
               >
-                <span style={{ marginTop: '5px' }}>{t('submit')}</span>
-              </Button>
-            </Box>
-          </Form>
+                <Grid item xs={6}>
+                  <InputField
+                    type="text"
+                    name="negative_mark"
+                    label={t('negativeMarkInput')}
+                    placeholder={t('placeHolderNumber')}
+                    onChange={handleChange}
+                    value={values.negative_mark}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <InputField
+                    type="number"
+                    name="total_time"
+                    label={t('enterTime')}
+                    placeholder={t('placeHolderNumber')}
+                  />
+                </Grid>
+              </Grid>
+
+              <Stack
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Box
+                  borderBottom="1px solid rgba(208, 208, 208, 1)"
+                  width="100%"
+                  sx={{ my: 2 }}
+                />
+              </Stack>
+
+              <Box sx={{ display: 'flex', justifyContent: 'end' }} p={2}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ width: '120px', height: '40px', borderRadius: '8px', }}
+                >
+                  <span>{t('submit')}</span>
+                </Button>
+              </Box>
+            </Form>
+          )}
         </Formik>
       </DialogContent>
     </Dialog>
