@@ -96,16 +96,16 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
             negative_mark: '',
             total_time: '',
           }}
-          // validate={(values) => {
-          //   const errors: Partial<typeof values> = {};
-          //   if (values.pass_mark > values.total_mark) {
-          //     errors.pass_mark = 'Pass mark cannot be greater than total mark';
-          //   }
-          //   return errors;
-          // }}
+          validate={(values) => {
+            const errors: Partial<typeof values> = {};
+            if (!/^\d+(\.\d+)?$/.test(values.negative_mark)) {
+              errors.negative_mark = 'Please enter a valid number';
+            }
+            return errors;
+          }}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched, handleChange }) => (
+          {({ errors, touched, handleChange, values }) => (
             <Form>
               <InputField
                 name="assessment_title_bn"
@@ -114,7 +114,6 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               />
               <InputField
                 name="assessment_title_en"
-                // label={t('assesmentName')}
                 label='Assessment Name (English)'
                 placeholder={t('assesmentNo')}
               />
@@ -146,11 +145,12 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               >
                 <Grid item xs={6}>
                   <InputField
-                    type="number"
+                    type="text"
                     name="negative_mark"
                     label={t('negativeMarkInput')}
                     placeholder={t('placeHolderNumber')}
-                    step="any"
+                    onChange={handleChange}
+                    value={values.negative_mark}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -162,7 +162,6 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
                   />
                 </Grid>
               </Grid>
-
               <Stack
                 direction="column"
                 alignItems="center"
@@ -176,12 +175,8 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Stack>
 
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ width: '120px', height: '40px', borderRadius: '8px', }}
-                >
-                  <span style={{ marginTop: '5px' }}>{t('submit')}</span>
+                <Button type="submit" variant="contained" sx={{ mt: 1 }}>
+                  {t('submit')}
                 </Button>
               </Box>
             </Form>
