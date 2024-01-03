@@ -41,7 +41,7 @@ const PieChartDesign: React.FC = () => {
               labels: {
                 boxWidth: 22,
                 boxHeight: 8,
-                padding: 45
+                padding: 65
               },
             },
           }
@@ -95,7 +95,7 @@ const PieChartDesign: React.FC = () => {
             height: 'auto', 
             top: '50%', 
             transform: 'translateY(-50%)', 
-            left: '64%',
+            left: '60%',
           }}>
         <img
           src={line}
