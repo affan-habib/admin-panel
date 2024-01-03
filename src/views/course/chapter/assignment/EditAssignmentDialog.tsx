@@ -253,7 +253,7 @@ const EditAssignmentDialog: React.FC<EditAssignmentProps> = ({
                   variant="contained"
                   sx={{ width: '120px',height:'40px',borderRadius:'8px', }}
                 >
-                   <span style={{marginTop:'5px'}}>{t('submit')}</span>
+                   <span style={{}}>{t('submit')}</span>
                 </Button>
               </Box>
             </Form>

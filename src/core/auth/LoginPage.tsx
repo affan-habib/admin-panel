@@ -15,12 +15,15 @@ import LoginForm from 'views/auth/LoginForm';
 import LanguageSelect from 'components/common/LanguageSelect';
 import backgroundLogin from '../../assets/backgroundLogin.svg';
 import loginImage from '../../assets/login-asset.svg';
-
+import image2 from '../../assets/eLibrary.svg';
+import image3 from '../../assets/teachersGuide.svg';
 const LoginPage: React.FC = () => {
   const { t } = useTranslation();
   const [loginPageTitle, setLoginPageTitle] = useState(
     'learningManagementSystem',
   );
+
+  console.log(loginPageTitle);
 
   const handleCardClick = (value: string) => {
     setLoginPageTitle(value);
@@ -63,8 +66,12 @@ const LoginPage: React.FC = () => {
             <LanguageSelect />
           </Box>
           <Grid item xs={12} display="flex" direction="column" px={5} mt={20}>
-            <Box display="flex" justifyContent="center" mb={5}>
-              <img src={loginImage} alt="ss" style={{ width: '153px', height: '119px' }} />
+            <Box display="flex" justifyContent="center" mb={3}>
+              {loginPageTitle  == 'learningManagementSystem' && <img src={image3} alt="ss" style={{ width: '153px', height: '119px' }} />}
+              {loginPageTitle  == 'eLibrary' && <img src={image2} alt="ss" style={{ width: '153px', height: '119px' }} />}
+              {loginPageTitle  == 'teachersGuide' && <img src={image3} alt="ss" style={{ width: '153px', height: '119px' }} />}
+              {loginPageTitle  == 'formativeAssessmentSystem' && <img src={image2} alt="ss" style={{ width: '153px', height: '119px' }} />}
+              {loginPageTitle  == 'socialLearningPlatform' && <img src={image3} alt="ss" style={{ width: '153px', height: '119px' }} />}
             </Box>
             <Box style={{ padding: 20, minHeight: 330, }} px={30}>
               <Typography variant="h6" color="white" mb={2}>
