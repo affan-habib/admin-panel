@@ -136,6 +136,12 @@ const CreateCourse: React.FC = () => {
             color="primary"
             sx={{ fontSize: '16px', fontWeight: 500 }}
           >
+            {t('curriculum')}
+          </Typography>
+          <Typography
+            color="primary"
+            sx={{ fontSize: '16px', fontWeight: 500 }}
+          >
             {t('createCourse')}
           </Typography>
         </Breadcrumbs>
