@@ -116,7 +116,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           <Sidebar handleLogout={handleLogout} isSidebarOpen={shouldSidebarBeOpen} />
         </Drawer>
       </Box>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, overflow: 'hidden', p: 2 }}>
         <DrawerHeader />
         <Outlet />
       </Box>
