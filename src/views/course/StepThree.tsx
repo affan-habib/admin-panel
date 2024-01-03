@@ -11,7 +11,7 @@ import CroppedImgInput from 'components/form/CroppedImgInput';
 const Step3: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <MainCard title={t('addCourseSettings')}>
+    <MainCard title={t('addCourseSettings')}   titleRightIcon={true}>
       <Grid container spacing={2}>
         <Grid item md={6} sm={12} xs={12}>
           <InputField
