@@ -16,8 +16,10 @@ import {
   MenuItem,
   FormControl,
   Button,
+  Breadcrumbs,
+  Link
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import Pagination from '@mui/material/Pagination';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -29,6 +31,7 @@ import useDebounce from 'hooks/useDebounce';
 import useCourses from 'hooks/useCourses';
 import { useTranslation } from 'react-i18next';
 import { Add, SaveAlt, Search } from '@mui/icons-material';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 const CourseList: React.FC = () => {
   const [pageSize, setPageSize] = useState(10);
@@ -69,9 +72,37 @@ const CourseList: React.FC = () => {
   };
 
   return (
+
     <Container maxWidth="xl">
+      <Breadcrumbs
+          aria-label="breadcrumb"
+          separator="››"
+          sx={{
+            color: 'rgba(28, 27, 31, 1)',
+            fontSize: '20px',
+            fontWeight: 600,
+            marginBottom:'15px'
+          }}
+        >
+          <Link
+            href="/"
+            sx={{
+              color: 'rgba(255, 74, 95, 1)',
+              fontSize: '16px',
+              fontWeight: 500,
+            }}
+          >
+            <HomeOutlinedIcon sx={{ marginTop: '8px' }} />
+          </Link>
+          <Typography
+            color="primary"
+            sx={{ fontSize: '16px', fontWeight: 500 }}
+          >
+            {t('courseList')}
+          </Typography>
+        </Breadcrumbs>
       <Typography variant="h6" color="primary.main" mb={2}>
-        {t('curriculumList')}
+        {t('courseList')}
       </Typography>
       <Stack
         direction="row"
