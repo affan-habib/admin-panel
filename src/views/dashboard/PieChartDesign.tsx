@@ -32,6 +32,19 @@ const PieChartDesign: React.FC = () => {
       const config: ChartConfiguration<ChartType> = {
         type: 'pie',
         data: data,
+        options: {
+          plugins: {
+            legend: {
+              position: 'right', 
+              align: 'center', 
+              labels: {
+                boxWidth: 22, 
+                boxHeight:8,
+                padding: 20, 
+              },
+            },
+          },
+        },
       };
 
       const myChart = new Chart(chartRef.current, config);
