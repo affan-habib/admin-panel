@@ -150,7 +150,7 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
                     name="negative_mark"
                     label={t('negativeMarkInput')}
                     placeholder={t('placeHolderNumber')}
-                    step="any" 
+                    step="any"
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -176,8 +176,12 @@ const CreateAssesmentDialog: React.FC<CreateAssesmentDialogProps> = ({
               </Stack>
 
               <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button type="submit" variant="contained" sx={{ mt: 1 }}>
-                  {t('submit')}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ width: '120px', height: '40px', borderRadius: '8px', }}
+                >
+                  <span style={{ marginTop: '5px' }}>{t('submit')}</span>
                 </Button>
               </Box>
             </Form>
