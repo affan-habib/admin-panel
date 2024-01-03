@@ -100,5 +100,7 @@
   "assignmentView": "View the assignment",
   "instruction": "Instruction",
   "editAssesment": "Edit Assessment",
-  "question": "Question"
+  "question": "Question",
+  "showing": "Showing ",
+  "outOf": "out of "
 }

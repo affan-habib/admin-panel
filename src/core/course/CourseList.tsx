@@ -121,11 +121,11 @@ const CourseList: React.FC = () => {
           <Stack direction="row" alignItems="center">
             {
               <span>
-                Showing{' '}
+                {t('showing')} {' '}
                 {pageSize > courses?.meta?.total
                   ? courses?.meta?.total
                   : pageSize}{' '}
-                out of {courses?.meta?.total}
+                {t('outOf')} {courses?.meta?.total}
               </span>
             }
             <FormControl sx={{ width: 80, ml: 2 }}>
