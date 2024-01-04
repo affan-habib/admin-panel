@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Box, Paper, Stack, List, Typography, Fab } from '@mui/material';
 import { styled } from '@mui/system';
-import AccessibilityIcon  from '@mui/icons-material/Accessibility';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import {
   TextIncrease,
   TextFormat,
@@ -134,8 +134,9 @@ const Accessibility: React.FC = () => {
             color: 'white',
             border: '2px solid #B3E0DD',
             borderRadius: 0,
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
+            borderRight: 0,
+            borderTopLeftRadius: 8,
+            borderBottomLeftRadius: 8,
             '&:hover': {
               background: 'black',
               color: 'white',
