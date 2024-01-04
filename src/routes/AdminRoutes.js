@@ -21,6 +21,7 @@ const CollegeList = Loadable(lazy(()=> import('core/college/CollegeList')));
 const TraineeList = Loadable(lazy(()=> import('core/trainee/TraineeList')));
 const TrainerList = Loadable(lazy(()=> import('core/trainer/TrainerList')));
 const EditCollege = Loadable(lazy(()=> import('core/college/EditCollege')));
+const CreateCollege = Loadable(lazy(()=> import('core/college/CreateCollege')));
 
 
 const AdminRoutes = {
@@ -79,16 +80,20 @@ const AdminRoutes = {
       path:'circular'
     },
     {
-      path:'trainerList',
+      path:'trainer-list',
       element:<TrainerList/>
     },
     {
-      path:'traineeList',
+      path:'trainee-list',
       element:<TraineeList/>
     },
     {
-      path:'collegeList',
+      path:'college-list',
       element:<CollegeList/>
+    },
+    {
+      path:'create-college',
+      element:<CreateCollege/>
     },
     { 
       path: 'college/edit/:id',
