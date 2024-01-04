@@ -28,10 +28,9 @@ const Dashboard: React.FC = () => {
         }}
       >
 
-        <HomeOutlined sx={{ marginTop: '8px', color: 'rgba(255, 74, 95, 1)' }} />
+        <HomeOutlined sx={{ marginTop: '8px', color: 'rgba(0, 106, 78, 1)' }} />
         <Typography
-          color="primary"
-          sx={{ fontSize: '16px', fontWeight: 500, marginTop: '2.5px', }}
+          sx={{ fontSize: '16px', fontWeight: 500, marginTop: '1px', color:'rgba(255, 74, 95, 1)' }}
         >
           {t('adminPanel')}
         </Typography>

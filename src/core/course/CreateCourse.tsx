@@ -122,10 +122,11 @@ const CreateCourse: React.FC = () => {
             fontWeight: 600,
           }}
         >
-          <Link
+          <Link 
+            color="primary"
             href="/"
             sx={{
-              color: 'rgba(255, 74, 95, 1)',
+              
               fontSize: '16px',
               fontWeight: 500,
             }}
@@ -139,8 +140,7 @@ const CreateCourse: React.FC = () => {
             {t('curriculum')}
           </Typography>
           <Typography
-            color="primary"
-            sx={{ fontSize: '16px', fontWeight: 500 }}
+            sx={{ fontSize: '16px', fontWeight: 500,color: 'rgba(255, 74, 95, 1)' }}
           >
             {t('createCourse')}
           </Typography>
