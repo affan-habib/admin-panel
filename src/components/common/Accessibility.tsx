@@ -19,37 +19,40 @@ import {
 } from '@mui/icons-material';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 
-
 interface ButtonItem {
   key: string;
   text: string;
   icon: React.ReactNode;
+  action?: () => void;
 }
 
 const buttons: ButtonItem[] = [
   { key: 'increaseText', text: 'Increase Text', icon: <TextIncrease sx={{ color: 'white' }} /> },
   { key: 'formatText', text: 'Format Text', icon: <TextFormat sx={{ color: 'white' }} /> },
   { key: 'decreaseText', text: 'Decrease Text', icon: <TextDecrease sx={{ color: 'white' }} /> },
-  { key: 'monochrome', text: 'monochrome', icon: <MonochromePhotos sx={{ color: 'white' }} /> },
+  { key: 'monochrome', text: 'Monochrome', icon: <MonochromePhotos sx={{ color: 'white' }} /> },
   { key: 'big-cursor', text: 'Big Cursor', icon: <ArrowOutward sx={{ color: 'white' }} /> },
   { key: 'invert-color', text: 'Invert Color', icon: <InvertColors sx={{ color: 'white' }} /> },
-  { key: 'highlight-link', text: 'Heightlight Links', icon: <InsertLink sx={{ color: 'white' }} /> },
+  { key: 'highlight-link', text: 'Highlight Links', icon: <InsertLink sx={{ color: 'white' }} /> },
   { key: 'Show-Headings', text: 'Show Headings', icon: <h3 style={{ color: "white" }}>H</h3> },
   { key: 'reset', text: 'Reset', icon: <Restore sx={{ color: 'white' }} /> },
-  // Add more buttons as needed
 ];
 
 const Accessibility: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const selectedButton = localStorage.getItem('selectedButton')
+  const selectedButton = localStorage.getItem('selectedButton');
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleListItemClick = (buttonName: string) => {
-    localStorage.setItem("selectedButton", buttonName)
+  const handleListItemClick = (buttonName: string, action?: () => void) => {
+    localStorage.setItem("selectedButton", buttonName);
     setAnchorEl(null);
+
+    if (action) {
+      action();
+    }
   };
 
   const handlePopoverClose = () => {
@@ -57,7 +60,8 @@ const Accessibility: React.FC = () => {
   };
 
   const open = Boolean(anchorEl);
-  const applyFilter = (filterType: any) => {
+
+  const applyFilter = (filterType: string) => {
     switch (filterType) {
       case 'invert-color':
         document.documentElement.style.filter = 'invert(100%)';
@@ -73,36 +77,34 @@ const Accessibility: React.FC = () => {
   const highlightLinks = () => {
     const links = document.querySelectorAll('a');
     links.forEach((link) => {
-      (link as HTMLElement).style.color = 'tomato'; // Assert type to HTMLElement
+      (link as HTMLElement).style.color = 'tomato';
     });
   };
 
   const showHeadings = () => {
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     headings.forEach((heading) => {
-      const hElement = heading as HTMLElement; // Assert type to HTMLElement
+      const hElement = heading as HTMLElement;
       hElement.style.backgroundColor = 'red';
       hElement.style.color = 'white';
     });
   };
 
-  useEffect(() => {
-    switch (selectedButton) {
-      case 'invert-color':
-      case 'monochrome':
-        applyFilter(selectedButton);
-        break;
-      case 'highlight-link':
-        highlightLinks();
-        break;
-      case 'Show-Headings':
-        showHeadings();
-        break;
-      default:
-        document.documentElement.style.filter = 'none';
-    }
-  }, [selectedButton]);
+  const actions: { [key: string]: () => void } = {
+    'invert-color': () => applyFilter('invert-color'),
+    'monochrome': () => applyFilter('monochrome'),
+    'highlight-link': highlightLinks,
+    'Show-Headings': showHeadings,
+  };
 
+  useEffect(() => {
+    const selectedAction = actions[selectedButton || ''];
+    if (selectedAction) {
+      selectedAction();
+    } else {
+      document.documentElement.style.filter = 'none';
+    }
+  }, [selectedButton, actions]);
 
   return (
     <div>
@@ -157,7 +159,7 @@ const Accessibility: React.FC = () => {
         >
           <Stack direction="row" ml={1} spacing={1} m={1}>
             {buttons.slice(0, 3).map((button) => (
-              <Box key={button.key} p={1} className="customIcon" onClick={() => handleListItemClick(button.key)}>
+              <Box key={button.key} p={1} className="customIcon" onClick={() => handleListItemClick(button.key, button.action)}>
                 {button.icon}
               </Box>
             ))}
@@ -177,7 +179,7 @@ const Accessibility: React.FC = () => {
                   ml: 1,
                   mb: 1
                 }}
-                onClick={() => handleListItemClick(button.key)}
+                onClick={() => handleListItemClick(button.key, button.action)}
               >
                 <Box className="customIcon">{button.icon}</Box>
                 <Typography fontWeight={600} ml={2}>
