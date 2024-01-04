@@ -106,5 +106,8 @@
   "createCircular":"Create Circular",
   "traineeList":"Trainee List",
   "collegeList":"College List",
-  "profileInfo":"Profile Info"
+  "profileInfo":"Profile Info",
+  "addCollege":"Add College",
+  "collegeName":"College Name",
+  "collegeNumber":"Number of College"
 }
