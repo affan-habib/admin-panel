@@ -57,27 +57,52 @@ const Accessibility: React.FC = () => {
   };
 
   const open = Boolean(anchorEl);
+  const applyFilter = (filterType: any) => {
+    switch (filterType) {
+      case 'invert-color':
+        document.documentElement.style.filter = 'invert(100%)';
+        break;
+      case 'monochrome':
+        document.documentElement.style.filter = 'grayscale(100%)';
+        break;
+      default:
+        document.documentElement.style.filter = 'none';
+    }
+  };
+
+  const highlightLinks = () => {
+    const links = document.querySelectorAll('a');
+    links.forEach((link) => {
+      (link as HTMLElement).style.color = 'tomato'; // Assert type to HTMLElement
+    });
+  };
+
+  const showHeadings = () => {
+    const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach((heading) => {
+      const hElement = heading as HTMLElement; // Assert type to HTMLElement
+      hElement.style.backgroundColor = 'red';
+      hElement.style.color = 'white';
+    });
+  };
+
   useEffect(() => {
-    if (selectedButton === 'invert-color') {
-      document.documentElement.style.filter = 'invert(100%)';
-    } else if (selectedButton === 'monochrome') {
-      document.documentElement.style.filter = 'grayscale(100%)';
-    } else if (selectedButton === 'highlight-link') {
-      const links = document.querySelectorAll('a');
-      links.forEach((link) => {
-        (link as HTMLElement).style.color = 'tomato'; // Assert type to HTMLElement
-      });
-    } else if (selectedButton === 'Show-Headings') {
-      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      headings.forEach((heading) => {
-        const hElement = heading as HTMLElement; // Assert type to HTMLElement
-        hElement.style.backgroundColor = 'red';
-        hElement.style.color = 'white';
-      });
-    } else {
-      document.documentElement.style.filter = 'none';
+    switch (selectedButton) {
+      case 'invert-color':
+      case 'monochrome':
+        applyFilter(selectedButton);
+        break;
+      case 'highlight-link':
+        highlightLinks();
+        break;
+      case 'Show-Headings':
+        showHeadings();
+        break;
+      default:
+        document.documentElement.style.filter = 'none';
     }
   }, [selectedButton]);
+
 
   return (
     <div>
