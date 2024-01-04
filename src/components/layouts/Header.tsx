@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({
           >
             <Grid width={400} sx={{ border: '1px solid rgba(221, 221, 221, 1)', borderRadius: '8px'}}>
                 <Grid  p={2}>
-                  <AllDashbordDialog />
+                  <AllDashbordDialog closePopover={handleGridClose}/>
                 </Grid>
             </Grid>
           </Popover>
@@ -159,14 +159,26 @@ const Header: React.FC<HeaderProps> = ({
             </Avatar>
             <ExpandMoreIcon style={{ color: '#FFF' }} />
           </IconButton>
-          <Menu
+          <Popover
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            sx={{ marginTop: '23px'}}
           >
+            <Grid sx={{border: '1px solid rgba(221, 221, 221, 1)', borderRadius:'4px'}}>
             <MenuItem onClick={() => navigate('profile')}>Profile</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          </Menu>
+            </Grid>
+
+          </Popover>
         </Box>
       </Toolbar>
     </AppBar>
