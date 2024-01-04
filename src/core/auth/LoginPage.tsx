@@ -31,15 +31,17 @@ const LoginPage: React.FC = () => {
   return (
     <div style={{
       backgroundColor: 'rgba(0, 106, 78, 1)',
+      minHeight:'100vh'
     }}>
       <CssBaseline />
       <Grid container >
-        <Grid xs={12} md={9} xl={9} p={6} px={20} style={{
+        <Grid xs={12} md={9} xl={9} p={5} px={20} style={{
           backgroundImage: `url(${backgroundLogin})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           position: 'relative',
+          minHeight:'100vh'
         }}>
           <Grid
             item
@@ -57,7 +59,7 @@ const LoginPage: React.FC = () => {
               loginPageTitle={loginPageTitle}
             />
           </Grid>
-          <Grid item xs={12} mt={6}>
+          <Grid item xs={12} >
             <LoginFooter />
           </Grid>
         </Grid>
