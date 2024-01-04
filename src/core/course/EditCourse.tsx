@@ -108,9 +108,9 @@ const EditCourse: React.FC = () => {
           }}
         >
           <Link
+          color="primary"
             href="/"
             sx={{
-              color: 'rgba(255, 74, 95, 1)',
               fontSize: '16px',
               fontWeight: 500,
             }}
@@ -120,6 +120,11 @@ const EditCourse: React.FC = () => {
           <Typography
             color="primary"
             sx={{ fontSize: '16px', fontWeight: 500 }}
+          >
+            {t('curriculum')}
+          </Typography>
+          <Typography
+            sx={{ fontSize: '16px', fontWeight: 500,color: 'rgba(255, 74, 95, 1)' }}
           >
             {t('updateCourse')}
           </Typography>

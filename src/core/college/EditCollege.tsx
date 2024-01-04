@@ -276,6 +276,7 @@ const EditCollege: React.FC = () => {
                           aria-label="toggle-status"
                           size="small"
                           variant="contained"
+                          disabled
                           style={{
                             backgroundColor: 'primary.main',
                             color: '#FAFAFA',

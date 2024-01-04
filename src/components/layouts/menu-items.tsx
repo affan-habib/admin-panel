@@ -73,17 +73,17 @@ export const useGetMenuItems = (): MenuItem[] => {
     },
     {
       title: t('trainerList'),
-      path: '/trainerList',
+      path: '/trainer-list',
       icon: <GroupsIcon />
     },
     {
       title: t('traineeList'),
-      path: '/traineeList',
+      path: '/trainee-list',
       icon: <GroupsIcon />
     },
     {
       title: t('collegeList'),
-      path: '/collegeList',
+      path: '/college-list',
       icon: <AccountBalanceOutlinedIcon />
     },
     {

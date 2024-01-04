@@ -94,16 +94,20 @@ const CourseList: React.FC = () => {
           <Link
             href="/"
             sx={{
-              color: 'rgba(255, 74, 95, 1)',
               fontSize: '16px',
               fontWeight: 500,
             }}
           >
-            <HomeOutlinedIcon sx={{ marginTop: '8px' }} />
+            <HomeOutlinedIcon sx={{ marginTop: '8px',color: 'rgba(0, 106, 78, 1)' }} />
           </Link>
           <Typography
             color="primary"
             sx={{ fontSize: '16px', fontWeight: 500 }}
+          >
+            {t('curriculum')}
+          </Typography>
+          <Typography
+            sx={{ fontSize: '16px', fontWeight: 500,color: 'rgba(255, 74, 95, 1)' }}
           >
             {t('courseList')}
           </Typography>
