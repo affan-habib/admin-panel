@@ -1,4 +1,5 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -6,6 +7,8 @@ import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
 import { useTranslation } from 'react-i18next';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 interface MenuItem {
   title: string;
@@ -64,28 +67,24 @@ export const useGetMenuItems = (): MenuItem[] => {
       ],
     },
     {
+      title: t('createCircular'),
+      path: '/circular',
+      icon: <AddCircleOutlineOutlinedIcon/>,
+    },
+    {
       title: t('trainerList'),
       path: '/trainerList',
-      icon: <GroupsIcon />,
-      subMenu: [
-        { title: t('addTrainer'), icon: <AddCircleIcon />, path: '/add-trainer' },
-        {
-          title: t('batchSubmenu2'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu2',
-        },
-        {
-          title: t('setTrainerLimit'),
-          icon: <LibraryBooksIcon />,
-          path: '/submenu3',
-        },
-        
-        // {
-        //   title: t('Create Admin User'),
-        //   icon: <LibraryBooksIcon />,
-        //   path: '/submenu6',
-        // },
-      ],
+      icon: <GroupsIcon />
+    },
+    {
+      title: t('traineeList'),
+      path: '/traineeList',
+      icon: <GroupsIcon />
+    },
+    {
+      title: t('collegeList'),
+      path: '/collegeList',
+      icon: <AccountBalanceOutlinedIcon />
     },
     {
       title: t('settings'),
@@ -101,13 +100,13 @@ export const useGetMenuItems = (): MenuItem[] => {
           title: t('createAdminUser'),
           icon: <LibraryBooksIcon/>,
           path: '/create-admin-user'
-        },
-        // {
-        //   title: t('roleList'),
-        //   icon: <PersonAddAltOutlinedIcon/>,
-        //   path: 'role-list'
-        // }
+        }
       ]
+    },
+    {
+      title: t('profileInfo'),
+      path: '/profile',
+      icon: <AccountCircleOutlinedIcon/>
     }
   ];
 

@@ -102,5 +102,9 @@
   "editAssesment": "Edit Assessment",
   "question": "Question",
   "showing": "Showing ",
-  "outOf": "out of "
+  "outOf": "out of ",
+  "createCircular":"Create Circular",
+  "traineeList":"Trainee List",
+  "collegeList":"College List",
+  "profileInfo":"Profile Info"
 }

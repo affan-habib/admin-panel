@@ -70,6 +70,18 @@ const AdminRoutes = {
     {
       path: 'role-list',
       element: <RoleListContainer/>
+    },
+    {
+      path:'circular'
+    },
+    {
+      path:'trainerList'
+    },
+    {
+      path:'traineeList'
+    },
+    {
+      path:'collegeList'
     }
   ],
 };
