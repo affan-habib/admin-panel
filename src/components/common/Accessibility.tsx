@@ -18,10 +18,7 @@ import {
   InsertLink,
 } from '@mui/icons-material';
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
-interface AccessibilityProps {
-  selectedButton: string;
-  onButtonSelect: (buttonName: string) => void;
-}
+
 
 interface ButtonItem {
   key: string;
@@ -33,7 +30,7 @@ const buttons: ButtonItem[] = [
   { key: 'increaseText', text: 'Increase Text', icon: <TextIncrease sx={{ color: 'white' }} /> },
   { key: 'formatText', text: 'Format Text', icon: <TextFormat sx={{ color: 'white' }} /> },
   { key: 'decreaseText', text: 'Decrease Text', icon: <TextDecrease sx={{ color: 'white' }} /> },
-  { key: 'monochrome', text: 'Monochrome', icon: <MonochromePhotos sx={{ color: 'white' }} /> },
+  { key: 'monochrome', text: 'monochrome', icon: <MonochromePhotos sx={{ color: 'white' }} /> },
   { key: 'big-cursor', text: 'Big Cursor', icon: <ArrowOutward sx={{ color: 'white' }} /> },
   { key: 'invert-color', text: 'Invert Color', icon: <InvertColors sx={{ color: 'white' }} /> },
   { key: 'highlight-link', text: 'Heightlight Links', icon: <InsertLink sx={{ color: 'white' }} /> },
@@ -42,25 +39,16 @@ const buttons: ButtonItem[] = [
   // Add more buttons as needed
 ];
 
-const Accessibility: React.FC<AccessibilityProps> = ({
-  selectedButton,
-  onButtonSelect,
-}) => {
+const Accessibility: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const storedButton = localStorage.getItem('selectedButton');
-    if (storedButton !== null) {
-      onButtonSelect(storedButton);
-    }
-  }, [onButtonSelect]);
+  const selectedButton = localStorage.getItem('selectedButton')
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleListItemClick = (buttonName: string) => {
-    onButtonSelect(buttonName);
+    localStorage.setItem("selectedButton", buttonName)
     setAnchorEl(null);
   };
 
@@ -69,6 +57,27 @@ const Accessibility: React.FC<AccessibilityProps> = ({
   };
 
   const open = Boolean(anchorEl);
+  useEffect(() => {
+    if (selectedButton === 'invert-color') {
+      document.documentElement.style.filter = 'invert(100%)';
+    } else if (selectedButton === 'monochrome') {
+      document.documentElement.style.filter = 'grayscale(100%)';
+    } else if (selectedButton === 'highlight-link') {
+      const links = document.querySelectorAll('a');
+      links.forEach((link) => {
+        (link as HTMLElement).style.color = 'tomato'; // Assert type to HTMLElement
+      });
+    } else if (selectedButton === 'Show-Headings') {
+      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      headings.forEach((heading) => {
+        const hElement = heading as HTMLElement; // Assert type to HTMLElement
+        hElement.style.backgroundColor = 'red';
+        hElement.style.color = 'white';
+      });
+    } else {
+      document.documentElement.style.filter = 'none';
+    }
+  }, [selectedButton]);
 
   return (
     <div>
