@@ -1,9 +1,5 @@
 import { lazy } from 'react';
 import Loadable from 'components/common/Loadable';
-import TrainerList from 'core/trainer/TrainerList';
-import TraineeList from 'core/trainee/TraineeList';
-import CollegeList from 'core/college/CollegeList';
-import EditCollege from 'core/college/EditCollege';
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
 );
@@ -21,6 +17,10 @@ const CreateAdminUser = Loadable(lazy(() => import('core/createUser/CreateAdminU
 const UserProfile = Loadable(lazy(() => import('core/userProfile/UserProfile')));
 const EditAdminUser = Loadable(lazy(() => import('core/createUser/EditAdminUser')));
 const RoleListContainer = Loadable(lazy(() => import('core/roleList/RoleListContainer')));
+const CollegeList = Loadable(lazy(()=> import('core/college/CollegeList')));
+const TraineeList = Loadable(lazy(()=> import('core/trainee/TraineeList')));
+const TrainerList = Loadable(lazy(()=> import('core/trainer/TrainerList')));
+const EditCollege = Loadable(lazy(()=> import('core/college/EditCollege')));
 
 
 const AdminRoutes = {
