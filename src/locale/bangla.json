@@ -106,6 +106,9 @@
     "createCircular":"বিজ্ঞপ্তি তৈরী করুন",
     "traineeList":"প্রশিক্ষণার্থী তালিকা",
     "collegeList":"কলেজের তালিকা",
-    "profileInfo":"প্রোফাইলের তথ্য"
+    "profileInfo":"প্রোফাইলের তথ্য",
+    "addCollege":"কলেজ যোগ করুন ",
+    "collegeName":"কলেজের নাম",
+    "collegeNumber":"কলেজের সংখ্যা"
 }
 
