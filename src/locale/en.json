@@ -164,5 +164,10 @@
   "questionPaper": "Question paper",
   "module_code": "Chapter Code",
   "module_name_bn": "Chapter Name (Bangla)",
-  "module_name_en": "Chapter Name(English)"
+  "module_name_en": "Chapter Name(English)",
+  "addTrainee":"Add Trainee",
+  "traineeName":"Trainee Name",
+  "institution":"Institution",
+  "addTraineer":"Add Trainer"
+
 }
