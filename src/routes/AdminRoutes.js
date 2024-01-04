@@ -3,6 +3,7 @@ import Loadable from 'components/common/Loadable';
 import TrainerList from 'core/trainer/TrainerList';
 import TraineeList from 'core/trainee/TraineeList';
 import CollegeList from 'core/college/CollegeList';
+import EditCollege from 'core/college/EditCollege';
 const PrivateRoute = Loadable(
   lazy(() => import('components/common/PrivateRoute')),
 );
@@ -88,7 +89,11 @@ const AdminRoutes = {
     {
       path:'collegeList',
       element:<CollegeList/>
-    }
+    },
+    { 
+      path: 'college/edit/:id',
+      element: <EditCollege/>,
+    },
   ],
 };
 
