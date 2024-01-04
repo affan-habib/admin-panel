@@ -171,7 +171,7 @@ const Header: React.FC<HeaderProps> = ({
               vertical: 'top',
               horizontal: 'right',
             }}
-            sx={{ marginTop: '23px'}}
+            sx={{ marginTop: '20px'}}
           >
             <Grid sx={{border: '1px solid rgba(221, 221, 221, 1)', borderRadius:'4px'}}>
             <MenuItem onClick={() => navigate('profile')}>Profile</MenuItem>
