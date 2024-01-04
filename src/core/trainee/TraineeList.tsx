@@ -167,7 +167,7 @@ const TraineeList: React.FC = () => {
             variant="contained"
             startIcon={<Add />}
             sx={{ mr: 2 }}
-            onClick={() => navigate('/create-course')}
+            onClick={() => navigate('/create-trainee')}
           >
             {t('addTrainee')}
           </Button>
@@ -232,7 +232,8 @@ const TraineeList: React.FC = () => {
                             borderRadius: '4px',
                             border: '1px solid #D0D0D0',
                           }}
-                          onClick={() => navigate(`/course/edit/${course.id}`)}
+                        //   onClick={() => navigate(`/course/edit/${course.id}`)}
+                          onClick={() => navigate(`/trainee/edit/1`)}
                         >
                           <EditIcon sx={{ color: 'primary.main' }} />
                         </IconButton>

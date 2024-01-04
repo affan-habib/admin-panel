@@ -167,6 +167,7 @@
   "module_name_en": "Chapter Name(English)",
   "addTrainee":"Add Trainee",
   "traineeName":"Trainee Name",
-  "institution":"Institution"
-  
+  "institution":"Institution",
+  "addTraineer":"Add Trainer"
+
 }
