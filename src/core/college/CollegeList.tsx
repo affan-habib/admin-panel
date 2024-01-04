@@ -166,7 +166,7 @@ const CollegeList: React.FC = () => {
             variant="contained"
             startIcon={<Add />}
             sx={{ mr: 2 }}
-            onClick={() => navigate('/create-course')}
+            onClick={() => navigate('/create-college')}
           >
             {t('addCollege')}
           </Button>
