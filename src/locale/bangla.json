@@ -102,6 +102,10 @@
     "editAssesment" : "এডিট এসেসমেন্ট",
     "question":"প্রশ্ন",
     "showing":"দেখানো হচ্ছে ",
-    "outOf": "টির মধ্যে "
+    "outOf": "টির মধ্যে ",
+    "createCircular":"বিজ্ঞপ্তি তৈরী করুন",
+    "traineeList":"প্রশিক্ষণার্থী তালিকা",
+    "collegeList":"কলেজের তালিকা",
+    "profileInfo":"প্রোফাইলের তথ্য"
 }
 
