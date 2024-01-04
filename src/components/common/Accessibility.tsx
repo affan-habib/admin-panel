@@ -78,8 +78,7 @@ const Accessibility: React.FC = () => {
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     headings.forEach((heading) => {
       const hElement = heading as HTMLElement;
-      hElement.style.backgroundColor = 'red';
-      hElement.style.color = 'white';
+      hElement.style.backgroundColor = '#cde400';
     });
   };
 
@@ -96,6 +95,11 @@ const Accessibility: React.FC = () => {
       selectedAction();
     } else {
       document.documentElement.style.filter = 'none';
+      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      headings.forEach((heading) => {
+        const hElement = heading as HTMLElement;
+        hElement.style.backgroundColor = 'initial';
+      });
     }
   }, [selectedButton, actions]);
   const handleButtonClick = () => {
