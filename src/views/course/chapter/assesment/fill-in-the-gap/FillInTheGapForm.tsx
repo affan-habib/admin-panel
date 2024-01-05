@@ -262,7 +262,7 @@ const FillInTheGapForm: React.FC<any> = ({
                   <Button
                     variant="contained"
                     sx={{
-                      background: '#006A4E',
+                      background: '#2b1946',
                       color: '#FAFAFA',
                       width: '100px',
                     }}

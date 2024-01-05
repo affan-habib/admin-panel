@@ -85,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({
     <AppBar
       position="fixed"
       open={open}
-      sx={{ bgcolor: '#338867' }}
+      sx={{ bgcolor: '#b02756' }}
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>

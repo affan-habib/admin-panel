@@ -189,7 +189,7 @@ const TrainerList: React.FC = () => {
           <TableContainer component={Paper}>
             <Table sx={{border:'1px solid rgba(208, 208, 208, 1)', borderRadius:'4px'}}>
               <TableHead>
-                <TableRow sx={{ background: '#B3E0DD !important' }}>
+                <TableRow sx={{ background: '#f1ebcc !important' }}>
                   <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>#</TableCell>
                   <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>
                     {t('traineeName')}

@@ -19,7 +19,7 @@ const MainCard: React.FC<MainCardProps> = ({ title, children, rightButton, title
       >
         <Stack
           sx={{
-            bgcolor: "#DEEEC6",
+            bgcolor: "#f1ebcc",
             height: 37,
             borderBottom: '2px solid rgba(208, 208, 208, 1)',
             position: 'relative', // Set position relative

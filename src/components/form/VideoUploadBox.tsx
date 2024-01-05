@@ -93,7 +93,7 @@ const VideoUploadBox: React.FC<VideoUploadBoxProps> = ({ name, label }) => {
                 cursor: 'pointer',
               }}
             >
-              <IconButton sx={{ bgcolor: '#DEEEC6', mb: 2 }}>
+              <IconButton sx={{ bgcolor: '#f1ebcc', mb: 2 }}>
                 <OndemandVideoIcon
                   sx={{ width: 30, height: 30 }}
                   color="primary"

@@ -198,7 +198,7 @@ const AdminUserList: React.FC = () => {
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
-                  <TableRow sx={{ background: '#B3E0DD !important' }}>
+                  <TableRow sx={{ background: '#f1ebcc !important' }}>
                     <TableCell>#</TableCell>
                     <TableCell>{t('fullUserName')}</TableCell>
                     <TableCell>{t('userName')}</TableCell>
@@ -235,7 +235,7 @@ const AdminUserList: React.FC = () => {
                             aria-label="view"
                             size="small"
                             style={{
-                              color: 'rgba(0, 106, 78, 1)',
+                              color: '#f1ebcc',
                               borderRadius: 8,
                               border: '1px solid rgba(208, 208, 208, 1)',
                             }}

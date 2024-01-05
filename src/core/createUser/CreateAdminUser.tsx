@@ -101,7 +101,7 @@ const CreateAdminUser: React.FC = () => {
             <Typography
               variant="h6"
               gutterBottom
-              sx={{ color: 'rgba(0, 106, 78, 1)', marginTop: '20px' }}
+              sx={{ color: '#f1ebcc', marginTop: '20px' }}
             >
               {t('createUser')}
             </Typography>

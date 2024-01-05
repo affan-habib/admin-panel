@@ -217,7 +217,7 @@ const Chapters: React.FC<any> = ({ modules }) => {
                 display: 'flex',
                 // justifyContent: 'space-around',
                 alignItems: 'center',
-                backgroundColor: '#DEEEC6',
+                backgroundColor: '#f1ebcc',
                 borderBottom: '1px solid #D0D0D0',
                 borderTopLeftRadius: '4px',
                 borderTopRightRadius: '4px',

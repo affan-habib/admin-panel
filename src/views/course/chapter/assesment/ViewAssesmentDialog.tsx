@@ -79,13 +79,13 @@ const BlankElement = () => {
 const BlankOption = ({ title }: any) => (
   <Typography
     variant="body1"
-    bgcolor="#DEEEC6"
+    bgcolor="#f1ebcc"
     color="#1D1D1F"
     px={2}
     py="2px"
     fontSize={16}
     fontWeight={400}
-    border="1px dashed #006A4E"
+    border="1px dashed #2b1946"
     borderRadius={1}
   >
     {title}

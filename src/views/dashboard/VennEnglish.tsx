@@ -12,7 +12,6 @@ const VennEnglish
     <Grid
       
       sx={{
-        backgroundColor: 'rgba(237, 244, 242, 1)',
         borderRadius: '8px',
        
         display: 'flex',

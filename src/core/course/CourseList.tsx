@@ -98,7 +98,7 @@ const CourseList: React.FC = () => {
               fontWeight: 500,
             }}
           >
-            <HomeOutlinedIcon sx={{ marginTop: '8px',color: 'rgba(0, 106, 78, 1)' }} />
+            <HomeOutlinedIcon sx={{ marginTop: '8px',color: '#f1ebcc' }} />
           </Link>
           <Typography
             color="primary"
@@ -192,7 +192,7 @@ const CourseList: React.FC = () => {
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
-                <TableRow sx={{ background: '#B3E0DD !important' }}>
+                <TableRow sx={{ background: '#f1ebcc !important' }}>
                   <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>#</TableCell>
                   <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>
                     {t('nameAndCode')}

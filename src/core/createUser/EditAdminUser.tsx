@@ -67,7 +67,7 @@ const EditAdminUser: React.FC = () => {
             <Typography
               variant="h6"
               gutterBottom
-              sx={{ color: 'rgba(0, 106, 78, 1)' }}
+              sx={{ color: '#f1ebcc' }}
             >
               {t('editUser')}
             </Typography>

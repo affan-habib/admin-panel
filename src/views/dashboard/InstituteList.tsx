@@ -21,13 +21,13 @@ const InstituteList: React.FC = () => {
   ];
 
   return (
-    <Grid sx={{ backgroundColor: "rgba(227, 238, 235, 1)", padding: "25px", marginTop: "40px", borderRadius: "8px" }}>
+    <Grid sx={{ backgroundColor: "dde6f4", padding: "25px", marginTop: "40px", borderRadius: "8px" }}>
       <Typography sx={{ marginBottom: "8px", fontSize: "16px", fontWeight: "500", color: "rgba(21, 83, 19, 1)", mt: -1 }}>
         {t('summaryOfTraining')}
       </Typography>
       <TableContainer sx={{ border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden' }}>
         <Table>
-          <TableHead sx={{ height: '20px', backgroundColor: 'rgba(222, 238, 198, 1)' }}>
+          <TableHead sx={{ height: '20px', backgroundColor: 'primary' }}>
             <TableRow>
               <TableCell sx={{whiteSpace: 'nowrap',overflow: 'hidden',textOverflow: 'ellipsis', textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: 'rgba(222, 238, 198, 1)', color: 'rgba(29, 29, 31, 1)' }}>{t('currentBatch')}</TableCell>
               <TableCell  sx={{whiteSpace: 'nowrap',overflow: 'hidden',textOverflow: 'ellipsis', textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: 'rgba(222, 238, 198, 1)', color: 'rgba(29, 29, 31, 1)' }}>{t('activeCourse')}</TableCell>

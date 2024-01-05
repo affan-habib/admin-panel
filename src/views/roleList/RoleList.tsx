@@ -61,11 +61,11 @@ const RoleList: React.FC = () => {
       <Grid container>
         <TableContainer sx={{ border: '1px solid #ddd', borderRadius: '8px', overflow: 'hidden' }}>
           <Table>
-            <TableHead sx={{ height: '20px', backgroundColor: 'rgba(0, 106, 78, 1)'}}>
+            <TableHead sx={{ height: '20px', backgroundColor: '#f1ebcc'}}>
               <TableRow>
-                <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: 'rgba(0, 106, 78, 1)', color: 'white' }}>Roles</TableCell>
-                <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: 'rgba(0, 106, 78, 1)', color: 'white' }}>Permission</TableCell>
-                <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: 'rgba(0, 106, 78, 1)', color: 'white' }}>Action</TableCell>
+                <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: '#f1ebcc', color: 'white' }}>Roles</TableCell>
+                <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: '#f1ebcc', color: 'white' }}>Permission</TableCell>
+                <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', backgroundColor: '#f1ebcc', color: 'white' }}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -74,7 +74,7 @@ const RoleList: React.FC = () => {
                   <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd' }}>{row.role}</TableCell>
                   <TableCell sx={{ textAlign: 'center', borderLeft: '1px solid #ddd', width:'800px' }}>
                     {row.permissions.map((permission, index) => (
-                      <Badge key={index} color="primary" sx={{ backgroundColor: 'rgba(0, 106, 78, 1)', color: 'white', padding: '4px 10px 4px 10px',  borderRadius: '10px', marginBottom: '8px', marginRight: 1 }}>
+                      <Badge key={index} color="primary" sx={{ backgroundColor: '#f1ebcc', color: 'white', padding: '4px 10px 4px 10px',  borderRadius: '10px', marginBottom: '8px', marginRight: 1 }}>
                         {permission}
                       </Badge>
                     ))}
@@ -96,7 +96,7 @@ const RoleList: React.FC = () => {
 
       {/* Modal Dialog */}
       <Dialog open={openModal} onClose={handleCloseModal} maxWidth="xl">
-        <DialogTitle sx={{ backgroundColor: 'rgba(240, 255, 254, 1)', color: 'rgba(0, 106, 78, 1)',  fontWeight: 600,  borderBottom: '1px solid #ddd' }}>
+        <DialogTitle sx={{ backgroundColor: 'rgba(240, 255, 254, 1)', color: '#f1ebcc',  fontWeight: 600,  borderBottom: '1px solid #ddd' }}>
           <Grid container justifyContent="space-between" alignItems="center">
             <Typography>Create New Role</Typography>
             <IconButton edge="end" color="inherit" onClick={handleCloseModal} aria-label="close" sx={{color:'red'}}>
@@ -110,8 +110,8 @@ const RoleList: React.FC = () => {
           <Permission />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseModal} sx={{border:'2px solid rgba(0, 106, 78, 1)', color:'rgba(0, 48, 42, 1)'}}>Cancel</Button>
-          <Button variant="contained"  onClick={handleCloseModal} sx={{backgroundColor:'rgba(0, 106, 78, 1)', color:'white'}}>
+          <Button onClick={handleCloseModal} sx={{border:'2px solid #f1ebcc', color:'rgba(0, 48, 42, 1)'}}>Cancel</Button>
+          <Button variant="contained"  onClick={handleCloseModal} sx={{backgroundColor:'#f1ebcc', color:'white'}}>
             Update
           </Button>
         </DialogActions>

@@ -1,16 +1,16 @@
 export function createPalette() {
   return {
     primary: {
-      main: '#006A4E',
-      light: '#B3E0DD'
+      main: '#2b1946',
+      light: '#f1ebcc'
     },
     secondary: {
       main: '#D0D0D0',
-      // light: '#B3E0DD'
+      // light: '#f1ebcc'
     },
     error: {
       main: '#FF4A5F',
-      // light: '#B3E0DD'
+      // light: '#f1ebcc'
     },
   };
 }

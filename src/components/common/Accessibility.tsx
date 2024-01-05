@@ -136,7 +136,7 @@ const Accessibility: React.FC = () => {
           sx={{
             background: '#222222',
             color: 'white',
-            border: '2px solid #B3E0DD',
+            border: '2px solid #f1ebcc',
             borderRadius: 0,
             borderRight: 0,
             borderTopLeftRadius: 8,

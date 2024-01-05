@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
         }}
       >
 
-        <HomeOutlined sx={{ marginTop: '8px', color: 'rgba(0, 106, 78, 1)' }} />
+        <HomeOutlined sx={{ marginTop: '8px', color: '#f1ebcc' }} />
         <Typography
           sx={{ fontSize: '16px', fontWeight: 500, marginTop: '1px', color:'rgba(255, 74, 95, 1)' }}
         >
@@ -37,7 +37,8 @@ const Dashboard: React.FC = () => {
       </Breadcrumbs>
       <TopCards />
       <Grid container spacing={2}>
-        <Grid item xs={12} md={8} lg={8}>
+        <Grid item xs={12} md={8} lg={8}
+        >
           <InstituteList />
         </Grid>
         <Grid item xs={12} md={4} lg={4}>

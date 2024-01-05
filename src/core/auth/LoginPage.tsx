@@ -30,7 +30,7 @@ const LoginPage: React.FC = () => {
   };
   return (
     <div style={{
-      backgroundColor: 'rgba(0, 106, 78, 1)',
+      backgroundColor: '#f1ebcc',
       minHeight:'100vh'
     }}>
       <CssBaseline />

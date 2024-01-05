@@ -187,10 +187,10 @@ const LoginForm: React.FC = () => {
               fontSize: '18px',
               fontWeight: 700,
               backgroundColor: 'white',
-              color: 'rgba(0, 106, 78, 1)',
+              color: '#f1ebcc',
               '&:hover': {
                 backgroundColor: 'white',  // Set the same background color as the default
-                color: 'rgba(0, 106, 78, 1)',  // Set the same text color as the default
+                color: '#f1ebcc',  // Set the same text color as the default
               },
             }}
           >

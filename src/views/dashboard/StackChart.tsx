@@ -73,7 +73,7 @@ const StackChart = () => {
                 display: false,
               },
               ticks: {
-                callback: (value:any) => {
+                callback: (value: any) => {
                   const matchedNumber = generateNumbers.find((num) => num.id === value);
                   return matchedNumber ? matchedNumber.label : value;
                 },
@@ -98,7 +98,7 @@ const StackChart = () => {
   }, [i18n.language]);
 
   return (
-    <Box height={390} style={{ backgroundColor: 'rgba(237, 244, 242, 1)', borderRadius: '8px', padding: '20px' }}>
+    <Box height={390} style={{ borderRadius: '8px', padding: '20px' }}>
       <Typography style={{ color: 'rgba(21, 83, 19, 1)', fontSize: '17px', fontWeight: '500' }} mb={2}>
         {t('barDiagram')}
       </Typography>

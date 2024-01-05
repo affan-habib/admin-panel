@@ -37,7 +37,7 @@ const Stepper: React.FC<StepperProps> = ({ children, submitDisabled }) => {
             key={index}
             label={step.props.title}
             style={{
-              backgroundColor: currentStep === index ? '#006A4E' : 'white',
+              backgroundColor: currentStep === index ? '#2b1946' : 'white',
               color: currentStep === index ? 'white' : 'black',
               flex: 1,
               minWidth: 0,

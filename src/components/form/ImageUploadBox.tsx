@@ -114,7 +114,7 @@ const ImageUploadBox: React.FC<ImageUploadBoxProps> = ({ name, label }) => {
                 cursor: 'pointer',
               }}
             >
-              <IconButton sx={{ bgcolor: '#DEEEC6', mb: 2 }}>
+              <IconButton sx={{ bgcolor: '#f1ebcc', mb: 2 }}>
                 <PhotoIcon sx={{ width: 30, height: 30 }} color="primary" />
               </IconButton>
               <Stack direction="row" alignItems="center" spacing={1}>

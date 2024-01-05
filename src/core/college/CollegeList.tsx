@@ -188,7 +188,7 @@ const CollegeList: React.FC = () => {
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
-                <TableRow sx={{ background: '#B3E0DD !important' }}>
+                <TableRow sx={{ background: '#f1ebcc !important' }}>
                   <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>#</TableCell>
                   <TableCell variant='head' align='center' size='medium' sx={{ fontWeight: 800 }}>
                     {t('collegeName')}

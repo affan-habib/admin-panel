@@ -65,7 +65,7 @@ const AssesmentEditButton: React.FC<any> = ({ data, maxMark }) => {
     <>
       <IconButton
         onClick={handleOpenDialog}
-        sx={{ bgcolor: '#DEEEC6', borderRadius: 2, color: 'primary.main' }}
+        sx={{ bgcolor: '#f1ebcc', borderRadius: 2, color: 'primary.main' }}
       >
         <BorderColorIcon />
       </IconButton>
