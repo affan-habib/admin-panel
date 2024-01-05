@@ -128,11 +128,11 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
             sx={{
               borderBottom: '1px solid #074116',
               backgroundColor:
-                selectedMenu === item.path ? 'primary.main' : 'primary.main',
+                selectedMenu === item.path ? 'primary' : 'primary',
               color: selectedMenu === item.path ? '#FFD700' : 'white',
               '&:hover': {
-                backgroundColor: '#B6D7A8',
-                color: 'primary.main',
+                backgroundColor: '#b02756',
+                color: 'white',
               },
             }}
           >
@@ -141,7 +141,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                 sx={{
                   color:
                     isMenuHovered === item.path
-                      ? 'primary.main'
+                      ? 'white'
                       : selectedMenu === item.path
                         ? '#FFD700'
                         : 'white',
@@ -161,7 +161,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
 
           {item.subMenu && (
             <Collapse in={menuStates[item.path]} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ bgcolor: '#074116' }}>
+              <List component="div" disablePadding sx={{ bgcolor: 'primary.dark' }}>
                 {item.subMenu.map((subItem, subIndex) => (
                   <ListItem
                     component="div"
@@ -175,8 +175,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                       color:
                         selectedSubMenu === subItem.path ? '#FFD700' : 'white',
                       '&:hover': {
-                        backgroundColor: '#B6D7A8',
-                        color: 'black',
+                        backgroundColor: '#b02756',
+                        color: 'white',
                       },
                       cursor: 'pointer',
                     }}
@@ -186,7 +186,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout, isSidebarOpen }) => {
                         sx={{
                           color:
                             isMenuHovered === subItem.path
-                              ? 'black'
+                              ? 'white'
                               : selectedSubMenu === subItem.path
                                 ? '#FFD700'
                                 : 'white',
