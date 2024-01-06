@@ -16,7 +16,7 @@ const InputDate: React.FC<InputFieldProps> = ({ label, name, fieldWidth }) => {
   const formik: any = useFormikContext();
 
   const handleDateChange = (selectedDate: any) => {
-    const formattedDate = moment(selectedDate).format('YYYY-MM-DD');
+    const formattedDate = moment(selectedDate).format('DD-MM-YYYY');
     console.log(formattedDate);
     formik.setFieldValue(name, formattedDate);
   };
@@ -36,7 +36,7 @@ const InputDate: React.FC<InputFieldProps> = ({ label, name, fieldWidth }) => {
         </InputLabel>
         <div style={{ width: `${fieldWidth}px` }}>
           <DatePicker
-            value={moment(formik.values[name])}
+            value={moment(formik.values[name], 'DD-MM-YYYY')}
             format="DD-MM-YYYY"
             onChange={handleDateChange}
             slotProps={{

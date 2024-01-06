@@ -20,6 +20,8 @@ const CreateBatch: React.FC = () => {
     batchName: '',
     description: '',
     selectedOption: 'option1',
+    startDate: new Date(),
+    endDate: new Date(),
     // globalSetting: 'jjjjj',
     // file: null,
     // Add more fields as needed
