@@ -11,10 +11,15 @@ import { useTranslation } from 'react-i18next';
 import InputDate from 'components/form/InputDate';
 import InputField from 'components/form/InputField';
 import { useSnackbar } from 'context/SnackbarContext';
+import { apiBaseUrl } from 'config';
+import { useNavigate } from 'react-router';
+import axiosInstance from 'server/axiosInstance';
 
 const CreateBatch: React.FC = () => {
   const { t } = useTranslation();
-  const { showSnackbar } = useSnackbar()
+  const { showSnackbar } = useSnackbar();
+  const navigate = useNavigate()
+
   const initialValues = {
     batchName: '',
     startDate: new Date(),
@@ -27,9 +32,10 @@ const CreateBatch: React.FC = () => {
   });
 
 
-  const handleSubmit = (values: any, actions: any) => {
-    console.log('Form submitted:', values);
-    actions.setSubmitting(false);
+  const handleSubmit = async (values: any, actions: any) => {
+    const response = await axiosInstance.post(`${apiBaseUrl}/course`, values);
+    showSnackbar(response.data.message, 'success');
+    navigate(`/course/edit/${response.data.data.id}`);
     showSnackbar(JSON.stringify(values), 'success')
   };
 
@@ -43,10 +49,10 @@ const CreateBatch: React.FC = () => {
         <Form>
           <Grid container spacing={4}>
             <Grid item xs={6} md={4}>
-              <InputField name="batchName" label="Batch Name" placeholder='Enter batch Name' required/>
+              <InputField name="batchName" label="Batch Name" placeholder='Enter batch Name' required />
             </Grid>
             <Grid item xs={6} md={4}>
-              <InputDate name="startDate" label="Timeline"/>
+              <InputDate name="startDate" label="Timeline" />
             </Grid>
             <Grid item xs={6} md={4}>
               <InputSelect
